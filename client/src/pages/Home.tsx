@@ -15,6 +15,7 @@ type Stage = 'home' | 'role-selection' | 'age-selection' | 'quiz' | 'result' | '
 const SESSION_KEYS = {
   PARENT_RESULT: 'mbti_parent_result',
   CHILD_RESULT: 'mbti_child_result',
+  CHILD_AGE_GROUP: 'mbti_child_age_group',
   CURRENT_ROLE: 'mbti_current_role',
   COMPARISON_MODE: 'mbti_comparison_mode',
 };
@@ -51,16 +52,19 @@ export default function Home() {
   const [isComparisonMode, setIsComparisonMode] = useState(false);
   const [parentResult, setParentResult] = useState<MBTIResultType | undefined>();
   const [childResult, setChildResult] = useState<MBTIResultType | undefined>();
+  const [childAgeGroup, setChildAgeGroup] = useState<AgeGroup | undefined>();
   const { toast } = useToast();
   
   useEffect(() => {
     const savedParentResult = loadFromSession<MBTIResultType>(SESSION_KEYS.PARENT_RESULT);
     const savedChildResult = loadFromSession<MBTIResultType>(SESSION_KEYS.CHILD_RESULT);
+    const savedChildAgeGroup = loadFromSession<AgeGroup>(SESSION_KEYS.CHILD_AGE_GROUP);
     const savedRole = loadFromSession<Role>(SESSION_KEYS.CURRENT_ROLE);
     const savedComparisonMode = loadFromSession<boolean>(SESSION_KEYS.COMPARISON_MODE);
     
     if (savedParentResult) setParentResult(savedParentResult);
     if (savedChildResult) setChildResult(savedChildResult);
+    if (savedChildAgeGroup) setChildAgeGroup(savedChildAgeGroup);
     if (savedRole) setCurrentRole(savedRole);
     if (savedComparisonMode) setIsComparisonMode(savedComparisonMode);
   }, []);
@@ -117,6 +121,8 @@ export default function Home() {
       } else {
         setChildResult(result);
         saveToSession(SESSION_KEYS.CHILD_RESULT, result);
+        setChildAgeGroup(selectedAge);
+        saveToSession(SESSION_KEYS.CHILD_AGE_GROUP, selectedAge);
         setStage('comparison-result');
       }
     } else {
@@ -139,6 +145,7 @@ export default function Home() {
     setIsComparisonMode(false);
     setParentResult(undefined);
     setChildResult(undefined);
+    setChildAgeGroup(undefined);
     clearSession();
   };
   
@@ -253,6 +260,7 @@ export default function Home() {
           <ComparisonResult
             parentResult={parentResult}
             childResult={childResult}
+            childAgeGroup={childAgeGroup}
             onRestart={handleRestart}
             onShare={handleComparisonShare}
           />

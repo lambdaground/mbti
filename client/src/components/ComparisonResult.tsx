@@ -10,14 +10,20 @@ import {
   Lightbulb,
   Target,
   Share2,
-  RotateCcw
+  RotateCcw,
+  Sparkles,
+  BookOpen
 } from "lucide-react";
 import {
   type MBTIResult,
   type HybridPersonality,
   type DimensionSimilarity,
+  type AgeGroup,
+  type AgeNarrative,
   getRelationshipInsight,
   getComplexComparisonAnalysis,
+  getAgeNarrative,
+  ageGroupInfo,
 } from "@/lib/mbti-data";
 
 import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";
@@ -101,6 +107,7 @@ function getHybridImage(hybrid: HybridPersonality): string {
 interface ComparisonResultProps {
   parentResult: MBTIResult;
   childResult: MBTIResult;
+  childAgeGroup?: AgeGroup;
   onRestart: () => void;
   onShare?: () => void;
 }
@@ -108,6 +115,7 @@ interface ComparisonResultProps {
 export default function ComparisonResult({ 
   parentResult, 
   childResult, 
+  childAgeGroup,
   onRestart,
   onShare 
 }: ComparisonResultProps) {
@@ -118,6 +126,9 @@ export default function ComparisonResult({
   const complexAnalysis = getComplexComparisonAnalysis(parentResult, childResult);
   
   const { parentHybrid, childHybrid } = complexAnalysis;
+  
+  const childAgeNarrative = childAgeGroup ? getAgeNarrative(childType, childAgeGroup) : null;
+  const ageLabel = childAgeGroup ? ageGroupInfo[childAgeGroup].label : '';
 
   return (
     <div className="container max-w-4xl mx-auto space-y-8" data-testid="comparison-result-container">
@@ -193,6 +204,67 @@ export default function ComparisonResult({
           </CardContent>
         </Card>
       </div>
+
+      {childAgeNarrative && (
+        <Card className="border-2 border-sky-200 dark:border-sky-900/50" data-testid="card-child-age-narrative">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-sky-600 dark:text-sky-400">
+              <BookOpen className="w-5 h-5" />
+              {ageLabel} {childType} 아이는 이런 성향이에요
+            </CardTitle>
+            <p className="text-sm text-muted-foreground">
+              우리 아이의 성격을 쉽게 이해해보세요
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="p-4 bg-sky-50 dark:bg-sky-950/30 rounded-lg" data-testid="text-child-overview">
+              <p className="text-foreground leading-relaxed">{childAgeNarrative.overview}</p>
+            </div>
+            
+            <div>
+              <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center gap-2">
+                <Sparkles className="w-4 h-4" />
+                핵심 성격 특성
+              </h4>
+              <div className="flex flex-wrap gap-2" data-testid="container-child-traits">
+                {childAgeNarrative.keyTraits.map((trait, index) => (
+                  <Badge 
+                    key={index} 
+                    variant="outline" 
+                    className="bg-sky-50 dark:bg-sky-950/30 text-sky-700 dark:text-sky-300 border-sky-300 dark:border-sky-700"
+                    data-testid={`badge-child-trait-${index}`}
+                  >
+                    {trait}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="text-sm font-medium text-muted-foreground mb-3">이런 상황에서 이렇게 행동해요</h4>
+              <div className="space-y-3" data-testid="container-child-scenarios">
+                {childAgeNarrative.scenarios.map((scenario, index) => (
+                  <div 
+                    key={index} 
+                    className="p-3 bg-muted/50 rounded-lg"
+                    data-testid={`card-child-scenario-${index}`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="mt-0.5 w-6 h-6 rounded-full bg-sky-100 dark:bg-sky-950/50 flex items-center justify-center flex-shrink-0">
+                        <span className="text-xs font-medium text-sky-600 dark:text-sky-400">{index + 1}</span>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-foreground">{scenario.situation}</p>
+                        <p className="text-sm text-muted-foreground mt-1">{scenario.behavior}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <Card className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 border-emerald-300 dark:border-emerald-800" data-testid="card-compatibility">
         <CardHeader>
