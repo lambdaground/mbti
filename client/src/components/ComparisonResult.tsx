@@ -34,14 +34,14 @@ import {
 } from "@/lib/mbti-data";
 
 import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";
-import intpImage from "@assets/generated_images/intp_curious_owl_mascot.png";
+import intpImage from "@assets/generated_images/curious_raccoon_mascot_intp.png";
 import entjImage from "@assets/generated_images/entj_lion_leader_mascot.png";
 import entpImage from "@assets/generated_images/entp_clever_fox_mascot.png";
 import infjImage from "@assets/generated_images/infj_wise_wolf_mascot.png";
 import infpImage from "@assets/generated_images/infp_unicorn_dreamer_mascot.png";
 import enfjImage from "@assets/generated_images/enfj_caring_dolphin_mascot.png";
-import enfpImage from "@assets/generated_images/enfp_butterfly_explorer_mascot.png";
-import istjImage from "@assets/generated_images/istj_beaver_worker_mascot.png";
+import enfpImage from "@assets/generated_images/playful_otter_mascot_enfp.png";
+import istjImage from "@assets/generated_images/wise_turtle_mascot_istj.png";
 import isfjImage from "@assets/generated_images/isfj_caring_rabbit_mascot.png";
 import estjImage from "@assets/generated_images/estj_eagle_leader_mascot.png";
 import esfjImage from "@assets/generated_images/esfj_friendly_dog_mascot.png";
@@ -53,11 +53,9 @@ import esfpImage from "@assets/generated_images/esfp_parrot_entertainer_mascot.p
 import dogCatHybrid from "@assets/generated_images/dog-cat_hybrid_mascot.png";
 import lionFoxHybrid from "@assets/generated_images/lion-fox_hybrid_mascot.png";
 import owlWolfHybrid from "@assets/generated_images/owl-wolf_hybrid_mascot.png";
-import dolphinButterflyHybrid from "@assets/generated_images/dolphin-butterfly_hybrid_mascot.png";
 import rabbitCatHybrid from "@assets/generated_images/rabbit-cat_hybrid_mascot.png";
 import eagleLionHybrid from "@assets/generated_images/eagle-lion_hybrid_mascot.png";
 import cheetahDogHybrid from "@assets/generated_images/cheetah-dog_hybrid_mascot.png";
-import unicornButterflyHybrid from "@assets/generated_images/unicorn-butterfly_hybrid_mascot.png";
 
 const mbtiImageMap: Record<string, string> = {
   'INTJ': intjImage,
@@ -85,16 +83,14 @@ const hybridImageMap: Record<string, string> = {
   '여자왕': lionFoxHybrid,
   '늑빼미': owlWolfHybrid,
   '올늑이': owlWolfHybrid,
-  '돌나비': dolphinButterflyHybrid,
-  '나돌이': dolphinButterflyHybrid,
   '토냥이': rabbitCatHybrid,
   '냥토끼': rabbitCatHybrid,
   '독사왕': eagleLionHybrid,
   '사독이': eagleLionHybrid,
   '치멍이': cheetahDogHybrid,
   '멍치타': cheetahDogHybrid,
-  '유나비': unicornButterflyHybrid,
-  '나유콘': unicornButterflyHybrid,
+  '사올이': intjImage,
+  '올사자': intjImage,
 };
 
 function getAnimalImage(type: string): string {

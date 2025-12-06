@@ -5,14 +5,14 @@ import { Share2, RotateCcw, Star, Heart, Zap, Target, Briefcase, Palette, Users,
 import type { MBTIResult as MBTIResultType, AgeGroup } from "@/lib/mbti-data";
 
 import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";
-import intpImage from "@assets/generated_images/intp_curious_owl_mascot.png";
+import intpImage from "@assets/generated_images/curious_raccoon_mascot_intp.png";
 import entjImage from "@assets/generated_images/entj_lion_leader_mascot.png";
 import entpImage from "@assets/generated_images/entp_clever_fox_mascot.png";
 import infjImage from "@assets/generated_images/infj_wise_wolf_mascot.png";
 import infpImage from "@assets/generated_images/infp_unicorn_dreamer_mascot.png";
 import enfjImage from "@assets/generated_images/enfj_caring_dolphin_mascot.png";
-import enfpImage from "@assets/generated_images/enfp_butterfly_explorer_mascot.png";
-import istjImage from "@assets/generated_images/istj_beaver_worker_mascot.png";
+import enfpImage from "@assets/generated_images/playful_otter_mascot_enfp.png";
+import istjImage from "@assets/generated_images/wise_turtle_mascot_istj.png";
 import isfjImage from "@assets/generated_images/isfj_caring_rabbit_mascot.png";
 import estjImage from "@assets/generated_images/estj_eagle_leader_mascot.png";
 import esfjImage from "@assets/generated_images/esfj_friendly_dog_mascot.png";
