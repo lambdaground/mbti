@@ -1973,11 +1973,27 @@ export const animalNames: Record<string, string> = {
 };
 
 const traitLabels: Record<string, string> = {
-  E: '외향적', I: '내향적',
-  S: '현실적', N: '상상력',
-  T: '논리적', F: '감성적',
-  J: '계획적', P: '자유로운'
+  E: '외향적인', I: '내향적인',
+  S: '현실적인', N: '직관적인',
+  T: '논리적인', F: '감성적인',
+  J: '계획적인', P: '자유로운'
 };
+
+function getKoreanParticle(word: string, particleType: 'wa' | 'i' | 'eul'): string {
+  const lastChar = word.charCodeAt(word.length - 1);
+  const hasJongseong = (lastChar - 0xAC00) % 28 !== 0;
+  
+  switch (particleType) {
+    case 'wa':
+      return hasJongseong ? '과' : '와';
+    case 'i':
+      return hasJongseong ? '이' : '가';
+    case 'eul':
+      return hasJongseong ? '을' : '를';
+    default:
+      return '';
+  }
+}
 
 function getHybridAnimalName(animal1: string, animal2: string): string {
   if (animal1 === animal2) return animal1;
@@ -2037,6 +2053,8 @@ function getHybridAnimalName(animal1: string, animal2: string): string {
 
 function getBlendDescription(dimensions: HybridDimension[], primaryAnimal: string, secondaryAnimal: string): string {
   const balancedDims = dimensions.filter(d => d.isBalanced);
+  const primaryParticleWa = getKoreanParticle(primaryAnimal, 'wa');
+  const secondaryParticleI = getKoreanParticle(secondaryAnimal, 'i');
   
   if (balancedDims.length === 0) {
     return `순수한 ${primaryAnimal} 성향이에요!`;
@@ -2045,15 +2063,15 @@ function getBlendDescription(dimensions: HybridDimension[], primaryAnimal: strin
   const traits = balancedDims.map(d => {
     const primary = traitLabels[d.primaryTrait];
     const secondary = traitLabels[d.secondaryTrait];
-    return `${primary}이면서도 ${secondary}인 면`;
+    return `${primary} 면${primaryParticleWa} ${secondary} 면`;
   });
   
   if (balancedDims.length === 1) {
-    return `${primaryAnimal}의 특성이 강하지만, ${traits[0]}도 있어서 ${secondaryAnimal}의 매력도 가지고 있어요.`;
+    return `${primaryAnimal}의 특성이 강하지만, ${traits[0]}도 함께 가지고 있어서 ${secondaryAnimal}의 매력도 있어요.`;
   }
   
   if (balancedDims.length >= 2) {
-    return `${primaryAnimal}와 ${secondaryAnimal}가 조화롭게 섞인 특별한 성격이에요. ${traits.slice(0, 2).join(', ')}이 있어서 상황에 따라 다양하게 행동해요.`;
+    return `${primaryAnimal}${primaryParticleWa} ${secondaryAnimal}${secondaryParticleI} 조화롭게 섞인 특별한 성격이에요. ${traits.slice(0, 2).join(', ')}을 모두 가지고 있어서 상황에 따라 다양하게 행동해요.`;
   }
   
   return `${primaryAnimal}의 기본 성향에 ${secondaryAnimal}의 특성이 살짝 섞여있어요.`;
@@ -2137,11 +2155,21 @@ export function getHybridPersonality(result: MBTIResult): HybridPersonality {
   };
 }
 
+export interface DimensionSimilarity {
+  dimension: 'EI' | 'SN' | 'TF' | 'JP';
+  dimensionName: string;
+  parentPct: number;
+  childPct: number;
+  similarityPct: number;
+}
+
 export function getComplexComparisonAnalysis(
   parentResult: MBTIResult, 
   childResult: MBTIResult
 ): {
   overallCompatibility: string;
+  overallCompatibilityScore: number;
+  dimensionSimilarities: DimensionSimilarity[];
   strengthsTogether: string[];
   potentialChallenges: string[];
   communicationTips: string[];
@@ -2150,6 +2178,48 @@ export function getComplexComparisonAnalysis(
 } {
   const parentHybrid = getHybridPersonality(parentResult);
   const childHybrid = getHybridPersonality(childResult);
+  
+  const dimensionNames: Record<string, string> = {
+    EI: '에너지 방향',
+    SN: '인식 방식',
+    TF: '판단 방식',
+    JP: '생활 방식'
+  };
+  
+  const dimensionSimilarities: DimensionSimilarity[] = [
+    {
+      dimension: 'EI',
+      dimensionName: dimensionNames.EI,
+      parentPct: parentResult.dimensionScores.EI.percentage,
+      childPct: childResult.dimensionScores.EI.percentage,
+      similarityPct: 100 - Math.abs(parentResult.dimensionScores.EI.percentage - childResult.dimensionScores.EI.percentage)
+    },
+    {
+      dimension: 'SN',
+      dimensionName: dimensionNames.SN,
+      parentPct: parentResult.dimensionScores.SN.percentage,
+      childPct: childResult.dimensionScores.SN.percentage,
+      similarityPct: 100 - Math.abs(parentResult.dimensionScores.SN.percentage - childResult.dimensionScores.SN.percentage)
+    },
+    {
+      dimension: 'TF',
+      dimensionName: dimensionNames.TF,
+      parentPct: parentResult.dimensionScores.TF.percentage,
+      childPct: childResult.dimensionScores.TF.percentage,
+      similarityPct: 100 - Math.abs(parentResult.dimensionScores.TF.percentage - childResult.dimensionScores.TF.percentage)
+    },
+    {
+      dimension: 'JP',
+      dimensionName: dimensionNames.JP,
+      parentPct: parentResult.dimensionScores.JP.percentage,
+      childPct: childResult.dimensionScores.JP.percentage,
+      similarityPct: 100 - Math.abs(parentResult.dimensionScores.JP.percentage - childResult.dimensionScores.JP.percentage)
+    }
+  ];
+  
+  const overallCompatibilityScore = Math.round(
+    dimensionSimilarities.reduce((sum, d) => sum + d.similarityPct, 0) / 4
+  );
   
   const dimensionMatches: { dim: string; parentPct: number; childPct: number; similar: boolean }[] = [
     {
@@ -2249,6 +2319,8 @@ export function getComplexComparisonAnalysis(
   
   return {
     overallCompatibility,
+    overallCompatibilityScore,
+    dimensionSimilarities,
     strengthsTogether,
     potentialChallenges,
     communicationTips,

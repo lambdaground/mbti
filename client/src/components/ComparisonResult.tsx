@@ -24,6 +24,7 @@ import {
   type MBTIResult,
   type DimensionDifference,
   type HybridPersonality,
+  type DimensionSimilarity,
   getDimensionDifferences,
   getRelationshipInsight,
   getStudyRecommendation,
@@ -176,6 +177,11 @@ export default function ComparisonResult({
             <CardTitle className="text-4xl font-bold text-rose-600 dark:text-rose-400" data-testid="text-parent-mbti">
               {parentType}
             </CardTitle>
+            {parentHybrid.blendLevel !== 'pure' && (
+              <div className="text-sm text-rose-600/80 dark:text-rose-400/80 mt-1" data-testid="text-parent-mbti-percentage">
+                {parentResult.primaryType.type} {parentResult.primaryPercentage}% + {parentResult.secondaryType.type} {parentResult.secondaryPercentage}%
+              </div>
+            )}
             <div className="mt-2">
               <Badge variant="outline" className="bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-700">
                 {parentHybrid.hybridAnimalName}
@@ -185,12 +191,6 @@ export default function ComparisonResult({
           <CardContent className="text-center space-y-3">
             <p className="text-lg font-medium text-foreground">{parentResult.primaryType.nickname}</p>
             <p className="text-sm text-muted-foreground">{parentHybrid.blendDescription}</p>
-            {parentHybrid.blendLevel !== 'pure' && (
-              <div className="text-xs text-muted-foreground bg-rose-50 dark:bg-rose-950/20 rounded-md px-3 py-2">
-                <Sparkles className="w-3 h-3 inline mr-1" />
-                {parentHybrid.primaryAnimal} {Math.round(100 - parentHybrid.blendPercentage)}% + {parentHybrid.secondaryAnimal} {parentHybrid.blendPercentage}%
-              </div>
-            )}
           </CardContent>
         </Card>
 
@@ -210,6 +210,11 @@ export default function ComparisonResult({
             <CardTitle className="text-4xl font-bold text-sky-600 dark:text-sky-400" data-testid="text-child-mbti">
               {childType}
             </CardTitle>
+            {childHybrid.blendLevel !== 'pure' && (
+              <div className="text-sm text-sky-600/80 dark:text-sky-400/80 mt-1" data-testid="text-child-mbti-percentage">
+                {childResult.primaryType.type} {childResult.primaryPercentage}% + {childResult.secondaryType.type} {childResult.secondaryPercentage}%
+              </div>
+            )}
             <div className="mt-2">
               <Badge variant="outline" className="bg-sky-50 dark:bg-sky-950/30 text-sky-700 dark:text-sky-300 border-sky-300 dark:border-sky-700">
                 {childHybrid.hybridAnimalName}
@@ -219,12 +224,6 @@ export default function ComparisonResult({
           <CardContent className="text-center space-y-3">
             <p className="text-lg font-medium text-foreground">{childResult.primaryType.nickname}</p>
             <p className="text-sm text-muted-foreground">{childHybrid.blendDescription}</p>
-            {childHybrid.blendLevel !== 'pure' && (
-              <div className="text-xs text-muted-foreground bg-sky-50 dark:bg-sky-950/20 rounded-md px-3 py-2">
-                <Sparkles className="w-3 h-3 inline mr-1" />
-                {childHybrid.primaryAnimal} {Math.round(100 - childHybrid.blendPercentage)}% + {childHybrid.secondaryAnimal} {childHybrid.blendPercentage}%
-              </div>
-            )}
           </CardContent>
         </Card>
       </div>
@@ -298,24 +297,31 @@ export default function ComparisonResult({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-center gap-4 mb-6">
+          <div className="flex flex-col items-center justify-center gap-2 mb-6">
             <div 
-              className={`inline-flex items-center rounded-md px-4 py-2 text-lg font-medium ${
-                sameCount >= 3 
+              className={`inline-flex items-center rounded-md px-6 py-3 text-2xl font-bold ${
+                complexAnalysis.overallCompatibilityScore >= 75 
                   ? 'bg-green-100 dark:bg-green-950/50 text-green-800 dark:text-green-300 border border-green-300 dark:border-green-800' 
-                  : sameCount >= 2 
+                  : complexAnalysis.overallCompatibilityScore >= 50 
                   ? 'bg-yellow-100 dark:bg-yellow-950/50 text-yellow-800 dark:text-yellow-300 border border-yellow-300 dark:border-yellow-800' 
                   : 'bg-blue-100 dark:bg-blue-950/50 text-blue-800 dark:text-blue-300 border border-blue-300 dark:border-blue-800'
               }`}
               data-testid="badge-compatibility"
             >
-              {sameCount}/4 차원 일치 - {compatibilityLevel}
+              성향 일치도 {complexAnalysis.overallCompatibilityScore}%
             </div>
+            <p className="text-sm text-muted-foreground">
+              {complexAnalysis.overallCompatibilityScore >= 75 
+                ? '비슷한 성향으로 소통이 편해요!' 
+                : complexAnalysis.overallCompatibilityScore >= 50 
+                ? '공통점과 차이점이 조화롭게 있어요' 
+                : '서로 다른 관점으로 배울 점이 많아요'}
+            </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {dimensionDifferences.map((diff, index) => (
-              <DimensionComparisonCard key={diff.dimension} diff={diff} index={index} />
+            {complexAnalysis.dimensionSimilarities.map((dimSim) => (
+              <DimensionSimilarityCard key={dimSim.dimension} similarity={dimSim} />
             ))}
           </div>
         </CardContent>
@@ -571,5 +577,79 @@ function InsightCard({
         <p className="text-foreground leading-relaxed">{content}</p>
       </CardContent>
     </Card>
+  );
+}
+
+function DimensionSimilarityCard({ similarity }: { similarity: DimensionSimilarity }) {
+  const isHigh = similarity.similarityPct >= 75;
+  const isMedium = similarity.similarityPct >= 50 && similarity.similarityPct < 75;
+  
+  const getTraitLabel = (dim: string, pct: number): string => {
+    const labels: Record<string, { low: string; high: string }> = {
+      EI: { low: 'E (외향)', high: 'I (내향)' },
+      SN: { low: 'S (현실)', high: 'N (직관)' },
+      TF: { low: 'T (논리)', high: 'F (감성)' },
+      JP: { low: 'J (계획)', high: 'P (자유)' }
+    };
+    return pct >= 50 ? labels[dim].high : labels[dim].low;
+  };
+  
+  return (
+    <div 
+      className={`p-4 rounded-lg border ${
+        isHigh 
+          ? 'bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-900/50' 
+          : isMedium
+          ? 'bg-yellow-50 dark:bg-yellow-950/20 border-yellow-200 dark:border-yellow-900/50'
+          : 'bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-900/50'
+      }`}
+      data-testid={`card-similarity-${similarity.dimension}`}
+    >
+      <div className="flex items-center justify-between mb-3">
+        <span className="font-medium text-foreground">{similarity.dimensionName}</span>
+        <Badge 
+          variant="outline" 
+          className={
+            isHigh 
+              ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-green-300' 
+              : isMedium
+              ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border-yellow-300'
+              : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border-blue-300'
+          }
+        >
+          {similarity.similarityPct}% 일치
+        </Badge>
+      </div>
+      
+      <div className="space-y-2">
+        <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center gap-2">
+            <span className="text-rose-600 dark:text-rose-400 font-medium">부모:</span>
+            <span className="text-foreground">{getTraitLabel(similarity.dimension, similarity.parentPct)}</span>
+            <span className="text-muted-foreground text-xs">({similarity.parentPct < 50 ? 100 - similarity.parentPct : similarity.parentPct}%)</span>
+          </div>
+        </div>
+        <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center gap-2">
+            <span className="text-sky-600 dark:text-sky-400 font-medium">아이:</span>
+            <span className="text-foreground">{getTraitLabel(similarity.dimension, similarity.childPct)}</span>
+            <span className="text-muted-foreground text-xs">({similarity.childPct < 50 ? 100 - similarity.childPct : similarity.childPct}%)</span>
+          </div>
+        </div>
+      </div>
+      
+      <div className="mt-3 h-2 bg-muted rounded-full overflow-hidden">
+        <div 
+          className={`h-full rounded-full transition-all ${
+            isHigh 
+              ? 'bg-green-500' 
+              : isMedium 
+              ? 'bg-yellow-500' 
+              : 'bg-blue-500'
+          }`}
+          style={{ width: `${similarity.similarityPct}%` }}
+        />
+      </div>
+    </div>
   );
 }
