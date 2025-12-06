@@ -32,6 +32,26 @@ export interface StudyRecommendation {
   challengeAreas: string[];
 }
 
+export interface HybridDimension {
+  dimension: 'EI' | 'SN' | 'TF' | 'JP';
+  primaryTrait: string;
+  secondaryTrait: string;
+  primaryPercentage: number;
+  isBalanced: boolean;
+}
+
+export interface HybridPersonality {
+  primaryType: string;
+  secondaryType: string;
+  primaryAnimal: string;
+  secondaryAnimal: string;
+  blendLevel: 'pure' | 'slight' | 'balanced';
+  blendPercentage: number;
+  dimensions: HybridDimension[];
+  blendDescription: string;
+  hybridAnimalName: string;
+}
+
 export interface ScenarioQuestion {
   id: number;
   scenario: string;
@@ -1931,4 +1951,308 @@ export function getRelationshipInsight(parentType: string, childType: string): R
 
 export function getStudyRecommendation(mbtiType: string): StudyRecommendation {
   return studyRecommendations[mbtiType] || studyRecommendations['INFP'];
+}
+
+export const animalNames: Record<string, string> = {
+  INTJ: '올빼미',
+  INTP: '부엉이',
+  ENTJ: '사자',
+  ENTP: '여우',
+  INFJ: '늑대',
+  INFP: '유니콘',
+  ENFJ: '돌고래',
+  ENFP: '나비',
+  ISTJ: '비버',
+  ISFJ: '토끼',
+  ESTJ: '독수리',
+  ESFJ: '강아지',
+  ISTP: '표범',
+  ISFP: '고양이',
+  ESTP: '치타',
+  ESFP: '앵무새'
+};
+
+const traitLabels: Record<string, string> = {
+  E: '외향적', I: '내향적',
+  S: '현실적', N: '상상력',
+  T: '논리적', F: '감성적',
+  J: '계획적', P: '자유로운'
+};
+
+function getHybridAnimalName(animal1: string, animal2: string): string {
+  if (animal1 === animal2) return animal1;
+  
+  const hybridNames: Record<string, string> = {
+    '강아지_고양이': '개냥이',
+    '고양이_강아지': '냥멍이',
+    '사자_여우': '사여우',
+    '여우_사자': '여자왕',
+    '올빼미_부엉이': '올부기',
+    '부엉이_올빼미': '부올이',
+    '늑대_강아지': '늑멍이',
+    '강아지_늑대': '멍늑이',
+    '토끼_고양이': '토냥이',
+    '고양이_토끼': '냥토끼',
+    '독수리_사자': '독사왕',
+    '사자_독수리': '사독이',
+    '돌고래_나비': '돌나비',
+    '나비_돌고래': '나돌이',
+    '표범_치타': '표치타',
+    '치타_표범': '치표범',
+    '비버_토끼': '비토끼',
+    '토끼_비버': '토비버',
+    '유니콘_나비': '유나비',
+    '나비_유니콘': '나유콘',
+    '앵무새_나비': '앵나비',
+    '나비_앵무새': '나앵이',
+    '늑대_올빼미': '늑빼미',
+    '올빼미_늑대': '올늑이',
+    '여우_고양이': '여냥이',
+    '고양이_여우': '냥우이',
+    '강아지_토끼': '강토끼',
+    '토끼_강아지': '토멍이',
+    '사자_늑대': '사늑이',
+    '늑대_사자': '늑사왕',
+    '독수리_올빼미': '독빼미',
+    '올빼미_독수리': '올독이',
+    '치타_강아지': '치멍이',
+    '강아지_치타': '멍치타',
+    '돌고래_강아지': '돌멍이',
+    '강아지_돌고래': '멍고래',
+    '앵무새_강아지': '앵멍이',
+    '강아지_앵무새': '멍무새',
+    '표범_고양이': '표냥이',
+    '고양이_표범': '냥표범',
+    '비버_올빼미': '비올이',
+    '올빼미_비버': '올비버'
+  };
+  
+  const key = `${animal1}_${animal2}`;
+  if (hybridNames[key]) return hybridNames[key];
+  
+  const firstPart = animal1.slice(0, Math.ceil(animal1.length / 2));
+  const secondPart = animal2.slice(Math.floor(animal2.length / 2));
+  return firstPart + secondPart;
+}
+
+function getBlendDescription(dimensions: HybridDimension[], primaryAnimal: string, secondaryAnimal: string): string {
+  const balancedDims = dimensions.filter(d => d.isBalanced);
+  
+  if (balancedDims.length === 0) {
+    return `순수한 ${primaryAnimal} 성향이에요!`;
+  }
+  
+  const traits = balancedDims.map(d => {
+    const primary = traitLabels[d.primaryTrait];
+    const secondary = traitLabels[d.secondaryTrait];
+    return `${primary}이면서도 ${secondary}인 면`;
+  });
+  
+  if (balancedDims.length === 1) {
+    return `${primaryAnimal}의 특성이 강하지만, ${traits[0]}도 있어서 ${secondaryAnimal}의 매력도 가지고 있어요.`;
+  }
+  
+  if (balancedDims.length >= 2) {
+    return `${primaryAnimal}와 ${secondaryAnimal}가 조화롭게 섞인 특별한 성격이에요. ${traits.slice(0, 2).join(', ')}이 있어서 상황에 따라 다양하게 행동해요.`;
+  }
+  
+  return `${primaryAnimal}의 기본 성향에 ${secondaryAnimal}의 특성이 살짝 섞여있어요.`;
+}
+
+export function getHybridPersonality(result: MBTIResult): HybridPersonality {
+  const { primaryType, secondaryType, dimensionScores } = result;
+  
+  const primaryAnimal = animalNames[primaryType.type] || '동물';
+  const secondaryAnimal = animalNames[secondaryType.type] || '동물';
+  
+  const dimensions: HybridDimension[] = [
+    {
+      dimension: 'EI',
+      primaryTrait: dimensionScores.EI.percentage < 50 ? 'E' : 'I',
+      secondaryTrait: dimensionScores.EI.percentage < 50 ? 'I' : 'E',
+      primaryPercentage: dimensionScores.EI.percentage < 50 
+        ? 100 - dimensionScores.EI.percentage 
+        : dimensionScores.EI.percentage,
+      isBalanced: dimensionScores.EI.percentage >= 40 && dimensionScores.EI.percentage <= 60
+    },
+    {
+      dimension: 'SN',
+      primaryTrait: dimensionScores.SN.percentage < 50 ? 'S' : 'N',
+      secondaryTrait: dimensionScores.SN.percentage < 50 ? 'N' : 'S',
+      primaryPercentage: dimensionScores.SN.percentage < 50 
+        ? 100 - dimensionScores.SN.percentage 
+        : dimensionScores.SN.percentage,
+      isBalanced: dimensionScores.SN.percentage >= 40 && dimensionScores.SN.percentage <= 60
+    },
+    {
+      dimension: 'TF',
+      primaryTrait: dimensionScores.TF.percentage < 50 ? 'T' : 'F',
+      secondaryTrait: dimensionScores.TF.percentage < 50 ? 'F' : 'T',
+      primaryPercentage: dimensionScores.TF.percentage < 50 
+        ? 100 - dimensionScores.TF.percentage 
+        : dimensionScores.TF.percentage,
+      isBalanced: dimensionScores.TF.percentage >= 40 && dimensionScores.TF.percentage <= 60
+    },
+    {
+      dimension: 'JP',
+      primaryTrait: dimensionScores.JP.percentage < 50 ? 'J' : 'P',
+      secondaryTrait: dimensionScores.JP.percentage < 50 ? 'P' : 'J',
+      primaryPercentage: dimensionScores.JP.percentage < 50 
+        ? 100 - dimensionScores.JP.percentage 
+        : dimensionScores.JP.percentage,
+      isBalanced: dimensionScores.JP.percentage >= 40 && dimensionScores.JP.percentage <= 60
+    }
+  ];
+  
+  const balancedCount = dimensions.filter(d => d.isBalanced).length;
+  
+  let blendLevel: 'pure' | 'slight' | 'balanced';
+  if (balancedCount === 0) {
+    blendLevel = 'pure';
+  } else if (balancedCount <= 2) {
+    blendLevel = 'slight';
+  } else {
+    blendLevel = 'balanced';
+  }
+  
+  const avgPrimaryPercentage = dimensions.reduce((sum, d) => sum + d.primaryPercentage, 0) / 4;
+  const blendPercentage = 100 - avgPrimaryPercentage;
+  
+  const hybridAnimalName = blendLevel === 'pure' 
+    ? primaryAnimal 
+    : getHybridAnimalName(primaryAnimal, secondaryAnimal);
+  
+  const blendDescription = getBlendDescription(dimensions, primaryAnimal, secondaryAnimal);
+  
+  return {
+    primaryType: primaryType.type,
+    secondaryType: secondaryType.type,
+    primaryAnimal,
+    secondaryAnimal,
+    blendLevel,
+    blendPercentage: Math.round(blendPercentage),
+    dimensions,
+    blendDescription,
+    hybridAnimalName
+  };
+}
+
+export function getComplexComparisonAnalysis(
+  parentResult: MBTIResult, 
+  childResult: MBTIResult
+): {
+  overallCompatibility: string;
+  strengthsTogether: string[];
+  potentialChallenges: string[];
+  communicationTips: string[];
+  parentHybrid: HybridPersonality;
+  childHybrid: HybridPersonality;
+} {
+  const parentHybrid = getHybridPersonality(parentResult);
+  const childHybrid = getHybridPersonality(childResult);
+  
+  const dimensionMatches: { dim: string; parentPct: number; childPct: number; similar: boolean }[] = [
+    {
+      dim: 'EI',
+      parentPct: parentResult.dimensionScores.EI.percentage,
+      childPct: childResult.dimensionScores.EI.percentage,
+      similar: Math.abs(parentResult.dimensionScores.EI.percentage - childResult.dimensionScores.EI.percentage) < 25
+    },
+    {
+      dim: 'SN',
+      parentPct: parentResult.dimensionScores.SN.percentage,
+      childPct: childResult.dimensionScores.SN.percentage,
+      similar: Math.abs(parentResult.dimensionScores.SN.percentage - childResult.dimensionScores.SN.percentage) < 25
+    },
+    {
+      dim: 'TF',
+      parentPct: parentResult.dimensionScores.TF.percentage,
+      childPct: childResult.dimensionScores.TF.percentage,
+      similar: Math.abs(parentResult.dimensionScores.TF.percentage - childResult.dimensionScores.TF.percentage) < 25
+    },
+    {
+      dim: 'JP',
+      parentPct: parentResult.dimensionScores.JP.percentage,
+      childPct: childResult.dimensionScores.JP.percentage,
+      similar: Math.abs(parentResult.dimensionScores.JP.percentage - childResult.dimensionScores.JP.percentage) < 25
+    }
+  ];
+  
+  const similarCount = dimensionMatches.filter(m => m.similar).length;
+  
+  let overallCompatibility: string;
+  if (similarCount >= 3) {
+    overallCompatibility = `${parentHybrid.hybridAnimalName}와 ${childHybrid.hybridAnimalName}는 비슷한 파장으로 소통해요! 서로의 마음을 자연스럽게 이해하고, 편안하게 대화할 수 있어요.`;
+  } else if (similarCount >= 2) {
+    overallCompatibility = `${parentHybrid.hybridAnimalName}와 ${childHybrid.hybridAnimalName}는 공통점도 있고 차이점도 있어요. 서로 다른 점이 오히려 서로를 보완해주는 좋은 팀이 될 수 있어요.`;
+  } else {
+    overallCompatibility = `${parentHybrid.hybridAnimalName}와 ${childHybrid.hybridAnimalName}는 서로 다른 스타일이에요. 하지만 그래서 더 다양한 관점으로 세상을 볼 수 있고, 서로에게 배울 점이 많아요!`;
+  }
+  
+  const strengthsTogether: string[] = [];
+  const potentialChallenges: string[] = [];
+  const communicationTips: string[] = [];
+  
+  if (dimensionMatches[0].similar) {
+    strengthsTogether.push('에너지 충전 방식이 비슷해서 함께 있어도 편안해요');
+  } else {
+    potentialChallenges.push('혼자만의 시간 vs 함께하는 시간에 대한 기대가 다를 수 있어요');
+    if (parentResult.dimensionScores.EI.percentage > 50 && childResult.dimensionScores.EI.percentage < 50) {
+      communicationTips.push('내향적인 부모님은 아이가 친구들과 놀고 싶어하는 마음을 이해해주세요');
+    } else if (parentResult.dimensionScores.EI.percentage < 50 && childResult.dimensionScores.EI.percentage > 50) {
+      communicationTips.push('외향적인 부모님은 아이에게 혼자만의 시간도 필요하다는 것을 기억해주세요');
+    }
+  }
+  
+  if (dimensionMatches[1].similar) {
+    strengthsTogether.push('세상을 바라보는 방식이 비슷해서 대화가 잘 통해요');
+  } else {
+    potentialChallenges.push('현실적 접근 vs 상상력 위주의 접근에서 의견이 다를 수 있어요');
+    if (parentResult.dimensionScores.SN.percentage < 50 && childResult.dimensionScores.SN.percentage > 50) {
+      communicationTips.push('현실적인 부모님은 아이의 상상력과 창의성을 존중해주세요');
+    } else if (parentResult.dimensionScores.SN.percentage > 50 && childResult.dimensionScores.SN.percentage < 50) {
+      communicationTips.push('직관적인 부모님은 아이가 구체적인 설명을 원할 때 차근차근 알려주세요');
+    }
+  }
+  
+  if (dimensionMatches[2].similar) {
+    strengthsTogether.push('결정을 내리는 방식이 비슷해서 갈등이 적어요');
+  } else {
+    potentialChallenges.push('논리 vs 감정 중심의 판단에서 오해가 생길 수 있어요');
+    if (parentResult.dimensionScores.TF.percentage < 50 && childResult.dimensionScores.TF.percentage > 50) {
+      communicationTips.push('논리적인 부모님은 아이의 감정을 먼저 공감해준 후에 해결책을 제시해주세요');
+    } else if (parentResult.dimensionScores.TF.percentage > 50 && childResult.dimensionScores.TF.percentage < 50) {
+      communicationTips.push('감성적인 부모님은 아이가 논리적으로 생각하는 것을 "차갑다"고 오해하지 마세요');
+    }
+  }
+  
+  if (dimensionMatches[3].similar) {
+    strengthsTogether.push('생활 방식과 계획에 대한 생각이 비슷해요');
+  } else {
+    potentialChallenges.push('계획 vs 유연함에 대한 선호가 달라서 일상에서 부딪힐 수 있어요');
+    if (parentResult.dimensionScores.JP.percentage < 50 && childResult.dimensionScores.JP.percentage > 50) {
+      communicationTips.push('계획적인 부모님은 아이에게 융통성 있는 여유 시간도 허용해주세요');
+    } else if (parentResult.dimensionScores.JP.percentage > 50 && childResult.dimensionScores.JP.percentage < 50) {
+      communicationTips.push('자유로운 부모님은 아이가 규칙과 계획을 원할 때 도와주세요');
+    }
+  }
+  
+  if (strengthsTogether.length < 2) {
+    strengthsTogether.push('서로 다른 관점으로 문제를 해결할 수 있어요');
+    strengthsTogether.push('다양한 경험과 생각을 나눌 수 있어요');
+  }
+  
+  if (communicationTips.length < 2) {
+    communicationTips.push('서로의 차이를 인정하고 존중해주세요');
+    communicationTips.push('규칙적으로 대화 시간을 가져보세요');
+  }
+  
+  return {
+    overallCompatibility,
+    strengthsTogether,
+    potentialChallenges,
+    communicationTips,
+    parentHybrid,
+    childHybrid
+  };
 }

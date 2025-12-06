@@ -15,17 +15,98 @@ import {
   Check,
   X,
   Share2,
-  RotateCcw
+  RotateCcw,
+  Sparkles,
+  Zap,
+  HandHeart
 } from "lucide-react";
 import {
   type MBTIResult,
   type DimensionDifference,
-  type RelationshipInsight,
-  type StudyRecommendation,
+  type HybridPersonality,
   getDimensionDifferences,
   getRelationshipInsight,
   getStudyRecommendation,
+  getComplexComparisonAnalysis,
 } from "@/lib/mbti-data";
+
+import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";
+import intpImage from "@assets/generated_images/intp_curious_owl_mascot.png";
+import entjImage from "@assets/generated_images/entj_lion_leader_mascot.png";
+import entpImage from "@assets/generated_images/entp_clever_fox_mascot.png";
+import infjImage from "@assets/generated_images/infj_wise_wolf_mascot.png";
+import infpImage from "@assets/generated_images/infp_unicorn_dreamer_mascot.png";
+import enfjImage from "@assets/generated_images/enfj_caring_dolphin_mascot.png";
+import enfpImage from "@assets/generated_images/enfp_butterfly_explorer_mascot.png";
+import istjImage from "@assets/generated_images/istj_beaver_worker_mascot.png";
+import isfjImage from "@assets/generated_images/isfj_caring_rabbit_mascot.png";
+import estjImage from "@assets/generated_images/estj_eagle_leader_mascot.png";
+import esfjImage from "@assets/generated_images/esfj_friendly_dog_mascot.png";
+import istpImage from "@assets/generated_images/istp_cool_leopard_mascot.png";
+import isfpImage from "@assets/generated_images/isfp_artistic_cat_mascot.png";
+import estpImage from "@assets/generated_images/estp_cheetah_adventurer_mascot.png";
+import esfpImage from "@assets/generated_images/esfp_parrot_entertainer_mascot.png";
+
+import dogCatHybrid from "@assets/generated_images/dog-cat_hybrid_mascot.png";
+import lionFoxHybrid from "@assets/generated_images/lion-fox_hybrid_mascot.png";
+import owlWolfHybrid from "@assets/generated_images/owl-wolf_hybrid_mascot.png";
+import dolphinButterflyHybrid from "@assets/generated_images/dolphin-butterfly_hybrid_mascot.png";
+import rabbitCatHybrid from "@assets/generated_images/rabbit-cat_hybrid_mascot.png";
+import eagleLionHybrid from "@assets/generated_images/eagle-lion_hybrid_mascot.png";
+import cheetahDogHybrid from "@assets/generated_images/cheetah-dog_hybrid_mascot.png";
+import unicornButterflyHybrid from "@assets/generated_images/unicorn-butterfly_hybrid_mascot.png";
+
+const mbtiImageMap: Record<string, string> = {
+  'INTJ': intjImage,
+  'INTP': intpImage,
+  'ENTJ': entjImage,
+  'ENTP': entpImage,
+  'INFJ': infjImage,
+  'INFP': infpImage,
+  'ENFJ': enfjImage,
+  'ENFP': enfpImage,
+  'ISTJ': istjImage,
+  'ISFJ': isfjImage,
+  'ESTJ': estjImage,
+  'ESFJ': esfjImage,
+  'ISTP': istpImage,
+  'ISFP': isfpImage,
+  'ESTP': estpImage,
+  'ESFP': esfpImage,
+};
+
+const hybridImageMap: Record<string, string> = {
+  '개냥이': dogCatHybrid,
+  '냥멍이': dogCatHybrid,
+  '사여우': lionFoxHybrid,
+  '여자왕': lionFoxHybrid,
+  '늑빼미': owlWolfHybrid,
+  '올늑이': owlWolfHybrid,
+  '돌나비': dolphinButterflyHybrid,
+  '나돌이': dolphinButterflyHybrid,
+  '토냥이': rabbitCatHybrid,
+  '냥토끼': rabbitCatHybrid,
+  '독사왕': eagleLionHybrid,
+  '사독이': eagleLionHybrid,
+  '치멍이': cheetahDogHybrid,
+  '멍치타': cheetahDogHybrid,
+  '유나비': unicornButterflyHybrid,
+  '나유콘': unicornButterflyHybrid,
+};
+
+function getAnimalImage(type: string): string {
+  return mbtiImageMap[type.toUpperCase()] || intjImage;
+}
+
+function getHybridImage(hybrid: HybridPersonality): string {
+  if (hybrid.blendLevel === 'pure') {
+    return getAnimalImage(hybrid.primaryType);
+  }
+  if (hybridImageMap[hybrid.hybridAnimalName]) {
+    return hybridImageMap[hybrid.hybridAnimalName];
+  }
+  return getAnimalImage(hybrid.primaryType);
+}
 
 interface ComparisonResultProps {
   parentResult: MBTIResult;
@@ -60,6 +141,9 @@ export default function ComparisonResult({
   const dimensionDifferences = getDimensionDifferences(parentType, childType);
   const relationshipInsight = getRelationshipInsight(parentType, childType);
   const studyRecommendation = getStudyRecommendation(childType);
+  const complexAnalysis = getComplexComparisonAnalysis(parentResult, childResult);
+  
+  const { parentHybrid, childHybrid } = complexAnalysis;
   
   const sameCount = dimensionDifferences.filter(d => d.isSame).length;
   const compatibilityLevel = sameCount >= 3 ? '높음' : sameCount >= 2 ? '보통' : '다름';
@@ -76,32 +160,135 @@ export default function ComparisonResult({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="border-2 border-rose-200 dark:border-rose-900/50" data-testid="card-parent-result">
+        <Card className="border-2 border-rose-200 dark:border-rose-900/50 overflow-visible" data-testid="card-parent-result">
           <CardHeader className="text-center pb-2">
+            <div className="flex justify-center mb-4">
+              <div className="w-24 h-24 rounded-full bg-rose-100 dark:bg-rose-950/30 p-2 border-2 border-rose-300 dark:border-rose-800">
+                <img 
+                  src={getHybridImage(parentHybrid)} 
+                  alt={parentHybrid.hybridAnimalName}
+                  className="w-full h-full object-contain rounded-full"
+                  data-testid="img-parent-animal"
+                />
+              </div>
+            </div>
             <div className="text-sm text-muted-foreground mb-1">부모님</div>
-            <CardTitle className="text-5xl font-bold text-rose-600 dark:text-rose-400" data-testid="text-parent-mbti">
+            <CardTitle className="text-4xl font-bold text-rose-600 dark:text-rose-400" data-testid="text-parent-mbti">
               {parentType}
             </CardTitle>
+            <div className="mt-2">
+              <Badge variant="outline" className="bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-700">
+                {parentHybrid.hybridAnimalName}
+              </Badge>
+            </div>
           </CardHeader>
-          <CardContent className="text-center">
-            <p className="text-xl font-medium text-foreground">{parentResult.primaryType.nickname}</p>
-            <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{parentResult.primaryType.description}</p>
+          <CardContent className="text-center space-y-3">
+            <p className="text-lg font-medium text-foreground">{parentResult.primaryType.nickname}</p>
+            <p className="text-sm text-muted-foreground">{parentHybrid.blendDescription}</p>
+            {parentHybrid.blendLevel !== 'pure' && (
+              <div className="text-xs text-muted-foreground bg-rose-50 dark:bg-rose-950/20 rounded-md px-3 py-2">
+                <Sparkles className="w-3 h-3 inline mr-1" />
+                {parentHybrid.primaryAnimal} {Math.round(100 - parentHybrid.blendPercentage)}% + {parentHybrid.secondaryAnimal} {parentHybrid.blendPercentage}%
+              </div>
+            )}
           </CardContent>
         </Card>
 
-        <Card className="border-2 border-sky-200 dark:border-sky-900/50" data-testid="card-child-result">
+        <Card className="border-2 border-sky-200 dark:border-sky-900/50 overflow-visible" data-testid="card-child-result">
           <CardHeader className="text-center pb-2">
+            <div className="flex justify-center mb-4">
+              <div className="w-24 h-24 rounded-full bg-sky-100 dark:bg-sky-950/30 p-2 border-2 border-sky-300 dark:border-sky-800">
+                <img 
+                  src={getHybridImage(childHybrid)} 
+                  alt={childHybrid.hybridAnimalName}
+                  className="w-full h-full object-contain rounded-full"
+                  data-testid="img-child-animal"
+                />
+              </div>
+            </div>
             <div className="text-sm text-muted-foreground mb-1">아이</div>
-            <CardTitle className="text-5xl font-bold text-sky-600 dark:text-sky-400" data-testid="text-child-mbti">
+            <CardTitle className="text-4xl font-bold text-sky-600 dark:text-sky-400" data-testid="text-child-mbti">
               {childType}
             </CardTitle>
+            <div className="mt-2">
+              <Badge variant="outline" className="bg-sky-50 dark:bg-sky-950/30 text-sky-700 dark:text-sky-300 border-sky-300 dark:border-sky-700">
+                {childHybrid.hybridAnimalName}
+              </Badge>
+            </div>
           </CardHeader>
-          <CardContent className="text-center">
-            <p className="text-xl font-medium text-foreground">{childResult.primaryType.nickname}</p>
-            <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{childResult.primaryType.description}</p>
+          <CardContent className="text-center space-y-3">
+            <p className="text-lg font-medium text-foreground">{childResult.primaryType.nickname}</p>
+            <p className="text-sm text-muted-foreground">{childHybrid.blendDescription}</p>
+            {childHybrid.blendLevel !== 'pure' && (
+              <div className="text-xs text-muted-foreground bg-sky-50 dark:bg-sky-950/20 rounded-md px-3 py-2">
+                <Sparkles className="w-3 h-3 inline mr-1" />
+                {childHybrid.primaryAnimal} {Math.round(100 - childHybrid.blendPercentage)}% + {childHybrid.secondaryAnimal} {childHybrid.blendPercentage}%
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
+
+      <Card className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 border-purple-200 dark:border-purple-900/50" data-testid="card-complex-analysis">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-purple-700 dark:text-purple-300">
+            <Sparkles className="w-5 h-5" />
+            복합 성격 분석
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-foreground leading-relaxed" data-testid="text-overall-compatibility">
+            {complexAnalysis.overallCompatibility}
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <div className="p-4 rounded-lg bg-white/50 dark:bg-black/20">
+              <h4 className="font-semibold text-emerald-700 dark:text-emerald-400 mb-2 flex items-center gap-2">
+                <Zap className="w-4 h-4" />
+                함께할 때 강점
+              </h4>
+              <ul className="space-y-2">
+                {complexAnalysis.strengthsTogether.map((strength, index) => (
+                  <li key={index} className="flex items-start gap-2 text-sm text-foreground" data-testid={`text-strength-${index}`}>
+                    <Check className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                    <span>{strength}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div className="p-4 rounded-lg bg-white/50 dark:bg-black/20">
+              <h4 className="font-semibold text-amber-700 dark:text-amber-400 mb-2 flex items-center gap-2">
+                <AlertCircle className="w-4 h-4" />
+                주의할 점
+              </h4>
+              <ul className="space-y-2">
+                {complexAnalysis.potentialChallenges.map((challenge, index) => (
+                  <li key={index} className="flex items-start gap-2 text-sm text-foreground" data-testid={`text-challenge-${index}`}>
+                    <AlertCircle className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <span>{challenge}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          
+          <div className="p-4 rounded-lg bg-white/50 dark:bg-black/20 mt-4">
+            <h4 className="font-semibold text-blue-700 dark:text-blue-400 mb-2 flex items-center gap-2">
+              <HandHeart className="w-4 h-4" />
+              소통 팁
+            </h4>
+            <ul className="space-y-2">
+              {complexAnalysis.communicationTips.map((tip, index) => (
+                <li key={index} className="flex items-start gap-2 text-sm text-foreground" data-testid={`text-comm-tip-${index}`}>
+                  <Heart className="w-4 h-4 text-pink-500 flex-shrink-0 mt-0.5" />
+                  <span>{tip}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </CardContent>
+      </Card>
 
       <Card data-testid="card-compatibility">
         <CardHeader>
