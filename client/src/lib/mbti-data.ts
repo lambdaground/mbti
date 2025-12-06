@@ -2,6 +2,36 @@ export type AgeGroup = 'elementary' | 'middle' | 'high' | 'adult';
 
 export type Answer = 'A' | 'B' | 'C';
 
+export type Role = 'parent' | 'child';
+
+export interface ParentChildResult {
+  parentResult: MBTIResult;
+  childResult: MBTIResult;
+}
+
+export interface DimensionDifference {
+  dimension: 'EI' | 'SN' | 'TF' | 'JP';
+  parentTrait: string;
+  childTrait: string;
+  isSame: boolean;
+}
+
+export interface RelationshipInsight {
+  communicationDifference: string;
+  behaviorDifference: string;
+  thinkingDifference: string;
+  parentGuidance: string[];
+  childUnderstanding: string[];
+}
+
+export interface StudyRecommendation {
+  learningStyle: string;
+  studyMethods: string[];
+  studyEnvironment: string;
+  motivationTips: string[];
+  challengeAreas: string[];
+}
+
 export interface ScenarioQuestion {
   id: number;
   scenario: string;
@@ -1289,4 +1319,616 @@ export function calculateMBTIWithPercentage(answers: Record<number, Answer>, que
 export function calculateMBTI(answers: Record<number, Answer>, questions: Question[]): string {
   const result = calculateMBTIWithPercentage(answers, questions);
   return result.primaryType.type;
+}
+
+const dimensionInsights = {
+  EI: {
+    same: {
+      E: {
+        communication: '둘 다 활발하게 대화하고 생각을 바로 표현해요.',
+        behavior: '함께 활동적으로 시간을 보내는 것을 좋아해요.',
+        thinking: '외부 활동과 사람들과의 교류를 통해 에너지를 얻어요.'
+      },
+      I: {
+        communication: '둘 다 조용하고 깊은 대화를 선호해요.',
+        behavior: '함께 조용히 시간을 보내는 것을 편안하게 느껴요.',
+        thinking: '혼자만의 시간과 내면의 생각을 중요시해요.'
+      }
+    },
+    different: {
+      parentE_childI: {
+        communication: '엄마는 말로 표현하고 싶지만, 아이는 속으로 생각을 정리해요.',
+        behavior: '엄마는 밖에서 함께하고 싶지만, 아이는 집에서 쉬고 싶어해요.',
+        thinking: '엄마는 대화로 에너지를 얻지만, 아이는 혼자 있을 때 충전돼요.',
+        parentGuidance: [
+          '아이가 혼자 있는 시간을 존중해주세요',
+          '대화를 강요하지 말고 아이의 페이스에 맞춰주세요',
+          '조용한 환경에서 1:1로 대화하면 아이가 더 편하게 말해요',
+          '아이가 생각을 정리할 시간을 주세요'
+        ],
+        childUnderstanding: [
+          '엄마가 자꾸 말을 거는 건 너를 사랑해서야',
+          '엄마는 대화하면서 기분이 좋아져',
+          '엄마가 밖에 나가자고 하는 건 함께 시간을 보내고 싶어서야',
+          '네가 조용히 있고 싶을 땐 엄마한테 말해도 괜찮아'
+        ]
+      },
+      parentI_childE: {
+        communication: '엄마는 조용히 듣고 싶지만, 아이는 신나게 이야기해요.',
+        behavior: '엄마는 집에서 쉬고 싶지만, 아이는 밖에서 놀고 싶어해요.',
+        thinking: '엄마는 혼자 생각할 때 편하지만, 아이는 사람들과 있을 때 행복해요.',
+        parentGuidance: [
+          '아이가 이야기할 때 적극적으로 들어주세요',
+          '아이가 친구들과 어울릴 기회를 많이 만들어주세요',
+          '아이의 에너지 넘치는 모습을 긍정적으로 받아들이세요',
+          '가끔은 엄마도 아이와 함께 활동적으로 놀아주세요'
+        ],
+        childUnderstanding: [
+          '엄마가 조용히 있고 싶을 때가 있어',
+          '엄마가 집에 있고 싶어하는 건 피곤해서가 아니라 그게 편해서야',
+          '엄마도 너랑 놀고 싶지만 방식이 다를 뿐이야',
+          '엄마한테 조용히 옆에 있어주는 것도 사랑 표현이야'
+        ]
+      }
+    }
+  },
+  SN: {
+    same: {
+      S: {
+        communication: '둘 다 구체적이고 실제적인 이야기를 좋아해요.',
+        behavior: '현실적이고 실용적인 방식으로 문제를 해결해요.',
+        thinking: '지금 눈앞에 있는 것에 집중해요.'
+      },
+      N: {
+        communication: '둘 다 상상력 풍부한 이야기를 좋아해요.',
+        behavior: '새로운 가능성과 아이디어를 탐구하는 것을 좋아해요.',
+        thinking: '미래와 가능성에 대해 생각하는 것을 즐겨요.'
+      }
+    },
+    different: {
+      parentS_childN: {
+        communication: '엄마는 실제 일어난 일을 말하지만, 아이는 상상의 이야기를 해요.',
+        behavior: '엄마는 현실적인 방법을 원하지만, 아이는 창의적인 방법을 시도해요.',
+        thinking: '엄마는 지금 당장 해야 할 일에 집중하지만, 아이는 미래를 꿈꿔요.',
+        parentGuidance: [
+          '아이의 상상력과 창의성을 인정해주세요',
+          '"그건 현실적이지 않아"라는 말 대신 "재미있는 생각이네"라고 해주세요',
+          '아이가 꿈꾸는 것을 현실로 연결하는 방법을 함께 찾아보세요',
+          '때로는 아이의 상상 세계에 함께 들어가보세요'
+        ],
+        childUnderstanding: [
+          '엄마가 현실적인 이야기를 하는 건 너를 걱정해서야',
+          '엄마는 지금 당장 필요한 것들을 잘 챙겨',
+          '네 꿈을 이루려면 엄마처럼 현실적인 계획도 필요해',
+          '엄마도 상상하는 건 어려울 수 있어'
+        ]
+      },
+      parentN_childS: {
+        communication: '엄마는 미래 이야기를 하지만, 아이는 지금 있는 것에 관심이 있어요.',
+        behavior: '엄마는 새로운 것을 시도하고 싶지만, 아이는 익숙한 것을 좋아해요.',
+        thinking: '엄마는 가능성을 보지만, 아이는 눈앞의 현실을 봐요.',
+        parentGuidance: [
+          '아이에게 구체적이고 단계별로 설명해주세요',
+          '추상적인 개념보다 실제 예시를 들어주세요',
+          '아이가 세부사항에 집중하는 것을 인정해주세요',
+          '새로운 것을 시도할 때 충분한 시간을 주세요'
+        ],
+        childUnderstanding: [
+          '엄마가 미래 이야기를 많이 하는 건 너의 가능성을 믿어서야',
+          '엄마는 새로운 것을 상상하는 게 재미있어',
+          '네가 꼼꼼하게 하나씩 하는 것도 정말 중요해',
+          '엄마의 큰 그림과 네 꼼꼼함이 만나면 최고야'
+        ]
+      }
+    }
+  },
+  TF: {
+    same: {
+      T: {
+        communication: '둘 다 논리적이고 객관적으로 대화해요.',
+        behavior: '문제가 생기면 감정보다 해결책을 먼저 찾아요.',
+        thinking: '결정할 때 논리와 이유를 중요하게 생각해요.'
+      },
+      F: {
+        communication: '둘 다 감정을 나누고 공감하는 것을 좋아해요.',
+        behavior: '서로의 기분을 살피며 배려해요.',
+        thinking: '결정할 때 관계와 감정을 중요하게 생각해요.'
+      }
+    },
+    different: {
+      parentT_childF: {
+        communication: '엄마는 이성적으로 설명하지만, 아이는 감정을 먼저 느껴요.',
+        behavior: '엄마는 해결책을 제시하지만, 아이는 위로를 원해요.',
+        thinking: '엄마는 "왜"를 따지지만, 아이는 "기분이 어때"가 중요해요.',
+        parentGuidance: [
+          '아이가 속상할 때 해결책보다 먼저 공감해주세요',
+          '"왜 그랬어?"보다 "많이 힘들었구나"라고 말해주세요',
+          '아이의 감정을 인정하고 표현하게 해주세요',
+          '비판보다 격려의 말을 먼저 해주세요'
+        ],
+        childUnderstanding: [
+          '엄마가 이유를 묻는 건 너를 이해하고 싶어서야',
+          '엄마가 해결책을 말하는 건 도와주고 싶어서야',
+          '엄마도 너를 사랑하지만 표현 방식이 다를 뿐이야',
+          '엄마한테 네 감정을 말로 설명해주면 더 잘 이해해'
+        ]
+      },
+      parentF_childT: {
+        communication: '엄마는 감정을 나누고 싶지만, 아이는 사실만 말해요.',
+        behavior: '엄마는 기분을 살피지만, 아이는 논리적으로 행동해요.',
+        thinking: '엄마는 관계가 중요하지만, 아이는 결과가 중요해요.',
+        parentGuidance: [
+          '아이의 논리적인 성향을 인정해주세요',
+          '감정을 강요하지 말고 아이의 방식을 존중해주세요',
+          '아이가 감정을 표현하지 않아도 괜찮다고 말해주세요',
+          '논리적인 대화도 사랑의 표현임을 알아주세요'
+        ],
+        childUnderstanding: [
+          '엄마가 기분을 자주 묻는 건 너를 걱정해서야',
+          '엄마는 감정을 나누면서 가까워진다고 느껴',
+          '가끔 엄마한테 "좋아" "괜찮아"라고 말해주면 기뻐해',
+          '엄마의 걱정은 사랑의 다른 표현이야'
+        ]
+      }
+    }
+  },
+  JP: {
+    same: {
+      J: {
+        communication: '둘 다 계획적으로 일정을 정하고 지켜요.',
+        behavior: '체계적이고 규칙적인 생활을 좋아해요.',
+        thinking: '결정을 빨리 내리고 계획대로 실행하는 것을 선호해요.'
+      },
+      P: {
+        communication: '둘 다 유연하게 상황에 맞춰요.',
+        behavior: '자유롭고 즉흥적인 것을 좋아해요.',
+        thinking: '여러 가능성을 열어두고 천천히 결정해요.'
+      }
+    },
+    different: {
+      parentJ_childP: {
+        communication: '엄마는 계획을 세우자고 하지만, 아이는 그때그때 하고 싶어해요.',
+        behavior: '엄마는 규칙을 따르지만, 아이는 자유롭게 하고 싶어해요.',
+        thinking: '엄마는 미리 정해야 편하지만, 아이는 열어두는 게 좋아요.',
+        parentGuidance: [
+          '아이에게 너무 빡빡한 일정을 강요하지 마세요',
+          '큰 틀만 정하고 세부사항은 유연하게 해주세요',
+          '아이의 즉흥적인 행동도 장점이 될 수 있어요',
+          '마감 시간만 정하고 방법은 아이에게 맡겨보세요'
+        ],
+        childUnderstanding: [
+          '엄마가 계획을 세우는 건 일이 잘 되게 하려고 그래',
+          '약속 시간을 지키는 건 서로를 존중하는 거야',
+          '엄마는 예상치 못한 일이 생기면 불안해할 수 있어',
+          '중요한 일은 미리 말해주면 엄마가 편해해'
+        ]
+      },
+      parentP_childJ: {
+        communication: '엄마는 유연하게 가자고 하지만, 아이는 계획이 필요해요.',
+        behavior: '엄마는 즉흥적이지만, 아이는 정해진 대로 하고 싶어해요.',
+        thinking: '엄마는 열어두고 싶지만, 아이는 빨리 정하고 싶어해요.',
+        parentGuidance: [
+          '아이가 계획을 세울 수 있도록 미리 정보를 주세요',
+          '갑자기 일정을 바꾸면 아이가 불안해할 수 있어요',
+          '아이의 규칙적인 생활 리듬을 존중해주세요',
+          '변경이 있을 때는 미리 알려주세요'
+        ],
+        childUnderstanding: [
+          '엄마가 갑자기 바꾸는 건 새로운 기회를 보기 때문이야',
+          '엄마는 유연하게 하는 게 편해',
+          '계획이 바뀌어도 괜찮을 때가 있어',
+          '엄마한테 네가 계획이 필요하다고 말해도 돼'
+        ]
+      }
+    }
+  }
+};
+
+export const studyRecommendations: Record<string, StudyRecommendation> = {
+  INTJ: {
+    learningStyle: '혼자서 체계적으로 공부하는 것을 좋아해요',
+    studyMethods: [
+      '스스로 계획표를 세우고 체크하기',
+      '전체 개념을 먼저 이해한 후 세부사항 공부하기',
+      '왜 그런지 원리를 파악하며 공부하기',
+      '조용한 공간에서 집중해서 공부하기'
+    ],
+    studyEnvironment: '조용하고 방해받지 않는 개인 공간',
+    motivationTips: [
+      '장기 목표를 세우고 달성하는 재미를 느끼게 해주세요',
+      '스스로 공부 계획을 세울 수 있게 믿어주세요',
+      '왜 배워야 하는지 논리적으로 설명해주세요'
+    ],
+    challengeAreas: [
+      '그룹 활동이나 토론이 불편할 수 있어요',
+      '완벽주의로 인해 스트레스 받을 수 있어요',
+      '다른 사람의 방식을 받아들이기 어려울 수 있어요'
+    ]
+  },
+  INTP: {
+    learningStyle: '원리와 이론을 탐구하며 공부하는 것을 좋아해요',
+    studyMethods: [
+      '왜 그런지 깊이 파고들며 이해하기',
+      '다양한 자료를 찾아보며 비교 분석하기',
+      '개념 간의 연결고리 찾기',
+      '혼자 생각할 시간 가지기'
+    ],
+    studyEnvironment: '자유롭게 탐구할 수 있는 조용한 공간',
+    motivationTips: [
+      '호기심을 자극하는 질문을 던져주세요',
+      '정답보다 과정을 중요하게 여겨주세요',
+      '스스로 발견하는 즐거움을 느끼게 해주세요'
+    ],
+    challengeAreas: [
+      '반복 암기나 세부사항 기억이 지루할 수 있어요',
+      '마감을 지키는 게 어려울 수 있어요',
+      '실용적인 목적 없이는 동기가 떨어질 수 있어요'
+    ]
+  },
+  ENTJ: {
+    learningStyle: '목표를 세우고 효율적으로 달성하는 것을 좋아해요',
+    studyMethods: [
+      '명확한 목표와 일정 세우기',
+      '중요한 것부터 우선순위 정하기',
+      '스터디 그룹 이끌며 공부하기',
+      '결과를 측정하고 개선하기'
+    ],
+    studyEnvironment: '체계적이고 목표 지향적인 환경',
+    motivationTips: [
+      '구체적인 목표와 보상을 정해주세요',
+      '리더 역할을 맡겨 책임감을 느끼게 해주세요',
+      '성취를 인정하고 다음 도전을 제시해주세요'
+    ],
+    challengeAreas: [
+      '다른 사람의 페이스를 기다리기 어려울 수 있어요',
+      '과정보다 결과에만 집중할 수 있어요',
+      '지나친 경쟁심이 스트레스가 될 수 있어요'
+    ]
+  },
+  ENTP: {
+    learningStyle: '새로운 아이디어를 탐구하고 토론하는 것을 좋아해요',
+    studyMethods: [
+      '다양한 관점에서 생각해보기',
+      '토론이나 디베이트로 공부하기',
+      '여러 주제를 연결 지어 생각하기',
+      '새로운 방법으로 문제 풀어보기'
+    ],
+    studyEnvironment: '자유롭게 토론하고 아이디어를 나눌 수 있는 환경',
+    motivationTips: [
+      '지루하지 않게 다양한 방법으로 공부하게 해주세요',
+      '왜 그런지 질문하는 것을 격려해주세요',
+      '새로운 도전과 변화를 주세요'
+    ],
+    challengeAreas: [
+      '한 가지에 오래 집중하기 어려울 수 있어요',
+      '세부사항이나 반복 작업을 싫어할 수 있어요',
+      '시작은 잘하지만 끝맺기가 어려울 수 있어요'
+    ]
+  },
+  INFJ: {
+    learningStyle: '의미와 목적을 찾으며 깊이 있게 공부하는 것을 좋아해요',
+    studyMethods: [
+      '배우는 것의 의미를 생각하며 공부하기',
+      '조용히 혼자 집중해서 공부하기',
+      '전체적인 그림을 먼저 이해하기',
+      '글로 정리하며 공부하기'
+    ],
+    studyEnvironment: '조용하고 평화로운 개인 공간',
+    motivationTips: [
+      '이것이 왜 중요한지 의미를 설명해주세요',
+      '혼자 공부할 시간을 충분히 주세요',
+      '창의적인 프로젝트를 할 수 있게 해주세요'
+    ],
+    challengeAreas: [
+      '완벽주의로 인해 지칠 수 있어요',
+      '시끄럽거나 혼란스러운 환경에서 집중이 어려워요',
+      '비판에 민감하게 반응할 수 있어요'
+    ]
+  },
+  INFP: {
+    learningStyle: '자신만의 방식으로 창의적으로 공부하는 것을 좋아해요',
+    studyMethods: [
+      '관심 있는 주제부터 깊이 파고들기',
+      '이야기나 비유로 이해하기',
+      '감정과 연결 지어 기억하기',
+      '자유롭게 상상하며 공부하기'
+    ],
+    studyEnvironment: '편안하고 아늑한 개인 공간',
+    motivationTips: [
+      '관심사와 연결 지어 공부하게 해주세요',
+      '자신만의 방식을 존중해주세요',
+      '압박보다는 격려와 지지를 해주세요'
+    ],
+    challengeAreas: [
+      '관심 없는 과목은 동기 부여가 어려워요',
+      '계획적으로 공부하기가 어려울 수 있어요',
+      '비교당하거나 경쟁하는 것을 싫어해요'
+    ]
+  },
+  ENFJ: {
+    learningStyle: '함께 공부하고 가르치면서 배우는 것을 좋아해요',
+    studyMethods: [
+      '친구들과 스터디 그룹 만들기',
+      '배운 것을 다른 사람에게 설명하기',
+      '서로 도우며 공부하기',
+      '토론하고 의견 나누기'
+    ],
+    studyEnvironment: '협력적이고 따뜻한 분위기의 그룹 환경',
+    motivationTips: [
+      '함께 공부할 친구를 만들어주세요',
+      '가르치는 역할을 맡겨보세요',
+      '노력을 인정하고 격려해주세요'
+    ],
+    challengeAreas: [
+      '혼자 공부하는 것이 외로울 수 있어요',
+      '다른 사람을 도우느라 자기 공부가 소홀해질 수 있어요',
+      '인정받지 못하면 의욕이 떨어질 수 있어요'
+    ]
+  },
+  ENFP: {
+    learningStyle: '재미있고 새로운 방식으로 공부하는 것을 좋아해요',
+    studyMethods: [
+      '다양한 방법으로 공부 시도하기',
+      '친구들과 함께 즐겁게 공부하기',
+      '여러 주제를 연결 지어 생각하기',
+      '게임이나 활동으로 배우기'
+    ],
+    studyEnvironment: '자유롭고 창의적인 분위기',
+    motivationTips: [
+      '지루하지 않게 다양한 활동을 섞어주세요',
+      '공부의 재미와 의미를 찾게 도와주세요',
+      '창의적인 방법을 시도할 수 있게 해주세요'
+    ],
+    challengeAreas: [
+      '한 가지에 오래 집중하기 어려울 수 있어요',
+      '세부사항을 놓칠 수 있어요',
+      '계획대로 하는 것이 지루할 수 있어요'
+    ]
+  },
+  ISTJ: {
+    learningStyle: '체계적이고 차근차근 공부하는 것을 좋아해요',
+    studyMethods: [
+      '계획표 만들고 따라가기',
+      '차근차근 단계별로 공부하기',
+      '반복해서 암기하기',
+      '문제집 풀면서 연습하기'
+    ],
+    studyEnvironment: '조용하고 정돈된 공간',
+    motivationTips: [
+      '명확한 계획과 일정을 세워주세요',
+      '꾸준히 노력하는 것을 인정해주세요',
+      '실용적인 이유를 설명해주세요'
+    ],
+    challengeAreas: [
+      '갑자기 계획이 바뀌면 스트레스 받을 수 있어요',
+      '새로운 방식을 시도하기 어려울 수 있어요',
+      '창의적인 문제에 어려움을 느낄 수 있어요'
+    ]
+  },
+  ISFJ: {
+    learningStyle: '안정적인 환경에서 꾸준히 공부하는 것을 좋아해요',
+    studyMethods: [
+      '반복해서 꼼꼼히 공부하기',
+      '선생님이나 부모님의 가르침 따르기',
+      '정해진 방식대로 차근차근 하기',
+      '조용히 혼자 또는 친한 친구와 공부하기'
+    ],
+    studyEnvironment: '익숙하고 편안한 공간',
+    motivationTips: [
+      '안정적인 환경을 만들어주세요',
+      '칭찬과 격려를 많이 해주세요',
+      '단계별로 천천히 진행해주세요'
+    ],
+    challengeAreas: [
+      '새로운 환경이나 방식에 적응이 어려울 수 있어요',
+      '비판에 민감하게 반응할 수 있어요',
+      '자기 의견을 말하기 어려울 수 있어요'
+    ]
+  },
+  ESTJ: {
+    learningStyle: '목표를 정하고 체계적으로 달성하는 것을 좋아해요',
+    studyMethods: [
+      '명확한 목표와 계획 세우기',
+      '시간표대로 규칙적으로 공부하기',
+      '문제집 많이 풀면서 연습하기',
+      '성과를 체크하며 공부하기'
+    ],
+    studyEnvironment: '질서 있고 체계적인 환경',
+    motivationTips: [
+      '구체적인 목표와 보상을 정해주세요',
+      '책임감을 느낄 수 있는 역할을 주세요',
+      '규칙적인 학습 루틴을 만들어주세요'
+    ],
+    challengeAreas: [
+      '창의적이거나 열린 문제가 어려울 수 있어요',
+      '다른 방식을 시도하기 어려울 수 있어요',
+      '완벽하게 하려다 지칠 수 있어요'
+    ]
+  },
+  ESFJ: {
+    learningStyle: '함께 공부하고 인정받으며 배우는 것을 좋아해요',
+    studyMethods: [
+      '친구들과 스터디 그룹 만들기',
+      '선생님의 칭찬을 받으며 공부하기',
+      '배운 것을 친구에게 설명해주기',
+      '규칙적으로 꾸준히 공부하기'
+    ],
+    studyEnvironment: '따뜻하고 협력적인 분위기',
+    motivationTips: [
+      '노력을 인정하고 칭찬해주세요',
+      '함께 공부할 친구를 만들어주세요',
+      '선생님이나 부모님의 기대를 알려주세요'
+    ],
+    challengeAreas: [
+      '혼자 공부하는 것이 외로울 수 있어요',
+      '비판에 민감하게 반응할 수 있어요',
+      '남을 의식해서 스트레스 받을 수 있어요'
+    ]
+  },
+  ISTP: {
+    learningStyle: '직접 해보면서 배우는 것을 좋아해요',
+    studyMethods: [
+      '실험이나 실습으로 이해하기',
+      '원리를 논리적으로 분석하기',
+      '문제를 직접 풀어보며 배우기',
+      '효율적인 방법 찾아서 공부하기'
+    ],
+    studyEnvironment: '자유롭게 실험하고 탐구할 수 있는 환경',
+    motivationTips: [
+      '직접 해볼 수 있는 기회를 주세요',
+      '왜 그런지 원리를 설명해주세요',
+      '자유롭게 탐구할 시간을 주세요'
+    ],
+    challengeAreas: [
+      '이론만 배우는 것이 지루할 수 있어요',
+      '장기 계획을 세우기 어려울 수 있어요',
+      '반복적인 암기가 힘들 수 있어요'
+    ]
+  },
+  ISFP: {
+    learningStyle: '자신만의 페이스로 편안하게 공부하는 것을 좋아해요',
+    studyMethods: [
+      '예술적인 방법으로 정리하기',
+      '관심 있는 주제부터 공부하기',
+      '조용히 혼자 집중해서 하기',
+      '자연스럽게 흥미 따라가기'
+    ],
+    studyEnvironment: '편안하고 압박 없는 공간',
+    motivationTips: [
+      '강요하지 말고 부드럽게 격려해주세요',
+      '관심사와 연결해서 공부하게 해주세요',
+      '창의적인 방법을 허용해주세요'
+    ],
+    challengeAreas: [
+      '계획적으로 공부하기 어려울 수 있어요',
+      '경쟁적인 환경이 스트레스가 될 수 있어요',
+      '관심 없는 과목에 동기부여가 어려워요'
+    ]
+  },
+  ESTP: {
+    learningStyle: '활동적으로 직접 경험하며 배우는 것을 좋아해요',
+    studyMethods: [
+      '실제로 해보면서 배우기',
+      '게임이나 경쟁으로 공부하기',
+      '짧게 집중해서 공부하기',
+      '실용적인 것부터 배우기'
+    ],
+    studyEnvironment: '활동적이고 자극이 있는 환경',
+    motivationTips: [
+      '지루하지 않게 다양한 활동을 섞어주세요',
+      '경쟁이나 게임 요소를 넣어주세요',
+      '즉각적인 보상과 피드백을 주세요'
+    ],
+    challengeAreas: [
+      '오래 앉아서 공부하기 어려울 수 있어요',
+      '이론적인 내용이 지루할 수 있어요',
+      '장기 계획을 세우기 어려울 수 있어요'
+    ]
+  },
+  ESFP: {
+    learningStyle: '재미있게 사람들과 함께 배우는 것을 좋아해요',
+    studyMethods: [
+      '친구들과 재미있게 공부하기',
+      '노래나 율동으로 암기하기',
+      '게임이나 활동으로 배우기',
+      '짧게 여러 번 나눠서 공부하기'
+    ],
+    studyEnvironment: '밝고 즐거운 분위기',
+    motivationTips: [
+      '재미있는 방법으로 공부하게 해주세요',
+      '친구들과 함께할 수 있게 해주세요',
+      '즉각적인 칭찬과 인정을 해주세요'
+    ],
+    challengeAreas: [
+      '지루한 내용에 집중하기 어려워요',
+      '혼자 오래 공부하기 힘들어요',
+      '계획대로 하는 것이 어려울 수 있어요'
+    ]
+  }
+};
+
+export function getDimensionDifferences(parentType: string, childType: string): DimensionDifference[] {
+  const dimensions: Array<{ dim: 'EI' | 'SN' | 'TF' | 'JP'; index: number }> = [
+    { dim: 'EI', index: 0 },
+    { dim: 'SN', index: 1 },
+    { dim: 'TF', index: 2 },
+    { dim: 'JP', index: 3 }
+  ];
+
+  const traitNames: Record<string, string> = {
+    'E': '외향형', 'I': '내향형',
+    'S': '감각형', 'N': '직관형',
+    'T': '사고형', 'F': '감정형',
+    'J': '판단형', 'P': '인식형'
+  };
+
+  return dimensions.map(({ dim, index }) => ({
+    dimension: dim,
+    parentTrait: traitNames[parentType[index]] || parentType[index],
+    childTrait: traitNames[childType[index]] || childType[index],
+    isSame: parentType[index] === childType[index]
+  }));
+}
+
+export function getRelationshipInsight(parentType: string, childType: string): RelationshipInsight {
+  const differences = getDimensionDifferences(parentType, childType);
+  
+  let communicationParts: string[] = [];
+  let behaviorParts: string[] = [];
+  let thinkingParts: string[] = [];
+  let parentGuidance: string[] = [];
+  let childUnderstanding: string[] = [];
+
+  differences.forEach(diff => {
+    const dimData = dimensionInsights[diff.dimension];
+    const parentLetter = parentType[['EI', 'SN', 'TF', 'JP'].indexOf(diff.dimension)];
+    const childLetter = childType[['EI', 'SN', 'TF', 'JP'].indexOf(diff.dimension)];
+
+    if (diff.isSame) {
+      const sameData = dimData.same[parentLetter as keyof typeof dimData.same];
+      if (sameData) {
+        communicationParts.push(sameData.communication);
+        behaviorParts.push(sameData.behavior);
+        thinkingParts.push(sameData.thinking);
+      }
+    } else {
+      const diffKey = `parent${parentLetter}_child${childLetter}` as keyof typeof dimData.different;
+      const diffData = dimData.different[diffKey];
+      if (diffData) {
+        communicationParts.push(diffData.communication);
+        behaviorParts.push(diffData.behavior);
+        thinkingParts.push(diffData.thinking);
+        parentGuidance.push(...diffData.parentGuidance);
+        childUnderstanding.push(...diffData.childUnderstanding);
+      }
+    }
+  });
+
+  if (parentGuidance.length === 0) {
+    parentGuidance = [
+      '아이와 비슷한 성향이라 자연스럽게 소통할 수 있어요',
+      '서로를 이해하기 쉬워서 편안한 관계를 유지할 수 있어요',
+      '같은 방식으로 생각하고 행동해서 갈등이 적어요'
+    ];
+  }
+
+  if (childUnderstanding.length === 0) {
+    childUnderstanding = [
+      '엄마랑 너는 비슷하게 생각하고 행동해',
+      '엄마가 하는 말이 이해가 잘 될 거야',
+      '서로 편하게 이야기할 수 있어'
+    ];
+  }
+
+  return {
+    communicationDifference: communicationParts.join(' '),
+    behaviorDifference: behaviorParts.join(' '),
+    thinkingDifference: thinkingParts.join(' '),
+    parentGuidance: parentGuidance.slice(0, 6),
+    childUnderstanding: childUnderstanding.slice(0, 6)
+  };
+}
+
+export function getStudyRecommendation(mbtiType: string): StudyRecommendation {
+  return studyRecommendations[mbtiType] || studyRecommendations['INFP'];
 }
