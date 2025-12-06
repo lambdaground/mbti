@@ -1,0 +1,111 @@
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import QuizProgress from "./QuizProgress";
+import QuestionCard from "./QuestionCard";
+import { getQuestions, calculateMBTI, type AgeGroup, type Question } from "@/lib/mbti-data";
+
+interface QuizContainerProps {
+  ageGroup: AgeGroup;
+  onComplete: (mbtiType: string) => void;
+  onBack: () => void;
+}
+
+export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizContainerProps) {
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [answers, setAnswers] = useState<Record<number, 'A' | 'B'>>({});
+  
+  useEffect(() => {
+    setQuestions(getQuestions(ageGroup));
+  }, [ageGroup]);
+  
+  if (questions.length === 0) return null;
+  
+  const currentQuestion = questions[currentIndex];
+  const isLastQuestion = currentIndex === questions.length - 1;
+  const isFirstQuestion = currentIndex === 0;
+  const allAnswered = Object.keys(answers).length === questions.length;
+  
+  const handleAnswer = (answer: 'A' | 'B') => {
+    setAnswers((prev) => ({ ...prev, [currentQuestion.id]: answer }));
+    
+    if (!isLastQuestion) {
+      setTimeout(() => {
+        setCurrentIndex((prev) => prev + 1);
+      }, 300);
+    }
+  };
+  
+  const handlePrevious = () => {
+    if (!isFirstQuestion) {
+      setCurrentIndex((prev) => prev - 1);
+    }
+  };
+  
+  const handleNext = () => {
+    if (answers[currentQuestion.id] && !isLastQuestion) {
+      setCurrentIndex((prev) => prev + 1);
+    }
+  };
+  
+  const handleSubmit = () => {
+    if (allAnswered) {
+      const mbtiType = calculateMBTI(answers, questions);
+      onComplete(mbtiType);
+    }
+  };
+  
+  return (
+    <div className="min-h-[calc(100vh-3.5rem)] flex flex-col">
+      <div className="sticky top-14 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b py-4">
+        <div className="container max-w-2xl mx-auto px-4">
+          <QuizProgress current={currentIndex + 1} total={questions.length} />
+        </div>
+      </div>
+      
+      <div className="flex-1 flex items-center justify-center py-8 px-4">
+        <QuestionCard
+          question={currentQuestion}
+          questionNumber={currentIndex + 1}
+          totalQuestions={questions.length}
+          selectedAnswer={answers[currentQuestion.id]}
+          onAnswer={handleAnswer}
+        />
+      </div>
+      
+      <div className="sticky bottom-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t py-4">
+        <div className="container max-w-2xl mx-auto px-4 flex items-center justify-between gap-4">
+          <Button
+            variant="ghost"
+            onClick={isFirstQuestion ? onBack : handlePrevious}
+            data-testid="button-previous"
+          >
+            <ChevronLeft className="w-4 h-4 mr-1" />
+            {isFirstQuestion ? '학년 선택' : '이전'}
+          </Button>
+          
+          {isLastQuestion ? (
+            <Button
+              onClick={handleSubmit}
+              disabled={!allAnswered}
+              data-testid="button-submit"
+            >
+              결과 보기
+            </Button>
+          ) : (
+            <Button
+              variant="ghost"
+              onClick={handleNext}
+              disabled={!answers[currentQuestion.id]}
+              data-testid="button-next"
+            >
+              다음
+              <ChevronRight className="w-4 h-4 ml-1" />
+            </Button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
