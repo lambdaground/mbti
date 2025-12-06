@@ -5,6 +5,7 @@ import AgeSelection from "@/components/AgeSelection";
 import RoleSelection from "@/components/RoleSelection";
 import QuizContainer from "@/components/QuizContainer";
 import MBTIResult from "@/components/MBTIResult";
+import ComparisonResult from "@/components/ComparisonResult";
 import Footer from "@/components/Footer";
 import { type AgeGroup, type MBTIResult as MBTIResultType, type Role } from "@/lib/mbti-data";
 import { useToast } from "@/hooks/use-toast";
@@ -218,31 +219,43 @@ export default function Home() {
     );
   }
   
+  const handleComparisonShare = () => {
+    if (!parentResult || !childResult) return;
+    const text = `부모(${parentResult.primaryType.type}) & 아이(${childResult.primaryType.type}) MBTI 비교! 키즈 MBTI에서 확인해보세요: ${window.location.href}`;
+    if (navigator.share) {
+      navigator.share({
+        title: '부모-자녀 MBTI 비교 결과',
+        text,
+        url: window.location.href,
+      }).catch(() => {
+        navigator.clipboard.writeText(text).then(() => {
+          toast({
+            title: "복사 완료!",
+            description: "결과 링크가 클립보드에 복사되었어요.",
+          });
+        });
+      });
+    } else {
+      navigator.clipboard.writeText(text).then(() => {
+        toast({
+          title: "복사 완료!",
+          description: "결과 링크가 클립보드에 복사되었어요.",
+        });
+      });
+    }
+  };
+
   if (stage === 'comparison-result' && parentResult && childResult) {
     return (
       <div className="min-h-screen flex flex-col bg-background">
         <Header showRestart onRestart={handleRestart} />
         <main className="flex-1 py-8 px-4">
-          <div className="container max-w-4xl mx-auto text-center">
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">
-              부모-자녀 MBTI 비교 결과
-            </h2>
-            <p className="text-muted-foreground mb-8">
-              상세 비교 결과 페이지는 다음 단계에서 구현됩니다
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-6 rounded-lg bg-rose-50 dark:bg-rose-950/20">
-                <p className="text-sm text-muted-foreground mb-2">부모님</p>
-                <p className="text-3xl font-bold text-foreground">{parentResult.primaryType.type}</p>
-                <p className="text-lg text-muted-foreground">{parentResult.primaryType.nickname}</p>
-              </div>
-              <div className="p-6 rounded-lg bg-sky-50 dark:bg-sky-950/20">
-                <p className="text-sm text-muted-foreground mb-2">아이</p>
-                <p className="text-3xl font-bold text-foreground">{childResult.primaryType.type}</p>
-                <p className="text-lg text-muted-foreground">{childResult.primaryType.nickname}</p>
-              </div>
-            </div>
-          </div>
+          <ComparisonResult
+            parentResult={parentResult}
+            childResult={childResult}
+            onRestart={handleRestart}
+            onShare={handleComparisonShare}
+          />
         </main>
         <Footer />
       </div>
