@@ -7,27 +7,16 @@ import {
   MessageCircle, 
   Brain, 
   Heart, 
-  BookOpen, 
   Lightbulb,
   Target,
-  AlertCircle,
-  Home,
-  Check,
-  X,
   Share2,
-  RotateCcw,
-  Sparkles,
-  Zap,
-  HandHeart
+  RotateCcw
 } from "lucide-react";
 import {
   type MBTIResult,
-  type DimensionDifference,
   type HybridPersonality,
   type DimensionSimilarity,
-  getDimensionDifferences,
   getRelationshipInsight,
-  getStudyRecommendation,
   getComplexComparisonAnalysis,
 } from "@/lib/mbti-data";
 
@@ -116,20 +105,6 @@ interface ComparisonResultProps {
   onShare?: () => void;
 }
 
-const dimensionLabels: Record<string, { full: string; parent: string; child: string }> = {
-  EI: { full: '에너지 방향', parent: 'E/I', child: 'E/I' },
-  SN: { full: '인식 기능', parent: 'S/N', child: 'S/N' },
-  TF: { full: '판단 기능', parent: 'T/F', child: 'T/F' },
-  JP: { full: '생활 양식', parent: 'J/P', child: 'J/P' },
-};
-
-const dimensionDescriptions: Record<string, { title: string; description: string }> = {
-  EI: { title: '에너지를 얻는 방식', description: '외부 활동 vs 내면의 세계' },
-  SN: { title: '정보를 받아들이는 방식', description: '구체적 사실 vs 가능성과 의미' },
-  TF: { title: '결정을 내리는 방식', description: '논리와 분석 vs 가치와 감정' },
-  JP: { title: '생활을 이끌어가는 방식', description: '계획과 체계 vs 유연성과 적응' },
-};
-
 export default function ComparisonResult({ 
   parentResult, 
   childResult, 
@@ -139,15 +114,10 @@ export default function ComparisonResult({
   const parentType = parentResult.primaryType.type;
   const childType = childResult.primaryType.type;
   
-  const dimensionDifferences = getDimensionDifferences(parentType, childType);
   const relationshipInsight = getRelationshipInsight(parentType, childType);
-  const studyRecommendation = getStudyRecommendation(childType);
   const complexAnalysis = getComplexComparisonAnalysis(parentResult, childResult);
   
   const { parentHybrid, childHybrid } = complexAnalysis;
-  
-  const sameCount = dimensionDifferences.filter(d => d.isSame).length;
-  const compatibilityLevel = sameCount >= 3 ? '높음' : sameCount >= 2 ? '보통' : '다름';
 
   return (
     <div className="container max-w-4xl mx-auto space-y-8" data-testid="comparison-result-container">
@@ -177,11 +147,9 @@ export default function ComparisonResult({
             <CardTitle className="text-4xl font-bold text-rose-600 dark:text-rose-400" data-testid="text-parent-mbti">
               {parentType}
             </CardTitle>
-            {parentHybrid.blendLevel !== 'pure' && (
-              <div className="text-sm text-rose-600/80 dark:text-rose-400/80 mt-1" data-testid="text-parent-mbti-percentage">
-                {parentResult.primaryType.type} {parentResult.primaryPercentage}% + {parentResult.secondaryType.type} {parentResult.secondaryPercentage}%
-              </div>
-            )}
+            <div className="text-sm text-rose-600/80 dark:text-rose-400/80 mt-1" data-testid="text-parent-mbti-percentage">
+              {parentResult.primaryType.type} {parentResult.primaryPercentage}% + {parentResult.secondaryType.type} {parentResult.secondaryPercentage}%
+            </div>
             <div className="mt-2">
               <Badge variant="outline" className="bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-700">
                 {parentHybrid.hybridAnimalName}
@@ -210,11 +178,9 @@ export default function ComparisonResult({
             <CardTitle className="text-4xl font-bold text-sky-600 dark:text-sky-400" data-testid="text-child-mbti">
               {childType}
             </CardTitle>
-            {childHybrid.blendLevel !== 'pure' && (
-              <div className="text-sm text-sky-600/80 dark:text-sky-400/80 mt-1" data-testid="text-child-mbti-percentage">
-                {childResult.primaryType.type} {childResult.primaryPercentage}% + {childResult.secondaryType.type} {childResult.secondaryPercentage}%
-              </div>
-            )}
+            <div className="text-sm text-sky-600/80 dark:text-sky-400/80 mt-1" data-testid="text-child-mbti-percentage">
+              {childResult.primaryType.type} {childResult.primaryPercentage}% + {childResult.secondaryType.type} {childResult.secondaryPercentage}%
+            </div>
             <div className="mt-2">
               <Badge variant="outline" className="bg-sky-50 dark:bg-sky-950/30 text-sky-700 dark:text-sky-300 border-sky-300 dark:border-sky-700">
                 {childHybrid.hybridAnimalName}
@@ -228,68 +194,7 @@ export default function ComparisonResult({
         </Card>
       </div>
 
-      <Card className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 border-purple-200 dark:border-purple-900/50" data-testid="card-complex-analysis">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-purple-700 dark:text-purple-300">
-            <Sparkles className="w-5 h-5" />
-            복합 성격 분석
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <p className="text-foreground leading-relaxed" data-testid="text-overall-compatibility">
-            {complexAnalysis.overallCompatibility}
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <div className="p-4 rounded-lg bg-white/50 dark:bg-black/20">
-              <h4 className="font-semibold text-emerald-700 dark:text-emerald-400 mb-2 flex items-center gap-2">
-                <Zap className="w-4 h-4" />
-                함께할 때 강점
-              </h4>
-              <ul className="space-y-2">
-                {complexAnalysis.strengthsTogether.map((strength, index) => (
-                  <li key={index} className="flex items-start gap-2 text-sm text-foreground" data-testid={`text-strength-${index}`}>
-                    <Check className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
-                    <span>{strength}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div className="p-4 rounded-lg bg-white/50 dark:bg-black/20">
-              <h4 className="font-semibold text-amber-700 dark:text-amber-400 mb-2 flex items-center gap-2">
-                <AlertCircle className="w-4 h-4" />
-                주의할 점
-              </h4>
-              <ul className="space-y-2">
-                {complexAnalysis.potentialChallenges.map((challenge, index) => (
-                  <li key={index} className="flex items-start gap-2 text-sm text-foreground" data-testid={`text-challenge-${index}`}>
-                    <AlertCircle className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
-                    <span>{challenge}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          
-          <div className="p-4 rounded-lg bg-white/50 dark:bg-black/20 mt-4">
-            <h4 className="font-semibold text-blue-700 dark:text-blue-400 mb-2 flex items-center gap-2">
-              <HandHeart className="w-4 h-4" />
-              소통 팁
-            </h4>
-            <ul className="space-y-2">
-              {complexAnalysis.communicationTips.map((tip, index) => (
-                <li key={index} className="flex items-start gap-2 text-sm text-foreground" data-testid={`text-comm-tip-${index}`}>
-                  <Heart className="w-4 h-4 text-pink-500 flex-shrink-0 mt-0.5" />
-                  <span>{tip}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card data-testid="card-compatibility">
+      <Card className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 border-emerald-300 dark:border-emerald-800" data-testid="card-compatibility">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Users className="w-5 h-5" />
@@ -417,77 +322,6 @@ export default function ComparisonResult({
         </TabsContent>
       </Tabs>
 
-      <Card data-testid="card-study-recommendations">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-emerald-500" />
-            {childType} 유형을 위한 학습 추천
-          </CardTitle>
-          <p className="text-sm text-muted-foreground">
-            아이의 MBTI에 맞는 효과적인 학습 방법
-          </p>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="p-4 rounded-lg bg-emerald-50 dark:bg-emerald-950/20" data-testid="text-learning-style">
-            <h4 className="font-semibold text-emerald-700 dark:text-emerald-400 mb-2">학습 스타일</h4>
-            <p className="text-foreground">{studyRecommendation.learningStyle}</p>
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
-              <Target className="w-4 h-4" />
-              추천 공부 방법
-            </h4>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              {studyRecommendation.studyMethods.map((method, index) => (
-                <li key={index} className="flex items-center gap-2 text-foreground" data-testid={`text-study-method-${index}`}>
-                  <Check className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                  <span>{method}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-950/20">
-            <h4 className="font-semibold text-blue-700 dark:text-blue-400 mb-2 flex items-center gap-2">
-              <Home className="w-4 h-4" />
-              추천 학습 환경
-            </h4>
-            <p className="text-foreground" data-testid="text-study-environment">{studyRecommendation.studyEnvironment}</p>
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
-              <Lightbulb className="w-4 h-4" />
-              동기부여 팁
-            </h4>
-            <ul className="space-y-2">
-              {studyRecommendation.motivationTips.map((tip, index) => (
-                <li key={index} className="flex items-start gap-2 text-foreground" data-testid={`text-motivation-tip-${index}`}>
-                  <span className="text-amber-500 mt-0.5">★</span>
-                  <span>{tip}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="p-4 rounded-lg bg-orange-50 dark:bg-orange-950/20">
-            <h4 className="font-semibold text-orange-700 dark:text-orange-400 mb-3 flex items-center gap-2">
-              <AlertCircle className="w-4 h-4" />
-              주의할 점
-            </h4>
-            <ul className="space-y-2">
-              {studyRecommendation.challengeAreas.map((challenge, index) => (
-                <li key={index} className="flex items-start gap-2 text-foreground" data-testid={`text-challenge-area-${index}`}>
-                  <X className="w-4 h-4 text-orange-500 flex-shrink-0 mt-0.5" />
-                  <span>{challenge}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </CardContent>
-      </Card>
-
       <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
         <Button 
           variant="outline" 
@@ -510,45 +344,6 @@ export default function ComparisonResult({
             결과 공유하기
           </Button>
         )}
-      </div>
-    </div>
-  );
-}
-
-function DimensionComparisonCard({ diff, index }: { diff: DimensionDifference; index: number }) {
-  const dimInfo = dimensionDescriptions[diff.dimension];
-  
-  return (
-    <div 
-      className={`p-4 rounded-lg border ${
-        diff.isSame 
-          ? 'bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-900/50' 
-          : 'bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-900/50'
-      }`}
-      data-testid={`card-dimension-${diff.dimension}`}
-    >
-      <div className="flex items-center justify-between mb-2">
-        <span className="font-medium text-foreground">{dimInfo.title}</span>
-        <Badge 
-          variant="outline" 
-          className={diff.isSame 
-            ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-green-300' 
-            : 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border-amber-300'
-          }
-        >
-          {diff.isSame ? '일치' : '다름'}
-        </Badge>
-      </div>
-      <p className="text-xs text-muted-foreground mb-3">{dimInfo.description}</p>
-      <div className="flex items-center justify-between text-sm">
-        <div className="flex items-center gap-2">
-          <span className="text-rose-600 dark:text-rose-400 font-medium">부모:</span>
-          <span className="text-foreground">{diff.parentTrait}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-sky-600 dark:text-sky-400 font-medium">아이:</span>
-          <span className="text-foreground">{diff.childTrait}</span>
-        </div>
       </div>
     </div>
   );

@@ -2051,13 +2051,33 @@ function getHybridAnimalName(animal1: string, animal2: string): string {
   return firstPart + secondPart;
 }
 
-function getBlendDescription(dimensions: HybridDimension[], primaryAnimal: string, secondaryAnimal: string): string {
+const animalDescriptions: Record<string, string> = {
+  '올빼미': '혼자서 깊이 생각하는 것을 좋아하고, 전략적으로 목표를 달성하는',
+  '부엉이': '끝없는 호기심으로 새로운 것을 탐구하고 분석하는',
+  '사자': '리더십이 강하고 목표를 향해 당당하게 나아가는',
+  '여우': '재치있고 창의적이며, 새로운 아이디어로 가득한',
+  '늑대': '신비롭고 깊은 통찰력을 가진 이상주의자',
+  '유니콘': '상상력이 풍부하고 자신만의 세계를 가진 몽상가',
+  '돌고래': '따뜻하고 친절하며, 다른 사람을 돕는 것을 좋아하는',
+  '나비': '자유롭고 활기차며, 모든 것에 호기심을 가진',
+  '비버': '성실하고 꼼꼼하며, 계획대로 착실하게 일하는',
+  '토끼': '부드럽고 다정하며, 주변 사람들을 세심하게 챙기는',
+  '독수리': '책임감이 강하고 체계적으로 일을 처리하는',
+  '강아지': '사교적이고 친근하며, 모두와 어울리기를 좋아하는',
+  '표범': '독립적이고 손재주가 뛰어나며, 문제를 바로 해결하는',
+  '고양이': '예술적 감각이 뛰어나고 자유로운 영혼을 가진',
+  '치타': '모험을 즐기고 행동력이 넘치는 활동가',
+  '앵무새': '밝고 에너지 넘치며, 주변을 즐겁게 만드는'
+};
+
+function getBlendDescription(dimensions: HybridDimension[], primaryAnimal: string, secondaryAnimal: string, primaryType?: MBTIType): string {
   const balancedDims = dimensions.filter(d => d.isBalanced);
   const primaryParticleWa = getKoreanParticle(primaryAnimal, 'wa');
   const secondaryParticleI = getKoreanParticle(secondaryAnimal, 'i');
   
   if (balancedDims.length === 0) {
-    return `순수한 ${primaryAnimal} 성향이에요!`;
+    const animalDesc = animalDescriptions[primaryAnimal] || '독특한 매력을 가진';
+    return `${animalDesc} ${primaryAnimal} 성향이에요. ${primaryType?.description?.slice(0, 80) || '자신만의 방식으로 세상을 바라보며 특별한 매력을 가지고 있어요.'}`;
   }
   
   const traits = balancedDims.map(d => {
@@ -2140,7 +2160,7 @@ export function getHybridPersonality(result: MBTIResult): HybridPersonality {
     ? primaryAnimal 
     : getHybridAnimalName(primaryAnimal, secondaryAnimal);
   
-  const blendDescription = getBlendDescription(dimensions, primaryAnimal, secondaryAnimal);
+  const blendDescription = getBlendDescription(dimensions, primaryAnimal, secondaryAnimal, primaryType);
   
   return {
     primaryType: primaryType.type,
