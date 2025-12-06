@@ -15,7 +15,7 @@ import enfpImage from "@assets/generated_images/playful_otter_mascot_enfp.png";
 import istjImage from "@assets/generated_images/wise_turtle_mascot_istj.png";
 import isfjImage from "@assets/generated_images/isfj_caring_rabbit_mascot.png";
 import estjImage from "@assets/generated_images/estj_eagle_leader_mascot.png";
-import esfjImage from "@assets/image_1765043480460.png";
+import esfjImage from "@assets/image_1765043480460_white_bg.png";
 import istpImage from "@assets/generated_images/istp_cool_leopard_mascot.png";
 import isfpImage from "@assets/generated_images/isfp_artistic_cat_mascot.png";
 import estpImage from "@assets/generated_images/estp_cheetah_adventurer_mascot.png";
