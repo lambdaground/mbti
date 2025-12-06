@@ -1,14 +1,14 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import type { Question } from "@/lib/mbti-data";
+import type { Question, Answer } from "@/lib/mbti-data";
 
 interface QuestionCardProps {
   question: Question;
   questionNumber: number;
   totalQuestions: number;
-  selectedAnswer?: 'A' | 'B';
-  onAnswer: (answer: 'A' | 'B') => void;
+  selectedAnswer?: Answer;
+  onAnswer: (answer: Answer) => void;
 }
 
 export default function QuestionCard({ 
@@ -60,6 +60,18 @@ export default function QuestionCard({
           >
             <span className="font-semibold mr-3 shrink-0">B.</span>
             <span>{question.optionB}</span>
+          </Button>
+          
+          <Button
+            variant={selectedAnswer === 'C' ? 'default' : 'outline'}
+            className={`w-full justify-start text-left h-auto py-4 px-6 text-base leading-relaxed whitespace-normal ${
+              selectedAnswer === 'C' ? 'ring-2 ring-primary ring-offset-2' : ''
+            }`}
+            onClick={() => onAnswer('C')}
+            data-testid="button-option-c"
+          >
+            <span className="font-semibold mr-3 shrink-0">C.</span>
+            <span>{question.optionC}</span>
           </Button>
         </div>
       </div>

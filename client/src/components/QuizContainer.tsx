@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import QuizProgress from "./QuizProgress";
 import QuestionCard from "./QuestionCard";
-import { getQuestions, calculateMBTI, type AgeGroup, type Question } from "@/lib/mbti-data";
+import { getQuestions, calculateMBTI, type AgeGroup, type Question, type Answer } from "@/lib/mbti-data";
 
 interface QuizContainerProps {
   ageGroup: AgeGroup;
@@ -14,7 +14,7 @@ interface QuizContainerProps {
 export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizContainerProps) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, 'A' | 'B'>>({});
+  const [answers, setAnswers] = useState<Record<number, Answer>>({});
   
   useEffect(() => {
     setQuestions(getQuestions(ageGroup));
@@ -27,7 +27,7 @@ export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizCont
   const isFirstQuestion = currentIndex === 0;
   const allAnswered = Object.keys(answers).length === questions.length;
   
-  const handleAnswer = (answer: 'A' | 'B') => {
+  const handleAnswer = (answer: Answer) => {
     setAnswers((prev) => ({ ...prev, [currentQuestion.id]: answer }));
     
     if (!isLastQuestion) {
@@ -82,7 +82,7 @@ export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizCont
             data-testid="button-previous"
           >
             <ChevronLeft className="w-4 h-4 mr-1" />
-            {isFirstQuestion ? '학년 선택' : '이전'}
+            {isFirstQuestion ? '연령대 선택' : '이전'}
           </Button>
           
           {isLastQuestion ? (

@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Backpack, BookOpen, GraduationCap } from "lucide-react";
+import { Backpack, BookOpen, GraduationCap, Briefcase } from "lucide-react";
 import type { AgeGroup } from "@/lib/mbti-data";
 
 interface AgeCardProps {
@@ -14,12 +14,14 @@ const icons = {
   elementary: Backpack,
   middle: BookOpen,
   high: GraduationCap,
+  adult: Briefcase,
 };
 
 const colors = {
   elementary: 'from-orange-400 to-amber-500',
   middle: 'from-emerald-400 to-teal-500',
   high: 'from-blue-400 to-indigo-500',
+  adult: 'from-purple-400 to-violet-500',
 };
 
 export default function AgeCard({ ageGroup, label, subtitle, isSelected, onClick }: AgeCardProps) {
