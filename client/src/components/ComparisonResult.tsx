@@ -12,7 +12,12 @@ import {
   Share2,
   RotateCcw,
   Sparkles,
-  BookOpen
+  BookOpen,
+  Star,
+  Zap,
+  Quote,
+  Users2,
+  Eye
 } from "lucide-react";
 import {
   type MBTIResult,
@@ -23,6 +28,7 @@ import {
   getRelationshipInsight,
   getComplexComparisonAnalysis,
   getAgeNarrative,
+  getMBTIFunFacts,
   ageGroupInfo,
   animalPersonalities,
 } from "@/lib/mbti-data";
@@ -130,6 +136,7 @@ export default function ComparisonResult({
   
   const childAgeNarrative = childAgeGroup ? getAgeNarrative(childType, childAgeGroup) : null;
   const ageLabel = childAgeGroup ? ageGroupInfo[childAgeGroup].label : '';
+  const childFunFacts = getMBTIFunFacts(childType);
 
   return (
     <div className="container max-w-4xl mx-auto space-y-8" data-testid="comparison-result-container">
@@ -267,6 +274,75 @@ export default function ComparisonResult({
         </Card>
       )}
 
+      {childFunFacts && (
+        <Card className="border-2 border-amber-200 dark:border-amber-900/50" data-testid="card-child-fun-facts">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
+              <Star className="w-5 h-5" />
+              {childType} 유형의 재미있는 특징
+            </CardTitle>
+            <p className="text-sm text-muted-foreground">
+              우리 아이의 숨겨진 매력을 발견해보세요
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-100 dark:border-amber-900/30" data-testid="fun-fact-hidden-talent">
+                <div className="flex items-center gap-2 mb-2">
+                  <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                  <span className="text-sm font-medium text-amber-700 dark:text-amber-300">숨겨진 재능</span>
+                </div>
+                <p className="text-sm text-foreground">{childFunFacts.hiddenTalent}</p>
+              </div>
+              
+              <div className="p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-100 dark:border-amber-900/30" data-testid="fun-fact-superpower">
+                <div className="flex items-center gap-2 mb-2">
+                  <Zap className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                  <span className="text-sm font-medium text-amber-700 dark:text-amber-300">나만의 초능력</span>
+                </div>
+                <p className="text-sm text-foreground">{childFunFacts.superpower}</p>
+              </div>
+              
+              <div className="p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-100 dark:border-amber-900/30" data-testid="fun-fact-fun-fact">
+                <div className="flex items-center gap-2 mb-2">
+                  <Eye className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                  <span className="text-sm font-medium text-amber-700 dark:text-amber-300">알고 계셨나요?</span>
+                </div>
+                <p className="text-sm text-foreground">{childFunFacts.funFact}</p>
+              </div>
+              
+              <div className="p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-100 dark:border-amber-900/30" data-testid="fun-fact-best-match">
+                <div className="flex items-center gap-2 mb-2">
+                  <Users2 className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                  <span className="text-sm font-medium text-amber-700 dark:text-amber-300">찰떡 궁합</span>
+                </div>
+                <p className="text-sm text-foreground">{childFunFacts.bestMatch}</p>
+              </div>
+            </div>
+            
+            <div className="p-4 bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-950/30 dark:to-orange-950/30 rounded-lg border border-amber-200 dark:border-amber-800" data-testid="fun-fact-quote">
+              <div className="flex items-start gap-3">
+                <Quote className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-foreground font-medium italic">{childFunFacts.famousQuote}</p>
+                  <p className="text-xs text-muted-foreground mt-2">- {childType} 유형의 좌우명</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="p-4 bg-muted/50 rounded-lg" data-testid="fun-fact-weakness">
+              <div className="flex items-start gap-3">
+                <Heart className="w-4 h-4 text-rose-500 flex-shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-sm font-medium text-foreground">부모님이 알아주면 좋은 점: </span>
+                  <span className="text-sm text-muted-foreground">{childFunFacts.secretWeakness}</span>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       <Card className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 border-emerald-300 dark:border-emerald-800" data-testid="card-compatibility">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -394,6 +470,46 @@ export default function ComparisonResult({
           </Card>
         </TabsContent>
       </Tabs>
+
+      <Card className="border-2 border-purple-200 dark:border-purple-900/50" data-testid="card-animal-legend">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-purple-600 dark:text-purple-400">
+            <Sparkles className="w-5 h-5" />
+            MBTI 동물 성격 가이드
+          </CardTitle>
+          <p className="text-sm text-muted-foreground">
+            각 MBTI 유형을 대표하는 동물과 그 특징이에요
+          </p>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {animalPersonalities.map((item, index) => (
+              <div 
+                key={index}
+                className="flex items-start gap-3 p-3 rounded-lg bg-purple-50 dark:bg-purple-950/20 border border-purple-100 dark:border-purple-900/30"
+                data-testid={`legend-item-${item.mbti}`}
+              >
+                <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-white dark:bg-gray-800 border border-purple-200 dark:border-purple-800">
+                  <img 
+                    src={mbtiImageMap[item.mbti]} 
+                    alt={item.animal}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="font-bold text-purple-700 dark:text-purple-300">{item.mbti}</span>
+                    <Badge variant="outline" className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 border-purple-300 dark:border-purple-700">
+                      {item.animal}
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
       <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
         <Button 

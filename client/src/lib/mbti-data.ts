@@ -3011,3 +3011,148 @@ export function getAgeNarrative(mbtiType: string, ageGroup: AgeGroup): AgeNarrat
   if (!narratives) return null;
   return narratives[ageGroup];
 }
+
+export interface MBTIFunFacts {
+  hiddenTalent: string;
+  funFact: string;
+  superpower: string;
+  famousQuote: string;
+  bestMatch: string;
+  secretWeakness: string;
+}
+
+export const mbtiInterestingFacts: Record<string, MBTIFunFacts> = {
+  INTJ: {
+    hiddenTalent: "복잡한 상황에서도 빠르게 핵심을 파악하고 10년 후 미래까지 예측할 수 있어요",
+    funFact: "INTJ는 전체 인구의 약 2%로, 가장 희귀한 유형 중 하나예요. 역사상 많은 전략가와 혁신가들이 이 유형이었어요",
+    superpower: "계획의 달인! 어떤 프로젝트든 완벽한 계획을 세워서 성공으로 이끌어요",
+    famousQuote: "\"혼자 있는 시간은 충전의 시간이에요\"",
+    bestMatch: "열정적인 ENFP와 만나면 서로에게 새로운 세계를 열어줘요",
+    secretWeakness: "감정을 표현하는 것이 어렵지만, 속으로는 정말 깊이 느끼고 있어요"
+  },
+  INTP: {
+    hiddenTalent: "모든 것에 '왜?'라고 질문하며, 아무도 생각하지 못한 해결책을 찾아내요",
+    funFact: "INTP는 아인슈타인처럼 생각하는 타입! 관심 있는 주제가 생기면 몇 시간이고 파고들어요",
+    superpower: "논리의 마법사! 복잡한 문제를 단순하게 풀어내는 천재적인 능력이 있어요",
+    famousQuote: "\"세상의 모든 것은 탐구할 가치가 있어요\"",
+    bestMatch: "따뜻한 ENFJ와 함께하면 세상과 더 잘 연결될 수 있어요",
+    secretWeakness: "생각이 너무 많아서 결정을 내리기 어려울 때가 있어요"
+  },
+  ENTJ: {
+    hiddenTalent: "타고난 리더십으로 혼란스러운 상황에서도 모두를 이끌 수 있어요",
+    funFact: "많은 CEO와 정치 지도자들이 ENTJ예요. 목표를 정하면 반드시 달성해요",
+    superpower: "카리스마 폭발! 자연스럽게 사람들을 설득하고 팀을 이끌어요",
+    famousQuote: "\"불가능은 나에게 도전장이에요\"",
+    bestMatch: "섬세한 INFP와 함께하면 감성적인 균형을 찾을 수 있어요",
+    secretWeakness: "가끔 다른 사람의 감정을 놓칠 때가 있어요. 하지만 정말 신경 쓰고 있어요"
+  },
+  ENTP: {
+    hiddenTalent: "어떤 주제든 재치있게 토론하고, 불가능해 보이는 아이디어를 현실로 만들어요",
+    funFact: "ENTP는 '아이디어 폭풍' 유형! 하루에도 수십 개의 새로운 생각이 떠올라요",
+    superpower: "창의력 천재! 남들이 생각하지 못한 기발한 해결책을 찾아내요",
+    famousQuote: "\"규칙은 깨라고 있는 거예요... 더 좋은 규칙을 만들기 위해!\"",
+    bestMatch: "안정적인 INFJ와 함께하면 아이디어를 현실로 만드는 힘을 얻어요",
+    secretWeakness: "시작은 잘하지만, 마무리가 어려울 때가 있어요"
+  },
+  INFJ: {
+    hiddenTalent: "사람들의 마음을 읽듯이 이해하고, 깊은 통찰력으로 미래를 내다봐요",
+    funFact: "INFJ는 전체 인구의 1-2%로 가장 희귀한 유형이에요. 마틴 루터 킹과 간디가 이 유형이었어요",
+    superpower: "마음 읽기! 말하지 않아도 상대방이 무엇을 느끼는지 알 수 있어요",
+    famousQuote: "\"세상을 더 좋은 곳으로 만들고 싶어요\"",
+    bestMatch: "활기찬 ENTP와 함께하면 이상을 현실로 만드는 용기를 얻어요",
+    secretWeakness: "다른 사람을 너무 많이 생각하다가 자신을 잊을 때가 있어요"
+  },
+  INFP: {
+    hiddenTalent: "풍부한 상상력으로 감동적인 이야기를 만들고, 진정한 아름다움을 발견해요",
+    funFact: "많은 작가와 예술가들이 INFP예요. 셰익스피어도 이 유형으로 추정돼요",
+    superpower: "감정의 예술가! 마음으로 느끼는 모든 것을 아름답게 표현해요",
+    famousQuote: "\"진심은 언제나 통해요\"",
+    bestMatch: "논리적인 ENTJ와 함께하면 꿈을 현실로 만드는 힘을 얻어요",
+    secretWeakness: "현실보다 이상에 빠져 있을 때가 있어요. 하지만 그게 창의력의 원천이에요"
+  },
+  ENFJ: {
+    hiddenTalent: "다른 사람의 잠재력을 발견하고, 그들이 최고가 될 수 있도록 도와줘요",
+    funFact: "ENFJ는 타고난 멘토예요. 오프라 윈프리와 버락 오바마가 이 유형이에요",
+    superpower: "사람 만들기! 모든 사람의 장점을 찾아 빛나게 해줘요",
+    famousQuote: "\"함께하면 더 멀리 갈 수 있어요\"",
+    bestMatch: "독립적인 ISTP와 함께하면 새로운 관점을 배울 수 있어요",
+    secretWeakness: "다른 사람에게 '아니오'라고 말하기 어려워요"
+  },
+  ENFP: {
+    hiddenTalent: "어디서든 분위기를 밝게 만들고, 사람들에게 영감과 희망을 줘요",
+    funFact: "ENFP는 '무지개 유형'이라고 불려요. 모든 것에 가능성을 보고 열정적으로 도전해요",
+    superpower: "열정 전파! 주변 사람들도 덩달아 신나게 만드는 에너지를 가졌어요",
+    famousQuote: "\"인생은 모험이에요, 매일 새롭게!\"",
+    bestMatch: "신중한 INTJ와 함께하면 꿈에 현실적인 계획을 더할 수 있어요",
+    secretWeakness: "관심사가 너무 많아서 한 가지에 집중하기 어려울 때가 있어요"
+  },
+  ISTJ: {
+    hiddenTalent: "모든 일을 체계적으로 정리하고, 약속은 반드시 지키는 신뢰의 상징이에요",
+    funFact: "ISTJ는 조직의 기둥이에요. 많은 성공적인 관리자와 회계사들이 이 유형이에요",
+    superpower: "약속의 수호자! 한번 한 약속은 무슨 일이 있어도 꼭 지켜요",
+    famousQuote: "\"성실함이 최고의 능력이에요\"",
+    bestMatch: "자유로운 ESFP와 함께하면 삶에 즐거움을 더할 수 있어요",
+    secretWeakness: "변화가 갑자기 오면 불안할 수 있지만, 천천히 적응해요"
+  },
+  ISFJ: {
+    hiddenTalent: "조용히 모든 것을 기억하고, 필요할 때 정확하게 도움을 줘요",
+    funFact: "ISFJ는 '지구의 수호자'라고 불려요. 가장 헌신적이고 따뜻한 유형이에요",
+    superpower: "마음 챙김! 아무도 모르게 모든 사람을 세심하게 돌봐요",
+    famousQuote: "\"작은 친절이 세상을 바꿔요\"",
+    bestMatch: "열정적인 ESTP와 함께하면 새로운 모험을 경험할 수 있어요",
+    secretWeakness: "자신의 필요보다 다른 사람을 먼저 생각해서 지칠 때가 있어요"
+  },
+  ESTJ: {
+    hiddenTalent: "어떤 혼란 속에서도 질서를 만들고, 목표를 향해 팀을 이끌어요",
+    funFact: "ESTJ는 사회의 기둥이에요. 많은 성공적인 경영자와 관리자들이 이 유형이에요",
+    superpower: "실행력 최강! 계획을 세우면 반드시 실현해요",
+    famousQuote: "\"말보다 행동이에요\"",
+    bestMatch: "감성적인 ISFP와 함께하면 삶에 부드러움을 더할 수 있어요",
+    secretWeakness: "다른 사람의 감정보다 효율을 우선할 때가 있어요"
+  },
+  ESFJ: {
+    hiddenTalent: "어디서든 환영받는 분위기를 만들고, 모두가 편하게 느끼도록 해요",
+    funFact: "ESFJ는 '사회의 호스트'예요. 파티와 모임을 완벽하게 조직해요",
+    superpower: "화합의 달인! 어떤 모임이든 따뜻하고 즐거운 분위기로 만들어요",
+    famousQuote: "\"함께여서 더 행복해요\"",
+    bestMatch: "독립적인 ISTP와 함께하면 새로운 시각을 배울 수 있어요",
+    secretWeakness: "다른 사람의 평가에 민감할 수 있어요"
+  },
+  ISTP: {
+    hiddenTalent: "무엇이든 분해하고 다시 조립하며, 문제를 손으로 직접 해결해요",
+    funFact: "ISTP는 '장인 정신의 소유자'예요. 많은 운동선수와 기술자가 이 유형이에요",
+    superpower: "문제 해결사! 복잡한 기계도 순식간에 고쳐요",
+    famousQuote: "\"직접 해보면 알아요\"",
+    bestMatch: "따뜻한 ENFJ와 함께하면 감정적 연결을 배울 수 있어요",
+    secretWeakness: "감정을 말로 표현하는 것이 어려울 때가 있어요"
+  },
+  ISFP: {
+    hiddenTalent: "일상에서 아름다움을 발견하고, 예술적 감각으로 모든 것을 특별하게 만들어요",
+    funFact: "많은 예술가와 음악가들이 ISFP예요. 마이클 잭슨도 이 유형으로 알려져 있어요",
+    superpower: "아름다움 탐지기! 어디서든 숨겨진 아름다움을 발견해요",
+    famousQuote: "\"지금 이 순간이 가장 소중해요\"",
+    bestMatch: "계획적인 ENTJ와 함께하면 꿈을 현실로 만드는 힘을 얻어요",
+    secretWeakness: "갈등을 피하려고 자신의 감정을 숨길 때가 있어요"
+  },
+  ESTP: {
+    hiddenTalent: "위기 상황에서 빠르게 판단하고, 즉각적으로 행동으로 옮겨요",
+    funFact: "ESTP는 '행동파 영웅'이에요. 많은 기업가와 운동선수들이 이 유형이에요",
+    superpower: "순간 반응! 어떤 상황에서도 빠르게 최선의 결정을 내려요",
+    famousQuote: "\"생각만 하지 말고 일단 해봐!\"",
+    bestMatch: "신중한 ISFJ와 함께하면 안정적인 기반을 얻을 수 있어요",
+    secretWeakness: "장기적인 계획보다 당장의 재미를 추구할 때가 있어요"
+  },
+  ESFP: {
+    hiddenTalent: "어디서든 파티를 열고, 사람들을 웃게 만드는 천부적인 재능이 있어요",
+    funFact: "ESFP는 '인생의 파티'예요. 많은 연예인과 배우들이 이 유형이에요",
+    superpower: "즐거움 전파! 주변 사람들을 순식간에 행복하게 만들어요",
+    famousQuote: "\"오늘을 즐기자, 내일은 내일의 해가 떠!\"",
+    bestMatch: "진지한 ISTJ와 함께하면 균형 잡힌 삶을 배울 수 있어요",
+    secretWeakness: "진지한 대화나 장기 계획이 어려울 때가 있어요"
+  }
+};
+
+export function getMBTIFunFacts(mbtiType: string): MBTIFunFacts | null {
+  const normalizedType = mbtiType.toUpperCase();
+  return mbtiInterestingFacts[normalizedType] || null;
+}

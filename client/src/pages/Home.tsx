@@ -46,27 +46,34 @@ function clearSession(): void {
   });
 }
 
-function createMockResultFromMBTI(mbtiCode: string): MBTIResultType {
-  const primaryType = mbtiTypes[mbtiCode];
-  const letters = mbtiCode.split('');
-  const oppositeLetters = letters.map((letter, index) => {
-    const pairs = [['E', 'I'], ['S', 'N'], ['T', 'F'], ['J', 'P']];
-    const pair = pairs[index];
-    return pair[0] === letter ? pair[1] : pair[0];
-  });
-  const secondaryCode = oppositeLetters.join('');
+function createMockResultFromMBTI(mbtiCode: string): MBTIResultType | null {
+  const normalizedCode = mbtiCode.toUpperCase();
+  const primaryType = mbtiTypes[normalizedCode];
+  
+  if (!primaryType) {
+    return null;
+  }
+  
+  const letters = normalizedCode.split('');
+  
+  const oppositeEI = letters[0] === 'E' ? 'I' : 'E';
+  const secondaryCode = `${oppositeEI}${letters[1]}${letters[2]}${letters[3]}`;
   const secondaryType = mbtiTypes[secondaryCode];
+  
+  if (!secondaryType) {
+    return null;
+  }
   
   return {
     primaryType,
     secondaryType,
-    primaryPercentage: 85,
-    secondaryPercentage: 15,
+    primaryPercentage: 100,
+    secondaryPercentage: 0,
     dimensionScores: {
-      EI: { score: letters[0] === 'I' ? 3 : -3, percentage: letters[0] === 'I' ? 70 : 30 },
-      SN: { score: letters[1] === 'N' ? 3 : -3, percentage: letters[1] === 'N' ? 70 : 30 },
-      TF: { score: letters[2] === 'F' ? 3 : -3, percentage: letters[2] === 'F' ? 70 : 30 },
-      JP: { score: letters[3] === 'P' ? 3 : -3, percentage: letters[3] === 'P' ? 70 : 30 },
+      EI: { score: letters[0] === 'I' ? 6 : -6, percentage: letters[0] === 'I' ? 100 : 0 },
+      SN: { score: letters[1] === 'N' ? 6 : -6, percentage: letters[1] === 'N' ? 100 : 0 },
+      TF: { score: letters[2] === 'F' ? 6 : -6, percentage: letters[2] === 'F' ? 100 : 0 },
+      JP: { score: letters[3] === 'P' ? 6 : -6, percentage: letters[3] === 'P' ? 100 : 0 },
     },
   };
 }
@@ -101,6 +108,14 @@ export default function Home() {
   
   const handleStartWithMbti = (mbtiCode: string) => {
     const result = createMockResultFromMBTI(mbtiCode);
+    if (!result) {
+      toast({
+        title: "잘못된 MBTI 코드",
+        description: "올바른 MBTI 유형을 입력해주세요 (예: INTJ, ENFP)",
+        variant: "destructive",
+      });
+      return;
+    }
     setParentResult(result);
     saveToSession(SESSION_KEYS.PARENT_RESULT, result);
     saveToSession(SESSION_KEYS.PARENT_MBTI_CODE, mbtiCode);
