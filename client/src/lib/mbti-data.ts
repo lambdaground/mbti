@@ -2,6 +2,22 @@ export type AgeGroup = 'elementary' | 'middle' | 'high' | 'adult';
 
 export type Answer = 'A' | 'B' | 'C';
 
+export interface ScenarioQuestion {
+  id: number;
+  scenario: string;
+  situation?: string;
+  optionA: { text: string; icon?: string };
+  optionB: { text: string; icon?: string };
+  optionC: { text: string; icon?: string };
+  dimension: 'EI' | 'SN' | 'TF' | 'JP';
+  scoring: { A: number; B: number; C: number };
+  followUp?: {
+    onA?: number[];
+    onB?: number[];
+    onC?: number[];
+  };
+}
+
 export interface Question {
   id: number;
   text: string;
@@ -16,6 +32,11 @@ export interface Question {
   };
 }
 
+export interface BehavioralScenario {
+  situation: string;
+  behavior: string;
+}
+
 export interface MBTIType {
   type: string;
   nickname: string;
@@ -25,185 +46,858 @@ export interface MBTIType {
   animal: string;
   color: string;
   animalImage: string;
+  careers: string[];
+  hobbies: string[];
+  loveStyle: string;
+  behavioralScenarios: BehavioralScenario[];
+}
+
+export interface MBTIResult {
+  primaryType: MBTIType;
+  primaryPercentage: number;
+  secondaryType: MBTIType;
+  secondaryPercentage: number;
+  dimensionScores: {
+    EI: { score: number; percentage: number };
+    SN: { score: number; percentage: number };
+    TF: { score: number; percentage: number };
+    JP: { score: number; percentage: number };
+  };
 }
 
 export const ageGroupInfo: Record<AgeGroup, { label: string; subtitle: string; questionCount: number }> = {
   elementary: {
     label: '초등학생',
-    subtitle: '24개의 쉬운 질문',
-    questionCount: 24
+    subtitle: '16개의 재미있는 상황 질문',
+    questionCount: 16
   },
   middle: {
     label: '중학생',
-    subtitle: '32개의 질문',
-    questionCount: 32
+    subtitle: '20개의 상황 선택 질문',
+    questionCount: 20
   },
   high: {
     label: '고등학생',
-    subtitle: '40개의 질문',
-    questionCount: 40
+    subtitle: '20개의 깊이있는 질문',
+    questionCount: 20
   },
   adult: {
     label: '성인',
-    subtitle: '48개의 질문',
-    questionCount: 48
+    subtitle: '24개의 시나리오 질문',
+    questionCount: 24
   }
 };
 
-export const elementaryQuestions: Question[] = [
-  { id: 1, text: '친구들과 놀 때 나는...', optionA: '여러 친구들과 함께 노는 게 좋아!', optionB: '상황에 따라 달라!', optionC: '한두 명의 친구와 노는 게 좋아!', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 2, text: '새로운 친구를 만나면...', optionA: '친구가 말 걸어주기를 기다려!', optionB: '조금 지켜보다가 말을 걸어!', optionC: '먼저 말을 걸어!', dimension: 'EI', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 3, text: '쉬는 시간에 나는...', optionA: '친구들과 수다 떨어!', optionB: '친구랑 조용히 있어!', optionC: '혼자 책 읽거나 그림 그려!', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 4, text: '학교 끝나고 집에 오면...', optionA: '혼자 놀거나 쉬고 싶어!', optionB: '그날 기분에 따라 달라!', optionC: '바로 친구 만나고 싶어!', dimension: 'EI', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 5, text: '생일 파티는...', optionA: '많은 친구들과 시끌벅적하게!', optionB: '적당히 친한 친구들과!', optionC: '소수의 친한 친구들과 조용히!', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 6, text: '발표할 때 나는...', optionA: '떨리지만 해볼 수 있어!', optionB: '친구들 앞이라 재미있어!', optionC: '너무 떨려서 힘들어!', dimension: 'EI', scoring: { A: 0, B: 1, C: -1 } },
-  { id: 7, text: '이야기를 들을 때 나는...', optionA: '상상 속 이야기가 좋아!', optionB: '둘 다 좋아!', optionC: '실제로 일어난 이야기가 좋아!', dimension: 'SN', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 8, text: '무언가를 배울 때 나는...', optionA: '직접 해보면서 배워!', optionB: '설명 듣고 해봐!', optionC: '먼저 생각하고 상상해봐!', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 9, text: '그림을 그릴 때 나는...', optionA: '보이는 그대로 그려!', optionB: '보이는 것을 조금 바꿔서 그려!', optionC: '상상한 것을 그려!', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 10, text: '좋아하는 놀이는...', optionA: '상상 놀이나 역할극!', optionB: '둘 다 좋아!', optionC: '규칙이 있는 게임!', dimension: 'SN', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 11, text: '새로운 장난감을 받으면...', optionA: '설명서를 읽어봐!', optionB: '대충 보고 바로 놀아!', optionC: '바로 가지고 놀아!', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 12, text: '꿈을 꿀 때 나는...', optionA: '이상한 상상의 꿈을 많이 꿔!', optionB: '가끔 신기한 꿈을 꿔!', optionC: '실제 있었던 일 같은 꿈을 꿔!', dimension: 'SN', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 13, text: '친구가 슬퍼할 때 나는...', optionA: '같이 슬퍼하면서 위로해줘!', optionB: '뭐가 필요한지 물어봐!', optionC: '해결 방법을 알려줘!', dimension: 'TF', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 14, text: '뭔가를 결정할 때 나는...', optionA: '어떤 게 맞는지 생각해!', optionB: '여러 가지를 생각해봐!', optionC: '기분이 어떤지 생각해!', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 15, text: '칭찬을 받으면 나는...', optionA: '왜 칭찬받았는지 궁금해!', optionB: '그냥 기분이 좋아!', optionC: '너무 기분이 좋고 감동해!', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 16, text: '친구랑 싸웠을 때...', optionA: '누가 잘못했는지 생각해!', optionB: '조금 시간이 지나면 화해해!', optionC: '친구 마음이 어떤지 걱정돼!', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 17, text: '게임에서 졌을 때...', optionA: '속상하지만 다음에 잘하면 돼!', optionB: '왜 졌는지 분석해!', optionC: '너무 속상해서 울 것 같아!', dimension: 'TF', scoring: { A: 0, B: 1, C: -1 } },
-  { id: 18, text: '동물을 볼 때 나는...', optionA: '너무 귀엽고 사랑스러워!', optionB: '관찰하는 게 재미있어!', optionC: '어떤 종류인지 궁금해!', dimension: 'TF', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 19, text: '숙제를 할 때 나는...', optionA: '하고 싶을 때 해!', optionB: '시간 되면 해!', optionC: '미리미리 해두는 편이야!', dimension: 'JP', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 20, text: '방학 계획을 세울 때 나는...', optionA: '할 일을 미리 정해둬!', optionB: '대충 계획을 세워!', optionC: '그때그때 하고 싶은 거 해!', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 21, text: '준비물을 챙길 때 나는...', optionA: '아침에 급하게 챙겨!', optionB: '저녁에 대충 챙겨!', optionC: '전날 미리 챙겨!', dimension: 'JP', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 22, text: '내 방은...', optionA: '깔끔하게 정리되어 있어!', optionB: '적당히 어질러져 있어!', optionC: '내 스타일대로 어질러져 있어!', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 23, text: '주말에 뭐 할지...', optionA: '그날 아침에 정해!', optionB: '대충 생각해둬!', optionC: '미리 계획을 세워!', dimension: 'JP', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 24, text: '갑자기 계획이 바뀌면...', optionA: '좀 불편하지만 괜찮아!', optionB: '아 그래? 뭐 어때!', optionC: '싫어! 원래대로 하고 싶어!', dimension: 'JP', scoring: { A: 0, B: -1, C: 1 } },
+export const scenarioQuestionsElementary: ScenarioQuestion[] = [
+  {
+    id: 1,
+    scenario: '놀이공원에 왔어요! 어떻게 하고 싶어요?',
+    situation: '신나는 놀이공원 입구에서',
+    optionA: { text: '친구들 여러 명이랑 같이 돌아다녀요!', icon: 'users' },
+    optionB: { text: '한두 명의 친한 친구랑 천천히 구경해요', icon: 'user' },
+    optionC: { text: '혼자 가고 싶은 곳을 정해서 가요', icon: 'compass' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 2,
+    scenario: '학교에서 새 짝꿍이 생겼어요!',
+    situation: '자리 바꾸기 후 첫날',
+    optionA: { text: '내가 먼저 말 걸고 친해져요', icon: 'hand' },
+    optionB: { text: '상대방이 말 걸면 친하게 지내요', icon: 'message' },
+    optionC: { text: '조용히 지켜보다가 천천히 친해져요', icon: 'eye' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 3,
+    scenario: '마법의 그림책이 있어요. 어떤 책을 고를까요?',
+    situation: '마법 도서관에서',
+    optionA: { text: '용과 마법사가 나오는 판타지 이야기', icon: 'sparkles' },
+    optionB: { text: '재미있는 동물 백과사전', icon: 'book' },
+    optionC: { text: '실제 탐험가의 모험 이야기', icon: 'map' },
+    dimension: 'SN',
+    scoring: { A: -2, B: 0, C: 2 }
+  },
+  {
+    id: 4,
+    scenario: '레고로 뭔가를 만들려고 해요!',
+    situation: '레고 놀이 시간',
+    optionA: { text: '설명서대로 정확하게 만들어요', icon: 'clipboard' },
+    optionB: { text: '설명서 보면서 조금씩 바꿔요', icon: 'edit' },
+    optionC: { text: '상상하는 대로 마음대로 만들어요', icon: 'lightbulb' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 5,
+    scenario: '친구가 울고 있어요. 어떻게 할까요?',
+    situation: '쉬는 시간에 친구가 슬퍼보여요',
+    optionA: { text: '옆에 앉아서 같이 슬퍼해줘요', icon: 'heart' },
+    optionB: { text: '무슨 일인지 물어보고 이야기를 들어요', icon: 'ear' },
+    optionC: { text: '선생님께 말씀드리거나 해결 방법을 찾아요', icon: 'target' },
+    dimension: 'TF',
+    scoring: { A: -2, B: 0, C: 2 }
+  },
+  {
+    id: 6,
+    scenario: '반장 선거가 있어요. 누구를 뽑을까요?',
+    situation: '반장 선거 투표 시간',
+    optionA: { text: '친하고 좋아하는 친구를 뽑아요', icon: 'heart' },
+    optionB: { text: '잘 모르겠으면 여러 가지 생각해봐요', icon: 'thinking' },
+    optionC: { text: '반장 일을 잘할 것 같은 친구를 뽑아요', icon: 'check' },
+    dimension: 'TF',
+    scoring: { A: -2, B: 0, C: 2 }
+  },
+  {
+    id: 7,
+    scenario: '내일 소풍이에요! 어떻게 준비할까요?',
+    situation: '소풍 전날 밤',
+    optionA: { text: '미리미리 가방에 다 챙겨놔요', icon: 'package' },
+    optionB: { text: '중요한 것만 챙기고 아침에 마무리해요', icon: 'clock' },
+    optionC: { text: '아침에 일어나서 챙겨요', icon: 'sun' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 8,
+    scenario: '방학 숙제가 있어요!',
+    situation: '방학 첫날',
+    optionA: { text: '방학 시작하자마자 끝내버려요', icon: 'zap' },
+    optionB: { text: '조금씩 나눠서 해요', icon: 'calendar' },
+    optionC: { text: '방학 끝나기 전에 해요', icon: 'hourglass' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 9,
+    scenario: '생일 파티를 열어요!',
+    situation: '내 생일날',
+    optionA: { text: '많은 친구들을 초대해서 시끌벅적하게!', icon: 'party' },
+    optionB: { text: '적당한 친구들과 재미있게!', icon: 'cake' },
+    optionC: { text: '가장 친한 친구 몇 명이랑 조용히!', icon: 'gift' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 10,
+    scenario: '보물찾기 게임을 해요!',
+    situation: '보물찾기 시작',
+    optionA: { text: '힌트를 차근차근 따라가요', icon: 'footprints' },
+    optionB: { text: '힌트도 보고 감도 써봐요', icon: 'compass' },
+    optionC: { text: '직감으로 보물이 있을 것 같은 곳을 찾아요', icon: 'sparkle' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 11,
+    scenario: '친구랑 게임에서 졌어요!',
+    situation: '게임 끝난 후',
+    optionA: { text: '분석해서 다음엔 이기겠다고 다짐해요', icon: 'chart' },
+    optionB: { text: '아쉽지만 재미있었어요', icon: 'smile' },
+    optionC: { text: '너무 속상해서 다시 하고 싶어요', icon: 'refresh' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 12,
+    scenario: '갑자기 계획이 바뀌었어요!',
+    situation: '놀러가기로 했는데 비가 와요',
+    optionA: { text: '새로운 계획을 세우는 것도 재미있어요', icon: 'shuffle' },
+    optionB: { text: '좀 아쉽지만 다른 거 해요', icon: 'droplet' },
+    optionC: { text: '약속이 바뀌어서 속상해요', icon: 'cloud' },
+    dimension: 'JP',
+    scoring: { A: -2, B: 0, C: 2 }
+  },
+  {
+    id: 13,
+    scenario: '발표 순서가 왔어요!',
+    situation: '반 친구들 앞에서 발표',
+    optionA: { text: '신나요! 내 이야기를 들려줄 수 있어서!', icon: 'mic' },
+    optionB: { text: '긴장되지만 해볼 수 있어요', icon: 'thumbsup' },
+    optionC: { text: '너무 떨려서 힘들어요', icon: 'nervous' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 14,
+    scenario: '미래에 어떤 사람이 되고 싶어요?',
+    situation: '꿈을 상상할 때',
+    optionA: { text: '마법사나 우주 비행사 같은 특별한 일!', icon: 'rocket' },
+    optionB: { text: '재미있는 일이면 뭐든지 좋아요', icon: 'star' },
+    optionC: { text: '선생님이나 의사 같은 도움이 되는 일!', icon: 'briefcase' },
+    dimension: 'SN',
+    scoring: { A: -2, B: 0, C: 2 }
+  },
+  {
+    id: 15,
+    scenario: '친구가 실수를 했어요!',
+    situation: '친구가 넘어져서 물을 쏟았어요',
+    optionA: { text: '괜찮은지 먼저 물어봐요', icon: 'heart' },
+    optionB: { text: '같이 치우자고 해요', icon: 'hands' },
+    optionC: { text: '빨리 휴지를 가져와요', icon: 'tissue' },
+    dimension: 'TF',
+    scoring: { A: -2, B: 0, C: 2 }
+  },
+  {
+    id: 16,
+    scenario: '내 방을 꾸며요!',
+    situation: '방 정리 시간',
+    optionA: { text: '모든 물건 자리를 정해서 깔끔하게!', icon: 'grid' },
+    optionB: { text: '대충 정리하고 편하게!', icon: 'cozy' },
+    optionC: { text: '내 스타일대로 자유롭게!', icon: 'palette' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  }
 ];
 
-export const middleQuestions: Question[] = [
-  { id: 1, text: '주말에 시간이 생기면...', optionA: '친구들과 약속을 잡아 밖에서 놀아요', optionB: '기분에 따라 달라요', optionC: '집에서 혼자만의 시간을 보내요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 2, text: '새 학기 첫날, 나는...', optionA: '누군가 말을 걸어주길 기다려요', optionB: '옆자리 친구에게 먼저 인사해요', optionC: '새로운 반 친구들에게 먼저 말을 걸어요', dimension: 'EI', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 3, text: '모둠 활동을 할 때 나는...', optionA: '의견을 적극적으로 말하는 편이에요', optionB: '때에 따라 말하거나 들어요', optionC: '다른 친구들 의견을 먼저 들어요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 4, text: '힘든 일이 있을 때 나는...', optionA: '친구들과 이야기하며 풀어요', optionB: '상황에 따라 달라요', optionC: '혼자 생각을 정리해요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 5, text: '학교에서 쉬는 시간에...', optionA: '조용히 혼자 쉬고 싶어요', optionB: '친한 친구랑 이야기해요', optionC: '여러 친구들과 어울려요', dimension: 'EI', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 6, text: '에너지가 생기는 때는...', optionA: '사람들과 함께할 때', optionB: '때에 따라 달라요', optionC: '혼자 있을 때', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 7, text: '새로운 모임에 가면...', optionA: '지켜보다가 적응해요', optionB: '자연스럽게 섞여요', optionC: '먼저 나서서 인사해요', dimension: 'EI', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 8, text: '친구를 사귀는 방식은...', optionA: '많은 친구와 두루두루 지내요', optionB: '적당히 친한 친구들이 있어요', optionC: '소수의 깊은 친구가 있어요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 9, text: '수업 시간에 나는...', optionA: '전체적인 개념과 이론이 더 흥미로워요', optionB: '둘 다 중요해요', optionC: '구체적인 예시와 사실이 더 이해가 잘 돼요', dimension: 'SN', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 10, text: '문제를 풀 때 나는...', optionA: '정해진 방법대로 차근차근 풀어요', optionB: '상황에 맞게 풀어요', optionC: '새로운 방법을 찾아보려 해요', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 11, text: '미래에 대해 생각할 때 나는...', optionA: '다양한 가능성을 상상해요', optionB: '대략적으로 생각해요', optionC: '현실적으로 가능한 것을 생각해요', dimension: 'SN', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 12, text: '책이나 영화를 볼 때 나는...', optionA: '현실적인 이야기를 좋아해요', optionB: '장르 상관없이 재미있으면 돼요', optionC: '판타지나 SF 같은 상상의 세계가 좋아요', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 13, text: '새로운 것을 배울 때...', optionA: '실제로 해보면서 배워요', optionB: '설명을 듣고 시도해요', optionC: '원리를 먼저 이해하려 해요', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 14, text: '대화할 때 나는...', optionA: '구체적인 사실을 말해요', optionB: '상황에 맞게 말해요', optionC: '비유나 예시를 많이 들어요', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 15, text: '정보를 얻을 때...', optionA: '숨겨진 의미를 찾으려 해요', optionB: '내용을 이해하려 해요', optionC: '있는 그대로 받아들여요', dimension: 'SN', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 16, text: '취미를 고를 때...', optionA: '실용적인 것을 좋아해요', optionB: '재미있으면 돼요', optionC: '창의적인 것을 좋아해요', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 17, text: '친구가 고민을 말할 때 나는...', optionA: '공감하고 감정적으로 지지해줘요', optionB: '들어주면서 필요하면 조언해요', optionC: '해결책을 찾아 조언해줘요', dimension: 'TF', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 18, text: '중요한 결정을 할 때 나는...', optionA: '논리적으로 장단점을 따져요', optionB: '이성과 감정 둘 다 생각해요', optionC: '마음이 가는 쪽을 선택해요', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 19, text: '토론이나 논쟁에서 나는...', optionA: '객관적인 사실을 중요하게 생각해요', optionB: '상황에 따라 달라요', optionC: '서로의 감정을 배려하는 게 중요해요', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 20, text: '성적표를 받았을 때 나는...', optionA: '선생님 평가 코멘트에 관심이 가요', optionB: '전체적으로 살펴봐요', optionC: '점수와 순위를 분석해요', dimension: 'TF', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 21, text: '친구가 실수했을 때...', optionA: '솔직하게 알려줘요', optionB: '상황을 보고 판단해요', optionC: '기분이 상하지 않게 조심해요', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 22, text: '영화를 볼 때 끌리는 것은...', optionA: '감동적인 스토리', optionB: '재미있는 이야기', optionC: '논리적인 전개', dimension: 'TF', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 23, text: '칭찬을 할 때...', optionA: '솔직하게 잘한 점을 말해요', optionB: '상황에 맞게 해요', optionC: '기분 좋게 해주려고 해요', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 24, text: '갈등이 생기면...', optionA: '공정하게 해결하려 해요', optionB: '상황을 보고 판단해요', optionC: '관계가 안 상하게 해요', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 25, text: '시험 준비를 할 때 나는...', optionA: '그날 기분에 따라 공부해요', optionB: '대략적인 계획을 세워요', optionC: '계획표를 세우고 따라가요', dimension: 'JP', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 26, text: '과제 마감이 있을 때 나는...', optionA: '여유있게 미리 끝내요', optionB: '적당히 시간 맞춰서 해요', optionC: '마감 직전에 집중해서 해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 27, text: '여행을 갈 때 나는...', optionA: '즉흥적으로 움직이는 게 좋아요', optionB: '대강의 계획만 세워요', optionC: '꼼꼼하게 일정을 짜요', dimension: 'JP', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 28, text: '하루 일과를 보낼 때 나는...', optionA: '정해진 루틴대로 움직여요', optionB: '대체로 일정하게 보내요', optionC: '상황에 따라 유연하게 바꿔요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 29, text: '약속 시간에 대해...', optionA: '여유있게 미리 도착해요', optionB: '시간에 맞춰 가요', optionC: '조금 늦어도 괜찮아요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 30, text: '새로운 일을 시작할 때...', optionA: '계획을 세우고 시작해요', optionB: '대략적으로 생각하고 시작해요', optionC: '일단 해보면서 배워요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 31, text: '방을 정리하는 스타일은...', optionA: '정리 안 해도 괜찮아요', optionB: '가끔 정리해요', optionC: '항상 깔끔하게 해요', dimension: 'JP', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 32, text: '계획이 갑자기 바뀌면...', optionA: '유연하게 받아들여요', optionB: '좀 불편하지만 괜찮아요', optionC: '많이 스트레스 받아요', dimension: 'JP', scoring: { A: -1, B: 0, C: 1 } },
+export const scenarioQuestionsMiddle: ScenarioQuestion[] = [
+  {
+    id: 1,
+    scenario: '주말에 갑자기 자유 시간이 생겼어요!',
+    situation: '토요일 오후, 할 일이 없는 날',
+    optionA: { text: '친구들에게 연락해서 뭐 할지 정해요', icon: 'phone' },
+    optionB: { text: '기분에 따라 결정해요', icon: 'shuffle' },
+    optionC: { text: '집에서 좋아하는 것을 하면서 쉬어요', icon: 'home' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 2,
+    scenario: '새 학기 첫날, 모르는 애들뿐이에요!',
+    situation: '교실에 들어섰을 때',
+    optionA: { text: '옆자리에 먼저 인사하고 말을 걸어요', icon: 'wave' },
+    optionB: { text: '누가 말 걸면 반갑게 대해요', icon: 'smile' },
+    optionC: { text: '조용히 앉아서 상황을 지켜봐요', icon: 'eye' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 3,
+    scenario: '단체 카톡방이 활발해요!',
+    situation: '친구들이 수다를 떨고 있어요',
+    optionA: { text: '적극적으로 대화에 참여해요', icon: 'chat' },
+    optionB: { text: '가끔 리액션만 해요', icon: 'thumbsup' },
+    optionC: { text: '읽기만 하고 필요할 때만 답해요', icon: 'eyeglasses' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 4,
+    scenario: '영화를 골라야 해요!',
+    situation: '친구들이랑 넷플릭스 볼 때',
+    optionA: { text: 'SF나 판타지 같은 상상의 세계 이야기', icon: 'rocket' },
+    optionB: { text: '재미있으면 장르 상관없어요', icon: 'popcorn' },
+    optionC: { text: '실화 기반이나 현실적인 스토리', icon: 'film' },
+    dimension: 'SN',
+    scoring: { A: -2, B: 0, C: 2 }
+  },
+  {
+    id: 5,
+    scenario: '시험 공부를 해야 해요!',
+    situation: '시험 일주일 전',
+    optionA: { text: '교과서 내용을 꼼꼼히 암기해요', icon: 'book' },
+    optionB: { text: '중요한 부분 위주로 정리해요', icon: 'highlight' },
+    optionC: { text: '전체적인 흐름과 연결고리를 파악해요', icon: 'connect' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 6,
+    scenario: '진로를 생각해봐야 해요!',
+    situation: '미래에 대해 고민할 때',
+    optionA: { text: '안정적이고 확실한 직업을 원해요', icon: 'shield' },
+    optionB: { text: '아직 잘 모르겠어요', icon: 'thinking' },
+    optionC: { text: '새롭고 창의적인 분야가 끌려요', icon: 'lightbulb' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 7,
+    scenario: '친구가 속상한 일이 있대요!',
+    situation: '친구가 고민을 말해줬어요',
+    optionA: { text: '어떻게 하면 좋을지 해결책을 같이 찾아요', icon: 'puzzle' },
+    optionB: { text: '이야기를 들어주며 공감해줘요', icon: 'ear' },
+    optionC: { text: '같이 슬퍼하면서 위로해줘요', icon: 'hug' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 8,
+    scenario: '모둠 과제에서 의견이 갈려요!',
+    situation: '팀원들이 다른 의견을 가지고 있어요',
+    optionA: { text: '논리적으로 가장 좋은 방법을 설득해요', icon: 'scale' },
+    optionB: { text: '다들 의견을 들어보고 절충해요', icon: 'handshake' },
+    optionC: { text: '분위기가 안 좋아지지 않게 조율해요', icon: 'peace' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 9,
+    scenario: '점수가 기대보다 낮게 나왔어요!',
+    situation: '시험 결과를 받았을 때',
+    optionA: { text: '왜 틀렸는지 분석하고 다음에 더 잘해요', icon: 'chart' },
+    optionB: { text: '아쉽지만 다음에 잘하면 돼요', icon: 'refresh' },
+    optionC: { text: '속상하고 우울해져요', icon: 'cloud' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 10,
+    scenario: '프로젝트 마감이 다가와요!',
+    situation: '제출 3일 전',
+    optionA: { text: '이미 거의 다 끝냈어요', icon: 'check' },
+    optionB: { text: '지금부터 본격적으로 해요', icon: 'play' },
+    optionC: { text: '마감 전날 집중해서 해요', icon: 'fire' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 11,
+    scenario: '방학 계획을 세워요!',
+    situation: '방학이 시작되기 전',
+    optionA: { text: '할 일 목록과 일정표를 만들어요', icon: 'calendar' },
+    optionB: { text: '대략적인 계획만 세워요', icon: 'note' },
+    optionC: { text: '그때그때 하고 싶은 걸 해요', icon: 'wind' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 12,
+    scenario: '갑자기 약속이 취소됐어요!',
+    situation: '친구가 갑자기 못 만나게 됐어요',
+    optionA: { text: '오히려 좋아! 다른 거 할 수 있어요', icon: 'sparkle' },
+    optionB: { text: '아쉽지만 괜찮아요', icon: 'ok' },
+    optionC: { text: '기대했는데 좀 짜증나요', icon: 'annoyed' },
+    dimension: 'JP',
+    scoring: { A: -2, B: 0, C: 2 }
+  },
+  {
+    id: 13,
+    scenario: '에너지가 필요해요!',
+    situation: '지친 하루 끝에',
+    optionA: { text: '친구들 만나서 수다 떨면 충전돼요', icon: 'bolt' },
+    optionB: { text: '상황에 따라 달라요', icon: 'battery' },
+    optionC: { text: '혼자 조용히 쉬면 충전돼요', icon: 'moon' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 14,
+    scenario: '새로운 취미를 시작해요!',
+    situation: '관심 있는 것을 찾을 때',
+    optionA: { text: '실용적이고 도움이 되는 것을 배워요', icon: 'tool' },
+    optionB: { text: '재미있어 보이면 해봐요', icon: 'star' },
+    optionC: { text: '독특하고 창의적인 것이 끌려요', icon: 'palette' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 15,
+    scenario: '친구가 약속을 어겼어요!',
+    situation: '기다렸는데 친구가 안 왔어요',
+    optionA: { text: '화가 나지만 이유를 물어봐요', icon: 'question' },
+    optionB: { text: '다음엔 이러지 말라고 해요', icon: 'warning' },
+    optionC: { text: '무슨 일이 있었나 걱정돼요', icon: 'heart' },
+    dimension: 'TF',
+    scoring: { A: 0, B: 2, C: -2 }
+  },
+  {
+    id: 16,
+    scenario: '내 방 책상은...',
+    situation: '평소 책상 상태',
+    optionA: { text: '항상 깔끔하게 정리되어 있어요', icon: 'sparkles' },
+    optionB: { text: '쓰다가 가끔 정리해요', icon: 'layers' },
+    optionC: { text: '나만 알아보는 나만의 스타일이에요', icon: 'chaos' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 17,
+    scenario: '대화할 때 더 재미있는 것은?',
+    situation: '친구들이랑 이야기할 때',
+    optionA: { text: '미래에 대한 상상이나 아이디어', icon: 'crystal' },
+    optionB: { text: '다양한 주제 다 좋아요', icon: 'chat' },
+    optionC: { text: '실제 있었던 일이나 경험', icon: 'story' },
+    dimension: 'SN',
+    scoring: { A: -2, B: 0, C: 2 }
+  },
+  {
+    id: 18,
+    scenario: '칭찬을 받았어요!',
+    situation: '선생님이 칭찬해주셨어요',
+    optionA: { text: '뿌듯하고 더 잘하고 싶어요', icon: 'medal' },
+    optionB: { text: '기분이 좋아요', icon: 'smile' },
+    optionC: { text: '어색하고 부끄러워요', icon: 'blush' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 19,
+    scenario: '결정을 내려야 해요!',
+    situation: '중요한 선택의 순간',
+    optionA: { text: '빨리 결정하고 행동해요', icon: 'zap' },
+    optionB: { text: '적당히 고민하고 결정해요', icon: 'scale' },
+    optionC: { text: '여러 가능성을 열어두고 천천히 결정해요', icon: 'hourglass' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 20,
+    scenario: '수업 시간에 발표해요!',
+    situation: '선생님이 발표할 사람을 찾아요',
+    optionA: { text: '손 들고 나가서 발표해요', icon: 'hand' },
+    optionB: { text: '시키면 해요', icon: 'ok' },
+    optionC: { text: '되도록 안 하고 싶어요', icon: 'hide' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  }
 ];
 
-export const highQuestions: Question[] = [
-  { id: 1, text: '에너지를 충전하는 방법은?', optionA: '사람들과 어울리며 대화할 때 에너지가 생겨요', optionB: '상황에 따라 달라요', optionC: '혼자만의 시간을 가질 때 재충전돼요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 2, text: '처음 만나는 사람들 앞에서 나는...', optionA: '상대방이 먼저 다가오길 기다려요', optionB: '자연스럽게 대화해요', optionC: '먼저 다가가서 대화를 시작해요', dimension: 'EI', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 3, text: '그룹 프로젝트에서 나는...', optionA: '리더 역할을 맡아 진행하는 편이에요', optionB: '상황에 따라 역할이 바뀌어요', optionC: '맡은 역할을 묵묵히 수행해요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 4, text: '스트레스를 받으면 나는...', optionA: '친구들과 수다를 떨며 풀어요', optionB: '때에 따라 다르게 해소해요', optionC: '혼자 음악 듣거나 산책해요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 5, text: '파티나 모임에서 나는...', optionA: '조용히 있다가 일찍 나가요', optionB: '적당히 어울리다 나가요', optionC: '여러 사람과 이야기하며 즐겨요', dimension: 'EI', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 6, text: 'SNS 활동에 대해서는...', optionA: '자주 포스팅하고 소통해요', optionB: '가끔 활동해요', optionC: '보기만 하는 편이에요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 7, text: '의사소통 스타일은...', optionA: '글로 정리해서 전달해요', optionB: '상황에 맞게 선택해요', optionC: '말로 직접 전달해요', dimension: 'EI', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 8, text: '휴일에는...', optionA: '밖에서 사람들과 보내요', optionB: '균형있게 보내요', optionC: '집에서 조용히 보내요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 9, text: '친구 수에 대해서는...', optionA: '많은 친구가 있어요', optionB: '적당한 수의 친구가 있어요', optionC: '소수의 깊은 친구가 있어요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 10, text: '혼자 있는 시간은...', optionA: '심심하고 외로워요', optionB: '가끔은 필요해요', optionC: '편하고 좋아요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 11, text: '생각하는 방식에 대해 말하자면...', optionA: '이론적이고 추상적인 편이에요', optionB: '상황에 따라 달라요', optionC: '현실적이고 실용적인 편이에요', dimension: 'SN', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 12, text: '공부할 때 선호하는 방식은?', optionA: '구체적인 예시와 실습 위주가 좋아요', optionB: '균형있게 배워요', optionC: '전체적인 개념과 원리 파악이 먼저예요', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 13, text: '진로를 생각할 때 나는...', optionA: '새롭고 혁신적인 분야에 관심이 가요', optionB: '다양한 가능성을 열어두어요', optionC: '안정적이고 현실 가능한 직업을 생각해요', dimension: 'SN', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 14, text: '정보를 받아들일 때 나는...', optionA: '구체적인 세부 사항에 집중해요', optionB: '전체와 세부를 함께 봐요', optionC: '전체적인 패턴과 의미를 찾아요', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 15, text: '글이나 보고서를 쓸 때 나는...', optionA: '비유와 상징을 활용해 표현해요', optionB: '상황에 맞게 써요', optionC: '사실과 데이터를 바탕으로 써요', dimension: 'SN', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 16, text: '문제 해결 방식은...', optionA: '검증된 방법을 사용해요', optionB: '상황에 맞는 방법을 찾아요', optionC: '새로운 접근법을 시도해요', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 17, text: '대화에서 선호하는 것은...', optionA: '구체적인 사실 이야기', optionB: '균형있게 대화해요', optionC: '아이디어와 가능성 이야기', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 18, text: '시간에 대한 인식은...', optionA: '현재에 집중해요', optionB: '과거, 현재, 미래를 함께 생각해요', optionC: '미래를 많이 생각해요', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 19, text: '변화에 대해서는...', optionA: '새로운 것을 환영해요', optionB: '필요하면 받아들여요', optionC: '익숙한 것이 편해요', dimension: 'SN', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 20, text: '관심 분야는...', optionA: '실용적인 것들', optionB: '다양해요', optionC: '이론적인 것들', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 21, text: '결정을 내릴 때 나는...', optionA: '관련된 사람들의 감정을 고려해요', optionB: '이성과 감정을 함께 고려해요', optionC: '객관적인 기준과 논리를 중시해요', dimension: 'TF', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 22, text: '피드백을 줄 때 나는...', optionA: '솔직하고 직접적으로 말해요', optionB: '상황에 맞게 조절해요', optionC: '상대방 기분을 고려해 돌려 말해요', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 23, text: '갈등 상황에서 나는...', optionA: '모두의 감정이 상하지 않게 조율해요', optionB: '적절한 해결책을 찾으려 해요', optionC: '공정하고 합리적인 해결책을 찾아요', dimension: 'TF', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 24, text: '친구의 실수에 대해 나는...', optionA: '객관적으로 잘못을 지적해줘요', optionB: '상황을 보고 판단해요', optionC: '감정을 먼저 위로하고 조언해요', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 25, text: '비판을 받으면...', optionA: '논리적으로 분석해요', optionB: '내용을 생각해봐요', optionC: '감정적으로 받아들여요', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 26, text: '중요한 것은...', optionA: '사실과 진실', optionB: '상황에 따라 달라요', optionC: '사람과 감정', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 27, text: '리더로서 중요하게 생각하는 것은...', optionA: '구성원들의 감정 배려', optionB: '균형있는 운영', optionC: '목표 달성과 효율성', dimension: 'TF', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 28, text: '다른 사람을 평가할 때...', optionA: '객관적 기준으로 평가해요', optionB: '여러 면을 고려해요', optionC: '개인 사정을 고려해요', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 29, text: '논쟁에서는...', optionA: '논리적 타당성이 중요해요', optionB: '상황에 맞게 대응해요', optionC: '관계 유지가 중요해요', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 30, text: '사과할 때는...', optionA: '상대방 감정에 집중해요', optionB: '진심으로 사과해요', optionC: '문제점을 분석해서 말해요', dimension: 'TF', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 31, text: '일을 처리하는 방식은?', optionA: '유연하게 상황에 맞춰 처리해요', optionB: '적당히 계획하고 유연하게 해요', optionC: '계획을 세우고 체계적으로 진행해요', dimension: 'JP', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 32, text: '마감 기한에 대한 나의 태도는?', optionA: '여유있게 미리 완료하는 편이에요', optionB: '적당히 여유를 두고 해요', optionC: '마감 직전 집중력이 최고예요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 33, text: '일정이 바뀌었을 때 나는...', optionA: '불편하고 스트레스를 받아요', optionB: '좀 불편하지만 적응해요', optionC: '유연하게 적응하는 편이에요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 34, text: '여가 시간 활용에 대해...', optionA: '미리 계획한 활동을 해요', optionB: '대략적인 계획을 세워요', optionC: '그때그때 하고 싶은 걸 해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 35, text: '책상이나 방 정리는...', optionA: '나만의 규칙대로 어질러져 있어요', optionB: '적당히 정리되어 있어요', optionC: '항상 깔끔하게 정돈되어 있어요', dimension: 'JP', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 36, text: '새로운 환경에 적응할 때...', optionA: '미리 정보를 수집하고 준비해요', optionB: '적당히 준비하고 적응해요', optionC: '가서 직접 경험하며 적응해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 37, text: '인생에서 중요하게 생각하는 것은?', optionA: '자유로움과 다양한 경험', optionB: '균형 잡힌 삶', optionC: '안정감과 예측 가능한 미래', dimension: 'JP', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 38, text: '결정을 내릴 때...', optionA: '빨리 결정해요', optionB: '적당히 고민해요', optionC: '여러 선택지를 열어두어요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 39, text: '규칙에 대해서는...', optionA: '규칙을 따라요', optionB: '상황에 따라 달라요', optionC: '유연하게 해석해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 40, text: '시간 관리는...', optionA: '계획적으로 해요', optionB: '적당히 해요', optionC: '자유롭게 해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
+export const scenarioQuestionsHigh: ScenarioQuestion[] = [
+  {
+    id: 1,
+    scenario: '금요일 밤, 뭘 할까요?',
+    situation: '일주일의 끝, 자유 시간',
+    optionA: { text: '친구들이랑 나가서 놀아요', icon: 'party' },
+    optionB: { text: '기분 따라 정해요', icon: 'dice' },
+    optionC: { text: '집에서 혼자만의 시간을 가져요', icon: 'couch' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 2,
+    scenario: 'SNS에 올릴 사진이 있어요!',
+    situation: '여행에서 좋은 사진을 찍었어요',
+    optionA: { text: '바로 올리고 친구들 반응을 봐요', icon: 'share' },
+    optionB: { text: '가끔 올려요', icon: 'camera' },
+    optionC: { text: '올리는 것보다 보는 게 좋아요', icon: 'eye' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 3,
+    scenario: '수행평가 모둠이 정해졌어요!',
+    situation: '첫 모둠 회의',
+    optionA: { text: '회의를 이끌고 역할을 정해요', icon: 'leader' },
+    optionB: { text: '의견을 내고 참여해요', icon: 'comment' },
+    optionC: { text: '맡은 역할을 조용히 수행해요', icon: 'work' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 4,
+    scenario: '진로 고민 중이에요!',
+    situation: '진로진학상담 시간',
+    optionA: { text: '안정적이고 확실한 진로가 좋아요', icon: 'shield' },
+    optionB: { text: '여러 가지를 고려 중이에요', icon: 'options' },
+    optionC: { text: '새롭고 도전적인 분야가 끌려요', icon: 'rocket' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 5,
+    scenario: '수업 내용을 이해할 때...',
+    situation: '새로운 개념을 배울 때',
+    optionA: { text: '구체적인 예시가 있어야 이해돼요', icon: 'example' },
+    optionB: { text: '둘 다 필요해요', icon: 'balance' },
+    optionC: { text: '전체적인 개념부터 잡으면 이해돼요', icon: 'concept' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 6,
+    scenario: '에세이를 쓸 때...',
+    situation: '글쓰기 과제',
+    optionA: { text: '비유와 상상력을 많이 써요', icon: 'feather' },
+    optionB: { text: '주제에 따라 달라요', icon: 'pen' },
+    optionC: { text: '사실과 데이터를 바탕으로 써요', icon: 'data' },
+    dimension: 'SN',
+    scoring: { A: -2, B: 0, C: 2 }
+  },
+  {
+    id: 7,
+    scenario: '친구가 잘못된 선택을 하려 해요!',
+    situation: '충고가 필요한 상황',
+    optionA: { text: '솔직하게 왜 안 되는지 말해요', icon: 'honest' },
+    optionB: { text: '돌려서 조심스럽게 말해요', icon: 'careful' },
+    optionC: { text: '감정을 먼저 공감해주고 말해요', icon: 'heart' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 8,
+    scenario: '토론 수업 시간!',
+    situation: '의견이 대립하는 주제',
+    optionA: { text: '논리적으로 상대 의견을 반박해요', icon: 'debate' },
+    optionB: { text: '양쪽 의견을 듣고 판단해요', icon: 'listen' },
+    optionC: { text: '서로 감정이 상하지 않게 조율해요', icon: 'peace' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 9,
+    scenario: '친구가 시험을 망쳤대요!',
+    situation: '위로가 필요한 순간',
+    optionA: { text: '"다음엔 이렇게 하면 돼"라고 조언해요', icon: 'advice' },
+    optionB: { text: '"속상하지? 다음엔 잘 될 거야"라고 해요', icon: 'support' },
+    optionC: { text: '"많이 힘들지?"라며 같이 아파해요', icon: 'hug' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 10,
+    scenario: '수능이 100일 남았어요!',
+    situation: 'D-100',
+    optionA: { text: '세부 계획표를 세우고 따라가요', icon: 'plan' },
+    optionB: { text: '대략적인 목표를 정해요', icon: 'goal' },
+    optionC: { text: '그날그날 컨디션 따라 공부해요', icon: 'flow' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 11,
+    scenario: '과제 마감이 내일이에요!',
+    situation: '아직 시작 안 함',
+    optionA: { text: '이런 일은 거의 없어요, 미리 해요', icon: 'never' },
+    optionB: { text: '오늘 밤새서 끝내요', icon: 'night' },
+    optionC: { text: '압박감이 있어야 집중이 돼요', icon: 'pressure' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 12,
+    scenario: '여행 스타일은?',
+    situation: '여행 계획을 세울 때',
+    optionA: { text: '일정표와 예약을 미리 다 해요', icon: 'itinerary' },
+    optionB: { text: '대략적인 틀만 잡아요', icon: 'outline' },
+    optionC: { text: '현지에서 즉흥적으로 정해요', icon: 'spontaneous' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 13,
+    scenario: '스트레스 받을 때...',
+    situation: '힘든 하루를 보냈어요',
+    optionA: { text: '친구랑 만나서 수다 떨어요', icon: 'chat' },
+    optionB: { text: '그때그때 달라요', icon: 'variable' },
+    optionC: { text: '혼자 음악 듣거나 산책해요', icon: 'headphones' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 14,
+    scenario: '관심있는 분야는?',
+    situation: '뭔가 새로운 걸 배울 때',
+    optionA: { text: '실용적이고 현실적인 것', icon: 'practical' },
+    optionB: { text: '다양한 분야', icon: 'diverse' },
+    optionC: { text: '이론적이고 추상적인 것', icon: 'abstract' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 15,
+    scenario: '중요한 결정을 내릴 때...',
+    situation: '선택의 갈림길',
+    optionA: { text: '장단점을 논리적으로 분석해요', icon: 'analyze' },
+    optionB: { text: '이성과 감정 둘 다 고려해요', icon: 'both' },
+    optionC: { text: '마음이 가는 대로 결정해요', icon: 'heart' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 16,
+    scenario: '계획이 갑자기 바뀌면...',
+    situation: '예상치 못한 변화',
+    optionA: { text: '유연하게 적응해요', icon: 'flexible' },
+    optionB: { text: '좀 불편하지만 괜찮아요', icon: 'okay' },
+    optionC: { text: '스트레스 받아요', icon: 'stress' },
+    dimension: 'JP',
+    scoring: { A: -2, B: 0, C: 2 }
+  },
+  {
+    id: 17,
+    scenario: '파티에 초대받았어요!',
+    situation: '처음 보는 사람이 많은 파티',
+    optionA: { text: '새로운 사람들 만나는 게 신나요', icon: 'excited' },
+    optionB: { text: '아는 사람 위주로 어울려요', icon: 'familiar' },
+    optionC: { text: '사람 많은 데 가는 게 피곤해요', icon: 'tired' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 18,
+    scenario: '새로운 것을 배울 때...',
+    situation: '처음 접하는 분야',
+    optionA: { text: '직접 해보면서 배워요', icon: 'hands' },
+    optionB: { text: '설명 듣고 해봐요', icon: 'listen' },
+    optionC: { text: '원리를 먼저 이해하려고 해요', icon: 'think' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 19,
+    scenario: '피드백을 줄 때...',
+    situation: '친구의 작품에 의견을 달라고 해요',
+    optionA: { text: '좋은 점과 아쉬운 점을 솔직히 말해요', icon: 'honest' },
+    optionB: { text: '장점 위주로 말하고 조심스럽게 제안해요', icon: 'gentle' },
+    optionC: { text: '격려 위주로 말해요', icon: 'encourage' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 20,
+    scenario: '인생의 방향에 대해...',
+    situation: '미래를 생각할 때',
+    optionA: { text: '명확한 계획과 목표가 있어요', icon: 'target' },
+    optionB: { text: '대략적인 방향은 있어요', icon: 'compass' },
+    optionC: { text: '열린 마음으로 흘러가는 대로 살아요', icon: 'wave' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  }
 ];
 
-export const adultQuestions: Question[] = [
-  { id: 1, text: '업무 후 에너지를 충전하는 방법은?', optionA: '동료들이나 친구들과 함께 시간을 보내요', optionB: '상황에 따라 달라요', optionC: '집에서 혼자 조용히 쉬어요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 2, text: '네트워킹 행사에서 나는...', optionA: '다양한 사람들에게 먼저 다가가요', optionB: '자연스럽게 대화에 참여해요', optionC: '아는 사람과만 대화해요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 3, text: '팀 회의에서 나는...', optionA: '적극적으로 의견을 제시해요', optionB: '필요할 때 발언해요', optionC: '경청하며 메모해요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 4, text: '주말 저녁 계획은...', optionA: '친구들과 만나거나 외출해요', optionB: '기분에 따라 달라요', optionC: '집에서 편하게 보내요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 5, text: '전화 통화에 대해서는...', optionA: '길게 이야기하는 게 좋아요', optionB: '필요한 만큼 해요', optionC: '가능하면 문자로 해요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 6, text: '아이디어가 떠오를 때...', optionA: '바로 주변 사람과 공유해요', optionB: '정리 후 공유해요', optionC: '혼자 곰곰이 생각해요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 7, text: '휴가 스타일은...', optionA: '여러 사람과 함께 여행해요', optionB: '소수의 사람과 여행해요', optionC: '혼자 또는 가족과 조용히 보내요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 8, text: '스트레스 해소법은...', optionA: '사람들과 어울리며 풀어요', optionB: '다양한 방법을 사용해요', optionC: '혼자만의 활동으로 풀어요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 9, text: '새로운 모임에 참석하면...', optionA: '먼저 인사하고 대화를 이끌어요', optionB: '자연스럽게 섞여요', optionC: '한쪽에서 상황을 지켜봐요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 10, text: '혼자 식사하는 것은...', optionA: '불편하고 외로워요', optionB: '상관없어요', optionC: '편하고 좋아요', dimension: 'EI', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 11, text: '의사결정 시 중요하게 여기는 것은...', optionA: '큰 그림과 가능성', optionB: '다양한 관점을 고려해요', optionC: '구체적인 사실과 데이터', dimension: 'SN', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 12, text: '회의 자료를 검토할 때...', optionA: '세부 사항을 꼼꼼히 확인해요', optionB: '전체와 세부를 함께 봐요', optionC: '핵심 컨셉과 방향에 집중해요', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 13, text: '문제를 해결할 때...', optionA: '검증된 방법을 선호해요', optionB: '상황에 맞는 방법을 찾아요', optionC: '창의적인 접근을 시도해요', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 14, text: '설명을 들을 때...', optionA: '구체적인 예시가 있어야 이해돼요', optionB: '둘 다 필요해요', optionC: '전체적인 개념 설명이 좋아요', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 15, text: '미래 계획에 대해서는...', optionA: '현실적인 목표를 세워요', optionB: '적절히 균형을 맞춰요', optionC: '다양한 가능성을 열어두어요', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 16, text: '새로운 프로젝트를 시작할 때...', optionA: '비전과 가능성에 집중해요', optionB: '전체적으로 검토해요', optionC: '실행 가능성을 먼저 따져요', dimension: 'SN', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 17, text: '경험에서 배우는 것은...', optionA: '구체적인 교훈', optionB: '다양한 것들', optionC: '인생의 패턴과 의미', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 18, text: '관심사는 주로...', optionA: '실용적인 것들', optionB: '다양해요', optionC: '추상적이고 이론적인 것들', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 19, text: '대화에서 더 흥미로운 것은...', optionA: '사실과 현실적인 이야기', optionB: '둘 다 흥미로워요', optionC: '아이디어와 미래에 대한 이야기', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 20, text: '변화에 대해서는...', optionA: '익숙한 것이 좋아요', optionB: '필요하면 변화해요', optionC: '새로운 것을 환영해요', dimension: 'SN', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 21, text: '팀원의 실수를 발견했을 때...', optionA: '직접적으로 지적해요', optionB: '상황에 맞게 대처해요', optionC: '상대방 기분을 고려해 돌려 말해요', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 22, text: '결정을 내릴 때 중요한 것은...', optionA: '논리와 객관적 분석', optionB: '균형 있는 고려', optionC: '관련된 사람들의 감정', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 23, text: '갈등 상황에서의 접근 방식은...', optionA: '공정하고 논리적인 해결', optionB: '적절한 해결책을 찾아요', optionC: '관계 유지와 화합', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 24, text: '비판을 받았을 때...', optionA: '내용을 분석해요', optionB: '생각해보고 판단해요', optionC: '감정적으로 상처받아요', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 25, text: '칭찬할 때의 스타일은...', optionA: '구체적인 성과를 언급해요', optionB: '상황에 맞게 해요', optionC: '진심을 담아 격려해요', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 26, text: '팀을 이끌 때 중요하게 여기는 것은...', optionA: '목표 달성과 효율성', optionB: '균형 있는 관리', optionC: '팀원들의 감정과 동기부여', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 27, text: '의사결정에서 중요한 것은...', optionA: '팀의 화합과 공감', optionB: '다양한 요소를 고려해요', optionC: '사실에 기반한 판단', dimension: 'TF', scoring: { A: -1, B: 0, C: 1 } },
-  { id: 28, text: '협상에서 중요하게 여기는 것은...', optionA: '공정한 결과', optionB: '균형 있는 합의', optionC: '모두가 만족하는 결과', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 29, text: '피드백을 받을 때 선호하는 것은...', optionA: '솔직하고 구체적인 피드백', optionB: '건설적인 피드백', optionC: '격려와 함께 제안', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 30, text: '좋은 결정의 기준은...', optionA: '논리적 타당성', optionB: '상황에 따라 달라요', optionC: '모두에게 좋은 결정', dimension: 'TF', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 31, text: '업무 진행 방식은...', optionA: '계획에 따라 체계적으로', optionB: '대략적인 계획 후 유연하게', optionC: '상황에 맞게 유연하게', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 32, text: '마감에 대한 태도는...', optionA: '여유 있게 미리 완료해요', optionB: '적정 시간에 맞춰요', optionC: '마감 직전에 집중해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 33, text: '일정 변경에 대해서는...', optionA: '스트레스를 받아요', optionB: '적응해요', optionC: '유연하게 대처해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 34, text: '의사결정 속도는...', optionA: '신속하게 결정해요', optionB: '적절히 고민해요', optionC: '충분히 검토 후 결정해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 35, text: '업무 환경에서 선호하는 것은...', optionA: '체계적이고 구조화된 환경', optionB: '적절한 자유가 있는 환경', optionC: '자유롭고 유연한 환경', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 36, text: '새 프로젝트 시작 시...', optionA: '상세한 계획을 수립해요', optionB: '대략적인 방향을 정해요', optionC: '진행하면서 결정해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 37, text: '예상치 못한 기회가 왔을 때...', optionA: '기존 계획을 유지해요', optionB: '상황을 보고 판단해요', optionC: '유연하게 받아들여요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 38, text: '규칙과 절차에 대해서는...', optionA: '철저히 따라요', optionB: '대체로 따르되 유연하게', optionC: '상황에 맞게 조정해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 39, text: '멀티태스킹에 대해서는...', optionA: '한 가지씩 집중해요', optionB: '필요에 따라 해요', optionC: '여러 일을 동시에 해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 40, text: '업무 공간 정리는...', optionA: '깔끔하게 정돈해요', optionB: '적당히 정리해요', optionC: '나만의 방식으로 두어요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 41, text: '일과 삶의 균형에서...', optionA: '계획적으로 관리해요', optionB: '적절히 조절해요', optionC: '자연스럽게 흘러가게 해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 42, text: '목표 설정 시...', optionA: '구체적인 목표와 기한을 정해요', optionB: '대략적인 방향을 정해요', optionC: '유연한 목표를 세워요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 43, text: '여행 계획에 대해서는...', optionA: '상세히 계획해요', optionB: '대략적으로 정해요', optionC: '즉흥적으로 정해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 44, text: '시간 약속에 대해서는...', optionA: '항상 미리 도착해요', optionB: '시간에 맞춰 도착해요', optionC: '종종 늦어요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 45, text: '새로운 정보를 접할 때...', optionA: '정리해서 저장해요', optionB: '필요한 것만 기억해요', optionC: '필요할 때 다시 찾아요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 46, text: '책임감에 대해서는...', optionA: '맡은 일은 끝까지 해요', optionB: '최선을 다해요', optionC: '유연하게 대처해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 47, text: '결과물에 대해서는...', optionA: '완벽을 추구해요', optionB: '충분히 좋으면 만족해요', optionC: '과정이 중요해요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
-  { id: 48, text: '인생의 방향에 대해서는...', optionA: '명확한 계획이 있어요', optionB: '대략적인 방향이 있어요', optionC: '열린 마음으로 살아가요', dimension: 'JP', scoring: { A: 1, B: 0, C: -1 } },
+export const scenarioQuestionsAdult: ScenarioQuestion[] = [
+  {
+    id: 1,
+    scenario: '금요일 저녁, 퇴근 후 뭘 할까요?',
+    situation: '일주일의 피로가 쌓인 금요일 밤',
+    optionA: { text: '친구들과 약속을 잡아 외출해요', icon: 'wine' },
+    optionB: { text: '기분에 따라 결정해요', icon: 'dice' },
+    optionC: { text: '집에서 넷플릭스 보며 쉬어요', icon: 'couch' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 2,
+    scenario: '회식 자리에서 당신은...',
+    situation: '팀 회식, 20명 정도의 자리',
+    optionA: { text: '여러 테이블을 돌며 다양한 사람과 대화해요', icon: 'social' },
+    optionB: { text: '옆자리 사람들과 적당히 대화해요', icon: 'chat' },
+    optionC: { text: '친한 동료들과만 조용히 대화해요', icon: 'whisper' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 3,
+    scenario: '새로운 프로젝트 킥오프 미팅!',
+    situation: '처음 만나는 팀원들과의 첫 회의',
+    optionA: { text: '적극적으로 아이디어를 제안해요', icon: 'bulb' },
+    optionB: { text: '분위기 보며 적절히 참여해요', icon: 'observe' },
+    optionC: { text: '경청하며 메모하고 나중에 의견을 정리해요', icon: 'note' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 4,
+    scenario: '새 업무를 맡았어요!',
+    situation: '처음 해보는 종류의 업무',
+    optionA: { text: '기존 사례와 매뉴얼을 먼저 찾아봐요', icon: 'manual' },
+    optionB: { text: '대략 파악하고 하면서 배워요', icon: 'learn' },
+    optionC: { text: '새로운 접근법을 시도해봐요', icon: 'innovate' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 5,
+    scenario: '커리어 방향을 고민해요',
+    situation: '이직이나 진로 전환을 생각할 때',
+    optionA: { text: '안정적이고 검증된 분야가 좋아요', icon: 'stable' },
+    optionB: { text: '여러 가능성을 열어두고 있어요', icon: 'options' },
+    optionC: { text: '새롭고 도전적인 분야가 끌려요', icon: 'adventure' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 6,
+    scenario: '보고서를 작성해요!',
+    situation: '주간 업무 보고',
+    optionA: { text: '구체적인 숫자와 사실 위주로 써요', icon: 'data' },
+    optionB: { text: '적절히 섞어서 써요', icon: 'balance' },
+    optionC: { text: '인사이트와 전략적 제안을 중심으로 써요', icon: 'insight' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 7,
+    scenario: '동료가 힘들어 보여요',
+    situation: '옆자리 동료가 우울해 보여요',
+    optionA: { text: '구체적인 도움을 제안해요', icon: 'help' },
+    optionB: { text: '커피 마시며 이야기를 들어줘요', icon: 'coffee' },
+    optionC: { text: '공감하며 위로해줘요', icon: 'hug' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 8,
+    scenario: '팀 내 갈등이 생겼어요!',
+    situation: '두 동료 사이에 의견 충돌',
+    optionA: { text: '객관적으로 옳고 그름을 판단해요', icon: 'scale' },
+    optionB: { text: '양쪽 의견을 듣고 절충안을 찾아요', icon: 'mediate' },
+    optionC: { text: '관계가 상하지 않게 분위기를 조율해요', icon: 'peace' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 9,
+    scenario: '부정적인 피드백을 받았어요',
+    situation: '업무 평가에서 개선점을 지적받음',
+    optionA: { text: '어떤 점을 고쳐야 하는지 분석해요', icon: 'analyze' },
+    optionB: { text: '참고해서 개선하려고 해요', icon: 'improve' },
+    optionC: { text: '기분이 좀 상하지만 받아들여요', icon: 'accept' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 10,
+    scenario: '중요한 프레젠테이션이 있어요!',
+    situation: 'D-7, 발표 준비 중',
+    optionA: { text: '미리 세세하게 준비하고 리허설해요', icon: 'rehearse' },
+    optionB: { text: '핵심만 준비하고 나머지는 즉석에서', icon: 'outline' },
+    optionC: { text: '대략적인 방향만 잡고 즉흥적으로 해요', icon: 'improv' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 11,
+    scenario: '휴가 계획을 세워요!',
+    situation: '일주일 휴가',
+    optionA: { text: '일정표와 예약을 미리 다 해요', icon: 'plan' },
+    optionB: { text: '숙소만 정하고 나머지는 현지에서', icon: 'semiflex' },
+    optionC: { text: '즉흥적으로 그날그날 정해요', icon: 'spontaneous' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 12,
+    scenario: '갑자기 미팅이 취소됐어요!',
+    situation: '오후에 빈 시간이 생김',
+    optionA: { text: '다른 할 일을 빠르게 정리해요', icon: 'replan' },
+    optionB: { text: '자유 시간이 생겨서 좋아요', icon: 'relax' },
+    optionC: { text: '준비했던 게 헛수고가 되어 약간 짜증나요', icon: 'annoyed' },
+    dimension: 'JP',
+    scoring: { A: 0, B: -2, C: 2 }
+  },
+  {
+    id: 13,
+    scenario: '주말에 에너지를 충전해요!',
+    situation: '쉬는 날',
+    optionA: { text: '친구들 만나서 활동적으로 보내요', icon: 'active' },
+    optionB: { text: '균형있게 보내요', icon: 'balance' },
+    optionC: { text: '집에서 조용히 재충전해요', icon: 'recharge' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 14,
+    scenario: '새로운 정보를 접할 때...',
+    situation: '뉴스나 책을 읽을 때',
+    optionA: { text: '구체적인 사실과 데이터에 집중해요', icon: 'facts' },
+    optionB: { text: '전체적으로 파악해요', icon: 'overview' },
+    optionC: { text: '숨겨진 의미와 패턴을 찾아요', icon: 'pattern' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 15,
+    scenario: '연인과 다퉜어요!',
+    situation: '의견 충돌 상황',
+    optionA: { text: '논리적으로 설명하고 이해시켜요', icon: 'explain' },
+    optionB: { text: '차분히 대화하려고 해요', icon: 'talk' },
+    optionC: { text: '먼저 상대방 감정을 달래줘요', icon: 'comfort' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 16,
+    scenario: '마감이 촉박해요!',
+    situation: '업무 마감 2일 전',
+    optionA: { text: '미리미리 해서 이미 거의 다 됐어요', icon: 'done' },
+    optionB: { text: '지금부터 집중해서 해요', icon: 'focus' },
+    optionC: { text: '압박감이 있어야 집중이 돼요', icon: 'pressure' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 17,
+    scenario: '네트워킹 행사에 참석해요!',
+    situation: '업계 컨퍼런스',
+    optionA: { text: '적극적으로 명함 교환하며 인맥을 넓혀요', icon: 'network' },
+    optionB: { text: '관심 있는 분야 사람들과 대화해요', icon: 'selective' },
+    optionC: { text: '세션만 듣고 조용히 돌아와요', icon: 'observe' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 18,
+    scenario: '신규 사업 아이디어를 내야 해요!',
+    situation: '브레인스토밍 회의',
+    optionA: { text: '검증된 사례를 바탕으로 제안해요', icon: 'proven' },
+    optionB: { text: '현실성과 창의성을 균형있게 고려해요', icon: 'balanced' },
+    optionC: { text: '혁신적이고 파격적인 아이디어를 내요', icon: 'disrupt' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 19,
+    scenario: '후배가 실수를 했어요!',
+    situation: '업무상 실수를 발견함',
+    optionA: { text: '직접적으로 문제점을 알려줘요', icon: 'direct' },
+    optionB: { text: '개선점을 부드럽게 제안해요', icon: 'gentle' },
+    optionC: { text: '기분 상하지 않게 돌려서 말해요', icon: 'careful' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 20,
+    scenario: '책상 정리 스타일은?',
+    situation: '평소 업무 공간',
+    optionA: { text: '항상 깔끔하게 정돈되어 있어요', icon: 'tidy' },
+    optionB: { text: '가끔 정리해요', icon: 'sometimes' },
+    optionC: { text: '나만 알아보는 나만의 시스템이에요', icon: 'chaos' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 21,
+    scenario: '혼자 밥 먹기 vs 함께 먹기',
+    situation: '점심 시간',
+    optionA: { text: '동료들과 같이 먹는 게 좋아요', icon: 'together' },
+    optionB: { text: '상황에 따라 달라요', icon: 'flexible' },
+    optionC: { text: '혼밥도 편하고 좋아요', icon: 'solo' },
+    dimension: 'EI',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 22,
+    scenario: '변화가 찾아왔어요!',
+    situation: '조직 개편이나 업무 변경',
+    optionA: { text: '익숙한 것이 좋지만 적응해요', icon: 'adapt' },
+    optionB: { text: '필요한 변화라면 받아들여요', icon: 'accept' },
+    optionC: { text: '새로운 변화가 오히려 설레요', icon: 'excited' },
+    dimension: 'SN',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 23,
+    scenario: '리더로서 가장 중요한 것은?',
+    situation: '팀을 이끌 때',
+    optionA: { text: '목표 달성과 효율성', icon: 'goal' },
+    optionB: { text: '균형 있는 운영', icon: 'balance' },
+    optionC: { text: '팀원들의 감정과 동기부여', icon: 'motivate' },
+    dimension: 'TF',
+    scoring: { A: 2, B: 0, C: -2 }
+  },
+  {
+    id: 24,
+    scenario: '인생의 방향에 대해...',
+    situation: '장기적인 삶의 계획',
+    optionA: { text: '5년, 10년 계획이 있어요', icon: 'longterm' },
+    optionB: { text: '대략적인 방향은 있어요', icon: 'direction' },
+    optionC: { text: '흘러가는 대로 유연하게 살아요', icon: 'flow' },
+    dimension: 'JP',
+    scoring: { A: 2, B: 0, C: -2 }
+  }
 ];
 
 export const mbtiTypes: Record<string, MBTIType> = {
@@ -215,7 +909,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['과학 실험하기', '퍼즐이나 전략 게임', '책 읽기', '미래 계획 세우기'],
     animal: '올빼미',
     color: 'from-indigo-500 to-purple-600',
-    animalImage: 'intj_wise_owl_mascot.png'
+    animalImage: 'intj_wise_owl_mascot.png',
+    careers: ['연구원', '데이터 과학자', '전략 컨설턴트', '소프트웨어 아키텍트', '투자 분석가'],
+    hobbies: ['체스', '독서', '다큐멘터리 감상', '프로그래밍', '미래 계획 세우기'],
+    loveStyle: '사랑에도 전략적이에요. 감정 표현은 서툴지만, 한번 마음을 정하면 끝까지 신뢰하고 지지해요. 깊은 대화와 지적인 교류를 통해 친밀감을 느껴요.',
+    behavioralScenarios: [
+      { situation: '회의에서 의견 충돌이 생기면', behavior: '논리적 근거를 차분하게 제시하며, 감정적 대응은 피해요' },
+      { situation: '친구가 갑자기 계획을 바꾸면', behavior: '약간 불편하지만 이유를 듣고 논리적으로 판단해요' },
+      { situation: '새로운 프로젝트를 맡으면', behavior: '먼저 전체 그림을 그리고 세부 계획을 세워요' }
+    ]
   },
   INTP: {
     type: 'INTP',
@@ -225,7 +927,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['코딩이나 프로그래밍', '수학 문제 풀기', '과학 다큐멘터리 보기', '발명품 구상하기'],
     animal: '부엉이',
     color: 'from-cyan-500 to-blue-600',
-    animalImage: 'intp_curious_owl_mascot.png'
+    animalImage: 'intp_curious_owl_mascot.png',
+    careers: ['소프트웨어 개발자', '과학자', '철학자', '분석가', '교수'],
+    hobbies: ['코딩', '퍼즐 게임', '위키피디아 서핑', '이론 연구', '토론'],
+    loveStyle: '연애에서도 지적인 연결을 중요시해요. 감정 표현이 서툴러 오해받기도 하지만, 상대방을 이해하려는 노력을 꾸준히 해요.',
+    behavioralScenarios: [
+      { situation: '흥미로운 주제를 발견하면', behavior: '몇 시간이고 깊이 파고들며 연구해요' },
+      { situation: '감정적인 상황에 놓이면', behavior: '일단 한 발 물러서서 객관적으로 분석하려고 해요' },
+      { situation: '규칙이 비효율적으로 느껴지면', behavior: '왜 그런 규칙이 있는지 질문하고 개선점을 제안해요' }
+    ]
   },
   ENTJ: {
     type: 'ENTJ',
@@ -235,7 +945,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['팀 프로젝트 이끌기', '토론하기', '목표 세우고 달성하기', '새로운 것 배우기'],
     animal: '사자',
     color: 'from-amber-500 to-orange-600',
-    animalImage: 'entj_lion_leader_mascot.png'
+    animalImage: 'entj_lion_leader_mascot.png',
+    careers: ['CEO', '경영 컨설턴트', '변호사', '정치인', '사업가'],
+    hobbies: ['골프', '네트워킹', '자기계발', '전략 게임', '멘토링'],
+    loveStyle: '연애에서도 리더십을 발휘해요. 상대방의 성장을 응원하고, 함께 목표를 향해 나아가는 관계를 원해요. 솔직하고 직접적인 소통을 선호해요.',
+    behavioralScenarios: [
+      { situation: '팀 프로젝트에서', behavior: '자연스럽게 리더 역할을 맡고 방향을 제시해요' },
+      { situation: '비효율적인 상황을 보면', behavior: '즉시 개선 방안을 제안하고 실행해요' },
+      { situation: '목표가 생기면', behavior: '구체적인 실행 계획을 세우고 끝까지 밀어붙여요' }
+    ]
   },
   ENTP: {
     type: 'ENTP',
@@ -245,7 +963,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['새로운 아이디어 발표하기', '토론 대회', '브레인스토밍', '발명하기'],
     animal: '여우',
     color: 'from-rose-500 to-pink-600',
-    animalImage: 'entp_clever_fox_mascot.png'
+    animalImage: 'entp_clever_fox_mascot.png',
+    careers: ['기업가', '마케터', '변호사', '발명가', '코미디언'],
+    hobbies: ['토론', '새로운 취미 시도', '스타트업 아이디어 구상', '여행', '즉흥 코미디'],
+    loveStyle: '연애도 지루함을 싫어해요. 상대방과 끊임없이 새로운 것을 시도하고, 지적인 대화를 즐겨요. 자유로운 관계를 선호하지만 깊은 유대감도 원해요.',
+    behavioralScenarios: [
+      { situation: '누군가 "불가능해"라고 하면', behavior: '"정말? 왜?"라고 물으며 가능성을 찾아요' },
+      { situation: '새로운 규칙이 생기면', behavior: '일단 왜 그런 규칙이 필요한지 따져봐요' },
+      { situation: '아이디어가 떠오르면', behavior: '즉시 누군가와 공유하며 발전시켜요' }
+    ]
   },
   INFJ: {
     type: 'INFJ',
@@ -255,7 +981,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['글쓰기', '봉사 활동', '예술 감상', '깊은 대화 나누기'],
     animal: '늑대',
     color: 'from-emerald-500 to-teal-600',
-    animalImage: 'infj_wise_wolf_mascot.png'
+    animalImage: 'infj_wise_wolf_mascot.png',
+    careers: ['상담사', '작가', '심리학자', 'NPO 활동가', '교육자'],
+    hobbies: ['일기 쓰기', '명상', '봉사 활동', '예술 감상', '심리학 공부'],
+    loveStyle: '깊고 의미 있는 관계를 원해요. 상대방의 영혼까지 이해하려 하고, 진정한 연결을 추구해요. 표면적인 관계보다 깊은 유대감을 중요시해요.',
+    behavioralScenarios: [
+      { situation: '친구가 말 안 해도', behavior: '표정과 분위기만으로 기분을 읽어요' },
+      { situation: '불의를 목격하면', behavior: '조용하지만 단호하게 목소리를 내요' },
+      { situation: '혼자만의 시간이 필요하면', behavior: '사람들에게서 잠시 떨어져 재충전해요' }
+    ]
   },
   INFP: {
     type: 'INFP',
@@ -265,7 +999,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['시나 소설 쓰기', '음악 듣기', '예술 활동', '자연 속 산책'],
     animal: '유니콘',
     color: 'from-violet-500 to-purple-600',
-    animalImage: 'infp_unicorn_dreamer_mascot.png'
+    animalImage: 'infp_unicorn_dreamer_mascot.png',
+    careers: ['작가', '예술가', '상담사', '그래픽 디자이너', 'UX 디자이너'],
+    hobbies: ['글쓰기', '그림 그리기', '음악', '자연 속 산책', '명상'],
+    loveStyle: '이상적인 사랑을 꿈꿔요. 진정한 영혼의 동반자를 찾고, 깊은 감정적 연결을 원해요. 로맨틱하고 헌신적이며, 상대방을 있는 그대로 받아들여요.',
+    behavioralScenarios: [
+      { situation: '마음에 안 드는 일을 해야 할 때', behavior: '가치관에 맞지 않으면 내면의 갈등을 겪어요' },
+      { situation: '감동적인 영화를 보면', behavior: '등장인물에 완전히 몰입해서 함께 울어요' },
+      { situation: '상상의 세계에 빠지면', behavior: '몇 시간이고 혼자만의 세계를 즐겨요' }
+    ]
   },
   ENFJ: {
     type: 'ENFJ',
@@ -275,7 +1017,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['멘토링 하기', '그룹 활동 이끌기', '봉사 활동', '이야기 나누기'],
     animal: '돌고래',
     color: 'from-sky-500 to-blue-600',
-    animalImage: 'enfj_caring_dolphin_mascot.png'
+    animalImage: 'enfj_caring_dolphin_mascot.png',
+    careers: ['교사', 'HR 매니저', '상담사', '코치', '정치인'],
+    hobbies: ['멘토링', '사회 활동', '글쓰기', '요리해서 나누기', '네트워킹'],
+    loveStyle: '사랑에 헌신적이에요. 상대방의 성장을 위해 노력하고, 깊은 감정적 연결을 추구해요. 상대방의 필요를 먼저 생각하는 경향이 있어요.',
+    behavioralScenarios: [
+      { situation: '팀원이 힘들어 보이면', behavior: '먼저 다가가서 이야기를 들어줘요' },
+      { situation: '갈등 상황이 생기면', behavior: '모두가 화해할 수 있도록 조율해요' },
+      { situation: '누군가의 잠재력을 발견하면', behavior: '격려하고 성장할 수 있도록 도와줘요' }
+    ]
   },
   ENFP: {
     type: 'ENFP',
@@ -285,7 +1035,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['새로운 친구 사귀기', '창작 활동', '여행', '브레인스토밍'],
     animal: '나비',
     color: 'from-orange-500 to-yellow-500',
-    animalImage: 'enfp_butterfly_explorer_mascot.png'
+    animalImage: 'enfp_butterfly_explorer_mascot.png',
+    careers: ['마케터', '배우', '작가', '기자', '이벤트 플래너'],
+    hobbies: ['여행', '새로운 사람 만나기', '창작 활동', '파티 기획', '다양한 취미 시도'],
+    loveStyle: '연애에 열정적이에요! 상대방과 함께 모험하고 새로운 경험을 공유하기를 원해요. 깊은 대화와 감정적 연결을 중요시하며, 자유롭지만 헌신적인 관계를 추구해요.',
+    behavioralScenarios: [
+      { situation: '새로운 사람을 만나면', behavior: '금방 친해지고 오랜 친구처럼 대화해요' },
+      { situation: '재미있는 아이디어가 떠오르면', behavior: '즉시 실행하고 싶어서 안달이 나요' },
+      { situation: '루틴한 일을 해야 할 때', behavior: '금방 지루해져서 새로운 방법을 찾아요' }
+    ]
   },
   ISTJ: {
     type: 'ISTJ',
@@ -295,7 +1053,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['계획표 만들기', '컬렉션 정리하기', '역사 공부하기', '규칙적인 운동'],
     animal: '비버',
     color: 'from-slate-500 to-gray-600',
-    animalImage: 'istj_beaver_worker_mascot.png'
+    animalImage: 'istj_beaver_worker_mascot.png',
+    careers: ['회계사', '법률가', '공무원', '관리자', '엔지니어'],
+    hobbies: ['등산', '역사 공부', '컬렉션', '정리정돈', '독서'],
+    loveStyle: '연애에서도 신뢰와 안정을 중요시해요. 화려한 표현보다 꾸준한 행동으로 사랑을 보여줘요. 약속을 지키고, 장기적인 관계를 추구해요.',
+    behavioralScenarios: [
+      { situation: '일을 맡으면', behavior: '계획을 세우고 차근차근 완수해요' },
+      { situation: '규칙을 어기는 사람을 보면', behavior: '왜 규칙이 있는지 설명하고 싶어져요' },
+      { situation: '갑자기 계획이 바뀌면', behavior: '약간 스트레스 받지만 적응하려 노력해요' }
+    ]
   },
   ISFJ: {
     type: 'ISFJ',
@@ -305,7 +1071,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['친구 돕기', '요리하기', '정리정돈', '가족과 시간 보내기'],
     animal: '토끼',
     color: 'from-pink-400 to-rose-500',
-    animalImage: 'isfj_caring_rabbit_mascot.png'
+    animalImage: 'isfj_caring_rabbit_mascot.png',
+    careers: ['간호사', '교사', '사회복지사', '사서', '행정 담당자'],
+    hobbies: ['요리', '베이킹', '정원 가꾸기', '수공예', '가족 모임'],
+    loveStyle: '헌신적이고 따뜻한 사랑을 해요. 상대방의 필요를 먼저 생각하고, 세심하게 챙겨요. 안정적이고 오래가는 관계를 원하며, 작은 것들로 사랑을 표현해요.',
+    behavioralScenarios: [
+      { situation: '주변 사람이 힘들어 보이면', behavior: '말없이 옆에서 도와줄 방법을 찾아요' },
+      { situation: '감사 인사를 받으면', behavior: '어색해하지만 내심 뿌듯해해요' },
+      { situation: '갈등이 생기면', behavior: '자신을 희생해서라도 평화를 유지하려 해요' }
+    ]
   },
   ESTJ: {
     type: 'ESTJ',
@@ -315,7 +1089,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['학급 회장하기', '프로젝트 관리', '스포츠 팀 활동', '계획 세우기'],
     animal: '독수리',
     color: 'from-red-500 to-orange-600',
-    animalImage: 'estj_eagle_leader_mascot.png'
+    animalImage: 'estj_eagle_leader_mascot.png',
+    careers: ['관리자', 'CEO', '군인', '판사', '프로젝트 매니저'],
+    hobbies: ['골프', '등산', '자원봉사 조직', '스포츠', '커뮤니티 활동'],
+    loveStyle: '연애에서도 책임감 있게 행동해요. 상대방에게 안정감을 주고, 실질적인 방법으로 사랑을 표현해요. 약속을 중요시하고, 장기적인 관계를 추구해요.',
+    behavioralScenarios: [
+      { situation: '팀이 방향을 잃으면', behavior: '즉시 계획을 세우고 역할을 분배해요' },
+      { situation: '규칙을 어기는 행동을 보면', behavior: '바로잡으려고 직접적으로 말해요' },
+      { situation: '목표가 정해지면', behavior: '효율적인 방법으로 달성하려 노력해요' }
+    ]
   },
   ESFJ: {
     type: 'ESFJ',
@@ -325,7 +1107,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['파티 계획하기', '친구들과 어울리기', '봉사 활동', '팀 활동'],
     animal: '강아지',
     color: 'from-yellow-400 to-amber-500',
-    animalImage: 'esfj_friendly_dog_mascot.png'
+    animalImage: 'esfj_friendly_dog_mascot.png',
+    careers: ['이벤트 플래너', '간호사', '교사', 'HR 담당자', '영업'],
+    hobbies: ['파티 기획', '요리', '봉사 활동', '친구 만나기', '커뮤니티 활동'],
+    loveStyle: '사랑을 듬뿍 주는 타입이에요. 상대방을 세심하게 챙기고, 함께하는 시간을 소중히 여겨요. 안정적이고 따뜻한 가정을 꿈꾸며, 사랑을 적극적으로 표현해요.',
+    behavioralScenarios: [
+      { situation: '친구 생일이 다가오면', behavior: '깜짝 파티를 기획하거나 선물을 고르느라 바빠요' },
+      { situation: '갈등이 생기면', behavior: '모두가 화해할 수 있도록 중재해요' },
+      { situation: '새로운 사람이 오면', behavior: '먼저 다가가서 편하게 만들어줘요' }
+    ]
   },
   ISTP: {
     type: 'ISTP',
@@ -335,7 +1125,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['조립하기', '실험하기', '스포츠', '게임'],
     animal: '표범',
     color: 'from-zinc-500 to-slate-600',
-    animalImage: 'istp_cool_leopard_mascot.png'
+    animalImage: 'istp_cool_leopard_mascot.png',
+    careers: ['엔지니어', '정비사', '조종사', '운동선수', '외과의사'],
+    hobbies: ['자동차 정비', '익스트림 스포츠', 'DIY', '게임', '도구 다루기'],
+    loveStyle: '행동으로 사랑을 표현해요. 말보다는 함께하는 활동을 통해 친밀감을 쌓아요. 개인 공간을 중요시하지만, 신뢰하는 사람에게는 깊은 유대감을 보여요.',
+    behavioralScenarios: [
+      { situation: '기계가 고장 나면', behavior: '분해해서 원인을 찾고 직접 고쳐요' },
+      { situation: '위기 상황이 생기면', behavior: '침착하게 상황을 분석하고 대처해요' },
+      { situation: '지루한 일을 해야 할 때', behavior: '더 효율적인 방법을 찾거나 피해요' }
+    ]
   },
   ISFP: {
     type: 'ISFP',
@@ -345,7 +1143,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['그림 그리기', '음악 연주하기', '자연 탐험', '사진 찍기'],
     animal: '고양이',
     color: 'from-lime-500 to-green-600',
-    animalImage: 'isfp_artistic_cat_mascot.png'
+    animalImage: 'isfp_artistic_cat_mascot.png',
+    careers: ['디자이너', '사진작가', '뮤지션', '요리사', '동물 관련 직업'],
+    hobbies: ['그림', '음악', '사진', '자연 탐방', '동물 돌보기'],
+    loveStyle: '조용하지만 깊은 사랑을 해요. 상대방을 있는 그대로 받아들이고, 작은 것들로 애정을 표현해요. 자유로운 관계를 원하지만, 깊은 감정적 연결을 추구해요.',
+    behavioralScenarios: [
+      { situation: '아름다운 풍경을 보면', behavior: '한참을 멈춰서 감상하거나 사진을 찍어요' },
+      { situation: '갈등 상황이 생기면', behavior: '피하거나 조용히 물러나요' },
+      { situation: '자신만의 시간이 필요하면', behavior: '예술 활동이나 자연 속에서 재충전해요' }
+    ]
   },
   ESTP: {
     type: 'ESTP',
@@ -355,7 +1161,15 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['스포츠', '여행', '새로운 도전', '친구들과 놀기'],
     animal: '치타',
     color: 'from-red-500 to-rose-600',
-    animalImage: 'estp_cheetah_adventurer_mascot.png'
+    animalImage: 'estp_cheetah_adventurer_mascot.png',
+    careers: ['영업', '운동선수', '기업가', '소방관', '이벤트 기획자'],
+    hobbies: ['익스트림 스포츠', '파티', '여행', '도박', '새로운 도전'],
+    loveStyle: '스릴 있는 연애를 좋아해요! 상대방과 함께 모험하고 새로운 경험을 공유하기를 원해요. 순간을 즐기며, 유쾌하고 재미있는 관계를 추구해요.',
+    behavioralScenarios: [
+      { situation: '새로운 도전 기회가 오면', behavior: '일단 해보고 결과는 나중에 생각해요' },
+      { situation: '위기 상황이 생기면', behavior: '즉시 행동하며 현장에서 해결해요' },
+      { situation: '계획을 세우라고 하면', behavior: '최소한만 세우고 유연하게 움직여요' }
+    ]
   },
   ESFP: {
     type: 'ESFP',
@@ -365,38 +1179,114 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['공연하기', '파티 즐기기', '춤추기', '새로운 경험'],
     animal: '앵무새',
     color: 'from-fuchsia-500 to-pink-600',
-    animalImage: 'esfp_parrot_entertainer_mascot.png'
+    animalImage: 'esfp_parrot_entertainer_mascot.png',
+    careers: ['배우', '가수', '이벤트 플래너', '영업', 'MC'],
+    hobbies: ['춤', '노래', '파티', '쇼핑', '패션'],
+    loveStyle: '연애를 즐겁게 해요! 상대방과 함께 웃고 즐기며, 매 순간을 특별하게 만들어요. 애정 표현을 아끼지 않고, 함께하는 시간을 소중히 여겨요.',
+    behavioralScenarios: [
+      { situation: '파티에 가면', behavior: '자연스럽게 분위기를 띄우고 사람들과 어울려요' },
+      { situation: '슬픈 일이 생기면', behavior: '오래 슬퍼하지 않고 긍정적인 면을 찾아요' },
+      { situation: '계획대로 안 되면', behavior: '유연하게 다른 재미있는 걸 찾아요' }
+    ]
   }
 };
 
-export function getQuestions(ageGroup: AgeGroup): Question[] {
+export function getScenarioQuestions(ageGroup: AgeGroup): ScenarioQuestion[] {
   switch (ageGroup) {
     case 'elementary':
-      return elementaryQuestions;
+      return scenarioQuestionsElementary;
     case 'middle':
-      return middleQuestions;
+      return scenarioQuestionsMiddle;
     case 'high':
-      return highQuestions;
+      return scenarioQuestionsHigh;
     case 'adult':
-      return adultQuestions;
+      return scenarioQuestionsAdult;
   }
 }
 
-export function calculateMBTI(answers: Record<number, Answer>, questions: Question[]): string {
-  const scores = { EI: 0, SN: 0, TF: 0, JP: 0 };
+export function getQuestions(ageGroup: AgeGroup): Question[] {
+  const scenarios = getScenarioQuestions(ageGroup);
+  return scenarios.map(s => ({
+    id: s.id,
+    text: s.scenario,
+    optionA: s.optionA.text,
+    optionB: s.optionB.text,
+    optionC: s.optionC.text,
+    dimension: s.dimension,
+    scoring: s.scoring
+  }));
+}
+
+export function calculateMBTIWithPercentage(answers: Record<number, Answer>, questions: Question[]): MBTIResult {
+  const dimensionScores = { EI: 0, SN: 0, TF: 0, JP: 0 };
+  const maxScores = { EI: 0, SN: 0, TF: 0, JP: 0 };
   
   questions.forEach((question) => {
     const answer = answers[question.id];
     if (!answer) return;
     
     const score = question.scoring[answer];
-    scores[question.dimension] += score;
+    dimensionScores[question.dimension] += score;
+    maxScores[question.dimension] += 2;
   });
+
+  const calculatePercentage = (score: number, max: number): number => {
+    if (max === 0) return 50;
+    const normalized = (score + max) / (2 * max);
+    return Math.round(normalized * 100);
+  };
+
+  const eiPercent = calculatePercentage(dimensionScores.EI, maxScores.EI);
+  const snPercent = calculatePercentage(dimensionScores.SN, maxScores.SN);
+  const tfPercent = calculatePercentage(dimensionScores.TF, maxScores.TF);
+  const jpPercent = calculatePercentage(dimensionScores.JP, maxScores.JP);
+
+  const primaryE = eiPercent >= 50 ? 'E' : 'I';
+  const primaryS = snPercent >= 50 ? 'S' : 'N';
+  const primaryT = tfPercent >= 50 ? 'T' : 'F';
+  const primaryJ = jpPercent >= 50 ? 'J' : 'P';
   
-  const e_i = scores.EI >= 0 ? 'E' : 'I';
-  const s_n = scores.SN >= 0 ? 'S' : 'N';
-  const t_f = scores.TF >= 0 ? 'T' : 'F';
-  const j_p = scores.JP >= 0 ? 'J' : 'P';
-  
-  return `${e_i}${s_n}${t_f}${j_p}`;
+  const primaryType = `${primaryE}${primaryS}${primaryT}${primaryJ}`;
+
+  const distances = [
+    { dim: 'EI', dist: Math.abs(eiPercent - 50), letter: eiPercent >= 50 ? 'E' : 'I', opposite: eiPercent >= 50 ? 'I' : 'E' },
+    { dim: 'SN', dist: Math.abs(snPercent - 50), letter: snPercent >= 50 ? 'S' : 'N', opposite: snPercent >= 50 ? 'N' : 'S' },
+    { dim: 'TF', dist: Math.abs(tfPercent - 50), letter: tfPercent >= 50 ? 'T' : 'F', opposite: tfPercent >= 50 ? 'F' : 'T' },
+    { dim: 'JP', dist: Math.abs(jpPercent - 50), letter: jpPercent >= 50 ? 'J' : 'P', opposite: jpPercent >= 50 ? 'P' : 'J' }
+  ];
+
+  distances.sort((a, b) => a.dist - b.dist);
+  const closestDim = distances[0];
+
+  let secondaryType = primaryType;
+  if (closestDim.dim === 'EI') {
+    secondaryType = `${closestDim.opposite}${primaryS}${primaryT}${primaryJ}`;
+  } else if (closestDim.dim === 'SN') {
+    secondaryType = `${primaryE}${closestDim.opposite}${primaryT}${primaryJ}`;
+  } else if (closestDim.dim === 'TF') {
+    secondaryType = `${primaryE}${primaryS}${closestDim.opposite}${primaryJ}`;
+  } else {
+    secondaryType = `${primaryE}${primaryS}${primaryT}${closestDim.opposite}`;
+  }
+
+  const primaryConfidence = 50 + (closestDim.dist > 0 ? closestDim.dist : 5);
+  const secondaryConfidence = 100 - primaryConfidence;
+
+  return {
+    primaryType: mbtiTypes[primaryType] || mbtiTypes['INFP'],
+    primaryPercentage: Math.min(95, Math.max(55, primaryConfidence)),
+    secondaryType: mbtiTypes[secondaryType] || mbtiTypes['ENFP'],
+    secondaryPercentage: Math.max(5, Math.min(45, secondaryConfidence)),
+    dimensionScores: {
+      EI: { score: dimensionScores.EI, percentage: eiPercent },
+      SN: { score: dimensionScores.SN, percentage: snPercent },
+      TF: { score: dimensionScores.TF, percentage: tfPercent },
+      JP: { score: dimensionScores.JP, percentage: jpPercent }
+    }
+  };
+}
+
+export function calculateMBTI(answers: Record<number, Answer>, questions: Question[]): string {
+  const result = calculateMBTIWithPercentage(answers, questions);
+  return result.primaryType.type;
 }
