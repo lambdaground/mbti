@@ -1170,7 +1170,7 @@ export const mbtiTypes: Record<string, MBTIType> = {
     activities: ['파티 계획하기', '친구들과 어울리기', '봉사 활동', '팀 활동'],
     animal: '강아지',
     color: 'from-yellow-400 to-amber-500',
-    animalImage: 'cute_golden_retriever_mascot.png',
+    animalImage: 'image_1765043480460.png',
     careers: ['이벤트 플래너', '간호사', '교사', 'HR 담당자', '영업'],
     hobbies: ['파티 기획', '요리', '봉사 활동', '친구 만나기', '커뮤니티 활동'],
     loveStyle: '사랑을 듬뿍 주는 타입이에요. 상대방을 세심하게 챙기고, 함께하는 시간을 소중히 여겨요. 안정적이고 따뜻한 가정을 꿈꾸며, 사랑을 적극적으로 표현해요.',
