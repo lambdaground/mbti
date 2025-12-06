@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Sparkles, RotateCcw } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSelector from "@/components/LanguageSelector";
 
 interface HeaderProps {
   showRestart?: boolean;
@@ -8,6 +10,8 @@ interface HeaderProps {
 }
 
 export default function Header({ showRestart, onRestart, subtitle }: HeaderProps) {
+  const { t } = useLanguage();
+  
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-6xl items-center justify-between gap-4 mx-auto px-4">
@@ -17,7 +21,7 @@ export default function Header({ showRestart, onRestart, subtitle }: HeaderProps
               <Sparkles className="w-5 h-5 text-white" />
             </div>
             <span className="font-display text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent whitespace-nowrap">
-              나와 내 아이의 MBTI 궁합
+              {t('site.title')}
             </span>
           </a>
           {subtitle && (
@@ -27,17 +31,20 @@ export default function Header({ showRestart, onRestart, subtitle }: HeaderProps
           )}
         </div>
         
-        {showRestart && onRestart && (
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={onRestart}
-            data-testid="button-restart"
-          >
-            <RotateCcw className="w-4 h-4 mr-2" />
-            다시 시작
-          </Button>
-        )}
+        <div className="flex items-center gap-2">
+          <LanguageSelector />
+          {showRestart && onRestart && (
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={onRestart}
+              data-testid="button-restart"
+            >
+              <RotateCcw className="w-4 h-4 mr-2" />
+              {t('restart')}
+            </Button>
+          )}
+        </div>
       </div>
     </header>
   );
