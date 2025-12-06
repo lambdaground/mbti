@@ -2037,6 +2037,8 @@ function getHybridAnimalName(animal1: string, animal2: string): string {
     '강아지_돌고래': '멍고래',
     '앵무새_강아지': '앵멍이',
     '강아지_앵무새': '멍무새',
+    '강아지_독수리': '멍독이',
+    '독수리_강아지': '독멍이',
     '표범_고양이': '표냥이',
     '고양이_표범': '냥표범',
     '비버_올빼미': '비올이',
@@ -2070,14 +2072,22 @@ const animalDescriptions: Record<string, string> = {
   '앵무새': '밝고 에너지 넘치며, 주변을 즐겁게 만드는'
 };
 
-function getBlendDescription(dimensions: HybridDimension[], primaryAnimal: string, secondaryAnimal: string, primaryType?: MBTIType): string {
+function getBlendDescription(dimensions: HybridDimension[], primaryAnimal: string, secondaryAnimal: string, primaryType?: MBTIType, secondaryPercentage?: number): string {
   const balancedDims = dimensions.filter(d => d.isBalanced);
   const primaryParticleWa = getKoreanParticle(primaryAnimal, 'wa');
   const secondaryParticleI = getKoreanParticle(secondaryAnimal, 'i');
   
-  if (balancedDims.length === 0) {
+  const hasSignificantSecondary = secondaryPercentage !== undefined && secondaryPercentage >= 25;
+  
+  if (balancedDims.length === 0 && !hasSignificantSecondary) {
     const animalDesc = animalDescriptions[primaryAnimal] || '독특한 매력을 가진';
-    return `${animalDesc} ${primaryAnimal} 성향이에요. ${primaryType?.description?.slice(0, 80) || '자신만의 방식으로 세상을 바라보며 특별한 매력을 가지고 있어요.'}`;
+    return `${animalDesc} ${primaryAnimal} 성향이에요. ${primaryType?.description || '자신만의 방식으로 세상을 바라보며 특별한 매력을 가지고 있어요.'}`;
+  }
+  
+  if (balancedDims.length === 0 && hasSignificantSecondary) {
+    const primaryDesc = animalDescriptions[primaryAnimal] || '독특한 매력을 가진';
+    const secondaryDesc = animalDescriptions[secondaryAnimal] || '특별한';
+    return `${primaryDesc} ${primaryAnimal} 성향이 주를 이루지만, ${secondaryDesc} ${secondaryAnimal}의 특성도 함께 가지고 있어요. 두 가지 성향이 조화를 이루며 상황에 따라 다양한 모습을 보여줘요.`;
   }
   
   const traits = balancedDims.map(d => {
@@ -2144,23 +2154,26 @@ export function getHybridPersonality(result: MBTIResult): HybridPersonality {
   
   const balancedCount = dimensions.filter(d => d.isBalanced).length;
   
+  const avgPrimaryPercentage = dimensions.reduce((sum, d) => sum + d.primaryPercentage, 0) / 4;
+  const blendPercentage = 100 - avgPrimaryPercentage;
+  
+  const secondaryTypeSignificant = result.secondaryPercentage >= 25;
+  
   let blendLevel: 'pure' | 'slight' | 'balanced';
-  if (balancedCount === 0) {
+  if (balancedCount === 0 && !secondaryTypeSignificant) {
     blendLevel = 'pure';
-  } else if (balancedCount <= 2) {
+  } else if (balancedCount <= 2 || secondaryTypeSignificant) {
     blendLevel = 'slight';
   } else {
     blendLevel = 'balanced';
   }
   
-  const avgPrimaryPercentage = dimensions.reduce((sum, d) => sum + d.primaryPercentage, 0) / 4;
-  const blendPercentage = 100 - avgPrimaryPercentage;
+  const showHybrid = blendLevel !== 'pure' || secondaryTypeSignificant;
+  const hybridAnimalName = showHybrid
+    ? getHybridAnimalName(primaryAnimal, secondaryAnimal)
+    : primaryAnimal;
   
-  const hybridAnimalName = blendLevel === 'pure' 
-    ? primaryAnimal 
-    : getHybridAnimalName(primaryAnimal, secondaryAnimal);
-  
-  const blendDescription = getBlendDescription(dimensions, primaryAnimal, secondaryAnimal, primaryType);
+  const blendDescription = getBlendDescription(dimensions, primaryAnimal, secondaryAnimal, primaryType, result.secondaryPercentage);
   
   return {
     primaryType: primaryType.type,
