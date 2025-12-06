@@ -20,7 +20,7 @@ export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizCont
     setQuestions(getQuestions(ageGroup));
   }, [ageGroup]);
   
-  if (questions.length === 0 || !questions[currentIndex]) return null;
+  if (questions.length === 0) return null;
   
   const currentQuestion = questions[currentIndex];
   const isLastQuestion = currentIndex === questions.length - 1;
