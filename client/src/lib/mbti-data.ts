@@ -52,6 +52,19 @@ export interface HybridPersonality {
   hybridAnimalName: string;
 }
 
+export interface AgeScenario {
+  situation: string;
+  behavior: string;
+}
+
+export interface AgeNarrative {
+  overview: string;
+  keyTraits: string[];
+  scenarios: AgeScenario[];
+}
+
+export type AgeNarratives = Record<AgeGroup, AgeNarrative>;
+
 export interface ScenarioQuestion {
   id: number;
   scenario: string;
@@ -2360,4 +2373,622 @@ export function getComplexComparisonAnalysis(
     parentHybrid,
     childHybrid
   };
+}
+
+export const mbtiAgeNarratives: Record<string, AgeNarratives> = {
+  ESFJ: {
+    elementary: {
+      overview: "친구들과 함께 있는 것을 좋아하고, 다른 사람들을 돕는 것을 즐거워해요. 규칙을 잘 지키고, 착하다는 말을 자주 들어요.",
+      keyTraits: ["친구들과 잘 어울려요", "다른 사람 도와주는 걸 좋아해요", "규칙을 잘 지켜요", "칭찬받으면 더 열심히 해요"],
+      scenarios: [
+        { situation: "새 친구가 반에 오면", behavior: "먼저 다가가서 인사하고 같이 놀자고 해요" },
+        { situation: "친구가 슬퍼보이면", behavior: "무슨 일인지 물어보고 위로해줘요" },
+        { situation: "선생님이 도움을 요청하면", behavior: "신나게 손들고 도와드려요" }
+      ]
+    },
+    middle: {
+      overview: "주변 사람들의 기분을 잘 살피고, 모두가 잘 지내도록 노력해요. 책임감이 강하고 약속을 잘 지켜서 친구들에게 신뢰받아요.",
+      keyTraits: ["리더십이 있어요", "친구 관계를 중요하게 생각해요", "다른 사람의 기분을 잘 읽어요", "책임감이 강해요"],
+      scenarios: [
+        { situation: "모둠 활동을 할 때", behavior: "분위기를 이끌고 역할을 나눠요" },
+        { situation: "친구들 사이에 갈등이 생기면", behavior: "중재하고 화해시키려고 노력해요" },
+        { situation: "약속한 일이 있으면", behavior: "무슨 일이 있어도 꼭 지키려고 해요" }
+      ]
+    },
+    high: {
+      overview: "사회적 관계를 중요시하고, 조화로운 환경을 만들기 위해 노력해요. 다른 사람들의 필요를 잘 파악하고 도움을 주는 것에서 보람을 느껴요.",
+      keyTraits: ["대인관계 능력이 뛰어나요", "조직적이고 계획적이에요", "타인의 감정에 민감해요", "전통과 규칙을 존중해요"],
+      scenarios: [
+        { situation: "동아리 활동에서", behavior: "행사를 기획하고 사람들을 모아요" },
+        { situation: "친구가 진로 고민을 하면", behavior: "경험을 나누고 함께 해결책을 찾아요" },
+        { situation: "그룹 프로젝트에서", behavior: "팀원들의 의견을 조율하고 일정을 관리해요" }
+      ]
+    },
+    adult: {
+      overview: "타인을 돕고 조화로운 관계를 유지하는 것이 삶의 중요한 가치예요. 책임감 있고 신뢰할 수 있는 사람으로 주변에서 의지해요.",
+      keyTraits: ["헌신적이에요", "조직력이 뛰어나요", "공감 능력이 높아요", "실용적이에요"],
+      scenarios: [
+        { situation: "가족 모임에서", behavior: "모든 사람이 편하게 지낼 수 있도록 세심하게 챙겨요" },
+        { situation: "직장에서 갈등이 생기면", behavior: "중재자 역할을 하며 분위기를 풀어요" },
+        { situation: "친구가 어려움에 처하면", behavior: "실질적인 도움과 정서적 지지를 함께 제공해요" }
+      ]
+    }
+  },
+  ESFP: {
+    elementary: {
+      overview: "밝고 활발해서 친구들 사이에서 인기가 많아요. 재미있는 것을 좋아하고, 지금 이 순간을 즐기는 것이 중요해요.",
+      keyTraits: ["밝고 활발해요", "친구들과 노는 걸 좋아해요", "재미있는 것을 찾아다녀요", "표현력이 풍부해요"],
+      scenarios: [
+        { situation: "쉬는 시간에", behavior: "친구들과 신나게 뛰어놀아요" },
+        { situation: "발표 시간에", behavior: "당당하게 나가서 재미있게 발표해요" },
+        { situation: "새로운 활동이 있으면", behavior: "먼저 해보겠다고 손들어요" }
+      ]
+    },
+    middle: {
+      overview: "유쾌하고 사교적이어서 어디서든 분위기 메이커 역할을 해요. 현재를 즐기고, 다양한 경험을 하고 싶어해요.",
+      keyTraits: ["사교성이 뛰어나요", "분위기를 띄워요", "즉흥적이에요", "에너지가 넘쳐요"],
+      scenarios: [
+        { situation: "친구들 모임에서", behavior: "자연스럽게 분위기를 이끌고 웃음을 만들어요" },
+        { situation: "공부가 지루할 때", behavior: "재미있는 방법을 찾거나 잠시 쉬어요" },
+        { situation: "새로운 사람을 만나면", behavior: "금방 친해지고 말을 트요" }
+      ]
+    },
+    high: {
+      overview: "사람들과 함께하는 것에서 에너지를 얻고, 다양한 경험을 통해 성장해요. 현실적이면서도 낙관적인 태도로 생활해요.",
+      keyTraits: ["활동적이에요", "적응력이 뛰어나요", "긍정적이에요", "감각적이에요"],
+      scenarios: [
+        { situation: "학교 축제에서", behavior: "행사에 적극 참여하고 무대에도 서요" },
+        { situation: "스트레스를 받으면", behavior: "친구들과 놀거나 운동으로 풀어요" },
+        { situation: "진로를 고민할 때", behavior: "다양한 경험을 해보며 맞는 걸 찾아요" }
+      ]
+    },
+    adult: {
+      overview: "삶을 즐기고 사람들과의 관계에서 행복을 찾아요. 현실적이고 적응력이 좋아서 어디서든 잘 어울려요.",
+      keyTraits: ["유연해요", "낙관적이에요", "실용적이에요", "친화력이 높아요"],
+      scenarios: [
+        { situation: "새 직장에 적응할 때", behavior: "빠르게 사람들과 친해지고 적응해요" },
+        { situation: "주말에", behavior: "활동적인 취미나 모임을 즐겨요" },
+        { situation: "어려운 상황에서", behavior: "긍정적인 면을 찾고 유연하게 대처해요" }
+      ]
+    }
+  },
+  ENFJ: {
+    elementary: {
+      overview: "친구들을 잘 챙기고, 다른 사람들이 행복했으면 좋겠다고 생각해요. 어른들에게도 예의 바르다는 말을 자주 들어요.",
+      keyTraits: ["친구를 잘 챙겨요", "다른 사람 마음을 잘 알아요", "리더 역할을 좋아해요", "말을 잘해요"],
+      scenarios: [
+        { situation: "반에서 혼자 있는 친구를 보면", behavior: "다가가서 같이 놀자고 해요" },
+        { situation: "모둠 활동에서", behavior: "자연스럽게 이끌면서 모두의 의견을 들어요" },
+        { situation: "친구가 잘못을 하면", behavior: "부드럽게 고쳐줘야 할 점을 말해줘요" }
+      ]
+    },
+    middle: {
+      overview: "타인의 성장과 행복에 관심이 많고, 주변을 긍정적으로 이끄는 능력이 있어요. 공감 능력이 뛰어나서 친구들이 고민을 털어놓아요.",
+      keyTraits: ["카리스마가 있어요", "공감 능력이 뛰어나요", "동기 부여를 잘해요", "따뜻해요"],
+      scenarios: [
+        { situation: "친구가 힘들어할 때", behavior: "진심으로 이야기를 듣고 응원해요" },
+        { situation: "학급 임원 선거에서", behavior: "모두를 위한 공약을 만들어 나가요" },
+        { situation: "갈등이 있는 친구 사이에서", behavior: "양쪽 마음을 이해하고 화해시켜요" }
+      ]
+    },
+    high: {
+      overview: "사람들에게 영감을 주고 이끄는 것을 좋아해요. 이상적인 목표를 향해 함께 나아가는 것에서 보람을 느끼고, 타인의 잠재력을 발굴해줘요.",
+      keyTraits: ["비전을 제시해요", "설득력이 있어요", "열정적이에요", "이타적이에요"],
+      scenarios: [
+        { situation: "동아리를 이끌 때", behavior: "구성원들의 강점을 찾아 역할을 맡겨요" },
+        { situation: "토론에서", behavior: "다양한 의견을 존중하면서도 방향을 이끌어요" },
+        { situation: "후배가 고민할 때", behavior: "자신의 경험을 나누며 조언해요" }
+      ]
+    },
+    adult: {
+      overview: "타인의 성장을 돕는 것에서 의미를 찾고, 긍정적인 영향력을 미치고 싶어해요. 조직을 이끄는 능력과 공감 능력이 조화를 이뤄요.",
+      keyTraits: ["영향력이 있어요", "비전을 가져요", "헌신적이에요", "소통을 잘해요"],
+      scenarios: [
+        { situation: "팀을 이끌 때", behavior: "구성원 각자의 강점을 살려주며 목표를 향해 나아가요" },
+        { situation: "누군가 어려움에 처하면", behavior: "실질적인 도움과 정서적 지원을 함께 제공해요" },
+        { situation: "새로운 프로젝트에서", behavior: "사람들에게 영감을 주며 참여를 이끌어내요" }
+      ]
+    }
+  },
+  ENFP: {
+    elementary: {
+      overview: "상상력이 풍부하고, 새로운 것을 시도하는 것을 좋아해요. 호기심이 많고 질문을 많이 해서 '왜?'라는 말을 자주 해요.",
+      keyTraits: ["호기심이 많아요", "상상력이 풍부해요", "새로운 것을 좋아해요", "밝고 활발해요"],
+      scenarios: [
+        { situation: "새로운 장난감이 생기면", behavior: "설명서도 안 보고 이것저것 해봐요" },
+        { situation: "이야기를 들으면", behavior: "'그 다음엔?', '왜?'라고 계속 물어봐요" },
+        { situation: "그림을 그릴 때", behavior: "상상 속의 세계를 마음껏 그려요" }
+      ]
+    },
+    middle: {
+      overview: "다양한 가능성에 흥미를 느끼고, 새로운 아이디어를 생각해내는 것을 좋아해요. 사람들과 어울리는 것도 좋아하고 감정 표현이 풍부해요.",
+      keyTraits: ["창의적이에요", "열정적이에요", "감정 표현이 풍부해요", "변화를 좋아해요"],
+      scenarios: [
+        { situation: "새 취미를 발견하면", behavior: "신나서 빠져들다가 또 새로운 것에 관심 가져요" },
+        { situation: "친구가 고민을 말하면", behavior: "진심으로 들어주고 함께 해결책을 찾아요" },
+        { situation: "프로젝트를 할 때", behavior: "독특하고 창의적인 아이디어를 많이 내요" }
+      ]
+    },
+    high: {
+      overview: "가능성과 잠재력을 보는 눈이 있고, 새로운 경험을 통해 성장해요. 자유로운 영혼으로 정해진 틀에 갇히는 것을 싫어해요.",
+      keyTraits: ["자유로워요", "열린 마음이에요", "직관적이에요", "에너지가 넘쳐요"],
+      scenarios: [
+        { situation: "진로를 고민할 때", behavior: "다양한 가능성을 열어두고 탐색해요" },
+        { situation: "반복적인 일을 할 때", behavior: "지루해하며 새로운 방법을 찾아요" },
+        { situation: "사람들과 대화할 때", behavior: "아이디어를 나누고 영감을 주고받아요" }
+      ]
+    },
+    adult: {
+      overview: "열정과 창의성으로 삶을 풍요롭게 만들어요. 진정한 자신을 찾고 의미 있는 일을 하고 싶어하며, 사람들에게 영감을 줘요.",
+      keyTraits: ["창의적이에요", "열정적이에요", "적응력이 좋아요", "이상주의적이에요"],
+      scenarios: [
+        { situation: "새 프로젝트를 시작할 때", behavior: "아이디어가 넘치고 사람들을 모아요" },
+        { situation: "일상이 지루해지면", behavior: "새로운 도전을 찾거나 변화를 만들어요" },
+        { situation: "의미를 찾을 때", behavior: "자신의 가치와 맞는 일을 추구해요" }
+      ]
+    }
+  },
+  ESTJ: {
+    elementary: {
+      overview: "규칙을 잘 지키고, 일을 끝까지 해내는 것이 중요해요. 리더 역할을 맡으면 책임감 있게 해내서 선생님께 칭찬을 받아요.",
+      keyTraits: ["책임감이 강해요", "규칙을 잘 지켜요", "리더십이 있어요", "목표를 달성해요"],
+      scenarios: [
+        { situation: "모둠장을 맡으면", behavior: "역할을 나누고 모두가 잘하도록 이끌어요" },
+        { situation: "숙제가 있으면", behavior: "미루지 않고 빨리 끝내요" },
+        { situation: "친구가 규칙을 어기면", behavior: "그건 안 된다고 말해줘요" }
+      ]
+    },
+    middle: {
+      overview: "목표를 세우고 체계적으로 달성하는 것을 잘해요. 정해진 규칙과 질서를 중요하게 생각하고, 효율적으로 일하는 것을 좋아해요.",
+      keyTraits: ["조직적이에요", "결단력이 있어요", "효율을 중시해요", "신뢰할 수 있어요"],
+      scenarios: [
+        { situation: "시험 기간에", behavior: "계획을 세우고 하나씩 체크하며 공부해요" },
+        { situation: "조별 과제에서", behavior: "역할 분담과 일정을 정해서 진행해요" },
+        { situation: "결정을 내려야 할 때", behavior: "빠르게 판단하고 실행해요" }
+      ]
+    },
+    high: {
+      overview: "리더십이 강하고 조직을 이끄는 능력이 있어요. 명확한 목표와 체계적인 계획으로 결과를 만들어내는 것에 자신감이 있어요.",
+      keyTraits: ["추진력이 있어요", "논리적이에요", "실용적이에요", "책임감이 강해요"],
+      scenarios: [
+        { situation: "학생회 활동에서", behavior: "체계적으로 일을 추진하고 결과를 만들어요" },
+        { situation: "의견이 다를 때", behavior: "논리적으로 설득하거나 효율적인 방법을 찾아요" },
+        { situation: "목표를 세우면", behavior: "계획을 세우고 끝까지 밀고 나가요" }
+      ]
+    },
+    adult: {
+      overview: "조직과 시스템을 효율적으로 운영하는 능력이 있어요. 책임감이 강하고, 목표를 달성하기 위해 체계적으로 일해요.",
+      keyTraits: ["리더십이 있어요", "체계적이에요", "결과 중심이에요", "신뢰할 수 있어요"],
+      scenarios: [
+        { situation: "프로젝트를 맡으면", behavior: "명확한 계획과 일정으로 진행해요" },
+        { situation: "팀에 문제가 생기면", behavior: "빠르게 원인을 파악하고 해결책을 제시해요" },
+        { situation: "결정을 내릴 때", behavior: "데이터와 경험을 바탕으로 합리적으로 결정해요" }
+      ]
+    }
+  },
+  ESTP: {
+    elementary: {
+      overview: "활동적이고 모험을 좋아해요. 가만히 앉아있는 것보다 움직이고 뛰어노는 것이 좋고, 새로운 것을 직접 해보고 싶어해요.",
+      keyTraits: ["활동적이에요", "용감해요", "즉흥적이에요", "모험을 좋아해요"],
+      scenarios: [
+        { situation: "체육 시간에", behavior: "열심히 참여하고 잘해요" },
+        { situation: "무서운 놀이기구 앞에서", behavior: "먼저 타겠다고 나서요" },
+        { situation: "새로운 것을 보면", behavior: "직접 만져보고 해봐야 직성이 풀려요" }
+      ]
+    },
+    middle: {
+      overview: "현재 순간을 즐기고, 위기 상황에서 빠르게 대처하는 능력이 있어요. 이론보다 실전을 좋아하고, 도전을 두려워하지 않아요.",
+      keyTraits: ["행동력이 있어요", "문제 해결을 잘해요", "현실적이에요", "적응력이 뛰어나요"],
+      scenarios: [
+        { situation: "갑자기 문제가 생기면", behavior: "당황하지 않고 빠르게 해결해요" },
+        { situation: "지루한 수업 시간에", behavior: "몰래 다른 것을 하거나 친구와 이야기해요" },
+        { situation: "운동이나 게임에서", behavior: "경쟁적이고 이기려고 노력해요" }
+      ]
+    },
+    high: {
+      overview: "순간적인 판단력이 뛰어나고, 위험을 감수하면서도 도전하는 것을 좋아해요. 실용적이고 현실적인 해결책을 빠르게 찾아요.",
+      keyTraits: ["순발력이 좋아요", "위기 대처를 잘해요", "실용적이에요", "자신감 있어요"],
+      scenarios: [
+        { situation: "토론에서", behavior: "순발력 있게 반박하고 논쟁을 즐겨요" },
+        { situation: "새로운 기회가 오면", behavior: "일단 도전해보고 결과는 나중에 생각해요" },
+        { situation: "규칙이 답답할 때", behavior: "융통성 있게 해결책을 찾아요" }
+      ]
+    },
+    adult: {
+      overview: "행동 지향적이고 실질적인 결과를 중시해요. 위기 상황에서 빛을 발하며, 즉각적인 문제 해결 능력이 뛰어나요.",
+      keyTraits: ["실용적이에요", "적응력이 있어요", "결과 중심이에요", "용감해요"],
+      scenarios: [
+        { situation: "급한 문제가 생기면", behavior: "빠르게 상황을 파악하고 대응해요" },
+        { situation: "협상이나 거래에서", behavior: "상황을 읽고 유리하게 이끌어요" },
+        { situation: "새로운 도전이 오면", behavior: "리스크를 계산하고 과감하게 도전해요" }
+      ]
+    }
+  },
+  ENTJ: {
+    elementary: {
+      overview: "무리에서 자연스럽게 리더가 되고, 목표를 정하면 끝까지 해내요. '이렇게 하면 되잖아!'라며 방법을 찾는 것을 좋아해요.",
+      keyTraits: ["리더십이 강해요", "목표를 향해 가요", "자신감 있어요", "문제 해결을 잘해요"],
+      scenarios: [
+        { situation: "친구들과 놀 때", behavior: "놀이를 정하고 규칙을 만들어요" },
+        { situation: "어려운 문제가 있으면", behavior: "포기하지 않고 방법을 찾아요" },
+        { situation: "하고 싶은 것이 있으면", behavior: "부모님을 설득해서 해내요" }
+      ]
+    },
+    middle: {
+      overview: "목표 지향적이고 효율적으로 일하는 것을 좋아해요. 다른 사람들을 이끄는 데 자연스러운 능력이 있고, 도전을 즐겨요.",
+      keyTraits: ["결단력이 있어요", "전략적이에요", "야망이 있어요", "논리적이에요"],
+      scenarios: [
+        { situation: "조별 과제에서", behavior: "방향을 제시하고 효율적으로 나눠요" },
+        { situation: "목표를 세우면", behavior: "달성하기 위해 계획을 세우고 실행해요" },
+        { situation: "비효율적인 일을 보면", behavior: "더 좋은 방법을 제안해요" }
+      ]
+    },
+    high: {
+      overview: "장기적인 비전을 가지고 목표를 향해 전략적으로 움직여요. 리더로서 사람들을 이끌고, 결과를 만들어내는 데 능숙해요.",
+      keyTraits: ["비전이 있어요", "추진력이 강해요", "전략적이에요", "자신감 있어요"],
+      scenarios: [
+        { situation: "진로를 정할 때", behavior: "장기적인 목표를 세우고 계획해요" },
+        { situation: "리더 역할을 맡으면", behavior: "비전을 제시하고 팀을 이끌어요" },
+        { situation: "장애물을 만나면", behavior: "우회하거나 돌파할 방법을 찾아요" }
+      ]
+    },
+    adult: {
+      overview: "전략적 사고와 리더십으로 조직을 이끌어요. 큰 그림을 보며 장기적인 목표를 향해 효율적으로 움직이는 것을 좋아해요.",
+      keyTraits: ["전략가예요", "결단력이 있어요", "효율을 중시해요", "목표 지향적이에요"],
+      scenarios: [
+        { situation: "조직을 이끌 때", behavior: "비전을 제시하고 체계적으로 운영해요" },
+        { situation: "어려운 결정을 내릴 때", behavior: "논리적으로 분석하고 빠르게 결정해요" },
+        { situation: "목표 달성에 방해가 있으면", behavior: "전략을 수정하거나 돌파구를 찾아요" }
+      ]
+    }
+  },
+  ENTP: {
+    elementary: {
+      overview: "'왜?'라는 질문을 많이 하고, 새로운 아이디어를 생각해내는 것을 좋아해요. 토론하는 것도 재미있어하고, 규칙에 의문을 제기해요.",
+      keyTraits: ["호기심이 많아요", "질문을 많이 해요", "창의적이에요", "토론을 좋아해요"],
+      scenarios: [
+        { situation: "수업 중에", behavior: "궁금한 것이 생기면 바로 질문해요" },
+        { situation: "규칙이 있으면", behavior: "'왜 그렇게 해야 해요?'라고 물어봐요" },
+        { situation: "놀이를 할 때", behavior: "새로운 규칙이나 방법을 만들어요" }
+      ]
+    },
+    middle: {
+      overview: "토론과 논쟁을 즐기고, 다양한 관점에서 생각하는 것을 좋아해요. 새로운 아이디어가 많고, 정해진 틀을 벗어나 생각해요.",
+      keyTraits: ["논쟁을 즐겨요", "다양한 관점을 가져요", "혁신적이에요", "언변이 좋아요"],
+      scenarios: [
+        { situation: "토론 수업에서", behavior: "다양한 관점에서 논쟁을 즐겨요" },
+        { situation: "문제를 풀 때", behavior: "기존 방법이 아닌 새로운 방법을 시도해요" },
+        { situation: "관심사가 생기면", behavior: "깊이 파고들다가 또 새로운 것으로 옮겨가요" }
+      ]
+    },
+    high: {
+      overview: "지적 도전을 즐기고, 새로운 가능성을 탐구해요. 관습에 도전하고 혁신적인 아이디어를 제시하는 것에서 재미를 느껴요.",
+      keyTraits: ["혁신적이에요", "지적 호기심이 높아요", "논리적이에요", "자유로워요"],
+      scenarios: [
+        { situation: "새 아이디어가 떠오르면", behavior: "열정적으로 탐구하고 발전시켜요" },
+        { situation: "기존 방식에 문제가 있으면", behavior: "더 나은 방법을 제안하고 논쟁해요" },
+        { situation: "여러 프로젝트가 있으면", behavior: "다 시작하지만 끝내기는 어려워해요" }
+      ]
+    },
+    adult: {
+      overview: "가능성과 혁신을 추구하며, 지적 도전을 즐겨요. 논쟁과 토론을 통해 아이디어를 발전시키고, 새로운 것을 창조해요.",
+      keyTraits: ["혁신가예요", "논리적이에요", "도전적이에요", "유연해요"],
+      scenarios: [
+        { situation: "새 사업 아이디어가 있으면", behavior: "가능성을 분석하고 도전해요" },
+        { situation: "회의에서", behavior: "다양한 관점을 제시하고 토론을 이끌어요" },
+        { situation: "반복적인 일을 하면", behavior: "지루해하며 자동화하거나 더 좋은 방법을 찾아요" }
+      ]
+    }
+  },
+  ISFJ: {
+    elementary: {
+      overview: "조용하고 착해서 어른들에게 칭찬을 많이 받아요. 친구들을 잘 챙기고, 규칙을 잘 지키며, 도움이 필요한 사람을 잘 도와줘요.",
+      keyTraits: ["착하고 다정해요", "친구를 잘 챙겨요", "차분해요", "도와주는 것을 좋아해요"],
+      scenarios: [
+        { situation: "친구가 아프면", behavior: "보건실에 같이 가주거나 돌봐줘요" },
+        { situation: "교실 정리 시간에", behavior: "묵묵히 정리를 도와요" },
+        { situation: "새 친구가 오면", behavior: "조용히 다가가서 필요한 것을 도와줘요" }
+      ]
+    },
+    middle: {
+      overview: "헌신적이고 신뢰할 수 있어요. 다른 사람들의 필요를 살피고 도움을 주는 것에서 보람을 느끼고, 책임감 있게 맡은 일을 해내요.",
+      keyTraits: ["헌신적이에요", "꼼꼼해요", "인내심이 있어요", "믿음직해요"],
+      scenarios: [
+        { situation: "친구가 힘들어할 때", behavior: "곁에서 조용히 지지해줘요" },
+        { situation: "맡은 역할이 있으면", behavior: "묵묵히 끝까지 해내요" },
+        { situation: "누군가 도움이 필요하면", behavior: "자신의 일이 있어도 도와줘요" }
+      ]
+    },
+    high: {
+      overview: "성실하고 책임감이 강해요. 조용하지만 사람들을 돌보는 마음이 깊고, 안정적인 환경에서 최선을 다해요.",
+      keyTraits: ["성실해요", "배려심이 깊어요", "신중해요", "전통을 존중해요"],
+      scenarios: [
+        { situation: "공부할 때", behavior: "꾸준히 성실하게 해서 성적을 유지해요" },
+        { situation: "친구 관계에서", behavior: "오래된 친구를 소중히 여기고 깊게 사귀어요" },
+        { situation: "변화가 생기면", behavior: "천천히 적응하며 안정을 찾아요" }
+      ]
+    },
+    adult: {
+      overview: "헌신적이고 책임감 있게 맡은 일을 해내요. 타인을 돌보는 것에서 의미를 찾고, 안정적이고 조화로운 환경을 만들어요.",
+      keyTraits: ["헌신적이에요", "실용적이에요", "인내심이 있어요", "보호자 역할을 해요"],
+      scenarios: [
+        { situation: "가족이나 친구가 아프면", behavior: "세심하게 돌보고 필요한 것을 챙겨요" },
+        { situation: "직장에서", behavior: "묵묵히 맡은 일을 완수하고 동료를 도와요" },
+        { situation: "전통적인 가치를 지킬 때", behavior: "중요하게 여기고 이어나가요" }
+      ]
+    }
+  },
+  ISFP: {
+    elementary: {
+      overview: "조용하지만 마음이 따뜻해요. 예술적인 것을 좋아하고, 동물이나 자연을 좋아해요. 자신만의 세계가 있어요.",
+      keyTraits: ["감각적이에요", "예술을 좋아해요", "다정해요", "조용해요"],
+      scenarios: [
+        { situation: "미술 시간에", behavior: "자신만의 스타일로 그림을 그려요" },
+        { situation: "동물을 보면", behavior: "다가가서 쓰다듬고 싶어해요" },
+        { situation: "혼자 있을 때", behavior: "상상하거나 좋아하는 것을 하며 시간을 보내요" }
+      ]
+    },
+    middle: {
+      overview: "자유로운 영혼으로 자신만의 가치관을 중요시해요. 예술적 감각이 뛰어나고, 현재 순간을 즐기며 살아요.",
+      keyTraits: ["예술적이에요", "자유로워요", "감성적이에요", "현재를 살아요"],
+      scenarios: [
+        { situation: "취미 생활에서", behavior: "음악, 미술, 사진 등 예술적인 것을 즐겨요" },
+        { situation: "자신의 스타일에 대해", behavior: "남들과 다른 독특한 취향을 가져요" },
+        { situation: "갈등 상황에서", behavior: "피하려 하고 조용히 물러나요" }
+      ]
+    },
+    high: {
+      overview: "진정한 자아를 찾고 표현하는 것을 중요시해요. 예술이나 자연에서 영감을 얻고, 자유롭게 살고 싶어해요.",
+      keyTraits: ["진실해요", "감각적이에요", "평화로워요", "유연해요"],
+      scenarios: [
+        { situation: "진로를 정할 때", behavior: "자신이 정말 좋아하는 것을 찾아요" },
+        { situation: "스트레스를 받으면", behavior: "자연 속에서 쉬거나 예술 활동을 해요" },
+        { situation: "가치관에 어긋나는 일을 보면", behavior: "조용히 거리를 두거나 자신의 방식을 지켜요" }
+      ]
+    },
+    adult: {
+      overview: "자신의 가치와 진정성을 중요시하며 살아요. 현재 순간을 즐기고, 예술이나 자연에서 평화를 찾아요.",
+      keyTraits: ["진실해요", "유연해요", "감각적이에요", "조용해요"],
+      scenarios: [
+        { situation: "일을 선택할 때", behavior: "의미 있고 자신의 가치와 맞는 일을 찾아요" },
+        { situation: "여가 시간에", behavior: "예술 활동이나 자연에서 시간을 보내요" },
+        { situation: "결정을 내릴 때", behavior: "자신의 느낌과 가치관을 따라요" }
+      ]
+    }
+  },
+  ISTJ: {
+    elementary: {
+      overview: "약속을 잘 지키고, 규칙을 따르는 것이 중요해요. 꼼꼼하고 차분해서 맡은 일을 잘 끝내고, 정리정돈을 잘해요.",
+      keyTraits: ["꼼꼼해요", "규칙을 잘 지켜요", "책임감이 있어요", "정리를 잘해요"],
+      scenarios: [
+        { situation: "숙제가 있으면", behavior: "차근차근 해서 제시간에 제출해요" },
+        { situation: "방 정리를 할 때", behavior: "물건마다 자리를 정해서 정리해요" },
+        { situation: "약속을 하면", behavior: "무슨 일이 있어도 지키려고 해요" }
+      ]
+    },
+    middle: {
+      overview: "신뢰할 수 있고 책임감이 강해요. 체계적으로 일하는 것을 좋아하고, 꾸준함으로 목표를 달성해요.",
+      keyTraits: ["신뢰할 수 있어요", "체계적이에요", "성실해요", "실용적이에요"],
+      scenarios: [
+        { situation: "공부할 때", behavior: "계획표대로 꾸준히 해요" },
+        { situation: "조별 과제에서", behavior: "맡은 부분을 확실히 해내요" },
+        { situation: "변화가 생기면", behavior: "천천히 적응하며 안정을 찾아요" }
+      ]
+    },
+    high: {
+      overview: "성실하고 책임감이 강해서 신뢰받아요. 논리적이고 체계적으로 일하며, 꾸준함이 장점이에요.",
+      keyTraits: ["논리적이에요", "꾸준해요", "신중해요", "믿음직해요"],
+      scenarios: [
+        { situation: "목표를 정하면", behavior: "계획을 세우고 꾸준히 실행해요" },
+        { situation: "중요한 결정을 할 때", behavior: "충분히 생각하고 신중하게 결정해요" },
+        { situation: "다른 사람이 부탁하면", behavior: "맡은 일은 끝까지 해내요" }
+      ]
+    },
+    adult: {
+      overview: "신뢰할 수 있고 책임감 있게 일해요. 체계적이고 논리적으로 문제를 해결하며, 꾸준한 노력으로 결과를 만들어요.",
+      keyTraits: ["믿음직해요", "체계적이에요", "꾸준해요", "실용적이에요"],
+      scenarios: [
+        { situation: "업무에서", behavior: "정해진 절차를 따르고 완벽하게 마무리해요" },
+        { situation: "약속이나 계약에서", behavior: "정확하게 지키고 신뢰를 쌓아요" },
+        { situation: "새로운 것을 배울 때", behavior: "차근차근 단계별로 익혀요" }
+      ]
+    }
+  },
+  ISTP: {
+    elementary: {
+      overview: "손으로 직접 만들거나 고치는 것을 좋아해요. 조용하지만 관심 있는 것에는 집중력이 대단하고, 호기심이 많아요.",
+      keyTraits: ["손재주가 있어요", "호기심이 많아요", "독립적이에요", "조용해요"],
+      scenarios: [
+        { situation: "장난감이 고장나면", behavior: "분해해서 어떻게 작동하는지 살펴봐요" },
+        { situation: "레고나 조립하는 것에서", behavior: "집중해서 끝까지 완성해요" },
+        { situation: "새로운 것이 생기면", behavior: "직접 만져보고 실험해봐요" }
+      ]
+    },
+    middle: {
+      overview: "논리적이고 분석적인 사고를 하며, 실용적인 문제 해결을 잘해요. 독립적이고, 직접 경험하면서 배우는 것을 좋아해요.",
+      keyTraits: ["분석적이에요", "실용적이에요", "독립적이에요", "모험적이에요"],
+      scenarios: [
+        { situation: "문제가 생기면", behavior: "원인을 분석하고 직접 해결해요" },
+        { situation: "새로운 기술이 있으면", behavior: "직접 해보면서 익혀요" },
+        { situation: "규칙이 답답하면", behavior: "효율적인 방법을 찾아 우회해요" }
+      ]
+    },
+    high: {
+      overview: "냉철하고 논리적으로 상황을 분석해요. 실용적인 문제 해결 능력이 뛰어나고, 위기 상황에서 침착하게 대응해요.",
+      keyTraits: ["냉철해요", "적응력이 뛰어나요", "독립적이에요", "효율적이에요"],
+      scenarios: [
+        { situation: "관심 있는 분야에서", behavior: "깊이 파고들어 전문가 수준이 되어요" },
+        { situation: "급한 상황에서", behavior: "침착하게 상황을 파악하고 대응해요" },
+        { situation: "혼자 있는 시간에", behavior: "취미 활동에 몰두하며 충전해요" }
+      ]
+    },
+    adult: {
+      overview: "논리적이고 실용적인 문제 해결사예요. 위기 상황에서 침착하게 대응하고, 효율적인 방법을 찾아요.",
+      keyTraits: ["논리적이에요", "위기 대처를 잘해요", "독립적이에요", "실용적이에요"],
+      scenarios: [
+        { situation: "기술적 문제가 생기면", behavior: "분석하고 직접 해결해요" },
+        { situation: "급박한 상황에서", behavior: "침착하게 효율적으로 대응해요" },
+        { situation: "자유 시간에", behavior: "도구나 기계를 다루는 취미를 즐겨요" }
+      ]
+    }
+  },
+  INTJ: {
+    elementary: {
+      overview: "혼자 생각하는 것을 좋아하고, '왜?'라는 질문을 많이 해요. 계획을 세우고 나만의 방법으로 문제를 푸는 것을 좋아해요.",
+      keyTraits: ["생각이 깊어요", "독립적이에요", "목표가 있어요", "계획을 잘 세워요"],
+      scenarios: [
+        { situation: "어려운 문제가 있으면", behavior: "혼자 끙끙 생각해서 풀어내요" },
+        { situation: "하고 싶은 것이 있으면", behavior: "어떻게 할지 계획을 세워요" },
+        { situation: "모르는 것이 있으면", behavior: "책이나 인터넷으로 찾아봐요" }
+      ]
+    },
+    middle: {
+      overview: "전략적으로 생각하고 장기적인 목표를 세워요. 독립적이고 자기만의 높은 기준이 있어요.",
+      keyTraits: ["전략적이에요", "독립적이에요", "높은 기준이 있어요", "논리적이에요"],
+      scenarios: [
+        { situation: "목표가 생기면", behavior: "달성하기 위한 계획을 세우고 실행해요" },
+        { situation: "비효율적인 것을 보면", behavior: "더 좋은 방법을 생각해요" },
+        { situation: "관심 있는 분야에서", behavior: "깊이 파고들어 전문가가 되려고 해요" }
+      ]
+    },
+    high: {
+      overview: "비전을 가지고 장기적인 계획을 세워요. 독창적인 사고로 문제를 해결하고, 높은 기준을 스스로에게 적용해요.",
+      keyTraits: ["비전을 가져요", "완벽주의적이에요", "독창적이에요", "결단력이 있어요"],
+      scenarios: [
+        { situation: "진로를 정할 때", behavior: "장기적인 비전과 계획을 세워요" },
+        { situation: "시스템에 문제가 있으면", behavior: "근본적인 해결책을 생각해요" },
+        { situation: "자신의 능력을 키울 때", behavior: "체계적으로 학습하고 발전해요" }
+      ]
+    },
+    adult: {
+      overview: "전략적 사고로 장기적인 목표를 달성해요. 독창적인 아이디어와 높은 기준으로 성과를 만들어요.",
+      keyTraits: ["전략가예요", "독립적이에요", "비전이 있어요", "높은 기준을 가져요"],
+      scenarios: [
+        { situation: "장기 프로젝트에서", behavior: "전체 그림을 보며 전략적으로 접근해요" },
+        { situation: "비효율을 발견하면", behavior: "시스템을 개선할 방법을 설계해요" },
+        { situation: "목표를 향해", behavior: "꾸준히 노력하며 높은 기준을 유지해요" }
+      ]
+    }
+  },
+  INTP: {
+    elementary: {
+      overview: "호기심이 많고 '왜?'라는 질문을 많이 해요. 혼자 생각하고 탐구하는 것을 좋아하고, 자기만의 세계에 빠져 있을 때가 많아요.",
+      keyTraits: ["호기심이 많아요", "생각이 깊어요", "질문을 많이 해요", "혼자 노는 것도 좋아해요"],
+      scenarios: [
+        { situation: "궁금한 것이 생기면", behavior: "끝까지 알아내려고 해요" },
+        { situation: "레고나 퍼즐에서", behavior: "어떻게 작동하는지 생각하며 조립해요" },
+        { situation: "수업 시간에", behavior: "선생님 말씀 중에 궁금한 게 떠오르면 바로 물어봐요" }
+      ]
+    },
+    middle: {
+      overview: "논리적으로 분석하고 이론을 탐구하는 것을 좋아해요. 독창적인 생각을 하고, 왜 그런지 원리를 파악하려 해요.",
+      keyTraits: ["논리적이에요", "분석적이에요", "독창적이에요", "지적 호기심이 높아요"],
+      scenarios: [
+        { situation: "새로운 개념을 배우면", behavior: "원리를 파악할 때까지 파고들어요" },
+        { situation: "문제를 풀 때", behavior: "여러 가지 방법을 시도해봐요" },
+        { situation: "토론에서", behavior: "논리적인 허점을 발견하면 지적해요" }
+      ]
+    },
+    high: {
+      overview: "깊이 있는 사고와 분석으로 문제의 본질을 파악해요. 지적 호기심이 강하고, 이론과 가능성을 탐구해요.",
+      keyTraits: ["분석적이에요", "객관적이에요", "이론적이에요", "창의적이에요"],
+      scenarios: [
+        { situation: "복잡한 문제가 있으면", behavior: "여러 각도에서 분석하고 해결책을 찾아요" },
+        { situation: "관심 있는 주제에 대해", behavior: "깊이 연구하고 자기만의 이론을 만들어요" },
+        { situation: "틀린 논리를 보면", behavior: "조용히 문제점을 파악하고, 가끔 지적해요" }
+      ]
+    },
+    adult: {
+      overview: "깊이 있는 분석과 논리적 사고로 문제를 해결해요. 이론과 가능성을 탐구하며, 독창적인 아이디어를 발전시켜요.",
+      keyTraits: ["분석가예요", "창의적이에요", "독립적이에요", "지적 호기심이 높아요"],
+      scenarios: [
+        { situation: "새로운 아이디어가 떠오르면", behavior: "논리적으로 검증하고 발전시켜요" },
+        { situation: "복잡한 시스템을 보면", behavior: "작동 원리를 파악하려 해요" },
+        { situation: "토론에서", behavior: "다양한 관점에서 논리를 분석해요" }
+      ]
+    }
+  },
+  INFJ: {
+    elementary: {
+      overview: "생각이 깊고 상상력이 풍부해요. 다른 사람의 마음을 잘 이해하고, 동화책이나 이야기를 좋아해요.",
+      keyTraits: ["상상력이 풍부해요", "다른 사람 마음을 잘 알아요", "조용해요", "이야기를 좋아해요"],
+      scenarios: [
+        { situation: "친구가 슬퍼하면", behavior: "말없이 옆에 있어주며 위로해요" },
+        { situation: "그림을 그릴 때", behavior: "상상 속 이야기를 그려요" },
+        { situation: "많은 사람이 있으면", behavior: "조용한 곳에서 쉬고 싶어해요" }
+      ]
+    },
+    middle: {
+      overview: "직관적으로 사람과 상황을 이해해요. 의미 있는 일을 하고 싶어하고, 깊은 관계를 중요시해요.",
+      keyTraits: ["직관적이에요", "공감 능력이 높아요", "이상주의적이에요", "통찰력이 있어요"],
+      scenarios: [
+        { situation: "친구가 말하지 않아도", behavior: "표정만 봐도 기분을 알 수 있어요" },
+        { situation: "의미 없는 일을 하면", behavior: "동기가 떨어지고 힘들어해요" },
+        { situation: "미래에 대해 생각할 때", behavior: "세상에 좋은 영향을 미치고 싶어요" }
+      ]
+    },
+    high: {
+      overview: "깊은 통찰력으로 사람과 상황의 본질을 파악해요. 의미 있는 목표를 향해 나아가며, 사람들에게 긍정적 영향을 주고 싶어해요.",
+      keyTraits: ["통찰력이 있어요", "이상주의적이에요", "헌신적이에요", "복잡해요"],
+      scenarios: [
+        { situation: "진로를 정할 때", behavior: "의미 있고 사람들에게 도움이 되는 일을 찾아요" },
+        { situation: "사람들과 관계에서", behavior: "깊고 진실된 관계를 추구해요" },
+        { situation: "혼자 있을 때", behavior: "자신의 내면을 탐구하고 성찰해요" }
+      ]
+    },
+    adult: {
+      overview: "깊은 통찰력과 비전으로 의미 있는 변화를 추구해요. 사람들을 깊이 이해하고, 긍정적인 영향을 미치려 노력해요.",
+      keyTraits: ["통찰력이 있어요", "비전을 가져요", "복잡해요", "헌신적이에요"],
+      scenarios: [
+        { situation: "누군가를 도울 때", behavior: "표면적인 것이 아닌 근본적인 도움을 주려해요" },
+        { situation: "목표를 세울 때", behavior: "더 큰 의미와 연결된 비전을 추구해요" },
+        { situation: "혼자만의 시간에", behavior: "깊이 생각하고 창작 활동을 해요" }
+      ]
+    }
+  },
+  INFP: {
+    elementary: {
+      overview: "상상력이 풍부하고 마음이 여려요. 동물이나 작은 것들을 좋아하고, 자기만의 세계에서 이야기를 만들어요.",
+      keyTraits: ["상상력이 풍부해요", "마음이 여려요", "창의적이에요", "조용해요"],
+      scenarios: [
+        { situation: "혼자 있을 때", behavior: "상상 속 이야기를 만들며 놀아요" },
+        { situation: "동물을 보면", behavior: "다가가서 친해지고 싶어해요" },
+        { situation: "친구가 놀림을 받으면", behavior: "마음이 너무 아파요" }
+      ]
+    },
+    middle: {
+      overview: "자신의 가치관과 이상을 중요시해요. 진정성을 추구하고, 자신만의 방식으로 세상을 이해해요.",
+      keyTraits: ["이상주의적이에요", "진정성이 있어요", "창의적이에요", "감성적이에요"],
+      scenarios: [
+        { situation: "글이나 그림에서", behavior: "자신의 감정과 생각을 표현해요" },
+        { situation: "불공정한 일을 보면", behavior: "마음이 불편하고 바로잡고 싶어해요" },
+        { situation: "관심 있는 것에 대해", behavior: "깊이 빠져들어 탐구해요" }
+      ]
+    },
+    high: {
+      overview: "진정한 자아와 의미를 찾아가는 여정을 해요. 예술이나 글쓰기로 내면을 표현하고, 진실된 관계를 추구해요.",
+      keyTraits: ["진정성을 추구해요", "창의적이에요", "깊이 느껴요", "이상을 가져요"],
+      scenarios: [
+        { situation: "진로를 정할 때", behavior: "돈보다 의미와 가치를 고려해요" },
+        { situation: "창작 활동에서", behavior: "자신의 내면을 작품으로 표현해요" },
+        { situation: "가치관에 맞지 않는 일은", behavior: "아무리 좋아도 거부해요" }
+      ]
+    },
+    adult: {
+      overview: "진정성과 의미를 추구하며 살아요. 창의적인 방식으로 자신을 표현하고, 이상적인 세계를 꿈꿔요.",
+      keyTraits: ["이상주의적이에요", "창의적이에요", "공감 능력이 높아요", "진정성 있어요"],
+      scenarios: [
+        { situation: "일을 선택할 때", behavior: "의미 있고 가치와 맞는 일을 추구해요" },
+        { situation: "창작 활동에서", behavior: "깊은 감정과 생각을 표현해요" },
+        { situation: "부당한 것을 보면", behavior: "조용히라도 자신의 방식으로 저항해요" }
+      ]
+    }
+  }
+};
+
+export function getAgeNarrative(mbtiType: string, ageGroup: AgeGroup): AgeNarrative | null {
+  const normalizedType = mbtiType.toUpperCase();
+  const narratives = mbtiAgeNarratives[normalizedType];
+  if (!narratives) return null;
+  return narratives[ageGroup];
 }
