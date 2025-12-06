@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { mbtiTypes } from "@/lib/mbti-data";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";
 import intpImage from "@assets/generated_images/curious_raccoon_mascot_intp.png";
@@ -46,18 +47,20 @@ const mbtiOrder = [
 ];
 
 export default function MBTIAnimalGallery() {
+  const { t } = useLanguage();
+  
   return (
     <section className="py-12 bg-muted/30">
       <div className="container max-w-6xl mx-auto px-4">
         <div className="text-center mb-8">
           <Badge variant="outline" className="mb-4">
-            16가지 MBTI 동물 캐릭터
+            {t('gallery.badge')}
           </Badge>
           <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-2">
-            나와 우리 아이는 어떤 동물일까?
+            {t('gallery.title')}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            각 MBTI 유형에는 성격을 대표하는 귀여운 동물 캐릭터가 있어요!
+            {t('gallery.description')}
           </p>
         </div>
         
@@ -89,7 +92,7 @@ export default function MBTIAnimalGallery() {
         </div>
         
         <p className="text-center text-sm text-muted-foreground mt-6">
-          테스트를 완료하면 부모님과 아이의 동물 캐릭터 궁합도 볼 수 있어요!
+          {t('gallery.info')}
         </p>
       </div>
     </section>

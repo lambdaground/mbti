@@ -12,6 +12,7 @@ import {
   mbtiTypes
 } from "@/lib/mbti-data";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type Stage = 'home' | 'parent-quiz' | 'child-age-selection' | 'child-quiz' | 'comparison-result';
 
@@ -86,6 +87,7 @@ export default function Home() {
   const [childResult, setChildResult] = useState<MBTIResultType | undefined>();
   const [childAgeGroup, setChildAgeGroup] = useState<AgeGroup | undefined>();
   const { toast } = useToast();
+  const { t } = useLanguage();
   
   useEffect(() => {
     const savedParentResult = loadFromSession<MBTIResultType>(SESSION_KEYS.PARENT_RESULT);
@@ -111,8 +113,8 @@ export default function Home() {
     const result = createMockResultFromMBTI(mbtiCode);
     if (!result) {
       toast({
-        title: "잘못된 MBTI 코드",
-        description: "올바른 MBTI 유형을 입력해주세요 (예: INTJ, ENFP)",
+        title: t('toast.invalidMbti'),
+        description: t('toast.invalidMbtiDesc'),
         variant: "destructive",
       });
       return;
@@ -123,8 +125,8 @@ export default function Home() {
     setStage('child-age-selection');
     saveToSession(SESSION_KEYS.STAGE, 'child-age-selection');
     toast({
-      title: "부모님 MBTI 입력 완료!",
-      description: "이제 아이의 나이를 선택해주세요.",
+      title: t('toast.parentComplete'),
+      description: t('toast.parentCompleteDesc'),
     });
   };
   
@@ -139,8 +141,8 @@ export default function Home() {
     setStage('child-age-selection');
     saveToSession(SESSION_KEYS.STAGE, 'child-age-selection');
     toast({
-      title: "부모님 테스트 완료!",
-      description: "이제 아이의 나이를 선택해주세요.",
+      title: t('toast.parentTestComplete'),
+      description: t('toast.parentCompleteDesc'),
     });
   };
   
@@ -156,8 +158,8 @@ export default function Home() {
     const result = createMockResultFromMBTI(mbtiCode);
     if (!result) {
       toast({
-        title: "잘못된 MBTI 코드",
-        description: "올바른 MBTI 유형을 입력해주세요 (예: INTJ, ENFP)",
+        title: t('toast.invalidMbti'),
+        description: t('toast.invalidMbtiDesc'),
         variant: "destructive",
       });
       return;
@@ -169,8 +171,8 @@ export default function Home() {
     setStage('comparison-result');
     saveToSession(SESSION_KEYS.STAGE, 'comparison-result');
     toast({
-      title: "아이 MBTI 입력 완료!",
-      description: "궁합 결과를 확인해보세요.",
+      title: t('toast.childComplete'),
+      description: t('toast.childCompleteDesc'),
     });
   };
   
@@ -202,25 +204,25 @@ export default function Home() {
   
   const handleComparisonShare = () => {
     if (!parentResult || !childResult) return;
-    const text = `부모(${parentResult.primaryType.type}) & 아이(${childResult.primaryType.type}) MBTI 궁합! 나와 내 아이의 MBTI 궁합에서 확인해보세요: ${window.location.href}`;
+    const text = `${t('result.parent')}(${parentResult.primaryType.type}) & ${t('result.child')}(${childResult.primaryType.type}) MBTI! ${t('site.title')}: ${window.location.href}`;
     if (navigator.share) {
       navigator.share({
-        title: '부모-자녀 MBTI 궁합 결과',
+        title: t('result.title'),
         text,
         url: window.location.href,
       }).catch(() => {
         navigator.clipboard.writeText(text).then(() => {
           toast({
-            title: "복사 완료!",
-            description: "결과 링크가 클립보드에 복사되었어요.",
+            title: t('toast.copied'),
+            description: t('toast.copiedDesc'),
           });
         });
       });
     } else {
       navigator.clipboard.writeText(text).then(() => {
         toast({
-          title: "복사 완료!",
-          description: "결과 링크가 클립보드에 복사되었어요.",
+          title: t('toast.copied'),
+          description: t('toast.copiedDesc'),
         });
       });
     }
@@ -232,7 +234,7 @@ export default function Home() {
         <Header 
           showRestart 
           onRestart={handleRestart} 
-          subtitle="부모님 테스트"
+          subtitle={t('quiz.parentTest')}
         />
         <QuizContainer
           ageGroup="adult"
@@ -249,7 +251,7 @@ export default function Home() {
         <Header 
           showRestart 
           onRestart={handleRestart}
-          subtitle="아이 테스트"
+          subtitle={t('quiz.childTest')}
         />
         <main className="flex-1">
           <AgeSelection
@@ -269,7 +271,7 @@ export default function Home() {
         <Header 
           showRestart 
           onRestart={handleRestart} 
-          subtitle="아이 테스트"
+          subtitle={t('quiz.childTest')}
         />
         <QuizContainer
           ageGroup={selectedChildAge}

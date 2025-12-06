@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import QuizProgress from "./QuizProgress";
 import QuestionCard from "./QuestionCard";
 import { getScenarioQuestions, calculateMBTIWithPercentage, type AgeGroup, type ScenarioQuestion, type Answer, type MBTIResult } from "@/lib/mbti-data";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface QuizContainerProps {
   ageGroup: AgeGroup;
@@ -12,6 +13,7 @@ interface QuizContainerProps {
 }
 
 export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizContainerProps) {
+  const { t } = useLanguage();
   const [questions, setQuestions] = useState<ScenarioQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
@@ -91,7 +93,7 @@ export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizCont
             data-testid="button-previous"
           >
             <ChevronLeft className="w-4 h-4 mr-1" />
-            {isFirstQuestion ? '연령대 선택' : '이전'}
+            {isFirstQuestion ? t('quiz.ageSelect') : t('quiz.previous')}
           </Button>
           
           {isLastQuestion ? (
@@ -100,7 +102,7 @@ export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizCont
               disabled={!allAnswered}
               data-testid="button-submit"
             >
-              결과 보기
+              {t('quiz.seeResult')}
             </Button>
           ) : (
             <Button
@@ -109,7 +111,7 @@ export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizCont
               disabled={!answers[currentQuestion.id]}
               data-testid="button-next"
             >
-              다음
+              {t('quiz.next')}
               <ChevronRight className="w-4 h-4 ml-1" />
             </Button>
           )}

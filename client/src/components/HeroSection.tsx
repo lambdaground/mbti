@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles, Users, Heart, ChevronRight, Check, Baby } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const mbtiTypes = [
   'INTJ', 'INTP', 'ENTJ', 'ENTP',
@@ -17,6 +18,7 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ onStartWithMbti, onStartWithQuiz }: HeroSectionProps) {
+  const { t } = useLanguage();
   const [selectedMbti, setSelectedMbti] = useState<string | null>(null);
   const [showMbtiSelector, setShowMbtiSelector] = useState(false);
 
@@ -42,21 +44,19 @@ export default function HeroSection({ onStartWithMbti, onStartWithQuiz }: HeroSe
         <div className="text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary">
             <Users className="w-4 h-4" />
-            <span className="text-sm font-medium">부모-자녀 MBTI 궁합</span>
+            <span className="text-sm font-medium">{t('hero.badge')}</span>
           </div>
           
           <h1 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-tight">
-            나와 내 아이의
+            {t('hero.title1')}
             <br />
             <span className="bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              MBTI 궁합
+              {t('hero.title2')}
             </span>
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            부모님의 MBTI와 아이의 MBTI를 비교해서
-            <br className="hidden md:block" />
-            서로를 더 잘 이해하고 소통하는 방법을 알아보세요!
+            {t('hero.description')}
           </p>
           
           <div className="flex flex-wrap justify-center gap-6 py-4">
@@ -64,19 +64,19 @@ export default function HeroSection({ onStartWithMbti, onStartWithQuiz }: HeroSe
               <div className="w-8 h-8 rounded-full bg-rose-100 dark:bg-rose-900/30 flex items-center justify-center">
                 <Heart className="w-4 h-4 text-rose-500" />
               </div>
-              <span>부모 MBTI</span>
+              <span>{t('hero.parentMbti')}</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <div className="w-8 h-8 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center">
                 <Baby className="w-4 h-4 text-sky-500" />
               </div>
-              <span>아이 MBTI</span>
+              <span>{t('hero.childMbti')}</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
                 <Sparkles className="w-4 h-4 text-emerald-500" />
               </div>
-              <span>궁합 분석</span>
+              <span>{t('hero.analysis')}</span>
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@ export default function HeroSection({ onStartWithMbti, onStartWithQuiz }: HeroSe
             <Card className="p-6 overflow-visible">
               <div className="text-center space-y-4">
                 <h3 className="font-display text-xl font-bold text-foreground">
-                  부모님의 MBTI를 알고 계신가요?
+                  {t('hero.askParentMbti')}
                 </h3>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button 
@@ -96,7 +96,7 @@ export default function HeroSection({ onStartWithMbti, onStartWithQuiz }: HeroSe
                     data-testid="button-know-mbti"
                   >
                     <Check className="w-5 h-5" />
-                    네, MBTI를 알아요
+                    {t('hero.knowMbti')}
                   </Button>
                   <Button 
                     size="lg" 
@@ -106,7 +106,7 @@ export default function HeroSection({ onStartWithMbti, onStartWithQuiz }: HeroSe
                     data-testid="button-take-quiz"
                   >
                     <Sparkles className="w-5 h-5" />
-                    아니요, 테스트할게요
+                    {t('hero.takeQuiz')}
                   </Button>
                 </div>
               </div>
@@ -118,14 +118,14 @@ export default function HeroSection({ onStartWithMbti, onStartWithQuiz }: HeroSe
               <div className="space-y-4">
                 <div className="text-center">
                   <h3 className="font-display text-xl font-bold text-foreground mb-2">
-                    부모님의 MBTI를 선택하세요
+                    {t('hero.selectParentMbti')}
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    선택한 MBTI: {selectedMbti ? (
+                    {t('hero.selectedMbti')}: {selectedMbti ? (
                       <Badge variant="outline" className="ml-2 bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 border-rose-300">
                         {selectedMbti}
                       </Badge>
-                    ) : '없음'}
+                    ) : t('hero.none')}
                   </p>
                 </div>
                 
@@ -153,7 +153,7 @@ export default function HeroSection({ onStartWithMbti, onStartWithQuiz }: HeroSe
                     }}
                     data-testid="button-back"
                   >
-                    뒤로 가기
+                    {t('hero.back')}
                   </Button>
                   <Button 
                     size="lg"
@@ -162,7 +162,7 @@ export default function HeroSection({ onStartWithMbti, onStartWithQuiz }: HeroSe
                     className="gap-2"
                     data-testid="button-confirm-mbti"
                   >
-                    다음: 아이 테스트
+                    {t('hero.nextChildTest')}
                     <ChevronRight className="w-5 h-5" />
                   </Button>
                 </div>
@@ -172,7 +172,7 @@ export default function HeroSection({ onStartWithMbti, onStartWithQuiz }: HeroSe
         )}
         
         <p className="text-center text-sm text-muted-foreground mt-6">
-          부모님 MBTI 입력 또는 테스트 후, 아이 MBTI 테스트를 진행합니다
+          {t('hero.info')}
         </p>
       </div>
     </section>
