@@ -1,8 +1,25 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Share2, Download, RotateCcw, Star, Heart, Zap, Target } from "lucide-react";
+import { Share2, RotateCcw, Star, Heart, Zap, Target } from "lucide-react";
 import type { MBTIType, AgeGroup } from "@/lib/mbti-data";
+
+import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";
+import intpImage from "@assets/generated_images/intp_curious_owl_mascot.png";
+import entjImage from "@assets/generated_images/entj_lion_leader_mascot.png";
+import entpImage from "@assets/generated_images/entp_clever_fox_mascot.png";
+import infjImage from "@assets/generated_images/infj_wise_wolf_mascot.png";
+import infpImage from "@assets/generated_images/infp_unicorn_dreamer_mascot.png";
+import enfjImage from "@assets/generated_images/enfj_caring_dolphin_mascot.png";
+import enfpImage from "@assets/generated_images/enfp_butterfly_explorer_mascot.png";
+import istjImage from "@assets/generated_images/istj_beaver_worker_mascot.png";
+import isfjImage from "@assets/generated_images/isfj_caring_rabbit_mascot.png";
+import estjImage from "@assets/generated_images/estj_eagle_leader_mascot.png";
+import esfjImage from "@assets/generated_images/esfj_friendly_dog_mascot.png";
+import istpImage from "@assets/generated_images/istp_cool_leopard_mascot.png";
+import isfpImage from "@assets/generated_images/isfp_artistic_cat_mascot.png";
+import estpImage from "@assets/generated_images/estp_cheetah_adventurer_mascot.png";
+import esfpImage from "@assets/generated_images/esfp_parrot_entertainer_mascot.png";
 
 interface MBTIResultProps {
   result: MBTIType;
@@ -11,40 +28,51 @@ interface MBTIResultProps {
   onShare: () => void;
 }
 
-const animalEmojis: Record<string, string> = {
-  '올빼미': '/api/placeholder/100/100',
-  '부엉이': '/api/placeholder/100/100',
-  '사자': '/api/placeholder/100/100',
-  '여우': '/api/placeholder/100/100',
-  '늑대': '/api/placeholder/100/100',
-  '유니콘': '/api/placeholder/100/100',
-  '돌고래': '/api/placeholder/100/100',
-  '나비': '/api/placeholder/100/100',
-  '비버': '/api/placeholder/100/100',
-  '토끼': '/api/placeholder/100/100',
-  '독수리': '/api/placeholder/100/100',
-  '강아지': '/api/placeholder/100/100',
-  '표범': '/api/placeholder/100/100',
-  '고양이': '/api/placeholder/100/100',
-  '치타': '/api/placeholder/100/100',
-  '앵무새': '/api/placeholder/100/100',
+const mbtiImageMap: Record<string, string> = {
+  'INTJ': intjImage,
+  'INTP': intpImage,
+  'ENTJ': entjImage,
+  'ENTP': entpImage,
+  'INFJ': infjImage,
+  'INFP': infpImage,
+  'ENFJ': enfjImage,
+  'ENFP': enfpImage,
+  'ISTJ': istjImage,
+  'ISFJ': isfjImage,
+  'ESTJ': estjImage,
+  'ESFJ': esfjImage,
+  'ISTP': istpImage,
+  'ISFP': isfpImage,
+  'ESTP': estpImage,
+  'ESFP': esfpImage,
+};
+
+const getAnimalImage = (type: string): string => {
+  const normalizedType = type.toUpperCase();
+  return mbtiImageMap[normalizedType] || intjImage;
 };
 
 const strengthIcons = [Star, Heart, Zap, Target];
 
 export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBTIResultProps) {
-  const ageLabels = {
+  const ageLabels: Record<AgeGroup, string> = {
     elementary: '초등학생',
     middle: '중학생',
-    high: '고등학생'
+    high: '고등학생',
+    adult: '성인'
   };
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6">
       <Card className="overflow-visible">
         <div className={`bg-gradient-to-br ${result.color} p-8 md:p-12 text-white text-center rounded-t-lg`}>
-          <div className="inline-flex items-center justify-center w-24 h-24 md:w-32 md:h-32 bg-white/20 backdrop-blur-sm rounded-full mb-6">
-            <span className="text-5xl md:text-6xl font-display font-bold">{result.animal.charAt(0)}</span>
+          <div className="inline-flex items-center justify-center w-28 h-28 md:w-36 md:h-36 bg-white/20 backdrop-blur-sm rounded-full mb-6 p-2">
+            <img 
+              src={getAnimalImage(result.type)} 
+              alt={result.animal}
+              className="w-full h-full object-contain rounded-full"
+              data-testid="img-mbti-animal"
+            />
           </div>
           
           <Badge variant="secondary" className="mb-4 bg-white/20 text-white border-0">
