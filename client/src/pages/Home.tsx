@@ -151,6 +151,28 @@ export default function Home() {
     saveToSession(SESSION_KEYS.STAGE, 'child-quiz');
   };
   
+  const handleChildMbtiInput = (mbtiCode: string, ageGroup: AgeGroup) => {
+    const result = createMockResultFromMBTI(mbtiCode);
+    if (!result) {
+      toast({
+        title: "잘못된 MBTI 코드",
+        description: "올바른 MBTI 유형을 입력해주세요 (예: INTJ, ENFP)",
+        variant: "destructive",
+      });
+      return;
+    }
+    setChildResult(result);
+    setChildAgeGroup(ageGroup);
+    saveToSession(SESSION_KEYS.CHILD_RESULT, result);
+    saveToSession(SESSION_KEYS.CHILD_AGE_GROUP, ageGroup);
+    setStage('comparison-result');
+    saveToSession(SESSION_KEYS.STAGE, 'comparison-result');
+    toast({
+      title: "아이 MBTI 입력 완료!",
+      description: "궁합 결과를 확인해보세요.",
+    });
+  };
+  
   const handleChildQuizComplete = (result: MBTIResultType) => {
     setChildResult(result);
     saveToSession(SESSION_KEYS.CHILD_RESULT, result);
@@ -232,6 +254,7 @@ export default function Home() {
           <AgeSelection
             selectedAge={selectedChildAge}
             onSelect={handleChildAgeSelect}
+            onMbtiInput={handleChildMbtiInput}
           />
         </main>
         <Footer />
