@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Share2, Download, RotateCcw, Star, Heart, Zap, Target } from "lucide-react";
+import { Share2, RotateCcw, Star, Heart, Zap, Target, Brain, Users, BookOpen, Lightbulb } from "lucide-react";
 import type { MBTIType, AgeGroup } from "@/lib/mbti-data";
 
 interface MBTIResultProps {
@@ -11,26 +11,8 @@ interface MBTIResultProps {
   onShare: () => void;
 }
 
-const animalEmojis: Record<string, string> = {
-  '올빼미': '/api/placeholder/100/100',
-  '부엉이': '/api/placeholder/100/100',
-  '사자': '/api/placeholder/100/100',
-  '여우': '/api/placeholder/100/100',
-  '늑대': '/api/placeholder/100/100',
-  '유니콘': '/api/placeholder/100/100',
-  '돌고래': '/api/placeholder/100/100',
-  '나비': '/api/placeholder/100/100',
-  '비버': '/api/placeholder/100/100',
-  '토끼': '/api/placeholder/100/100',
-  '독수리': '/api/placeholder/100/100',
-  '강아지': '/api/placeholder/100/100',
-  '표범': '/api/placeholder/100/100',
-  '고양이': '/api/placeholder/100/100',
-  '치타': '/api/placeholder/100/100',
-  '앵무새': '/api/placeholder/100/100',
-};
-
 const strengthIcons = [Star, Heart, Zap, Target];
+const detailIcons = [Brain, Users, BookOpen];
 
 export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBTIResultProps) {
   const ageLabels = {
@@ -42,9 +24,14 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6">
       <Card className="overflow-visible">
-        <div className={`bg-gradient-to-br ${result.color} p-8 md:p-12 text-white text-center rounded-t-lg`}>
-          <div className="inline-flex items-center justify-center w-24 h-24 md:w-32 md:h-32 bg-white/20 backdrop-blur-sm rounded-full mb-6">
-            <span className="text-5xl md:text-6xl font-display font-bold">{result.animal.charAt(0)}</span>
+        <div className={`bg-gradient-to-br ${result.color} p-8 md:p-12 text-white text-center rounded-t-lg relative`}>
+          <div className="mb-6">
+            <img 
+              src={result.image} 
+              alt={result.animal}
+              className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full border-4 border-white/30 shadow-xl object-cover bg-white/20"
+              data-testid="img-mbti-animal"
+            />
           </div>
           
           <Badge variant="secondary" className="mb-4 bg-white/20 text-white border-0">
@@ -72,17 +59,64 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
         
         <div className="p-6 md:p-8 space-y-8">
           <div>
-            <h2 className="font-display text-xl font-bold mb-3 text-foreground">나는 어떤 사람일까요?</h2>
+            <h2 className="font-display text-xl font-bold mb-3 text-foreground flex items-center gap-2">
+              <Lightbulb className="w-5 h-5 text-primary" />
+              나는 어떤 사람일까요?
+            </h2>
             <p 
               className="text-muted-foreground leading-relaxed text-lg"
               data-testid="text-description"
             >
-              {result.description}
+              {result.detailedDescription}
             </p>
+          </div>
+
+          <div className="bg-muted/30 rounded-xl p-6">
+            <h3 className="font-display text-lg font-bold mb-3 text-foreground flex items-center gap-2">
+              왜 {result.animal}일까요?
+            </h3>
+            <p className="text-muted-foreground leading-relaxed" data-testid="text-animal-description">
+              {result.animalDescription}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            <Card className="p-4 border-primary/20">
+              <div className="flex items-center gap-2 mb-3">
+                <Brain className="w-5 h-5 text-primary" />
+                <h3 className="font-display font-bold text-foreground">나의 생각 방식</h3>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed" data-testid="text-how-i-think">
+                {result.howIThink}
+              </p>
+            </Card>
+            
+            <Card className="p-4 border-primary/20">
+              <div className="flex items-center gap-2 mb-3">
+                <Users className="w-5 h-5 text-primary" />
+                <h3 className="font-display font-bold text-foreground">친구들과 함께할 때</h3>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed" data-testid="text-with-friends">
+                {result.howIActWithFriends}
+              </p>
+            </Card>
+            
+            <Card className="p-4 border-primary/20">
+              <div className="flex items-center gap-2 mb-3">
+                <BookOpen className="w-5 h-5 text-primary" />
+                <h3 className="font-display font-bold text-foreground">공부할 때</h3>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed" data-testid="text-how-i-study">
+                {result.howIStudy}
+              </p>
+            </Card>
           </div>
           
           <div>
-            <h2 className="font-display text-xl font-bold mb-4 text-foreground">나의 강점</h2>
+            <h2 className="font-display text-xl font-bold mb-4 text-foreground flex items-center gap-2">
+              <Star className="w-5 h-5 text-amber-500" />
+              나의 강점
+            </h2>
             <div className="grid grid-cols-2 gap-3">
               {result.strengths.map((strength, index) => {
                 const Icon = strengthIcons[index % strengthIcons.length];
@@ -92,7 +126,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
                     className="flex items-center gap-3 p-3 rounded-lg bg-muted/50"
                     data-testid={`text-strength-${index}`}
                   >
-                    <div className={`w-8 h-8 rounded-md bg-gradient-to-br ${result.color} flex items-center justify-center`}>
+                    <div className={`w-8 h-8 rounded-md bg-gradient-to-br ${result.color} flex items-center justify-center shrink-0`}>
                       <Icon className="w-4 h-4 text-white" />
                     </div>
                     <span className="font-medium text-foreground">{strength}</span>
@@ -101,9 +135,31 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
               })}
             </div>
           </div>
+
+          <div>
+            <h2 className="font-display text-xl font-bold mb-4 text-foreground flex items-center gap-2">
+              <Zap className="w-5 h-5 text-blue-500" />
+              더 성장하려면
+            </h2>
+            <div className="space-y-2">
+              {result.growthAreas.map((area, index) => (
+                <div 
+                  key={index}
+                  className="flex items-start gap-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950/30"
+                  data-testid={`text-growth-${index}`}
+                >
+                  <span className="text-blue-500 font-bold shrink-0">TIP {index + 1}</span>
+                  <span className="text-foreground">{area}</span>
+                </div>
+              ))}
+            </div>
+          </div>
           
           <div>
-            <h2 className="font-display text-xl font-bold mb-4 text-foreground">이런 활동을 좋아할 거예요</h2>
+            <h2 className="font-display text-xl font-bold mb-4 text-foreground flex items-center gap-2">
+              <Heart className="w-5 h-5 text-pink-500" />
+              이런 활동을 좋아할 거예요
+            </h2>
             <div className="flex flex-wrap gap-2">
               {result.activities.map((activity, index) => (
                 <Badge 
@@ -113,6 +169,24 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
                   data-testid={`badge-activity-${index}`}
                 >
                   {activity}
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h2 className="font-display text-xl font-bold mb-4 text-foreground flex items-center gap-2">
+              <Users className="w-5 h-5 text-purple-500" />
+              나와 비슷한 유명인/캐릭터
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {result.famousCharacters.map((character, index) => (
+                <Badge 
+                  key={index} 
+                  className="text-sm py-1.5 px-3 bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
+                  data-testid={`badge-character-${index}`}
+                >
+                  {character}
                 </Badge>
               ))}
             </div>
