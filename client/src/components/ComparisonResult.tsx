@@ -24,6 +24,7 @@ import {
   getComplexComparisonAnalysis,
   getAgeNarrative,
   ageGroupInfo,
+  animalPersonalities,
 } from "@/lib/mbti-data";
 
 import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";

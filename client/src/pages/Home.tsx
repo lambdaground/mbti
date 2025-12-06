@@ -2,22 +2,24 @@ import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import AgeSelection from "@/components/AgeSelection";
-import RoleSelection from "@/components/RoleSelection";
 import QuizContainer from "@/components/QuizContainer";
-import MBTIResult from "@/components/MBTIResult";
 import ComparisonResult from "@/components/ComparisonResult";
 import Footer from "@/components/Footer";
-import { type AgeGroup, type MBTIResult as MBTIResultType, type Role } from "@/lib/mbti-data";
+import { 
+  type AgeGroup, 
+  type MBTIResult as MBTIResultType, 
+  mbtiTypes
+} from "@/lib/mbti-data";
 import { useToast } from "@/hooks/use-toast";
 
-type Stage = 'home' | 'role-selection' | 'age-selection' | 'quiz' | 'result' | 'comparison-result';
+type Stage = 'home' | 'parent-quiz' | 'child-age-selection' | 'child-quiz' | 'comparison-result';
 
 const SESSION_KEYS = {
   PARENT_RESULT: 'mbti_parent_result',
+  PARENT_MBTI_CODE: 'mbti_parent_code',
   CHILD_RESULT: 'mbti_child_result',
   CHILD_AGE_GROUP: 'mbti_child_age_group',
-  CURRENT_ROLE: 'mbti_current_role',
-  COMPARISON_MODE: 'mbti_comparison_mode',
+  STAGE: 'mbti_stage',
 };
 
 function saveToSession<T>(key: string, value: T): void {
@@ -44,12 +46,34 @@ function clearSession(): void {
   });
 }
 
+function createMockResultFromMBTI(mbtiCode: string): MBTIResultType {
+  const primaryType = mbtiTypes[mbtiCode];
+  const letters = mbtiCode.split('');
+  const oppositeLetters = letters.map((letter, index) => {
+    const pairs = [['E', 'I'], ['S', 'N'], ['T', 'F'], ['J', 'P']];
+    const pair = pairs[index];
+    return pair[0] === letter ? pair[1] : pair[0];
+  });
+  const secondaryCode = oppositeLetters.join('');
+  const secondaryType = mbtiTypes[secondaryCode];
+  
+  return {
+    primaryType,
+    secondaryType,
+    primaryPercentage: 85,
+    secondaryPercentage: 15,
+    dimensionScores: {
+      EI: { score: letters[0] === 'I' ? 3 : -3, percentage: letters[0] === 'I' ? 70 : 30 },
+      SN: { score: letters[1] === 'N' ? 3 : -3, percentage: letters[1] === 'N' ? 70 : 30 },
+      TF: { score: letters[2] === 'F' ? 3 : -3, percentage: letters[2] === 'F' ? 70 : 30 },
+      JP: { score: letters[3] === 'P' ? 3 : -3, percentage: letters[3] === 'P' ? 70 : 30 },
+    },
+  };
+}
+
 export default function Home() {
   const [stage, setStage] = useState<Stage>('home');
-  const [selectedAge, setSelectedAge] = useState<AgeGroup | undefined>();
-  const [mbtiResult, setMbtiResult] = useState<MBTIResultType | undefined>();
-  const [currentRole, setCurrentRole] = useState<Role | undefined>();
-  const [isComparisonMode, setIsComparisonMode] = useState(false);
+  const [selectedChildAge, setSelectedChildAge] = useState<AgeGroup | undefined>();
   const [parentResult, setParentResult] = useState<MBTIResultType | undefined>();
   const [childResult, setChildResult] = useState<MBTIResultType | undefined>();
   const [childAgeGroup, setChildAgeGroup] = useState<AgeGroup | undefined>();
@@ -59,179 +83,91 @@ export default function Home() {
     const savedParentResult = loadFromSession<MBTIResultType>(SESSION_KEYS.PARENT_RESULT);
     const savedChildResult = loadFromSession<MBTIResultType>(SESSION_KEYS.CHILD_RESULT);
     const savedChildAgeGroup = loadFromSession<AgeGroup>(SESSION_KEYS.CHILD_AGE_GROUP);
-    const savedRole = loadFromSession<Role>(SESSION_KEYS.CURRENT_ROLE);
-    const savedComparisonMode = loadFromSession<boolean>(SESSION_KEYS.COMPARISON_MODE);
+    const savedStage = loadFromSession<Stage>(SESSION_KEYS.STAGE);
     
     if (savedParentResult) setParentResult(savedParentResult);
     if (savedChildResult) setChildResult(savedChildResult);
     if (savedChildAgeGroup) setChildAgeGroup(savedChildAgeGroup);
-    if (savedRole) setCurrentRole(savedRole);
-    if (savedComparisonMode) setIsComparisonMode(savedComparisonMode);
+    
+    if (savedStage === 'comparison-result' && savedParentResult && savedChildResult) {
+      setStage('comparison-result');
+    } else if (savedStage === 'child-quiz' && savedParentResult && savedChildAgeGroup) {
+      setStage('child-quiz');
+      setSelectedChildAge(savedChildAgeGroup);
+    } else if (savedStage === 'child-age-selection' && savedParentResult) {
+      setStage('child-age-selection');
+    }
   }, []);
   
-  const handleStart = () => {
-    setStage('role-selection');
-  };
-  
-  const handleRoleSelect = (role: Role) => {
-    setCurrentRole(role);
-    saveToSession(SESSION_KEYS.CURRENT_ROLE, role);
-    
-    if (role === 'parent') {
-      setSelectedAge('adult');
-      setStage('quiz');
-    } else {
-      setStage('age-selection');
-    }
-  };
-  
-  const handleStartComparison = () => {
-    setIsComparisonMode(true);
-    saveToSession(SESSION_KEYS.COMPARISON_MODE, true);
-    setCurrentRole('parent');
-    saveToSession(SESSION_KEYS.CURRENT_ROLE, 'parent');
-    setSelectedAge('adult');
-    setStage('quiz');
+  const handleStartWithMbti = (mbtiCode: string) => {
+    const result = createMockResultFromMBTI(mbtiCode);
+    setParentResult(result);
+    saveToSession(SESSION_KEYS.PARENT_RESULT, result);
+    saveToSession(SESSION_KEYS.PARENT_MBTI_CODE, mbtiCode);
+    setStage('child-age-selection');
+    saveToSession(SESSION_KEYS.STAGE, 'child-age-selection');
     toast({
-      title: "비교 테스트 시작!",
-      description: "먼저 부모님이 테스트를 진행합니다.",
+      title: "부모님 MBTI 입력 완료!",
+      description: "이제 아이의 나이를 선택해주세요.",
     });
   };
   
-  const handleAgeSelect = (age: AgeGroup) => {
-    setSelectedAge(age);
-    setStage('quiz');
+  const handleStartWithQuiz = () => {
+    setStage('parent-quiz');
+    saveToSession(SESSION_KEYS.STAGE, 'parent-quiz');
   };
   
-  const handleQuizComplete = (result: MBTIResultType) => {
-    setMbtiResult(result);
-    
-    if (isComparisonMode) {
-      if (currentRole === 'parent') {
-        setParentResult(result);
-        saveToSession(SESSION_KEYS.PARENT_RESULT, result);
-        setCurrentRole('child');
-        saveToSession(SESSION_KEYS.CURRENT_ROLE, 'child');
-        setSelectedAge(undefined);
-        setStage('age-selection');
-        toast({
-          title: "부모님 테스트 완료!",
-          description: "이제 아이가 테스트를 진행합니다.",
-        });
-      } else {
-        setChildResult(result);
-        saveToSession(SESSION_KEYS.CHILD_RESULT, result);
-        setChildAgeGroup(selectedAge);
-        saveToSession(SESSION_KEYS.CHILD_AGE_GROUP, selectedAge);
-        setStage('comparison-result');
-      }
-    } else {
-      if (currentRole === 'parent') {
-        setParentResult(result);
-        saveToSession(SESSION_KEYS.PARENT_RESULT, result);
-      } else if (currentRole === 'child') {
-        setChildResult(result);
-        saveToSession(SESSION_KEYS.CHILD_RESULT, result);
-      }
-      setStage('result');
-    }
+  const handleParentQuizComplete = (result: MBTIResultType) => {
+    setParentResult(result);
+    saveToSession(SESSION_KEYS.PARENT_RESULT, result);
+    setStage('child-age-selection');
+    saveToSession(SESSION_KEYS.STAGE, 'child-age-selection');
+    toast({
+      title: "부모님 테스트 완료!",
+      description: "이제 아이의 나이를 선택해주세요.",
+    });
+  };
+  
+  const handleChildAgeSelect = (age: AgeGroup) => {
+    setSelectedChildAge(age);
+    setChildAgeGroup(age);
+    saveToSession(SESSION_KEYS.CHILD_AGE_GROUP, age);
+    setStage('child-quiz');
+    saveToSession(SESSION_KEYS.STAGE, 'child-quiz');
+  };
+  
+  const handleChildQuizComplete = (result: MBTIResultType) => {
+    setChildResult(result);
+    saveToSession(SESSION_KEYS.CHILD_RESULT, result);
+    setStage('comparison-result');
+    saveToSession(SESSION_KEYS.STAGE, 'comparison-result');
   };
   
   const handleRestart = () => {
     setStage('home');
-    setSelectedAge(undefined);
-    setMbtiResult(undefined);
-    setCurrentRole(undefined);
-    setIsComparisonMode(false);
+    setSelectedChildAge(undefined);
     setParentResult(undefined);
     setChildResult(undefined);
     setChildAgeGroup(undefined);
     clearSession();
   };
   
+  const handleBackToHome = () => {
+    setStage('home');
+    saveToSession(SESSION_KEYS.STAGE, 'home');
+  };
+  
   const handleBackToAgeSelection = () => {
-    setStage('age-selection');
+    setStage('child-age-selection');
+    saveToSession(SESSION_KEYS.STAGE, 'child-age-selection');
   };
-  
-  const handleBackToRoleSelection = () => {
-    setStage('role-selection');
-  };
-  
-  const handleShare = () => {
-    if (navigator.share && mbtiResult) {
-      navigator.share({
-        title: '나의 MBTI 결과',
-        text: `나의 MBTI는 ${mbtiResult.primaryType.type} - ${mbtiResult.primaryType.nickname}! 키즈 MBTI에서 확인해보세요.`,
-        url: window.location.href,
-      }).catch(() => {
-        copyToClipboard();
-      });
-    } else {
-      copyToClipboard();
-    }
-  };
-  
-  const copyToClipboard = () => {
-    if (!mbtiResult) return;
-    const text = `나의 MBTI는 ${mbtiResult.primaryType.type} - ${mbtiResult.primaryType.nickname}! 키즈 MBTI에서 확인해보세요: ${window.location.href}`;
-    navigator.clipboard.writeText(text).then(() => {
-      toast({
-        title: "복사 완료!",
-        description: "결과 링크가 클립보드에 복사되었어요.",
-      });
-    });
-  };
-  
-  const getRoleLabel = () => {
-    if (isComparisonMode && currentRole === 'child') {
-      return '아이 테스트';
-    }
-    if (isComparisonMode && currentRole === 'parent') {
-      return '부모님 테스트';
-    }
-    return currentRole === 'parent' ? '부모님 테스트' : '아이 테스트';
-  };
-  
-  if (stage === 'quiz' && selectedAge) {
-    return (
-      <div className="min-h-screen flex flex-col bg-background">
-        <Header 
-          showRestart 
-          onRestart={handleRestart} 
-          subtitle={getRoleLabel()}
-        />
-        <QuizContainer
-          ageGroup={selectedAge}
-          onComplete={handleQuizComplete}
-          onBack={currentRole === 'child' ? handleBackToAgeSelection : handleBackToRoleSelection}
-        />
-      </div>
-    );
-  }
-  
-  if (stage === 'result' && mbtiResult) {
-    return (
-      <div className="min-h-screen flex flex-col bg-background">
-        <Header showRestart onRestart={handleRestart} />
-        <main className="flex-1 py-8 px-4">
-          <MBTIResult
-            result={mbtiResult}
-            ageGroup={selectedAge!}
-            onRestart={handleRestart}
-            onShare={handleShare}
-          />
-        </main>
-        <Footer />
-      </div>
-    );
-  }
   
   const handleComparisonShare = () => {
     if (!parentResult || !childResult) return;
-    const text = `부모(${parentResult.primaryType.type}) & 아이(${childResult.primaryType.type}) MBTI 비교! 키즈 MBTI에서 확인해보세요: ${window.location.href}`;
+    const text = `부모(${parentResult.primaryType.type}) & 아이(${childResult.primaryType.type}) MBTI 궁합! 나와 내 아이의 MBTI 궁합에서 확인해보세요: ${window.location.href}`;
     if (navigator.share) {
       navigator.share({
-        title: '부모-자녀 MBTI 비교 결과',
+        title: '부모-자녀 MBTI 궁합 결과',
         text,
         url: window.location.href,
       }).catch(() => {
@@ -251,7 +187,60 @@ export default function Home() {
       });
     }
   };
-
+  
+  if (stage === 'parent-quiz') {
+    return (
+      <div className="min-h-screen flex flex-col bg-background">
+        <Header 
+          showRestart 
+          onRestart={handleRestart} 
+          subtitle="부모님 테스트"
+        />
+        <QuizContainer
+          ageGroup="adult"
+          onComplete={handleParentQuizComplete}
+          onBack={handleBackToHome}
+        />
+      </div>
+    );
+  }
+  
+  if (stage === 'child-age-selection') {
+    return (
+      <div className="min-h-screen flex flex-col bg-background">
+        <Header 
+          showRestart 
+          onRestart={handleRestart}
+          subtitle="아이 테스트"
+        />
+        <main className="flex-1">
+          <AgeSelection
+            selectedAge={selectedChildAge}
+            onSelect={handleChildAgeSelect}
+          />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+  
+  if (stage === 'child-quiz' && selectedChildAge) {
+    return (
+      <div className="min-h-screen flex flex-col bg-background">
+        <Header 
+          showRestart 
+          onRestart={handleRestart} 
+          subtitle="아이 테스트"
+        />
+        <QuizContainer
+          ageGroup={selectedChildAge}
+          onComplete={handleChildQuizComplete}
+          onBack={handleBackToAgeSelection}
+        />
+      </div>
+    );
+  }
+  
   if (stage === 'comparison-result' && parentResult && childResult) {
     return (
       <div className="min-h-screen flex flex-col bg-background">
@@ -270,38 +259,14 @@ export default function Home() {
     );
   }
   
-  if (stage === 'age-selection') {
-    return (
-      <div className="min-h-screen flex flex-col bg-background">
-        <Header 
-          showRestart 
-          onRestart={handleRestart}
-          subtitle={isComparisonMode ? '아이 테스트' : undefined}
-        />
-        <main className="flex-1">
-          <AgeSelection
-            selectedAge={selectedAge}
-            onSelect={handleAgeSelect}
-          />
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-  
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
       <main className="flex-1">
-        {stage === 'home' && (
-          <HeroSection onStart={handleStart} />
-        )}
-        {stage === 'role-selection' && (
-          <RoleSelection 
-            onSelectRole={handleRoleSelect}
-            onStartComparison={handleStartComparison}
-          />
-        )}
+        <HeroSection 
+          onStartWithMbti={handleStartWithMbti}
+          onStartWithQuiz={handleStartWithQuiz}
+        />
       </main>
       <Footer />
     </div>

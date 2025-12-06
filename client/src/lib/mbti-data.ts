@@ -2066,6 +2066,25 @@ function getHybridAnimalName(animal1: string, animal2: string): string {
   return firstPart + secondPart;
 }
 
+export const animalPersonalities: { animal: string; mbti: string; description: string }[] = [
+  { animal: '올빼미', mbti: 'INTJ', description: '혼자서 깊이 생각하고, 전략적으로 목표를 달성해요' },
+  { animal: '부엉이', mbti: 'INTP', description: '끝없는 호기심으로 새로운 것을 탐구하고 분석해요' },
+  { animal: '사자', mbti: 'ENTJ', description: '리더십이 강하고 목표를 향해 당당하게 나아가요' },
+  { animal: '여우', mbti: 'ENTP', description: '재치있고 창의적이며, 새로운 아이디어로 가득해요' },
+  { animal: '늑대', mbti: 'INFJ', description: '신비롭고 깊은 통찰력을 가진 이상주의자예요' },
+  { animal: '유니콘', mbti: 'INFP', description: '상상력이 풍부하고 자신만의 세계를 가진 몽상가예요' },
+  { animal: '돌고래', mbti: 'ENFJ', description: '따뜻하고 친절하며, 다른 사람을 돕는 것을 좋아해요' },
+  { animal: '나비', mbti: 'ENFP', description: '자유롭고 활기차며, 모든 것에 호기심을 가졌어요' },
+  { animal: '비버', mbti: 'ISTJ', description: '성실하고 꼼꼼하며, 계획대로 착실하게 일해요' },
+  { animal: '토끼', mbti: 'ISFJ', description: '부드럽고 다정하며, 주변 사람들을 세심하게 챙겨요' },
+  { animal: '독수리', mbti: 'ESTJ', description: '책임감이 강하고 체계적으로 일을 처리해요' },
+  { animal: '강아지', mbti: 'ESFJ', description: '사교적이고 친근하며, 모두와 어울리기를 좋아해요' },
+  { animal: '표범', mbti: 'ISTP', description: '독립적이고 손재주가 뛰어나며, 문제를 바로 해결해요' },
+  { animal: '고양이', mbti: 'ISFP', description: '예술적 감각이 뛰어나고 자유로운 영혼을 가졌어요' },
+  { animal: '치타', mbti: 'ESTP', description: '모험을 즐기고 행동력이 넘치는 활동가예요' },
+  { animal: '앵무새', mbti: 'ESFP', description: '밝고 에너지 넘치며, 주변을 즐겁게 만들어요' },
+];
+
 const animalDescriptions: Record<string, string> = {
   '올빼미': '혼자서 깊이 생각하는 것을 좋아하고, 전략적으로 목표를 달성하는',
   '부엉이': '끝없는 호기심으로 새로운 것을 탐구하고 분석하는',
