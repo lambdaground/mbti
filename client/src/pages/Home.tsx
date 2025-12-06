@@ -5,7 +5,7 @@ import AgeSelection from "@/components/AgeSelection";
 import QuizContainer from "@/components/QuizContainer";
 import MBTIResult from "@/components/MBTIResult";
 import Footer from "@/components/Footer";
-import { mbtiTypes, type AgeGroup } from "@/lib/mbti-data";
+import { type AgeGroup, type MBTIResult as MBTIResultType } from "@/lib/mbti-data";
 import { useToast } from "@/hooks/use-toast";
 
 type Stage = 'home' | 'age-selection' | 'quiz' | 'result';
@@ -13,7 +13,7 @@ type Stage = 'home' | 'age-selection' | 'quiz' | 'result';
 export default function Home() {
   const [stage, setStage] = useState<Stage>('home');
   const [selectedAge, setSelectedAge] = useState<AgeGroup | undefined>();
-  const [mbtiResult, setMbtiResult] = useState<string | undefined>();
+  const [mbtiResult, setMbtiResult] = useState<MBTIResultType | undefined>();
   const { toast } = useToast();
   
   const handleStart = () => {
@@ -25,7 +25,7 @@ export default function Home() {
     setStage('quiz');
   };
   
-  const handleQuizComplete = (result: string) => {
+  const handleQuizComplete = (result: MBTIResultType) => {
     setMbtiResult(result);
     setStage('result');
   };
@@ -44,7 +44,7 @@ export default function Home() {
     if (navigator.share && mbtiResult) {
       navigator.share({
         title: '나의 MBTI 결과',
-        text: `나의 MBTI는 ${mbtiResult} - ${mbtiTypes[mbtiResult]?.nickname}! 키즈 MBTI에서 확인해보세요.`,
+        text: `나의 MBTI는 ${mbtiResult.primaryType.type} - ${mbtiResult.primaryType.nickname}! 키즈 MBTI에서 확인해보세요.`,
         url: window.location.href,
       }).catch(() => {
         copyToClipboard();
@@ -55,7 +55,8 @@ export default function Home() {
   };
   
   const copyToClipboard = () => {
-    const text = `나의 MBTI는 ${mbtiResult} - ${mbtiTypes[mbtiResult!]?.nickname}! 키즈 MBTI에서 확인해보세요: ${window.location.href}`;
+    if (!mbtiResult) return;
+    const text = `나의 MBTI는 ${mbtiResult.primaryType.type} - ${mbtiResult.primaryType.nickname}! 키즈 MBTI에서 확인해보세요: ${window.location.href}`;
     navigator.clipboard.writeText(text).then(() => {
       toast({
         title: "복사 완료!",
@@ -77,13 +78,13 @@ export default function Home() {
     );
   }
   
-  if (stage === 'result' && mbtiResult && mbtiTypes[mbtiResult]) {
+  if (stage === 'result' && mbtiResult) {
     return (
       <div className="min-h-screen flex flex-col bg-background">
         <Header showRestart onRestart={handleRestart} />
         <main className="flex-1 py-8 px-4">
           <MBTIResult
-            result={mbtiTypes[mbtiResult]}
+            result={mbtiResult}
             ageGroup={selectedAge!}
             onRestart={handleRestart}
             onShare={handleShare}

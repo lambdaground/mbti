@@ -3,21 +3,21 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import QuizProgress from "./QuizProgress";
 import QuestionCard from "./QuestionCard";
-import { getQuestions, calculateMBTI, type AgeGroup, type Question, type Answer } from "@/lib/mbti-data";
+import { getScenarioQuestions, calculateMBTIWithPercentage, type AgeGroup, type ScenarioQuestion, type Answer, type MBTIResult } from "@/lib/mbti-data";
 
 interface QuizContainerProps {
   ageGroup: AgeGroup;
-  onComplete: (mbtiType: string) => void;
+  onComplete: (result: MBTIResult) => void;
   onBack: () => void;
 }
 
 export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizContainerProps) {
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<ScenarioQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
   
   useEffect(() => {
-    setQuestions(getQuestions(ageGroup));
+    setQuestions(getScenarioQuestions(ageGroup));
   }, [ageGroup]);
   
   if (questions.length === 0) return null;
@@ -51,8 +51,17 @@ export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizCont
   
   const handleSubmit = () => {
     if (allAnswered) {
-      const mbtiType = calculateMBTI(answers, questions);
-      onComplete(mbtiType);
+      const convertedQuestions = questions.map(q => ({
+        id: q.id,
+        text: q.scenario,
+        optionA: q.optionA.text,
+        optionB: q.optionB.text,
+        optionC: q.optionC.text,
+        dimension: q.dimension,
+        scoring: q.scoring
+      }));
+      const result = calculateMBTIWithPercentage(answers, convertedQuestions);
+      onComplete(result);
     }
   };
   
