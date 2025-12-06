@@ -29,9 +29,9 @@ import {
   getComplexComparisonAnalysis,
   getAgeNarrative,
   getMBTIFunFacts,
-  ageGroupInfo,
   animalPersonalities,
 } from "@/lib/mbti-data";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";
 import intpImage from "@assets/generated_images/curious_raccoon_mascot_intp.png";
@@ -122,6 +122,7 @@ export default function ComparisonResult({
   onRestart,
   onShare 
 }: ComparisonResultProps) {
+  const { t } = useLanguage();
   const parentType = parentResult.primaryType.type;
   const childType = childResult.primaryType.type;
   
@@ -131,17 +132,17 @@ export default function ComparisonResult({
   const { parentHybrid, childHybrid } = complexAnalysis;
   
   const childAgeNarrative = childAgeGroup ? getAgeNarrative(childType, childAgeGroup) : null;
-  const ageLabel = childAgeGroup ? ageGroupInfo[childAgeGroup].label : '';
+  const ageLabel = childAgeGroup ? t(`age.${childAgeGroup}`) : '';
   const childFunFacts = getMBTIFunFacts(childType);
 
   return (
     <div className="container max-w-4xl mx-auto space-y-8" data-testid="comparison-result-container">
       <div className="text-center space-y-4">
         <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground" data-testid="text-comparison-title">
-          부모-자녀 MBTI 비교 결과
+          {t('result.title')}
         </h1>
         <p className="text-muted-foreground text-lg">
-          서로의 성향을 이해하고 더 나은 관계를 만들어가세요
+          {t('result.subtitle')}
         </p>
       </div>
 
@@ -158,7 +159,7 @@ export default function ComparisonResult({
                 />
               </div>
             </div>
-            <div className="text-sm text-muted-foreground mb-1">부모님</div>
+            <div className="text-sm text-muted-foreground mb-1">{t('result.parent')}</div>
             <CardTitle className="text-4xl font-bold text-rose-600 dark:text-rose-400" data-testid="text-parent-mbti">
               {parentType}
             </CardTitle>
@@ -189,7 +190,7 @@ export default function ComparisonResult({
                 />
               </div>
             </div>
-            <div className="text-sm text-muted-foreground mb-1">아이</div>
+            <div className="text-sm text-muted-foreground mb-1">{t('result.child')}</div>
             <CardTitle className="text-4xl font-bold text-sky-600 dark:text-sky-400" data-testid="text-child-mbti">
               {childType}
             </CardTitle>
@@ -214,10 +215,10 @@ export default function ComparisonResult({
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-sky-600 dark:text-sky-400">
               <BookOpen className="w-5 h-5" />
-              {ageLabel} {childType} 아이는 이런 성향이에요
+              {ageLabel} {childType} {t('result.childAgeTitle')}
             </CardTitle>
             <p className="text-sm text-muted-foreground">
-              우리 아이의 성격을 쉽게 이해해보세요
+              {t('result.childAgeDesc')}
             </p>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -228,7 +229,7 @@ export default function ComparisonResult({
             <div>
               <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center gap-2">
                 <Sparkles className="w-4 h-4" />
-                핵심 성격 특성
+                {t('result.keyTraits')}
               </h4>
               <div className="flex flex-wrap gap-2" data-testid="container-child-traits">
                 {childAgeNarrative.keyTraits.map((trait, index) => (
@@ -245,7 +246,7 @@ export default function ComparisonResult({
             </div>
             
             <div>
-              <h4 className="text-sm font-medium text-muted-foreground mb-3">이런 상황에서 이렇게 행동해요</h4>
+              <h4 className="text-sm font-medium text-muted-foreground mb-3">{t('result.scenarios')}</h4>
               <div className="space-y-3" data-testid="container-child-scenarios">
                 {childAgeNarrative.scenarios.map((scenario, index) => (
                   <div 
@@ -275,10 +276,10 @@ export default function ComparisonResult({
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
               <Star className="w-5 h-5" />
-              {childType} 유형의 재미있는 특징
+              {childType} {t('result.funFacts')}
             </CardTitle>
             <p className="text-sm text-muted-foreground">
-              우리 아이의 숨겨진 매력을 발견해보세요
+              {t('result.funFactsDesc')}
             </p>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -286,7 +287,7 @@ export default function ComparisonResult({
               <div className="p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-100 dark:border-amber-900/30" data-testid="fun-fact-hidden-talent">
                 <div className="flex items-center gap-2 mb-2">
                   <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                  <span className="text-sm font-medium text-amber-700 dark:text-amber-300">숨겨진 재능</span>
+                  <span className="text-sm font-medium text-amber-700 dark:text-amber-300">{t('result.hiddenTalent')}</span>
                 </div>
                 <p className="text-sm text-foreground">{childFunFacts.hiddenTalent}</p>
               </div>
@@ -294,7 +295,7 @@ export default function ComparisonResult({
               <div className="p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-100 dark:border-amber-900/30" data-testid="fun-fact-superpower">
                 <div className="flex items-center gap-2 mb-2">
                   <Zap className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                  <span className="text-sm font-medium text-amber-700 dark:text-amber-300">나만의 초능력</span>
+                  <span className="text-sm font-medium text-amber-700 dark:text-amber-300">{t('result.superpower')}</span>
                 </div>
                 <p className="text-sm text-foreground">{childFunFacts.superpower}</p>
               </div>
@@ -302,7 +303,7 @@ export default function ComparisonResult({
               <div className="p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-100 dark:border-amber-900/30" data-testid="fun-fact-fun-fact">
                 <div className="flex items-center gap-2 mb-2">
                   <Eye className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                  <span className="text-sm font-medium text-amber-700 dark:text-amber-300">알고 계셨나요?</span>
+                  <span className="text-sm font-medium text-amber-700 dark:text-amber-300">{t('result.didYouKnow')}</span>
                 </div>
                 <p className="text-sm text-foreground">{childFunFacts.funFact}</p>
               </div>
@@ -310,7 +311,7 @@ export default function ComparisonResult({
               <div className="p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-100 dark:border-amber-900/30" data-testid="fun-fact-best-match">
                 <div className="flex items-center gap-2 mb-2">
                   <Users2 className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                  <span className="text-sm font-medium text-amber-700 dark:text-amber-300">찰떡 궁합</span>
+                  <span className="text-sm font-medium text-amber-700 dark:text-amber-300">{t('result.bestMatch')}</span>
                 </div>
                 <p className="text-sm text-foreground">{childFunFacts.bestMatch}</p>
               </div>
@@ -321,7 +322,7 @@ export default function ComparisonResult({
                 <Quote className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="text-foreground font-medium italic">{childFunFacts.famousQuote}</p>
-                  <p className="text-xs text-muted-foreground mt-2">- {childType} 유형의 좌우명</p>
+                  <p className="text-xs text-muted-foreground mt-2">- {childType} {t('result.motto')}</p>
                 </div>
               </div>
             </div>
@@ -330,7 +331,7 @@ export default function ComparisonResult({
               <div className="flex items-start gap-3">
                 <Heart className="w-4 h-4 text-rose-500 flex-shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-sm font-medium text-foreground">부모님이 알아주면 좋은 점: </span>
+                  <span className="text-sm font-medium text-foreground">{t('result.parentTip')}: </span>
                   <span className="text-sm text-muted-foreground">{childFunFacts.secretWeakness}</span>
                 </div>
               </div>
@@ -343,7 +344,7 @@ export default function ComparisonResult({
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Users className="w-5 h-5" />
-            성향 유사도
+            {t('result.compatibility')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -358,20 +359,20 @@ export default function ComparisonResult({
               }`}
               data-testid="badge-compatibility"
             >
-              성향 일치도 {complexAnalysis.overallCompatibilityScore}%
+              {t('result.compatibilityScore')} {complexAnalysis.overallCompatibilityScore}%
             </div>
             <p className="text-sm text-muted-foreground">
               {complexAnalysis.overallCompatibilityScore >= 75 
-                ? '비슷한 성향으로 소통이 편해요!' 
+                ? t('result.highCompat')
                 : complexAnalysis.overallCompatibilityScore >= 50 
-                ? '공통점과 차이점이 조화롭게 있어요' 
-                : '서로 다른 관점으로 배울 점이 많아요'}
+                ? t('result.medCompat')
+                : t('result.lowCompat')}
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {complexAnalysis.dimensionSimilarities.map((dimSim) => (
-              <DimensionSimilarityCard key={dimSim.dimension} similarity={dimSim} />
+              <DimensionSimilarityCard key={dimSim.dimension} similarity={dimSim} t={t} />
             ))}
           </div>
         </CardContent>
@@ -381,34 +382,34 @@ export default function ComparisonResult({
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="differences" data-testid="tab-differences">
             <MessageCircle className="w-4 h-4 mr-2" />
-            차이점
+            {t('result.differences')}
           </TabsTrigger>
           <TabsTrigger value="parent-guide" data-testid="tab-parent-guide">
             <Heart className="w-4 h-4 mr-2" />
-            부모 가이드
+            {t('result.parentGuide')}
           </TabsTrigger>
           <TabsTrigger value="child-guide" data-testid="tab-child-guide">
             <Lightbulb className="w-4 h-4 mr-2" />
-            아이 이해
+            {t('result.childGuide')}
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="differences" className="space-y-4 mt-4">
           <InsightCard
             icon={<MessageCircle className="w-5 h-5 text-blue-500" />}
-            title="소통 방식의 차이"
+            title={t('result.commDiff')}
             content={relationshipInsight.communicationDifference}
             testId="card-communication"
           />
           <InsightCard
             icon={<Brain className="w-5 h-5 text-purple-500" />}
-            title="행동 방식의 차이"
+            title={t('result.behaviorDiff')}
             content={relationshipInsight.behaviorDifference}
             testId="card-behavior"
           />
           <InsightCard
             icon={<Target className="w-5 h-5 text-orange-500" />}
-            title="사고 방식의 차이"
+            title={t('result.thinkingDiff')}
             content={relationshipInsight.thinkingDifference}
             testId="card-thinking"
           />
@@ -419,10 +420,10 @@ export default function ComparisonResult({
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-rose-600 dark:text-rose-400">
                 <Heart className="w-5 h-5" />
-                부모님을 위한 조언
+                {t('result.parentAdvice')}
               </CardTitle>
               <p className="text-sm text-muted-foreground">
-                {childType} 유형의 아이를 이해하고 소통하는 방법
+                {childType} {t('result.parentAdviceDesc')}
               </p>
             </CardHeader>
             <CardContent>
@@ -445,10 +446,10 @@ export default function ComparisonResult({
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-sky-600 dark:text-sky-400">
                 <Lightbulb className="w-5 h-5" />
-                아이가 이해할 수 있는 설명
+                {t('result.childExplain')}
               </CardTitle>
               <p className="text-sm text-muted-foreground">
-                엄마(아빠)가 왜 그렇게 행동하는지 알려줄게요
+                {t('result.childExplainDesc')}
               </p>
             </CardHeader>
             <CardContent>
@@ -471,10 +472,10 @@ export default function ComparisonResult({
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-purple-600 dark:text-purple-400">
             <Sparkles className="w-5 h-5" />
-            MBTI 동물 성격 가이드
+            {t('result.animalGuide')}
           </CardTitle>
           <p className="text-sm text-muted-foreground">
-            각 MBTI 유형을 대표하는 동물과 그 특징이에요
+            {t('result.animalGuideDesc')}
           </p>
         </CardHeader>
         <CardContent>
@@ -516,7 +517,7 @@ export default function ComparisonResult({
           data-testid="button-restart"
         >
           <RotateCcw className="w-4 h-4" />
-          처음부터 다시하기
+          {t('restart')}
         </Button>
         {onShare && (
           <Button 
@@ -526,7 +527,7 @@ export default function ComparisonResult({
             data-testid="button-share"
           >
             <Share2 className="w-4 h-4" />
-            결과 공유하기
+            {t('share')}
           </Button>
         )}
       </div>
@@ -560,16 +561,16 @@ function InsightCard({
   );
 }
 
-function DimensionSimilarityCard({ similarity }: { similarity: DimensionSimilarity }) {
+function DimensionSimilarityCard({ similarity, t }: { similarity: DimensionSimilarity; t: (key: string) => string }) {
   const isHigh = similarity.similarityPct >= 75;
   const isMedium = similarity.similarityPct >= 50 && similarity.similarityPct < 75;
   
   const getTraitLabel = (dim: string, pct: number): string => {
     const labels: Record<string, { low: string; high: string }> = {
-      EI: { low: 'E (외향)', high: 'I (내향)' },
-      SN: { low: 'S (현실)', high: 'N (직관)' },
-      TF: { low: 'T (논리)', high: 'F (감성)' },
-      JP: { low: 'J (계획)', high: 'P (자유)' }
+      EI: { low: t('result.traitE'), high: t('result.traitI') },
+      SN: { low: t('result.traitS'), high: t('result.traitN') },
+      TF: { low: t('result.traitT'), high: t('result.traitF') },
+      JP: { low: t('result.traitJ'), high: t('result.traitP') }
     };
     return pct >= 50 ? labels[dim].high : labels[dim].low;
   };
@@ -597,21 +598,21 @@ function DimensionSimilarityCard({ similarity }: { similarity: DimensionSimilari
               : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border-blue-300'
           }
         >
-          {similarity.similarityPct}% 일치
+          {similarity.similarityPct}% {t('result.match')}
         </Badge>
       </div>
       
       <div className="space-y-2">
         <div className="flex items-center justify-between text-sm">
           <div className="flex items-center gap-2">
-            <span className="text-rose-600 dark:text-rose-400 font-medium">부모:</span>
+            <span className="text-rose-600 dark:text-rose-400 font-medium">{t('result.parentLabel')}</span>
             <span className="text-foreground">{getTraitLabel(similarity.dimension, similarity.parentPct)}</span>
             <span className="text-muted-foreground text-xs">({similarity.parentPct < 50 ? 100 - similarity.parentPct : similarity.parentPct}%)</span>
           </div>
         </div>
         <div className="flex items-center justify-between text-sm">
           <div className="flex items-center gap-2">
-            <span className="text-sky-600 dark:text-sky-400 font-medium">아이:</span>
+            <span className="text-sky-600 dark:text-sky-400 font-medium">{t('result.childLabel')}</span>
             <span className="text-foreground">{getTraitLabel(similarity.dimension, similarity.childPct)}</span>
             <span className="text-muted-foreground text-xs">({similarity.childPct < 50 ? 100 - similarity.childPct : similarity.childPct}%)</span>
           </div>
