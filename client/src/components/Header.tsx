@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Sparkles, RotateCcw } from "lucide-react";
+import { Sparkles, RotateCcw, Download } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
+import { useToast } from "@/hooks/use-toast";
 
 interface HeaderProps {
   showRestart?: boolean;
@@ -11,6 +12,44 @@ interface HeaderProps {
 
 export default function Header({ showRestart, onRestart, subtitle }: HeaderProps) {
   const { t } = useLanguage();
+  const { toast } = useToast();
+  
+  const handleDownload = async () => {
+    try {
+      toast({
+        title: t('download.preparing') || "Preparing download...",
+        description: t('download.preparingDesc') || "Creating ZIP file of the project",
+      });
+      
+      const response = await fetch('/api/download-project');
+      
+      if (!response.ok) {
+        throw new Error('Download failed');
+      }
+      
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'mbti-family-app.zip';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      
+      toast({
+        title: t('download.complete') || "Download complete!",
+        description: t('download.completeDesc') || "Your project files have been downloaded",
+      });
+    } catch (error) {
+      console.error('Download failed:', error);
+      toast({
+        title: t('download.error') || "Download failed",
+        description: t('download.errorDesc') || "Failed to download project files",
+        variant: "destructive",
+      });
+    }
+  };
   
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -32,6 +71,15 @@ export default function Header({ showRestart, onRestart, subtitle }: HeaderProps
         </div>
         
         <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleDownload}
+            title={t('download.button') || "Download Project"}
+            data-testid="button-download"
+          >
+            <Download className="w-4 h-4" />
+          </Button>
           <LanguageSelector />
           {showRestart && onRestart && (
             <Button 
