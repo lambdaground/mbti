@@ -5,6 +5,7 @@ import { Share2, RotateCcw, Star, Heart, Zap, Target, Briefcase, Palette, Users,
 import type { MBTIResult as MBTIResultType, AgeGroup } from "@/lib/mbti-data";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getAnimalName } from "@/lib/i18n";
+import { getLocalizedMBTIType } from "@/lib/mbti-data-localized";
 
 import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";
 import intpImage from "@assets/generated_images/curious_raccoon_mascot_intp.png";
@@ -97,6 +98,17 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
   const { primaryType, primaryPercentage, secondaryType, secondaryPercentage, dimensionScores } = result;
   const { t, language } = useLanguage();
   
+  const localizedType = getLocalizedMBTIType(primaryType.type, language);
+  
+  const nickname = localizedType?.nickname || primaryType.nickname;
+  const description = localizedType?.description || primaryType.description;
+  const strengths = localizedType?.strengths || primaryType.strengths;
+  const activities = localizedType?.activities || primaryType.activities;
+  const careers = localizedType?.careers || primaryType.careers;
+  const hobbies = localizedType?.hobbies || primaryType.hobbies;
+  const loveStyle = localizedType?.loveStyle || primaryType.loveStyle;
+  const behavioralScenarios = localizedType?.behavioralScenarios || primaryType.behavioralScenarios;
+  
   const ageLabels: Record<AgeGroup, string> = {
     elementary: t('age.elementary'),
     middle: t('age.middle'),
@@ -132,7 +144,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
             className="text-xl md:text-2xl font-medium opacity-90"
             data-testid="text-mbti-nickname"
           >
-            {primaryType.nickname}
+            {nickname}
           </p>
           
           <p className="text-lg opacity-80 mt-2">
@@ -199,14 +211,14 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
               className="text-muted-foreground leading-relaxed text-lg"
               data-testid="text-description"
             >
-              {primaryType.description}
+              {description}
             </p>
           </div>
           
           <div>
             <h2 className="font-display text-xl font-bold mb-4 text-foreground">{t('result.myStrengths')}</h2>
             <div className="grid grid-cols-2 gap-3">
-              {primaryType.strengths.map((strength, index) => {
+              {strengths.map((strength, index) => {
                 const Icon = strengthIcons[index % strengthIcons.length];
                 return (
                   <div 
@@ -230,7 +242,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
               {t('result.suitableCareers')}
             </h2>
             <div className="flex flex-wrap gap-2">
-              {primaryType.careers.map((career, index) => (
+              {careers.map((career, index) => (
                 <Badge 
                   key={index} 
                   variant="outline" 
@@ -249,7 +261,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
               {t('result.favoriteHobbies')}
             </h2>
             <div className="flex flex-wrap gap-2">
-              {primaryType.hobbies.map((hobby, index) => (
+              {hobbies.map((hobby, index) => (
                 <Badge 
                   key={index} 
                   variant="secondary" 
@@ -271,18 +283,18 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
               className="text-muted-foreground leading-relaxed bg-muted/30 p-4 rounded-lg"
               data-testid="text-love-style"
             >
-              {primaryType.loveStyle}
+              {loveStyle}
             </p>
           </div>
           
-          {primaryType.behavioralScenarios && primaryType.behavioralScenarios.length > 0 && (
+          {behavioralScenarios && behavioralScenarios.length > 0 && (
             <div>
               <h2 className="font-display text-xl font-bold mb-4 text-foreground flex items-center gap-2">
                 <Users className="w-5 h-5" />
                 {t('result.behavioralScenarios')}
               </h2>
               <div className="space-y-3">
-                {primaryType.behavioralScenarios.map((scenario, index) => (
+                {behavioralScenarios.map((scenario, index) => (
                   <div 
                     key={index}
                     className="border rounded-lg p-4 space-y-2"
@@ -299,7 +311,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
           <div>
             <h2 className="font-display text-xl font-bold mb-4 text-foreground">{t('result.likeActivities')}</h2>
             <div className="flex flex-wrap gap-2">
-              {primaryType.activities.map((activity, index) => (
+              {activities.map((activity, index) => (
                 <Badge 
                   key={index} 
                   variant="outline" 
