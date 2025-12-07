@@ -1274,6 +1274,2162 @@ const ageNarrativesLocalized: Record<string, Record<AgeGroup, Record<Language, L
         ]
       }
     }
+  },
+  INTJ: {
+    elementary: {
+      ko: {
+        overview: "생각이 깊고 계획을 세우는 것을 좋아해요. 혼자서 퍼즐을 풀거나 책을 읽는 것을 즐기며, 미래에 대해 상상해요.",
+        keyTraits: ["생각이 깊어요", "계획적이에요", "독립적이에요", "호기심이 많아요"],
+        scenarios: [
+          { situation: "새로운 장난감이 생기면", behavior: "설명서를 먼저 읽고 순서대로 조립해요" },
+          { situation: "놀이를 할 때", behavior: "규칙을 정하고 계획대로 진행해요" },
+          { situation: "궁금한 것이 있으면", behavior: "혼자 책이나 인터넷에서 찾아봐요" }
+        ]
+      },
+      en: {
+        overview: "Deep thinker who loves making plans. Enjoys solving puzzles or reading books alone, imagining the future.",
+        keyTraits: ["Deep thinker", "Organized", "Independent", "Curious"],
+        scenarios: [
+          { situation: "When getting a new toy", behavior: "Reads instructions first and assembles step by step" },
+          { situation: "When playing games", behavior: "Sets rules and follows the plan" },
+          { situation: "When curious about something", behavior: "Looks it up in books or online alone" }
+        ]
+      },
+      ja: {
+        overview: "考えが深く、計画を立てるのが好きです。一人でパズルを解いたり本を読んだりするのを楽しみ、未来を想像します。",
+        keyTraits: ["考えが深い", "計画的", "独立心がある", "好奇心旺盛"],
+        scenarios: [
+          { situation: "新しいおもちゃをもらったら", behavior: "説明書を先に読んで順番に組み立てます" },
+          { situation: "遊ぶとき", behavior: "ルールを決めて計画通りに進めます" },
+          { situation: "気になることがあったら", behavior: "一人で本やインターネットで調べます" }
+        ]
+      },
+      zh: {
+        overview: "思考深入，喜欢制定计划。喜欢独自解谜或读书，想象未来。",
+        keyTraits: ["思考深入", "有计划", "独立", "好奇心强"],
+        scenarios: [
+          { situation: "得到新玩具时", behavior: "先阅读说明书，按步骤组装" },
+          { situation: "玩游戏时", behavior: "制定规则并按计划进行" },
+          { situation: "有好奇的事情时", behavior: "独自在书本或网上查找" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "논리적이고 전략적인 사고가 발달해요. 장기적인 목표를 세우고 그것을 이루기 위해 노력해요.",
+        keyTraits: ["전략적이에요", "목표 지향적이에요", "분석적이에요", "독립적이에요"],
+        scenarios: [
+          { situation: "시험 준비할 때", behavior: "공부 계획표를 만들고 체계적으로 준비해요" },
+          { situation: "그룹 프로젝트에서", behavior: "전체 계획을 세우고 효율적인 방법을 제안해요" },
+          { situation: "진로에 대해", behavior: "미래 목표를 정하고 필요한 것을 미리 준비해요" }
+        ]
+      },
+      en: {
+        overview: "Develops logical and strategic thinking. Sets long-term goals and works hard to achieve them.",
+        keyTraits: ["Strategic", "Goal-oriented", "Analytical", "Independent"],
+        scenarios: [
+          { situation: "When preparing for exams", behavior: "Creates study schedules and prepares systematically" },
+          { situation: "In group projects", behavior: "Plans the whole project and suggests efficient methods" },
+          { situation: "About career", behavior: "Sets future goals and prepares in advance" }
+        ]
+      },
+      ja: {
+        overview: "論理的で戦略的な思考が発達します。長期的な目標を立て、それを達成するために努力します。",
+        keyTraits: ["戦略的", "目標志向", "分析的", "独立心がある"],
+        scenarios: [
+          { situation: "試験準備のとき", behavior: "勉強計画表を作り、体系的に準備します" },
+          { situation: "グループプロジェクトで", behavior: "全体の計画を立て、効率的な方法を提案します" },
+          { situation: "進路について", behavior: "将来の目標を決め、必要なことを事前に準備します" }
+        ]
+      },
+      zh: {
+        overview: "发展逻辑和战略思维。设定长期目标并努力实现。",
+        keyTraits: ["战略性强", "目标导向", "善于分析", "独立"],
+        scenarios: [
+          { situation: "准备考试时", behavior: "制定学习计划表，系统性地准备" },
+          { situation: "在小组项目中", behavior: "制定整体计划并提出有效方法" },
+          { situation: "关于未来", behavior: "设定未来目标并提前准备" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "독자적인 비전과 전략으로 목표를 향해 나아가요. 지적 도전을 즐기고, 시스템을 개선하려 해요.",
+        keyTraits: ["비전 있어요", "전략적이에요", "결단력 있어요", "완벽주의적이에요"],
+        scenarios: [
+          { situation: "복잡한 문제를 만나면", behavior: "체계적으로 분석하고 최적의 해결책을 찾아요" },
+          { situation: "리더 역할을 맡으면", behavior: "명확한 방향을 제시하고 효율적으로 이끌어요" },
+          { situation: "비효율적인 것을 보면", behavior: "개선 방안을 생각하고 제안해요" }
+        ]
+      },
+      en: {
+        overview: "Moves toward goals with unique vision and strategy. Enjoys intellectual challenges and tries to improve systems.",
+        keyTraits: ["Visionary", "Strategic", "Decisive", "Perfectionist"],
+        scenarios: [
+          { situation: "When facing complex problems", behavior: "Analyzes systematically and finds optimal solutions" },
+          { situation: "When taking leadership roles", behavior: "Provides clear direction and leads efficiently" },
+          { situation: "When seeing inefficiency", behavior: "Thinks of improvements and suggests them" }
+        ]
+      },
+      ja: {
+        overview: "独自のビジョンと戦略で目標に向かって進みます。知的挑戦を楽しみ、システムを改善しようとします。",
+        keyTraits: ["ビジョンがある", "戦略的", "決断力がある", "完璧主義"],
+        scenarios: [
+          { situation: "複雑な問題に直面したら", behavior: "体系的に分析し、最適な解決策を見つけます" },
+          { situation: "リーダー役を担ったら", behavior: "明確な方向を示し、効率的にリードします" },
+          { situation: "非効率なものを見たら", behavior: "改善案を考えて提案します" }
+        ]
+      },
+      zh: {
+        overview: "以独特的愿景和策略朝着目标前进。享受智力挑战，努力改进系统。",
+        keyTraits: ["有远见", "战略性强", "果断", "完美主义"],
+        scenarios: [
+          { situation: "面对复杂问题时", behavior: "系统分析并找到最佳解决方案" },
+          { situation: "担任领导角色时", behavior: "提供明确方向并高效领导" },
+          { situation: "看到低效时", behavior: "思考改进方案并提出建议" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "전략적 사고와 장기적 비전으로 목표를 달성해요. 복잡한 문제를 해결하고 시스템을 개선하는 데 탁월해요.",
+        keyTraits: ["전략적이에요", "비전 있어요", "독립적이에요", "결단력 있어요"],
+        scenarios: [
+          { situation: "새로운 프로젝트에서", behavior: "전체 그림을 그리고 단계별 계획을 세워요" },
+          { situation: "조직에서", behavior: "비효율적인 프로세스를 개선하고 혁신을 주도해요" },
+          { situation: "의사결정 할 때", behavior: "데이터와 논리를 바탕으로 최선의 선택을 해요" }
+        ]
+      },
+      en: {
+        overview: "Achieves goals with strategic thinking and long-term vision. Excellent at solving complex problems and improving systems.",
+        keyTraits: ["Strategic", "Visionary", "Independent", "Decisive"],
+        scenarios: [
+          { situation: "In new projects", behavior: "Draws the big picture and creates step-by-step plans" },
+          { situation: "In organizations", behavior: "Improves inefficient processes and leads innovation" },
+          { situation: "When making decisions", behavior: "Makes the best choices based on data and logic" }
+        ]
+      },
+      ja: {
+        overview: "戦略的思考と長期的ビジョンで目標を達成します。複雑な問題を解決し、システムを改善することに優れています。",
+        keyTraits: ["戦略的", "ビジョンがある", "独立心がある", "決断力がある"],
+        scenarios: [
+          { situation: "新しいプロジェクトで", behavior: "全体像を描き、段階的な計画を立てます" },
+          { situation: "組織で", behavior: "非効率なプロセスを改善し、イノベーションをリードします" },
+          { situation: "意思決定するとき", behavior: "データと論理に基づいて最善の選択をします" }
+        ]
+      },
+      zh: {
+        overview: "以战略思维和长期愿景实现目标。擅长解决复杂问题和改进系统。",
+        keyTraits: ["战略性强", "有远见", "独立", "果断"],
+        scenarios: [
+          { situation: "在新项目中", behavior: "绘制整体蓝图并制定分步计划" },
+          { situation: "在组织中", behavior: "改进低效流程并引领创新" },
+          { situation: "做决策时", behavior: "基于数据和逻辑做出最佳选择" }
+        ]
+      }
+    }
+  },
+  ENTJ: {
+    elementary: {
+      ko: {
+        overview: "리더십이 강하고 친구들을 이끄는 것을 좋아해요. 목표를 정하고 그것을 이루기 위해 열심히 해요.",
+        keyTraits: ["리더십이 있어요", "자신감 있어요", "목표 지향적이에요", "적극적이에요"],
+        scenarios: [
+          { situation: "친구들과 놀 때", behavior: "자연스럽게 무엇을 할지 정하고 이끌어요" },
+          { situation: "새로운 게임을 하면", behavior: "규칙을 빨리 익히고 이기려고 노력해요" },
+          { situation: "모둠 활동에서", behavior: "역할을 정해주고 진행을 맡아요" }
+        ]
+      },
+      en: {
+        overview: "Has strong leadership and loves leading friends. Sets goals and works hard to achieve them.",
+        keyTraits: ["Leadership", "Confident", "Goal-oriented", "Proactive"],
+        scenarios: [
+          { situation: "When playing with friends", behavior: "Naturally decides what to do and leads" },
+          { situation: "When playing new games", behavior: "Quickly learns rules and tries to win" },
+          { situation: "In group activities", behavior: "Assigns roles and takes charge" }
+        ]
+      },
+      ja: {
+        overview: "リーダーシップが強く、友達を率いるのが好きです。目標を決めて達成するために一生懸命頑張ります。",
+        keyTraits: ["リーダーシップがある", "自信がある", "目標志向", "積極的"],
+        scenarios: [
+          { situation: "友達と遊ぶとき", behavior: "自然と何をするか決めてリードします" },
+          { situation: "新しいゲームをするとき", behavior: "すぐにルールを覚えて勝とうとします" },
+          { situation: "グループ活動で", behavior: "役割を決めて進行を担当します" }
+        ]
+      },
+      zh: {
+        overview: "领导力强，喜欢带领朋友们。设定目标并努力实现。",
+        keyTraits: ["有领导力", "自信", "目标导向", "积极主动"],
+        scenarios: [
+          { situation: "和朋友玩时", behavior: "自然而然地决定做什么并带领大家" },
+          { situation: "玩新游戏时", behavior: "快速学会规则并努力获胜" },
+          { situation: "在小组活动中", behavior: "分配角色并负责推进" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "목표 달성을 위해 체계적으로 계획하고 실행해요. 팀을 이끌고 효율적으로 일을 처리하는 능력이 뛰어나요.",
+        keyTraits: ["리더십이 뛰어나요", "효율적이에요", "결단력 있어요", "자신감 있어요"],
+        scenarios: [
+          { situation: "학급 임원이 되면", behavior: "계획을 세우고 일을 체계적으로 진행해요" },
+          { situation: "그룹 과제에서", behavior: "역할을 분배하고 진행 상황을 확인해요" },
+          { situation: "문제가 생기면", behavior: "빠르게 해결책을 찾고 실행해요" }
+        ]
+      },
+      en: {
+        overview: "Plans and executes systematically to achieve goals. Excellent at leading teams and handling tasks efficiently.",
+        keyTraits: ["Strong leadership", "Efficient", "Decisive", "Confident"],
+        scenarios: [
+          { situation: "When becoming class officer", behavior: "Makes plans and proceeds systematically" },
+          { situation: "In group assignments", behavior: "Distributes roles and checks progress" },
+          { situation: "When problems arise", behavior: "Quickly finds solutions and executes" }
+        ]
+      },
+      ja: {
+        overview: "目標達成のために体系的に計画し実行します。チームを率い、効率的に仕事を処理する能力に優れています。",
+        keyTraits: ["リーダーシップが優れている", "効率的", "決断力がある", "自信がある"],
+        scenarios: [
+          { situation: "クラス役員になったら", behavior: "計画を立てて体系的に進めます" },
+          { situation: "グループ課題で", behavior: "役割を分担し、進捗を確認します" },
+          { situation: "問題が起きたら", behavior: "素早く解決策を見つけて実行します" }
+        ]
+      },
+      zh: {
+        overview: "为实现目标系统地计划和执行。擅长领导团队并高效处理任务。",
+        keyTraits: ["领导力强", "高效", "果断", "自信"],
+        scenarios: [
+          { situation: "当选班干部时", behavior: "制定计划并系统地推进" },
+          { situation: "在小组作业中", behavior: "分配角色并检查进度" },
+          { situation: "出现问题时", behavior: "快速找到解决方案并执行" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "강한 의지와 카리스마로 목표를 향해 나아가요. 전략적 사고와 실행력으로 팀을 이끌어요.",
+        keyTraits: ["카리스마 있어요", "전략적이에요", "결단력 있어요", "야망 있어요"],
+        scenarios: [
+          { situation: "리더 역할에서", behavior: "명확한 비전을 제시하고 팀을 동기부여해요" },
+          { situation: "도전적인 목표가 있으면", behavior: "단계별 계획을 세우고 끝까지 밀어붙여요" },
+          { situation: "비효율을 발견하면", behavior: "개선 방안을 제시하고 변화를 주도해요" }
+        ]
+      },
+      en: {
+        overview: "Moves toward goals with strong will and charisma. Leads teams with strategic thinking and execution.",
+        keyTraits: ["Charismatic", "Strategic", "Decisive", "Ambitious"],
+        scenarios: [
+          { situation: "In leadership roles", behavior: "Presents clear vision and motivates the team" },
+          { situation: "When facing challenging goals", behavior: "Makes step-by-step plans and pushes through" },
+          { situation: "When finding inefficiency", behavior: "Suggests improvements and leads change" }
+        ]
+      },
+      ja: {
+        overview: "強い意志とカリスマで目標に向かって進みます。戦略的思考と実行力でチームをリードします。",
+        keyTraits: ["カリスマがある", "戦略的", "決断力がある", "野心的"],
+        scenarios: [
+          { situation: "リーダーの役割で", behavior: "明確なビジョンを示し、チームを動機づけます" },
+          { situation: "挑戦的な目標があるとき", behavior: "段階的な計画を立てて最後まで押し進めます" },
+          { situation: "非効率を発見したら", behavior: "改善案を提示し、変化を主導します" }
+        ]
+      },
+      zh: {
+        overview: "以强大的意志和魅力朝着目标前进。用战略思维和执行力领导团队。",
+        keyTraits: ["有魅力", "战略性强", "果断", "有抱负"],
+        scenarios: [
+          { situation: "在领导角色中", behavior: "提出清晰的愿景并激励团队" },
+          { situation: "面对挑战性目标时", behavior: "制定分步计划并坚持到底" },
+          { situation: "发现低效时", behavior: "提出改进方案并主导变革" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "탁월한 리더십과 전략적 사고로 조직을 이끌어요. 효율성과 성과를 중시하며 목표를 달성해요.",
+        keyTraits: ["리더십이 뛰어나요", "전략적이에요", "효율적이에요", "결단력 있어요"],
+        scenarios: [
+          { situation: "조직에서", behavior: "명확한 방향을 제시하고 팀을 이끌어요" },
+          { situation: "프로젝트 관리에서", behavior: "목표와 일정을 정하고 체계적으로 추진해요" },
+          { situation: "문제 상황에서", behavior: "빠르게 판단하고 결정을 내려요" }
+        ]
+      },
+      en: {
+        overview: "Leads organizations with excellent leadership and strategic thinking. Values efficiency and results to achieve goals.",
+        keyTraits: ["Excellent leadership", "Strategic", "Efficient", "Decisive"],
+        scenarios: [
+          { situation: "In organizations", behavior: "Provides clear direction and leads the team" },
+          { situation: "In project management", behavior: "Sets goals and schedules, pursues systematically" },
+          { situation: "In problem situations", behavior: "Judges quickly and makes decisions" }
+        ]
+      },
+      ja: {
+        overview: "優れたリーダーシップと戦略的思考で組織をリードします。効率と成果を重視して目標を達成します。",
+        keyTraits: ["リーダーシップが優れている", "戦略的", "効率的", "決断力がある"],
+        scenarios: [
+          { situation: "組織で", behavior: "明確な方向を示し、チームをリードします" },
+          { situation: "プロジェクト管理で", behavior: "目標とスケジュールを定め、体系的に推進します" },
+          { situation: "問題状況で", behavior: "素早く判断し、決定を下します" }
+        ]
+      },
+      zh: {
+        overview: "以卓越的领导力和战略思维领导组织。重视效率和成果来实现目标。",
+        keyTraits: ["领导力卓越", "战略性强", "高效", "果断"],
+        scenarios: [
+          { situation: "在组织中", behavior: "提供明确方向并领导团队" },
+          { situation: "在项目管理中", behavior: "设定目标和时间表，系统推进" },
+          { situation: "在问题情况中", behavior: "快速判断并做出决定" }
+        ]
+      }
+    }
+  },
+  ENTP: {
+    elementary: {
+      ko: {
+        overview: "호기심이 많고 새로운 아이디어를 생각해내는 것을 좋아해요. 질문을 많이 하고 토론하는 것을 즐겨요.",
+        keyTraits: ["창의적이에요", "호기심이 많아요", "말을 잘해요", "에너지가 넘쳐요"],
+        scenarios: [
+          { situation: "새로운 것을 배우면", behavior: "다른 방법으로 해보려고 시도해요" },
+          { situation: "규칙이 이상하면", behavior: "'왜요?'라고 물어보고 더 좋은 방법을 제안해요" },
+          { situation: "친구들과 있을 때", behavior: "재미있는 아이디어로 분위기를 이끌어요" }
+        ]
+      },
+      en: {
+        overview: "Curious and loves coming up with new ideas. Asks lots of questions and enjoys debates.",
+        keyTraits: ["Creative", "Curious", "Good communicator", "Energetic"],
+        scenarios: [
+          { situation: "When learning something new", behavior: "Tries doing it a different way" },
+          { situation: "When rules seem strange", behavior: "Asks 'why?' and suggests better ways" },
+          { situation: "When with friends", behavior: "Leads with fun ideas" }
+        ]
+      },
+      ja: {
+        overview: "好奇心旺盛で新しいアイデアを考えるのが好きです。たくさん質問し、討論を楽しみます。",
+        keyTraits: ["創造的", "好奇心旺盛", "話が上手", "エネルギッシュ"],
+        scenarios: [
+          { situation: "新しいことを学んだら", behavior: "違う方法でやってみようとします" },
+          { situation: "ルールがおかしいと感じたら", behavior: "「なぜ？」と聞いて、より良い方法を提案します" },
+          { situation: "友達といるとき", behavior: "面白いアイデアで雰囲気をリードします" }
+        ]
+      },
+      zh: {
+        overview: "好奇心强，喜欢想出新点子。问很多问题，喜欢辩论。",
+        keyTraits: ["有创意", "好奇心强", "善于表达", "精力充沛"],
+        scenarios: [
+          { situation: "学习新事物时", behavior: "尝试用不同的方法" },
+          { situation: "规则看起来奇怪时", behavior: "问'为什么？'并提出更好的方法" },
+          { situation: "和朋友在一起时", behavior: "用有趣的点子带动气氛" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "창의적인 아이디어와 논쟁을 즐기며, 새로운 가능성을 탐험해요. 규칙에 도전하고 혁신을 추구해요.",
+        keyTraits: ["창의적이에요", "토론을 좋아해요", "적응력이 뛰어나요", "도전적이에요"],
+        scenarios: [
+          { situation: "토론 수업에서", behavior: "다양한 관점을 제시하며 논쟁을 즐겨요" },
+          { situation: "새로운 아이디어가 떠오르면", behavior: "바로 친구들과 공유하고 발전시켜요" },
+          { situation: "지루한 일을 해야 할 때", behavior: "재미있게 할 방법을 찾아요" }
+        ]
+      },
+      en: {
+        overview: "Enjoys creative ideas and debates, exploring new possibilities. Challenges rules and seeks innovation.",
+        keyTraits: ["Creative", "Loves debating", "Adaptable", "Challenging"],
+        scenarios: [
+          { situation: "In debate classes", behavior: "Presents various perspectives and enjoys arguments" },
+          { situation: "When new ideas come up", behavior: "Shares with friends immediately and develops them" },
+          { situation: "When doing boring tasks", behavior: "Finds ways to make it fun" }
+        ]
+      },
+      ja: {
+        overview: "創造的なアイデアと議論を楽しみ、新しい可能性を探求します。ルールに挑戦し、革新を追求します。",
+        keyTraits: ["創造的", "討論好き", "適応力が高い", "挑戦的"],
+        scenarios: [
+          { situation: "ディベートの授業で", behavior: "様々な視点を提示して議論を楽しみます" },
+          { situation: "新しいアイデアが浮かんだら", behavior: "すぐに友達と共有して発展させます" },
+          { situation: "退屈な作業をするとき", behavior: "楽しくする方法を探します" }
+        ]
+      },
+      zh: {
+        overview: "享受创意和辩论，探索新的可能性。挑战规则并追求创新。",
+        keyTraits: ["有创意", "喜欢辩论", "适应力强", "敢于挑战"],
+        scenarios: [
+          { situation: "在辩论课上", behavior: "提出各种观点并享受争论" },
+          { situation: "有新想法时", behavior: "立即与朋友分享并发展" },
+          { situation: "做无聊的事情时", behavior: "找到让它变有趣的方法" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "지적 호기심과 창의력으로 새로운 아이디어를 탐구해요. 토론과 논쟁을 통해 가능성을 확장해요.",
+        keyTraits: ["혁신적이에요", "논쟁을 즐겨요", "적응력 있어요", "카리스마 있어요"],
+        scenarios: [
+          { situation: "복잡한 문제를 만나면", behavior: "다양한 각도에서 창의적 해결책을 찾아요" },
+          { situation: "토론에서", behavior: "상대 논리의 허점을 찾고 반박해요" },
+          { situation: "새로운 프로젝트에서", behavior: "기존의 틀을 깨는 아이디어를 제안해요" }
+        ]
+      },
+      en: {
+        overview: "Explores new ideas with intellectual curiosity and creativity. Expands possibilities through debates and arguments.",
+        keyTraits: ["Innovative", "Enjoys debating", "Adaptable", "Charismatic"],
+        scenarios: [
+          { situation: "When facing complex problems", behavior: "Finds creative solutions from various angles" },
+          { situation: "In debates", behavior: "Finds flaws in opponent's logic and counters" },
+          { situation: "In new projects", behavior: "Proposes ideas that break conventional molds" }
+        ]
+      },
+      ja: {
+        overview: "知的好奇心と創造力で新しいアイデアを探求します。討論と議論を通じて可能性を広げます。",
+        keyTraits: ["革新的", "議論を楽しむ", "適応力がある", "カリスマがある"],
+        scenarios: [
+          { situation: "複雑な問題に直面したら", behavior: "様々な角度から創造的な解決策を見つけます" },
+          { situation: "討論で", behavior: "相手の論理の穴を見つけて反論します" },
+          { situation: "新しいプロジェクトで", behavior: "既存の枠を破るアイデアを提案します" }
+        ]
+      },
+      zh: {
+        overview: "以求知欲和创造力探索新想法。通过辩论和论证扩展可能性。",
+        keyTraits: ["创新", "喜欢辩论", "适应力强", "有魅力"],
+        scenarios: [
+          { situation: "面对复杂问题时", behavior: "从多角度寻找创意解决方案" },
+          { situation: "在辩论中", behavior: "找出对方逻辑的漏洞并反驳" },
+          { situation: "在新项目中", behavior: "提出打破常规的想法" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "혁신적인 아이디어와 뛰어난 소통 능력으로 변화를 이끌어요. 새로운 가능성을 발견하고 도전해요.",
+        keyTraits: ["혁신적이에요", "소통 능력이 뛰어나요", "적응력 있어요", "도전적이에요"],
+        scenarios: [
+          { situation: "새로운 기회를 발견하면", behavior: "빠르게 가능성을 분석하고 도전해요" },
+          { situation: "토론에서", behavior: "다양한 관점을 제시하며 설득력 있게 말해요" },
+          { situation: "기존 방식이 비효율적이면", behavior: "혁신적인 대안을 제시하고 시도해요" }
+        ]
+      },
+      en: {
+        overview: "Leads change with innovative ideas and excellent communication. Discovers new possibilities and takes on challenges.",
+        keyTraits: ["Innovative", "Excellent communicator", "Adaptable", "Challenging"],
+        scenarios: [
+          { situation: "When discovering new opportunities", behavior: "Quickly analyzes possibilities and takes on challenges" },
+          { situation: "In discussions", behavior: "Presents various perspectives persuasively" },
+          { situation: "When existing methods are inefficient", behavior: "Proposes innovative alternatives and tries them" }
+        ]
+      },
+      ja: {
+        overview: "革新的なアイデアと優れたコミュニケーション能力で変化をリードします。新しい可能性を発見し、挑戦します。",
+        keyTraits: ["革新的", "コミュニケーション能力が高い", "適応力がある", "挑戦的"],
+        scenarios: [
+          { situation: "新しい機会を発見したら", behavior: "素早く可能性を分析し挑戦します" },
+          { situation: "議論で", behavior: "様々な視点を説得力を持って提示します" },
+          { situation: "既存の方法が非効率なら", behavior: "革新的な代案を提示して試みます" }
+        ]
+      },
+      zh: {
+        overview: "以创新想法和出色的沟通能力引领变革。发现新的可能性并迎接挑战。",
+        keyTraits: ["创新", "沟通能力强", "适应力强", "敢于挑战"],
+        scenarios: [
+          { situation: "发现新机会时", behavior: "快速分析可能性并接受挑战" },
+          { situation: "在讨论中", behavior: "有说服力地提出各种观点" },
+          { situation: "现有方法低效时", behavior: "提出创新替代方案并尝试" }
+        ]
+      }
+    }
+  },
+  INFJ: {
+    elementary: {
+      ko: {
+        overview: "감수성이 풍부하고 다른 사람의 감정을 잘 이해해요. 조용하지만 상상력이 풍부하고 친절해요.",
+        keyTraits: ["감수성이 풍부해요", "친절해요", "상상력이 풍부해요", "직관적이에요"],
+        scenarios: [
+          { situation: "친구가 슬퍼하면", behavior: "말 없이도 기분을 알아채고 위로해요" },
+          { situation: "혼자 있을 때", behavior: "상상 속에서 이야기를 만들어요" },
+          { situation: "불공정한 일을 보면", behavior: "마음이 아프고 도와주고 싶어해요" }
+        ]
+      },
+      en: {
+        overview: "Very sensitive and understands others' feelings well. Quiet but imaginative and kind.",
+        keyTraits: ["Sensitive", "Kind", "Imaginative", "Intuitive"],
+        scenarios: [
+          { situation: "When a friend is sad", behavior: "Notices their mood without words and comforts them" },
+          { situation: "When alone", behavior: "Creates stories in imagination" },
+          { situation: "When seeing unfairness", behavior: "Feels hurt and wants to help" }
+        ]
+      },
+      ja: {
+        overview: "感受性が豊かで他人の感情をよく理解します。静かですが想像力が豊かで優しいです。",
+        keyTraits: ["感受性が豊か", "優しい", "想像力が豊か", "直感的"],
+        scenarios: [
+          { situation: "友達が悲しんでいたら", behavior: "言葉なしでも気持ちを察して慰めます" },
+          { situation: "一人でいるとき", behavior: "想像の中で物語を作ります" },
+          { situation: "不公平なことを見たら", behavior: "心が痛み、助けたいと思います" }
+        ]
+      },
+      zh: {
+        overview: "非常敏感，善于理解他人的感受。安静但富有想象力且善良。",
+        keyTraits: ["敏感", "善良", "想象力丰富", "直觉强"],
+        scenarios: [
+          { situation: "朋友难过时", behavior: "不用言语就能感知并安慰他们" },
+          { situation: "独处时", behavior: "在想象中创造故事" },
+          { situation: "看到不公平时", behavior: "感到心痛并想帮忙" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "깊은 통찰력으로 사람들의 마음을 이해해요. 의미 있는 관계와 가치 있는 일을 추구해요.",
+        keyTraits: ["통찰력 있어요", "공감 능력이 뛰어나요", "이상주의적이에요", "헌신적이에요"],
+        scenarios: [
+          { situation: "친구가 고민이 있으면", behavior: "깊이 경청하고 진심 어린 조언을 해요" },
+          { situation: "글을 쓸 때", behavior: "깊은 의미와 메시지가 담긴 글을 써요" },
+          { situation: "진로를 생각할 때", behavior: "사람들을 돕는 의미 있는 일을 하고 싶어해요" }
+        ]
+      },
+      en: {
+        overview: "Understands people's hearts with deep insight. Pursues meaningful relationships and valuable work.",
+        keyTraits: ["Insightful", "Highly empathetic", "Idealistic", "Dedicated"],
+        scenarios: [
+          { situation: "When friends have concerns", behavior: "Listens deeply and gives heartfelt advice" },
+          { situation: "When writing", behavior: "Writes with deep meaning and messages" },
+          { situation: "When thinking about career", behavior: "Wants to do meaningful work helping people" }
+        ]
+      },
+      ja: {
+        overview: "深い洞察力で人々の心を理解します。意味のある関係と価値ある仕事を追求します。",
+        keyTraits: ["洞察力がある", "共感力が高い", "理想主義的", "献身的"],
+        scenarios: [
+          { situation: "友達が悩んでいたら", behavior: "深く傾聴し、心からのアドバイスをします" },
+          { situation: "文章を書くとき", behavior: "深い意味とメッセージが込められた文を書きます" },
+          { situation: "進路を考えるとき", behavior: "人を助ける意味のある仕事をしたいと思います" }
+        ]
+      },
+      zh: {
+        overview: "以深刻的洞察力理解人心。追求有意义的关系和有价值的工作。",
+        keyTraits: ["有洞察力", "高度共情", "理想主义", "有奉献精神"],
+        scenarios: [
+          { situation: "朋友有烦恼时", behavior: "深入倾听并给予真诚建议" },
+          { situation: "写作时", behavior: "写出有深意和信息的文章" },
+          { situation: "考虑未来时", behavior: "想做帮助他人的有意义工作" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "깊은 공감 능력과 이상주의적 비전으로 세상을 이해해요. 진정성 있는 관계와 의미 있는 삶을 추구해요.",
+        keyTraits: ["공감력이 뛰어나요", "비전 있어요", "통찰력 있어요", "헌신적이에요"],
+        scenarios: [
+          { situation: "사람들과 대화할 때", behavior: "말 이면의 감정과 의도를 읽어요" },
+          { situation: "미래를 계획할 때", behavior: "의미 있는 영향을 미칠 수 있는 길을 찾아요" },
+          { situation: "갈등 상황에서", behavior: "모두를 이해하며 조화로운 해결책을 찾아요" }
+        ]
+      },
+      en: {
+        overview: "Understands the world with deep empathy and idealistic vision. Pursues authentic relationships and meaningful life.",
+        keyTraits: ["Highly empathetic", "Visionary", "Insightful", "Dedicated"],
+        scenarios: [
+          { situation: "When talking with people", behavior: "Reads emotions and intentions behind words" },
+          { situation: "When planning the future", behavior: "Looks for ways to make meaningful impact" },
+          { situation: "In conflict situations", behavior: "Understands everyone and finds harmonious solutions" }
+        ]
+      },
+      ja: {
+        overview: "深い共感力と理想主義的なビジョンで世界を理解します。本物の関係と意味のある人生を追求します。",
+        keyTraits: ["共感力が高い", "ビジョンがある", "洞察力がある", "献身的"],
+        scenarios: [
+          { situation: "人と話すとき", behavior: "言葉の裏にある感情と意図を読み取ります" },
+          { situation: "将来を計画するとき", behavior: "意味のある影響を与えられる道を探します" },
+          { situation: "対立状況で", behavior: "皆を理解し、調和のとれた解決策を見つけます" }
+        ]
+      },
+      zh: {
+        overview: "以深刻的共情和理想主义愿景理解世界。追求真诚的关系和有意义的生活。",
+        keyTraits: ["高度共情", "有远见", "有洞察力", "有奉献精神"],
+        scenarios: [
+          { situation: "与人交谈时", behavior: "读懂言语背后的情感和意图" },
+          { situation: "规划未来时", behavior: "寻找能产生有意义影响的道路" },
+          { situation: "在冲突情况中", behavior: "理解所有人并找到和谐的解决方案" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "깊은 통찰력과 공감 능력으로 사람들을 이해하고 돕는 역할을 해요. 의미 있는 변화를 만들어내요.",
+        keyTraits: ["통찰력 있어요", "공감력이 뛰어나요", "비전 있어요", "헌신적이에요"],
+        scenarios: [
+          { situation: "사람들과 일할 때", behavior: "각자의 잠재력을 발견하고 성장을 도와요" },
+          { situation: "조직에서", behavior: "사람들의 조화와 의미 있는 목표를 위해 일해요" },
+          { situation: "삶에서", behavior: "진정성 있게 살며 깊은 유대감을 형성해요" }
+        ]
+      },
+      en: {
+        overview: "Understands and helps people with deep insight and empathy. Creates meaningful change.",
+        keyTraits: ["Insightful", "Highly empathetic", "Visionary", "Dedicated"],
+        scenarios: [
+          { situation: "When working with people", behavior: "Discovers potential and helps growth" },
+          { situation: "In organizations", behavior: "Works for harmony and meaningful goals" },
+          { situation: "In life", behavior: "Lives authentically and forms deep bonds" }
+        ]
+      },
+      ja: {
+        overview: "深い洞察力と共感力で人々を理解し助ける役割を果たします。意味のある変化を生み出します。",
+        keyTraits: ["洞察力がある", "共感力が高い", "ビジョンがある", "献身的"],
+        scenarios: [
+          { situation: "人と働くとき", behavior: "それぞれの潜在能力を発見し、成長を助けます" },
+          { situation: "組織で", behavior: "人々の調和と意味のある目標のために働きます" },
+          { situation: "人生で", behavior: "本物として生き、深い絆を築きます" }
+        ]
+      },
+      zh: {
+        overview: "以深刻的洞察力和共情能力理解并帮助他人。创造有意义的改变。",
+        keyTraits: ["有洞察力", "高度共情", "有远见", "有奉献精神"],
+        scenarios: [
+          { situation: "与人共事时", behavior: "发现每个人的潜力并帮助成长" },
+          { situation: "在组织中", behavior: "为和谐和有意义的目标而工作" },
+          { situation: "在生活中", behavior: "真诚地生活并建立深厚联系" }
+        ]
+      }
+    }
+  },
+  ENFJ: {
+    elementary: {
+      ko: {
+        overview: "따뜻하고 친구들을 잘 챙겨요. 다른 사람을 돕는 것을 좋아하고, 모두가 행복하길 바라요.",
+        keyTraits: ["따뜻해요", "친구를 잘 챙겨요", "사교적이에요", "리더십이 있어요"],
+        scenarios: [
+          { situation: "친구가 외로워 보이면", behavior: "먼저 다가가서 함께 놀자고 해요" },
+          { situation: "그룹 활동에서", behavior: "모두가 참여할 수 있게 이끌어요" },
+          { situation: "누군가 어려워하면", behavior: "도와주려고 적극적으로 나서요" }
+        ]
+      },
+      en: {
+        overview: "Warm and takes care of friends well. Loves helping others and wants everyone to be happy.",
+        keyTraits: ["Warm", "Caring", "Sociable", "Has leadership"],
+        scenarios: [
+          { situation: "When a friend looks lonely", behavior: "Approaches first and asks to play together" },
+          { situation: "In group activities", behavior: "Leads so everyone can participate" },
+          { situation: "When someone struggles", behavior: "Actively steps up to help" }
+        ]
+      },
+      ja: {
+        overview: "温かく、友達をよく気にかけます。人を助けることが好きで、皆が幸せであることを願います。",
+        keyTraits: ["温かい", "友達思い", "社交的", "リーダーシップがある"],
+        scenarios: [
+          { situation: "友達が寂しそうなら", behavior: "先に近づいて一緒に遊ぼうと言います" },
+          { situation: "グループ活動で", behavior: "皆が参加できるようにリードします" },
+          { situation: "誰かが困っていたら", behavior: "積極的に助けに行きます" }
+        ]
+      },
+      zh: {
+        overview: "温暖且善于照顾朋友。喜欢帮助他人，希望每个人都快乐。",
+        keyTraits: ["温暖", "关心他人", "善于社交", "有领导力"],
+        scenarios: [
+          { situation: "朋友看起来孤单时", behavior: "主动上前邀请一起玩" },
+          { situation: "在小组活动中", behavior: "带领大家让每个人都能参与" },
+          { situation: "有人遇到困难时", behavior: "积极主动地提供帮助" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "사람들의 성장을 돕고 조화로운 관계를 만들어요. 따뜻한 리더십으로 모두를 이끌어요.",
+        keyTraits: ["따뜻해요", "리더십이 있어요", "공감력이 뛰어나요", "영감을 줘요"],
+        scenarios: [
+          { situation: "친구가 고민이 있으면", behavior: "진심으로 들어주고 응원해요" },
+          { situation: "모둠 활동에서", behavior: "모두의 의견을 존중하며 이끌어요" },
+          { situation: "갈등이 생기면", behavior: "중재하고 화해할 수 있게 도와요" }
+        ]
+      },
+      en: {
+        overview: "Helps people grow and creates harmonious relationships. Leads everyone with warm leadership.",
+        keyTraits: ["Warm", "Leadership", "Highly empathetic", "Inspiring"],
+        scenarios: [
+          { situation: "When friends have concerns", behavior: "Listens sincerely and encourages" },
+          { situation: "In group activities", behavior: "Leads while respecting everyone's opinions" },
+          { situation: "When conflicts arise", behavior: "Mediates and helps reconciliation" }
+        ]
+      },
+      ja: {
+        overview: "人々の成長を助け、調和のとれた関係を作ります。温かいリーダーシップで皆をリードします。",
+        keyTraits: ["温かい", "リーダーシップがある", "共感力が高い", "インスピレーションを与える"],
+        scenarios: [
+          { situation: "友達が悩んでいたら", behavior: "心から聞いて応援します" },
+          { situation: "グループ活動で", behavior: "皆の意見を尊重しながらリードします" },
+          { situation: "対立が起きたら", behavior: "仲裁し、和解できるよう助けます" }
+        ]
+      },
+      zh: {
+        overview: "帮助他人成长并建立和谐关系。用温暖的领导力带领大家。",
+        keyTraits: ["温暖", "有领导力", "高度共情", "给人启发"],
+        scenarios: [
+          { situation: "朋友有烦恼时", behavior: "真诚倾听并给予鼓励" },
+          { situation: "在小组活动中", behavior: "尊重每个人的意见同时领导" },
+          { situation: "发生冲突时", behavior: "调解并帮助和解" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "뛰어난 공감 능력과 리더십으로 사람들에게 영감을 주고 이끌어요. 다른 사람의 잠재력을 발견해요.",
+        keyTraits: ["카리스마 있어요", "공감력이 뛰어나요", "영감을 줘요", "헌신적이에요"],
+        scenarios: [
+          { situation: "팀을 이끌 때", behavior: "각자의 강점을 살려 동기부여해요" },
+          { situation: "친구가 힘들어할 때", behavior: "함께하며 응원하고 도와요" },
+          { situation: "진로를 생각할 때", behavior: "사람들의 성장을 돕는 일을 하고 싶어해요" }
+        ]
+      },
+      en: {
+        overview: "Inspires and leads people with excellent empathy and leadership. Discovers others' potential.",
+        keyTraits: ["Charismatic", "Highly empathetic", "Inspiring", "Dedicated"],
+        scenarios: [
+          { situation: "When leading teams", behavior: "Motivates by leveraging each person's strengths" },
+          { situation: "When friends struggle", behavior: "Stays with them and supports" },
+          { situation: "When thinking about career", behavior: "Wants to do work helping people grow" }
+        ]
+      },
+      ja: {
+        overview: "優れた共感力とリーダーシップで人々にインスピレーションを与え、導きます。他者の潜在能力を発見します。",
+        keyTraits: ["カリスマがある", "共感力が高い", "インスピレーションを与える", "献身的"],
+        scenarios: [
+          { situation: "チームを率いるとき", behavior: "それぞれの強みを活かして動機づけます" },
+          { situation: "友達が辛いとき", behavior: "一緒にいて応援し助けます" },
+          { situation: "進路を考えるとき", behavior: "人々の成長を助ける仕事をしたいと思います" }
+        ]
+      },
+      zh: {
+        overview: "以出色的共情和领导力激励并引导他人。发现他人的潜力。",
+        keyTraits: ["有魅力", "高度共情", "给人启发", "有奉献精神"],
+        scenarios: [
+          { situation: "领导团队时", behavior: "发挥每个人的优势并激励他们" },
+          { situation: "朋友困难时", behavior: "陪伴并支持帮助" },
+          { situation: "考虑未来时", behavior: "想做帮助他人成长的工作" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "따뜻한 리더십과 공감 능력으로 사람들의 성장과 변화를 이끌어요. 조화로운 팀을 만들어요.",
+        keyTraits: ["리더십이 뛰어나요", "공감력이 높아요", "영감을 줘요", "헌신적이에요"],
+        scenarios: [
+          { situation: "조직에서", behavior: "사람들의 잠재력을 발견하고 성장시켜요" },
+          { situation: "팀을 이끌 때", behavior: "모두가 참여하고 성장할 수 있는 환경을 만들어요" },
+          { situation: "갈등이 있을 때", behavior: "중재하고 조화로운 해결책을 찾아요" }
+        ]
+      },
+      en: {
+        overview: "Leads people's growth and change with warm leadership and empathy. Creates harmonious teams.",
+        keyTraits: ["Excellent leadership", "Highly empathetic", "Inspiring", "Dedicated"],
+        scenarios: [
+          { situation: "In organizations", behavior: "Discovers and develops people's potential" },
+          { situation: "When leading teams", behavior: "Creates environment where everyone can participate and grow" },
+          { situation: "When there's conflict", behavior: "Mediates and finds harmonious solutions" }
+        ]
+      },
+      ja: {
+        overview: "温かいリーダーシップと共感力で人々の成長と変化をリードします。調和のとれたチームを作ります。",
+        keyTraits: ["リーダーシップが優れている", "共感力が高い", "インスピレーションを与える", "献身的"],
+        scenarios: [
+          { situation: "組織で", behavior: "人々の潜在能力を発見し成長させます" },
+          { situation: "チームを率いるとき", behavior: "皆が参加し成長できる環境を作ります" },
+          { situation: "対立があるとき", behavior: "仲裁し、調和のとれた解決策を見つけます" }
+        ]
+      },
+      zh: {
+        overview: "以温暖的领导力和共情能力引领他人成长和改变。创建和谐的团队。",
+        keyTraits: ["领导力卓越", "高度共情", "给人启发", "有奉献精神"],
+        scenarios: [
+          { situation: "在组织中", behavior: "发现并培养他人的潜力" },
+          { situation: "领导团队时", behavior: "创造让每个人都能参与和成长的环境" },
+          { situation: "有冲突时", behavior: "调解并找到和谐的解决方案" }
+        ]
+      }
+    }
+  },
+  ENFP: {
+    elementary: {
+      ko: {
+        overview: "밝고 에너지가 넘치며 상상력이 풍부해요. 새로운 친구를 사귀는 것을 좋아하고 모험을 즐겨요.",
+        keyTraits: ["밝아요", "상상력이 풍부해요", "친구를 잘 사귀어요", "호기심이 많아요"],
+        scenarios: [
+          { situation: "새로운 친구를 만나면", behavior: "빠르게 친해지고 함께 놀아요" },
+          { situation: "놀이를 할 때", behavior: "새롭고 재미있는 아이디어를 많이 내요" },
+          { situation: "무언가에 관심이 생기면", behavior: "열정적으로 빠져들어요" }
+        ]
+      },
+      en: {
+        overview: "Bright and energetic with rich imagination. Loves making new friends and enjoys adventure.",
+        keyTraits: ["Bright", "Imaginative", "Makes friends easily", "Curious"],
+        scenarios: [
+          { situation: "When meeting new friends", behavior: "Quickly becomes close and plays together" },
+          { situation: "When playing", behavior: "Comes up with lots of new and fun ideas" },
+          { situation: "When interested in something", behavior: "Dives in with passion" }
+        ]
+      },
+      ja: {
+        overview: "明るくエネルギッシュで想像力が豊かです。新しい友達を作るのが好きで、冒険を楽しみます。",
+        keyTraits: ["明るい", "想像力が豊か", "友達を作りやすい", "好奇心旺盛"],
+        scenarios: [
+          { situation: "新しい友達に会ったら", behavior: "すぐに仲良くなって一緒に遊びます" },
+          { situation: "遊ぶとき", behavior: "新しくて面白いアイデアをたくさん出します" },
+          { situation: "何かに興味を持ったら", behavior: "情熱的にはまります" }
+        ]
+      },
+      zh: {
+        overview: "开朗有活力，想象力丰富。喜欢交新朋友，享受冒险。",
+        keyTraits: ["开朗", "想象力丰富", "容易交朋友", "好奇心强"],
+        scenarios: [
+          { situation: "认识新朋友时", behavior: "很快熟悉并一起玩" },
+          { situation: "玩耍时", behavior: "提出很多新鲜有趣的想法" },
+          { situation: "对某事感兴趣时", behavior: "充满热情地投入" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "창의적이고 열정적이며, 다양한 관심사를 탐험해요. 사람들과의 관계를 소중히 여기고 영감을 줘요.",
+        keyTraits: ["창의적이에요", "열정적이에요", "사교적이에요", "공감력이 있어요"],
+        scenarios: [
+          { situation: "새로운 취미를 발견하면", behavior: "열정적으로 빠져들다가 또 다른 관심사가 생겨요" },
+          { situation: "친구들과 있을 때", behavior: "분위기를 밝게 하고 모두를 즐겁게 해요" },
+          { situation: "아이디어가 떠오르면", behavior: "신나서 바로 실행하려고 해요" }
+        ]
+      },
+      en: {
+        overview: "Creative and passionate, exploring various interests. Values relationships and inspires others.",
+        keyTraits: ["Creative", "Passionate", "Sociable", "Empathetic"],
+        scenarios: [
+          { situation: "When discovering new hobbies", behavior: "Dives in passionately, then finds another interest" },
+          { situation: "When with friends", behavior: "Brightens the mood and makes everyone enjoy" },
+          { situation: "When ideas come up", behavior: "Gets excited and tries to execute immediately" }
+        ]
+      },
+      ja: {
+        overview: "創造的で情熱的、様々な関心事を探求します。人との関係を大切にし、インスピレーションを与えます。",
+        keyTraits: ["創造的", "情熱的", "社交的", "共感力がある"],
+        scenarios: [
+          { situation: "新しい趣味を見つけたら", behavior: "情熱的にはまり、また別の関心事が生まれます" },
+          { situation: "友達といるとき", behavior: "雰囲気を明るくし、皆を楽しませます" },
+          { situation: "アイデアが浮かんだら", behavior: "興奮してすぐに実行しようとします" }
+        ]
+      },
+      zh: {
+        overview: "有创造力且充满热情，探索各种兴趣。重视人际关系并给人启发。",
+        keyTraits: ["有创意", "充满热情", "善于社交", "有同理心"],
+        scenarios: [
+          { situation: "发现新爱好时", behavior: "充满热情地投入，然后又发现其他兴趣" },
+          { situation: "和朋友在一起时", behavior: "活跃气氛让大家都开心" },
+          { situation: "有想法时", behavior: "兴奋地立即想要执行" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "열정과 창의력으로 가능성을 탐험해요. 사람들에게 영감을 주고 깊은 유대감을 형성해요.",
+        keyTraits: ["열정적이에요", "창의적이에요", "영감을 줘요", "공감력이 뛰어나요"],
+        scenarios: [
+          { situation: "새로운 프로젝트에서", behavior: "창의적인 아이디어로 팀에 활력을 줘요" },
+          { situation: "친구가 힘들어할 때", behavior: "공감하고 긍정적인 에너지를 나눠요" },
+          { situation: "진로를 생각할 때", behavior: "다양한 가능성에 열려 있고 의미를 찾아요" }
+        ]
+      },
+      en: {
+        overview: "Explores possibilities with passion and creativity. Inspires people and forms deep connections.",
+        keyTraits: ["Passionate", "Creative", "Inspiring", "Highly empathetic"],
+        scenarios: [
+          { situation: "In new projects", behavior: "Energizes the team with creative ideas" },
+          { situation: "When friends struggle", behavior: "Empathizes and shares positive energy" },
+          { situation: "When thinking about career", behavior: "Open to various possibilities and seeks meaning" }
+        ]
+      },
+      ja: {
+        overview: "情熱と創造力で可能性を探求します。人々にインスピレーションを与え、深い絆を築きます。",
+        keyTraits: ["情熱的", "創造的", "インスピレーションを与える", "共感力が高い"],
+        scenarios: [
+          { situation: "新しいプロジェクトで", behavior: "創造的なアイデアでチームに活力を与えます" },
+          { situation: "友達が辛いとき", behavior: "共感し、ポジティブなエネルギーを分かち合います" },
+          { situation: "進路を考えるとき", behavior: "様々な可能性に開かれ、意味を探します" }
+        ]
+      },
+      zh: {
+        overview: "用热情和创造力探索可能性。激励他人并建立深厚联系。",
+        keyTraits: ["充满热情", "有创意", "给人启发", "高度共情"],
+        scenarios: [
+          { situation: "在新项目中", behavior: "用创意为团队注入活力" },
+          { situation: "朋友困难时", behavior: "共情并分享正能量" },
+          { situation: "考虑未来时", behavior: "对各种可能性持开放态度并寻找意义" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "창의적인 열정과 뛰어난 공감 능력으로 사람들에게 영감을 줘요. 다양한 가능성을 탐험하고 연결해요.",
+        keyTraits: ["창의적이에요", "열정적이에요", "공감력이 뛰어나요", "영감을 줘요"],
+        scenarios: [
+          { situation: "새로운 프로젝트에서", behavior: "창의적인 방향을 제시하고 팀을 동기부여해요" },
+          { situation: "사람들과 일할 때", behavior: "각자의 잠재력을 발견하고 응원해요" },
+          { situation: "어려운 상황에서", behavior: "긍정적인 에너지로 해결책을 찾아요" }
+        ]
+      },
+      en: {
+        overview: "Inspires people with creative passion and excellent empathy. Explores and connects various possibilities.",
+        keyTraits: ["Creative", "Passionate", "Highly empathetic", "Inspiring"],
+        scenarios: [
+          { situation: "In new projects", behavior: "Sets creative direction and motivates the team" },
+          { situation: "When working with people", behavior: "Discovers and encourages each person's potential" },
+          { situation: "In difficult situations", behavior: "Finds solutions with positive energy" }
+        ]
+      },
+      ja: {
+        overview: "創造的な情熱と優れた共感力で人々にインスピレーションを与えます。様々な可能性を探求し、つなげます。",
+        keyTraits: ["創造的", "情熱的", "共感力が高い", "インスピレーションを与える"],
+        scenarios: [
+          { situation: "新しいプロジェクトで", behavior: "創造的な方向を示し、チームを動機づけます" },
+          { situation: "人と働くとき", behavior: "それぞれの潜在能力を発見し応援します" },
+          { situation: "困難な状況で", behavior: "ポジティブなエネルギーで解決策を見つけます" }
+        ]
+      },
+      zh: {
+        overview: "以创造性热情和出色的共情能力激励他人。探索并连接各种可能性。",
+        keyTraits: ["有创意", "充满热情", "高度共情", "给人启发"],
+        scenarios: [
+          { situation: "在新项目中", behavior: "设定创意方向并激励团队" },
+          { situation: "与人共事时", behavior: "发现并鼓励每个人的潜力" },
+          { situation: "在困难情况中", behavior: "用正能量找到解决方案" }
+        ]
+      }
+    }
+  },
+  ISTJ: {
+    elementary: {
+      ko: {
+        overview: "책임감이 강하고 규칙을 잘 지켜요. 꼼꼼하고 정리정돈을 잘하며, 약속을 꼭 지켜요.",
+        keyTraits: ["책임감이 강해요", "꼼꼼해요", "정리정돈을 잘해요", "약속을 지켜요"],
+        scenarios: [
+          { situation: "숙제가 있으면", behavior: "계획대로 꼼꼼하게 끝내요" },
+          { situation: "친구와 약속하면", behavior: "무슨 일이 있어도 꼭 지켜요" },
+          { situation: "방 정리를 할 때", behavior: "모든 것을 제자리에 깔끔하게 정리해요" }
+        ]
+      },
+      en: {
+        overview: "Strong sense of responsibility and follows rules well. Meticulous and organized, always keeps promises.",
+        keyTraits: ["Responsible", "Meticulous", "Organized", "Keeps promises"],
+        scenarios: [
+          { situation: "When there's homework", behavior: "Finishes meticulously according to plan" },
+          { situation: "When making promises with friends", behavior: "Keeps them no matter what" },
+          { situation: "When cleaning room", behavior: "Organizes everything neatly in its place" }
+        ]
+      },
+      ja: {
+        overview: "責任感が強く、ルールをよく守ります。几帳面で整理整頓が得意で、約束を必ず守ります。",
+        keyTraits: ["責任感が強い", "几帳面", "整理整頓が得意", "約束を守る"],
+        scenarios: [
+          { situation: "宿題があったら", behavior: "計画通りにきちんと終わらせます" },
+          { situation: "友達と約束したら", behavior: "何があっても必ず守ります" },
+          { situation: "部屋の片付けをするとき", behavior: "すべてを所定の場所にきれいに整理します" }
+        ]
+      },
+      zh: {
+        overview: "责任心强，遵守规则。细心有条理，总是信守承诺。",
+        keyTraits: ["有责任感", "细心", "有条理", "信守承诺"],
+        scenarios: [
+          { situation: "有作业时", behavior: "按计划仔细完成" },
+          { situation: "和朋友约定时", behavior: "无论如何都会遵守" },
+          { situation: "整理房间时", behavior: "把所有东西整齐地放回原位" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "체계적이고 신뢰할 수 있으며, 맡은 일을 끝까지 해내요. 규칙과 질서를 중요시해요.",
+        keyTraits: ["체계적이에요", "신뢰할 수 있어요", "성실해요", "현실적이에요"],
+        scenarios: [
+          { situation: "시험 준비할 때", behavior: "계획표를 만들고 차근차근 공부해요" },
+          { situation: "그룹 과제에서", behavior: "맡은 역할을 확실하게 완수해요" },
+          { situation: "규칙이 어겨지면", behavior: "불편하고 바로잡고 싶어해요" }
+        ]
+      },
+      en: {
+        overview: "Systematic and reliable, completes tasks to the end. Values rules and order.",
+        keyTraits: ["Systematic", "Reliable", "Diligent", "Realistic"],
+        scenarios: [
+          { situation: "When preparing for exams", behavior: "Makes schedules and studies step by step" },
+          { situation: "In group assignments", behavior: "Definitely completes assigned role" },
+          { situation: "When rules are broken", behavior: "Feels uncomfortable and wants to correct it" }
+        ]
+      },
+      ja: {
+        overview: "体系的で信頼でき、任された仕事を最後までやり遂げます。ルールと秩序を重視します。",
+        keyTraits: ["体系的", "信頼できる", "誠実", "現実的"],
+        scenarios: [
+          { situation: "試験準備のとき", behavior: "計画表を作り、着実に勉強します" },
+          { situation: "グループ課題で", behavior: "任された役割を確実に果たします" },
+          { situation: "ルールが破られたら", behavior: "不快に感じ、正したいと思います" }
+        ]
+      },
+      zh: {
+        overview: "系统性强且可靠，把任务完成到底。重视规则和秩序。",
+        keyTraits: ["系统性强", "可靠", "勤奋", "现实"],
+        scenarios: [
+          { situation: "准备考试时", behavior: "制定计划表并按步骤学习" },
+          { situation: "在小组作业中", behavior: "确实完成分配的角色" },
+          { situation: "规则被打破时", behavior: "感到不适并想要纠正" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "책임감 있고 철저하게 일을 처리해요. 전통과 안정성을 중시하며, 신뢰받는 존재예요.",
+        keyTraits: ["책임감 있어요", "철저해요", "신뢰할 수 있어요", "체계적이에요"],
+        scenarios: [
+          { situation: "중요한 과제가 있으면", behavior: "계획을 세우고 철저하게 준비해요" },
+          { situation: "팀에서", behavior: "맡은 일은 반드시 완수해요" },
+          { situation: "새로운 방식이 제안되면", behavior: "검증된 방법과 비교하며 신중하게 판단해요" }
+        ]
+      },
+      en: {
+        overview: "Responsible and thorough in handling tasks. Values tradition and stability, a trusted presence.",
+        keyTraits: ["Responsible", "Thorough", "Reliable", "Systematic"],
+        scenarios: [
+          { situation: "When there's important work", behavior: "Makes plans and prepares thoroughly" },
+          { situation: "In teams", behavior: "Always completes assigned tasks" },
+          { situation: "When new methods are proposed", behavior: "Compares with proven methods and judges carefully" }
+        ]
+      },
+      ja: {
+        overview: "責任感があり、徹底的に仕事を処理します。伝統と安定性を重視し、信頼される存在です。",
+        keyTraits: ["責任感がある", "徹底的", "信頼できる", "体系的"],
+        scenarios: [
+          { situation: "重要な課題があったら", behavior: "計画を立てて徹底的に準備します" },
+          { situation: "チームで", behavior: "任された仕事は必ず完遂します" },
+          { situation: "新しい方法が提案されたら", behavior: "実証済みの方法と比較し、慎重に判断します" }
+        ]
+      },
+      zh: {
+        overview: "负责任且处理事务彻底。重视传统和稳定，是值得信赖的存在。",
+        keyTraits: ["有责任感", "彻底", "可靠", "系统性强"],
+        scenarios: [
+          { situation: "有重要工作时", behavior: "制定计划并彻底准备" },
+          { situation: "在团队中", behavior: "一定完成分配的任务" },
+          { situation: "提出新方法时", behavior: "与已验证的方法比较并谨慎判断" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "책임감과 성실함으로 조직의 기둥이 되어요. 체계적으로 일하며 안정성과 신뢰를 제공해요.",
+        keyTraits: ["책임감이 강해요", "성실해요", "체계적이에요", "신뢰할 수 있어요"],
+        scenarios: [
+          { situation: "업무에서", behavior: "계획대로 체계적으로 진행하고 마감을 지켜요" },
+          { situation: "조직에서", behavior: "규칙과 절차를 존중하며 안정적으로 운영해요" },
+          { situation: "문제가 생기면", behavior: "사실에 기반해 철저하게 분석하고 해결해요" }
+        ]
+      },
+      en: {
+        overview: "Becomes the pillar of organizations with responsibility and diligence. Works systematically and provides stability and trust.",
+        keyTraits: ["Strong responsibility", "Diligent", "Systematic", "Reliable"],
+        scenarios: [
+          { situation: "In work", behavior: "Proceeds systematically as planned and meets deadlines" },
+          { situation: "In organizations", behavior: "Respects rules and procedures, operates stably" },
+          { situation: "When problems arise", behavior: "Analyzes thoroughly based on facts and solves" }
+        ]
+      },
+      ja: {
+        overview: "責任感と誠実さで組織の柱となります。体系的に働き、安定性と信頼を提供します。",
+        keyTraits: ["責任感が強い", "誠実", "体系的", "信頼できる"],
+        scenarios: [
+          { situation: "業務で", behavior: "計画通りに体系的に進め、締め切りを守ります" },
+          { situation: "組織で", behavior: "ルールと手順を尊重し、安定的に運営します" },
+          { situation: "問題が起きたら", behavior: "事実に基づいて徹底的に分析し解決します" }
+        ]
+      },
+      zh: {
+        overview: "以责任感和勤奋成为组织的支柱。系统性地工作，提供稳定和信任。",
+        keyTraits: ["责任心强", "勤奋", "系统性强", "可靠"],
+        scenarios: [
+          { situation: "在工作中", behavior: "按计划系统推进并遵守截止日期" },
+          { situation: "在组织中", behavior: "尊重规则和程序，稳定运营" },
+          { situation: "出现问题时", behavior: "基于事实彻底分析并解决" }
+        ]
+      }
+    }
+  },
+  ISFJ: {
+    elementary: {
+      ko: {
+        overview: "따뜻하고 친절하며 다른 사람을 잘 챙겨요. 도움이 필요한 친구를 돕고, 조용히 봉사해요.",
+        keyTraits: ["따뜻해요", "친절해요", "배려심이 깊어요", "책임감 있어요"],
+        scenarios: [
+          { situation: "친구가 도움이 필요하면", behavior: "조용히 다가가서 도와줘요" },
+          { situation: "학급에서", behavior: "맡은 역할을 성실하게 해요" },
+          { situation: "누군가 슬퍼하면", behavior: "옆에서 조용히 위로해요" }
+        ]
+      },
+      en: {
+        overview: "Warm and kind, takes care of others well. Helps friends in need and quietly serves.",
+        keyTraits: ["Warm", "Kind", "Considerate", "Responsible"],
+        scenarios: [
+          { situation: "When friends need help", behavior: "Quietly approaches and helps" },
+          { situation: "In class", behavior: "Faithfully does assigned roles" },
+          { situation: "When someone is sad", behavior: "Quietly comforts beside them" }
+        ]
+      },
+      ja: {
+        overview: "温かく親切で、他の人をよく気にかけます。助けが必要な友達を助け、静かに奉仕します。",
+        keyTraits: ["温かい", "親切", "思いやりがある", "責任感がある"],
+        scenarios: [
+          { situation: "友達が助けを必要としていたら", behavior: "静かに近づいて助けます" },
+          { situation: "クラスで", behavior: "任された役割を誠実に果たします" },
+          { situation: "誰かが悲しんでいたら", behavior: "そばで静かに慰めます" }
+        ]
+      },
+      zh: {
+        overview: "温暖善良，善于照顾他人。帮助需要帮助的朋友，默默奉献。",
+        keyTraits: ["温暖", "善良", "体贴", "有责任感"],
+        scenarios: [
+          { situation: "朋友需要帮助时", behavior: "悄悄走近并帮忙" },
+          { situation: "在班级里", behavior: "认真完成分配的角色" },
+          { situation: "有人难过时", behavior: "在旁边静静安慰" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "성실하고 헌신적이며, 다른 사람을 돕는 것에서 보람을 느껴요. 조용히 팀을 지원해요.",
+        keyTraits: ["성실해요", "헌신적이에요", "배려심이 깊어요", "신뢰할 수 있어요"],
+        scenarios: [
+          { situation: "그룹 활동에서", behavior: "드러나지 않게 팀을 지원해요" },
+          { situation: "친구가 힘들어하면", behavior: "조용히 옆에서 함께해요" },
+          { situation: "맡은 일이 있으면", behavior: "책임감 있게 끝까지 해요" }
+        ]
+      },
+      en: {
+        overview: "Diligent and dedicated, finds fulfillment in helping others. Quietly supports the team.",
+        keyTraits: ["Diligent", "Dedicated", "Considerate", "Reliable"],
+        scenarios: [
+          { situation: "In group activities", behavior: "Supports the team without being noticed" },
+          { situation: "When friends struggle", behavior: "Quietly stays by their side" },
+          { situation: "When given tasks", behavior: "Responsibly completes them" }
+        ]
+      },
+      ja: {
+        overview: "誠実で献身的、人を助けることにやりがいを感じます。静かにチームをサポートします。",
+        keyTraits: ["誠実", "献身的", "思いやりがある", "信頼できる"],
+        scenarios: [
+          { situation: "グループ活動で", behavior: "目立たないようにチームをサポートします" },
+          { situation: "友達が辛いとき", behavior: "静かにそばにいます" },
+          { situation: "任された仕事があったら", behavior: "責任を持って最後までやります" }
+        ]
+      },
+      zh: {
+        overview: "勤奋且有奉献精神，在帮助他人中获得满足感。默默支持团队。",
+        keyTraits: ["勤奋", "有奉献精神", "体贴", "可靠"],
+        scenarios: [
+          { situation: "在小组活动中", behavior: "不引人注目地支持团队" },
+          { situation: "朋友困难时", behavior: "静静地陪伴在身边" },
+          { situation: "有分配的任务时", behavior: "负责任地完成" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "따뜻한 마음과 강한 책임감으로 주변 사람들을 돌봐요. 신뢰받는 조력자 역할을 해요.",
+        keyTraits: ["헌신적이에요", "책임감 있어요", "배려심이 깊어요", "신뢰할 수 있어요"],
+        scenarios: [
+          { situation: "팀에서", behavior: "모두가 잘 되도록 조용히 도와요" },
+          { situation: "힘든 친구에게", behavior: "실질적인 도움과 정서적 지지를 해요" },
+          { situation: "맡은 역할이 있으면", behavior: "끝까지 책임지고 완수해요" }
+        ]
+      },
+      en: {
+        overview: "Takes care of people around with warm heart and strong responsibility. Serves as a trusted helper.",
+        keyTraits: ["Dedicated", "Responsible", "Considerate", "Reliable"],
+        scenarios: [
+          { situation: "In teams", behavior: "Quietly helps everyone succeed" },
+          { situation: "For struggling friends", behavior: "Provides practical help and emotional support" },
+          { situation: "When given roles", behavior: "Takes responsibility and completes them" }
+        ]
+      },
+      ja: {
+        overview: "温かい心と強い責任感で周囲の人を世話します。信頼される助け手の役割を果たします。",
+        keyTraits: ["献身的", "責任感がある", "思いやりがある", "信頼できる"],
+        scenarios: [
+          { situation: "チームで", behavior: "皆がうまくいくように静かに助けます" },
+          { situation: "辛い友達に", behavior: "実質的な助けと精神的なサポートをします" },
+          { situation: "役割を任されたら", behavior: "最後まで責任を持って完遂します" }
+        ]
+      },
+      zh: {
+        overview: "以温暖的心和强烈的责任感照顾周围的人。担任值得信赖的帮手角色。",
+        keyTraits: ["有奉献精神", "有责任感", "体贴", "可靠"],
+        scenarios: [
+          { situation: "在团队中", behavior: "默默帮助每个人成功" },
+          { situation: "对困难的朋友", behavior: "提供实际帮助和情感支持" },
+          { situation: "被分配角色时", behavior: "负责任地完成" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "따뜻한 헌신과 강한 책임감으로 조직과 가족을 지탱해요. 조용히 봉사하며 신뢰를 쌓아요.",
+        keyTraits: ["헌신적이에요", "책임감이 강해요", "배려심이 깊어요", "신뢰할 수 있어요"],
+        scenarios: [
+          { situation: "조직에서", behavior: "묵묵히 자신의 역할을 다하며 팀을 지원해요" },
+          { situation: "가족과 친구에게", behavior: "실질적인 도움과 정서적 지지를 제공해요" },
+          { situation: "어려운 상황에서", behavior: "조용히 문제를 해결하고 안정을 유지해요" }
+        ]
+      },
+      en: {
+        overview: "Supports organizations and family with warm dedication and strong responsibility. Quietly serves and builds trust.",
+        keyTraits: ["Dedicated", "Strong responsibility", "Considerate", "Reliable"],
+        scenarios: [
+          { situation: "In organizations", behavior: "Quietly fulfills role and supports team" },
+          { situation: "For family and friends", behavior: "Provides practical help and emotional support" },
+          { situation: "In difficult situations", behavior: "Quietly solves problems and maintains stability" }
+        ]
+      },
+      ja: {
+        overview: "温かい献身と強い責任感で組織と家族を支えます。静かに奉仕し、信頼を築きます。",
+        keyTraits: ["献身的", "責任感が強い", "思いやりがある", "信頼できる"],
+        scenarios: [
+          { situation: "組織で", behavior: "黙々と自分の役割を果たし、チームをサポートします" },
+          { situation: "家族や友人に", behavior: "実質的な助けと精神的なサポートを提供します" },
+          { situation: "困難な状況で", behavior: "静かに問題を解決し、安定を維持します" }
+        ]
+      },
+      zh: {
+        overview: "以温暖的奉献和强烈的责任感支持组织和家庭。默默服务并建立信任。",
+        keyTraits: ["有奉献精神", "责任心强", "体贴", "可靠"],
+        scenarios: [
+          { situation: "在组织中", behavior: "默默履行角色并支持团队" },
+          { situation: "对家人和朋友", behavior: "提供实际帮助和情感支持" },
+          { situation: "在困难情况中", behavior: "静静解决问题并保持稳定" }
+        ]
+      }
+    }
+  },
+  ESTJ: {
+    elementary: {
+      ko: {
+        overview: "리더십이 있고 규칙을 잘 지켜요. 정리정돈을 좋아하고 일을 체계적으로 해요.",
+        keyTraits: ["리더십이 있어요", "규칙을 지켜요", "체계적이에요", "책임감 있어요"],
+        scenarios: [
+          { situation: "모둠 활동에서", behavior: "자연스럽게 역할을 나누고 이끌어요" },
+          { situation: "규칙이 어겨지면", behavior: "바로잡으려고 해요" },
+          { situation: "숙제할 때", behavior: "정해진 순서대로 완료해요" }
+        ]
+      },
+      en: {
+        overview: "Has leadership and follows rules well. Likes organizing and does things systematically.",
+        keyTraits: ["Leadership", "Follows rules", "Systematic", "Responsible"],
+        scenarios: [
+          { situation: "In group activities", behavior: "Naturally divides roles and leads" },
+          { situation: "When rules are broken", behavior: "Tries to correct them" },
+          { situation: "When doing homework", behavior: "Completes in set order" }
+        ]
+      },
+      ja: {
+        overview: "リーダーシップがあり、ルールをよく守ります。整理整頓が好きで、物事を体系的にやります。",
+        keyTraits: ["リーダーシップがある", "ルールを守る", "体系的", "責任感がある"],
+        scenarios: [
+          { situation: "グループ活動で", behavior: "自然と役割を分けてリードします" },
+          { situation: "ルールが破られたら", behavior: "正そうとします" },
+          { situation: "宿題をするとき", behavior: "決まった順番で完了します" }
+        ]
+      },
+      zh: {
+        overview: "有领导力，遵守规则。喜欢整理，做事有系统。",
+        keyTraits: ["有领导力", "遵守规则", "系统性强", "有责任感"],
+        scenarios: [
+          { situation: "在小组活动中", behavior: "自然地分配角色并领导" },
+          { situation: "规则被打破时", behavior: "试图纠正" },
+          { situation: "做作业时", behavior: "按既定顺序完成" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "효율적이고 조직적이며, 목표를 달성하기 위해 체계적으로 일해요. 팀을 이끄는 능력이 뛰어나요.",
+        keyTraits: ["효율적이에요", "조직적이에요", "리더십이 있어요", "결단력 있어요"],
+        scenarios: [
+          { situation: "그룹 과제에서", behavior: "계획을 세우고 진행 상황을 확인해요" },
+          { situation: "목표가 생기면", behavior: "구체적인 계획을 세우고 실행해요" },
+          { situation: "비효율적인 것을 보면", behavior: "개선 방법을 제안해요" }
+        ]
+      },
+      en: {
+        overview: "Efficient and organized, works systematically to achieve goals. Excellent at leading teams.",
+        keyTraits: ["Efficient", "Organized", "Leadership", "Decisive"],
+        scenarios: [
+          { situation: "In group assignments", behavior: "Makes plans and checks progress" },
+          { situation: "When there's a goal", behavior: "Makes concrete plans and executes" },
+          { situation: "When seeing inefficiency", behavior: "Suggests improvement methods" }
+        ]
+      },
+      ja: {
+        overview: "効率的で組織的、目標達成のために体系的に働きます。チームを率いる能力に優れています。",
+        keyTraits: ["効率的", "組織的", "リーダーシップがある", "決断力がある"],
+        scenarios: [
+          { situation: "グループ課題で", behavior: "計画を立てて進捗を確認します" },
+          { situation: "目標ができたら", behavior: "具体的な計画を立てて実行します" },
+          { situation: "非効率なものを見たら", behavior: "改善方法を提案します" }
+        ]
+      },
+      zh: {
+        overview: "高效有组织，系统性地工作以实现目标。擅长领导团队。",
+        keyTraits: ["高效", "有组织", "有领导力", "果断"],
+        scenarios: [
+          { situation: "在小组作业中", behavior: "制定计划并检查进度" },
+          { situation: "有目标时", behavior: "制定具体计划并执行" },
+          { situation: "看到低效时", behavior: "提出改进方法" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "강한 책임감과 리더십으로 목표를 향해 팀을 이끌어요. 효율성과 질서를 중시해요.",
+        keyTraits: ["리더십이 강해요", "효율적이에요", "책임감 있어요", "결단력 있어요"],
+        scenarios: [
+          { situation: "팀 프로젝트에서", behavior: "명확한 역할 분담과 일정 관리를 해요" },
+          { situation: "문제가 생기면", behavior: "빠르게 결정하고 해결책을 실행해요" },
+          { situation: "규칙이 필요하면", behavior: "공정한 규칙을 만들고 지키게 해요" }
+        ]
+      },
+      en: {
+        overview: "Leads teams toward goals with strong responsibility and leadership. Values efficiency and order.",
+        keyTraits: ["Strong leadership", "Efficient", "Responsible", "Decisive"],
+        scenarios: [
+          { situation: "In team projects", behavior: "Makes clear role assignments and schedule management" },
+          { situation: "When problems arise", behavior: "Decides quickly and executes solutions" },
+          { situation: "When rules are needed", behavior: "Creates fair rules and ensures they're followed" }
+        ]
+      },
+      ja: {
+        overview: "強い責任感とリーダーシップで目標に向かってチームを率います。効率と秩序を重視します。",
+        keyTraits: ["リーダーシップが強い", "効率的", "責任感がある", "決断力がある"],
+        scenarios: [
+          { situation: "チームプロジェクトで", behavior: "明確な役割分担とスケジュール管理をします" },
+          { situation: "問題が起きたら", behavior: "素早く決定し、解決策を実行します" },
+          { situation: "ルールが必要なら", behavior: "公正なルールを作り、守らせます" }
+        ]
+      },
+      zh: {
+        overview: "以强烈的责任感和领导力带领团队朝目标前进。重视效率和秩序。",
+        keyTraits: ["领导力强", "高效", "有责任感", "果断"],
+        scenarios: [
+          { situation: "在团队项目中", behavior: "明确分配角色并管理进度" },
+          { situation: "出现问题时", behavior: "快速决策并执行解决方案" },
+          { situation: "需要规则时", behavior: "制定公平规则并确保遵守" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "효율적인 리더십과 강한 실행력으로 조직을 운영해요. 질서와 목표 달성을 중시해요.",
+        keyTraits: ["리더십이 뛰어나요", "효율적이에요", "실행력이 강해요", "책임감 있어요"],
+        scenarios: [
+          { situation: "조직 운영에서", behavior: "명확한 목표와 체계를 세우고 관리해요" },
+          { situation: "프로젝트에서", behavior: "효율적으로 자원을 배분하고 일정을 관리해요" },
+          { situation: "문제 상황에서", behavior: "논리적으로 분석하고 빠르게 결정해요" }
+        ]
+      },
+      en: {
+        overview: "Operates organizations with efficient leadership and strong execution. Values order and goal achievement.",
+        keyTraits: ["Excellent leadership", "Efficient", "Strong execution", "Responsible"],
+        scenarios: [
+          { situation: "In organization management", behavior: "Sets clear goals and systems and manages" },
+          { situation: "In projects", behavior: "Efficiently allocates resources and manages schedules" },
+          { situation: "In problem situations", behavior: "Analyzes logically and decides quickly" }
+        ]
+      },
+      ja: {
+        overview: "効率的なリーダーシップと強い実行力で組織を運営します。秩序と目標達成を重視します。",
+        keyTraits: ["リーダーシップが優れている", "効率的", "実行力が強い", "責任感がある"],
+        scenarios: [
+          { situation: "組織運営で", behavior: "明確な目標と体制を立てて管理します" },
+          { situation: "プロジェクトで", behavior: "効率的にリソースを配分し、スケジュールを管理します" },
+          { situation: "問題状況で", behavior: "論理的に分析し、素早く決定します" }
+        ]
+      },
+      zh: {
+        overview: "以高效的领导力和强大的执行力运营组织。重视秩序和目标达成。",
+        keyTraits: ["领导力卓越", "高效", "执行力强", "有责任感"],
+        scenarios: [
+          { situation: "在组织管理中", behavior: "设定明确目标和体系并管理" },
+          { situation: "在项目中", behavior: "高效分配资源并管理进度" },
+          { situation: "在问题情况中", behavior: "逻辑分析并快速决策" }
+        ]
+      }
+    }
+  },
+  ESFJ: {
+    elementary: {
+      ko: {
+        overview: "따뜻하고 친구들을 잘 챙기며, 조화로운 관계를 중요시해요. 다른 사람을 돕는 것을 좋아해요.",
+        keyTraits: ["따뜻해요", "사교적이에요", "배려심이 깊어요", "책임감 있어요"],
+        scenarios: [
+          { situation: "새 친구가 오면", behavior: "먼저 다가가서 환영해줘요" },
+          { situation: "친구가 외로워 보이면", behavior: "함께 놀자고 말해요" },
+          { situation: "그룹 활동에서", behavior: "모두가 잘 지낼 수 있게 도와요" }
+        ]
+      },
+      en: {
+        overview: "Warm and takes care of friends, values harmonious relationships. Loves helping others.",
+        keyTraits: ["Warm", "Sociable", "Considerate", "Responsible"],
+        scenarios: [
+          { situation: "When new friends come", behavior: "Approaches first and welcomes them" },
+          { situation: "When friends look lonely", behavior: "Asks to play together" },
+          { situation: "In group activities", behavior: "Helps everyone get along" }
+        ]
+      },
+      ja: {
+        overview: "温かく友達を気にかけ、調和のとれた関係を大切にします。人を助けることが好きです。",
+        keyTraits: ["温かい", "社交的", "思いやりがある", "責任感がある"],
+        scenarios: [
+          { situation: "新しい友達が来たら", behavior: "先に近づいて歓迎します" },
+          { situation: "友達が寂しそうなら", behavior: "一緒に遊ぼうと言います" },
+          { situation: "グループ活動で", behavior: "皆が仲良くできるよう助けます" }
+        ]
+      },
+      zh: {
+        overview: "温暖且关心朋友，重视和谐的关系。喜欢帮助他人。",
+        keyTraits: ["温暖", "善于社交", "体贴", "有责任感"],
+        scenarios: [
+          { situation: "新朋友来时", behavior: "主动上前欢迎" },
+          { situation: "朋友看起来孤单时", behavior: "邀请一起玩" },
+          { situation: "在小组活动中", behavior: "帮助大家相处融洽" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "사교적이고 배려심이 깊으며, 조화로운 환경을 만들어요. 다른 사람의 필요를 잘 알아채요.",
+        keyTraits: ["사교적이에요", "배려심이 깊어요", "헌신적이에요", "조화를 추구해요"],
+        scenarios: [
+          { situation: "친구들 사이에서", behavior: "모두가 편하게 지낼 수 있게 배려해요" },
+          { situation: "갈등이 생기면", behavior: "중재하며 화해할 수 있게 도와요" },
+          { situation: "누군가 힘들어하면", behavior: "먼저 알아채고 도움을 제안해요" }
+        ]
+      },
+      en: {
+        overview: "Sociable and considerate, creates harmonious environments. Good at noticing others' needs.",
+        keyTraits: ["Sociable", "Considerate", "Dedicated", "Seeks harmony"],
+        scenarios: [
+          { situation: "Among friends", behavior: "Makes sure everyone feels comfortable" },
+          { situation: "When conflicts arise", behavior: "Mediates and helps reconciliation" },
+          { situation: "When someone struggles", behavior: "Notices first and offers help" }
+        ]
+      },
+      ja: {
+        overview: "社交的で思いやりがあり、調和のとれた環境を作ります。他人のニーズをよく察知します。",
+        keyTraits: ["社交的", "思いやりがある", "献身的", "調和を求める"],
+        scenarios: [
+          { situation: "友達の間で", behavior: "皆が快適に過ごせるよう配慮します" },
+          { situation: "対立が起きたら", behavior: "仲裁し、和解できるよう助けます" },
+          { situation: "誰かが辛いとき", behavior: "先に気づいて助けを申し出ます" }
+        ]
+      },
+      zh: {
+        overview: "善于社交且体贴，创造和谐环境。善于察觉他人需求。",
+        keyTraits: ["善于社交", "体贴", "有奉献精神", "追求和谐"],
+        scenarios: [
+          { situation: "在朋友之间", behavior: "确保每个人都感到舒适" },
+          { situation: "发生冲突时", behavior: "调解并帮助和解" },
+          { situation: "有人困难时", behavior: "首先察觉并提供帮助" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "따뜻한 리더십과 헌신으로 조화로운 환경을 만들어요. 다른 사람의 필요를 먼저 생각해요.",
+        keyTraits: ["따뜻해요", "헌신적이에요", "사교적이에요", "조화를 추구해요"],
+        scenarios: [
+          { situation: "팀에서", behavior: "모두가 편하게 참여할 수 있게 배려해요" },
+          { situation: "행사를 준비할 때", behavior: "세심하게 사람들의 필요를 챙겨요" },
+          { situation: "갈등 상황에서", behavior: "조화롭게 해결하려고 노력해요" }
+        ]
+      },
+      en: {
+        overview: "Creates harmonious environments with warm leadership and dedication. Thinks of others' needs first.",
+        keyTraits: ["Warm", "Dedicated", "Sociable", "Seeks harmony"],
+        scenarios: [
+          { situation: "In teams", behavior: "Makes sure everyone can participate comfortably" },
+          { situation: "When preparing events", behavior: "Carefully attends to people's needs" },
+          { situation: "In conflict situations", behavior: "Tries to resolve harmoniously" }
+        ]
+      },
+      ja: {
+        overview: "温かいリーダーシップと献身で調和のとれた環境を作ります。他人のニーズを先に考えます。",
+        keyTraits: ["温かい", "献身的", "社交的", "調和を求める"],
+        scenarios: [
+          { situation: "チームで", behavior: "皆が快適に参加できるよう配慮します" },
+          { situation: "イベントを準備するとき", behavior: "細やかに人々のニーズを気にかけます" },
+          { situation: "対立状況で", behavior: "調和的に解決しようと努力します" }
+        ]
+      },
+      zh: {
+        overview: "以温暖的领导力和奉献精神创造和谐环境。优先考虑他人需求。",
+        keyTraits: ["温暖", "有奉献精神", "善于社交", "追求和谐"],
+        scenarios: [
+          { situation: "在团队中", behavior: "确保每个人都能舒适地参与" },
+          { situation: "准备活动时", behavior: "细心照顾人们的需求" },
+          { situation: "在冲突情况中", behavior: "努力和谐解决" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "따뜻한 배려와 헌신으로 조화로운 환경을 만들어요. 다른 사람을 돕고 지원하는 역할을 해요.",
+        keyTraits: ["배려심이 깊어요", "헌신적이에요", "사교적이에요", "책임감 있어요"],
+        scenarios: [
+          { situation: "조직에서", behavior: "팀의 조화와 협력을 위해 노력해요" },
+          { situation: "사람들과 일할 때", behavior: "각자의 필요를 세심하게 챙겨요" },
+          { situation: "갈등이 생기면", behavior: "중재하며 화해할 수 있게 도와요" }
+        ]
+      },
+      en: {
+        overview: "Creates harmonious environments with warm care and dedication. Takes role of helping and supporting others.",
+        keyTraits: ["Very considerate", "Dedicated", "Sociable", "Responsible"],
+        scenarios: [
+          { situation: "In organizations", behavior: "Works for team harmony and cooperation" },
+          { situation: "When working with people", behavior: "Carefully attends to each person's needs" },
+          { situation: "When conflicts arise", behavior: "Mediates and helps reconciliation" }
+        ]
+      },
+      ja: {
+        overview: "温かい配慮と献身で調和のとれた環境を作ります。他者を助け支援する役割を果たします。",
+        keyTraits: ["思いやりが深い", "献身的", "社交的", "責任感がある"],
+        scenarios: [
+          { situation: "組織で", behavior: "チームの調和と協力のために努力します" },
+          { situation: "人と働くとき", behavior: "それぞれのニーズを細やかに気にかけます" },
+          { situation: "対立が起きたら", behavior: "仲裁し、和解できるよう助けます" }
+        ]
+      },
+      zh: {
+        overview: "以温暖的关怀和奉献创造和谐环境。担任帮助和支持他人的角色。",
+        keyTraits: ["非常体贴", "有奉献精神", "善于社交", "有责任感"],
+        scenarios: [
+          { situation: "在组织中", behavior: "为团队和谐与合作而努力" },
+          { situation: "与人共事时", behavior: "细心照顾每个人的需求" },
+          { situation: "发生冲突时", behavior: "调解并帮助和解" }
+        ]
+      }
+    }
+  },
+  ISTP: {
+    elementary: {
+      ko: {
+        overview: "호기심이 많고 손으로 무언가를 만드는 것을 좋아해요. 논리적이고 독립적이며, 문제를 실용적으로 해결해요.",
+        keyTraits: ["논리적이에요", "손재주가 있어요", "독립적이에요", "호기심이 많아요"],
+        scenarios: [
+          { situation: "새로운 장난감이 생기면", behavior: "어떻게 작동하는지 분해해보려 해요" },
+          { situation: "혼자 있을 때", behavior: "무언가를 만들거나 실험해요" },
+          { situation: "문제가 생기면", behavior: "직접 해결 방법을 찾아요" }
+        ]
+      },
+      en: {
+        overview: "Curious and loves making things with hands. Logical and independent, solves problems practically.",
+        keyTraits: ["Logical", "Handy", "Independent", "Curious"],
+        scenarios: [
+          { situation: "When getting new toys", behavior: "Tries to take apart to see how it works" },
+          { situation: "When alone", behavior: "Makes or experiments with something" },
+          { situation: "When problems occur", behavior: "Finds solutions directly" }
+        ]
+      },
+      ja: {
+        overview: "好奇心旺盛で、手で何かを作るのが好きです。論理的で独立心があり、問題を実用的に解決します。",
+        keyTraits: ["論理的", "手先が器用", "独立心がある", "好奇心旺盛"],
+        scenarios: [
+          { situation: "新しいおもちゃをもらったら", behavior: "どう動くか分解してみようとします" },
+          { situation: "一人でいるとき", behavior: "何かを作ったり実験したりします" },
+          { situation: "問題が起きたら", behavior: "自分で解決方法を探します" }
+        ]
+      },
+      zh: {
+        overview: "好奇心强，喜欢动手制作。逻辑性强且独立，实际解决问题。",
+        keyTraits: ["逻辑性强", "手巧", "独立", "好奇心强"],
+        scenarios: [
+          { situation: "得到新玩具时", behavior: "试图拆开看看怎么运作" },
+          { situation: "独处时", behavior: "制作或实验某些东西" },
+          { situation: "出现问题时", behavior: "直接找解决方法" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "논리적 분석력과 실용적인 문제 해결 능력이 뛰어나요. 독립적이며 손으로 하는 활동을 즐겨요.",
+        keyTraits: ["분석적이에요", "실용적이에요", "독립적이에요", "적응력이 좋아요"],
+        scenarios: [
+          { situation: "기계나 기기를 보면", behavior: "어떻게 작동하는지 알고 싶어해요" },
+          { situation: "문제가 생기면", behavior: "실용적인 해결책을 빠르게 찾아요" },
+          { situation: "새로운 기술을 배우면", behavior: "직접 해보면서 익혀요" }
+        ]
+      },
+      en: {
+        overview: "Excellent at logical analysis and practical problem solving. Independent and enjoys hands-on activities.",
+        keyTraits: ["Analytical", "Practical", "Independent", "Adaptable"],
+        scenarios: [
+          { situation: "When seeing machines or devices", behavior: "Wants to know how they work" },
+          { situation: "When problems occur", behavior: "Quickly finds practical solutions" },
+          { situation: "When learning new skills", behavior: "Learns by doing directly" }
+        ]
+      },
+      ja: {
+        overview: "論理的分析力と実用的な問題解決能力に優れています。独立心があり、手を使う活動を楽しみます。",
+        keyTraits: ["分析的", "実用的", "独立心がある", "適応力がある"],
+        scenarios: [
+          { situation: "機械や機器を見たら", behavior: "どう動くか知りたがります" },
+          { situation: "問題が起きたら", behavior: "実用的な解決策を素早く見つけます" },
+          { situation: "新しい技術を学んだら", behavior: "実際にやってみて覚えます" }
+        ]
+      },
+      zh: {
+        overview: "擅长逻辑分析和实际问题解决。独立且喜欢动手活动。",
+        keyTraits: ["善于分析", "实用", "独立", "适应力强"],
+        scenarios: [
+          { situation: "看到机器或设备时", behavior: "想知道它们如何工作" },
+          { situation: "出现问题时", behavior: "快速找到实际解决方案" },
+          { situation: "学习新技能时", behavior: "通过实践来学习" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "논리적이고 분석적이며, 실용적인 문제 해결에 탁월해요. 위기 상황에서 침착하게 대처해요.",
+        keyTraits: ["논리적이에요", "실용적이에요", "적응력 있어요", "침착해요"],
+        scenarios: [
+          { situation: "기술적 문제가 생기면", behavior: "분석하고 직접 고쳐요" },
+          { situation: "위기 상황에서", behavior: "침착하게 상황을 파악하고 대응해요" },
+          { situation: "새로운 도구를 사용할 때", behavior: "직접 만져보면서 빠르게 익혀요" }
+        ]
+      },
+      en: {
+        overview: "Logical and analytical, excellent at practical problem solving. Handles crisis situations calmly.",
+        keyTraits: ["Logical", "Practical", "Adaptable", "Calm"],
+        scenarios: [
+          { situation: "When technical problems occur", behavior: "Analyzes and fixes directly" },
+          { situation: "In crisis situations", behavior: "Calmly assesses and responds" },
+          { situation: "When using new tools", behavior: "Learns quickly by hands-on" }
+        ]
+      },
+      ja: {
+        overview: "論理的で分析的、実用的な問題解決に優れています。危機状況で冷静に対処します。",
+        keyTraits: ["論理的", "実用的", "適応力がある", "冷静"],
+        scenarios: [
+          { situation: "技術的な問題が起きたら", behavior: "分析して直接修理します" },
+          { situation: "危機状況で", behavior: "冷静に状況を把握し対応します" },
+          { situation: "新しいツールを使うとき", behavior: "実際に触りながら素早く覚えます" }
+        ]
+      },
+      zh: {
+        overview: "逻辑性强且善于分析，擅长实际问题解决。在危机情况中冷静应对。",
+        keyTraits: ["逻辑性强", "实用", "适应力强", "冷静"],
+        scenarios: [
+          { situation: "出现技术问题时", behavior: "分析并直接修复" },
+          { situation: "在危机情况中", behavior: "冷静评估并应对" },
+          { situation: "使用新工具时", behavior: "通过实际操作快速学习" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "논리적 분석력과 실용적 기술로 문제를 해결해요. 위기 상황에서 침착하게 대처하는 능력이 있어요.",
+        keyTraits: ["논리적이에요", "실용적이에요", "적응력 있어요", "기술적이에요"],
+        scenarios: [
+          { situation: "복잡한 문제가 생기면", behavior: "논리적으로 분석하고 실용적 해결책을 찾아요" },
+          { situation: "위기 상황에서", behavior: "침착하게 상황을 파악하고 빠르게 대응해요" },
+          { situation: "새로운 기술을 배울 때", behavior: "직접 해보면서 빠르게 습득해요" }
+        ]
+      },
+      en: {
+        overview: "Solves problems with logical analysis and practical skills. Has ability to handle crisis situations calmly.",
+        keyTraits: ["Logical", "Practical", "Adaptable", "Technical"],
+        scenarios: [
+          { situation: "When complex problems arise", behavior: "Analyzes logically and finds practical solutions" },
+          { situation: "In crisis situations", behavior: "Calmly assesses situation and responds quickly" },
+          { situation: "When learning new technology", behavior: "Masters quickly by doing" }
+        ]
+      },
+      ja: {
+        overview: "論理的分析力と実用的技術で問題を解決します。危機状況で冷静に対処する能力があります。",
+        keyTraits: ["論理的", "実用的", "適応力がある", "技術的"],
+        scenarios: [
+          { situation: "複雑な問題が起きたら", behavior: "論理的に分析し、実用的な解決策を見つけます" },
+          { situation: "危機状況で", behavior: "冷静に状況を把握し、素早く対応します" },
+          { situation: "新しい技術を学ぶとき", behavior: "実際にやりながら素早く習得します" }
+        ]
+      },
+      zh: {
+        overview: "用逻辑分析和实用技能解决问题。有能力在危机情况中冷静应对。",
+        keyTraits: ["逻辑性强", "实用", "适应力强", "技术性强"],
+        scenarios: [
+          { situation: "出现复杂问题时", behavior: "逻辑分析并找到实际解决方案" },
+          { situation: "在危机情况中", behavior: "冷静评估情况并快速应对" },
+          { situation: "学习新技术时", behavior: "通过实践快速掌握" }
+        ]
+      }
+    }
+  },
+  ISFP: {
+    elementary: {
+      ko: {
+        overview: "조용하고 따뜻하며, 예술적 감각이 뛰어나요. 자연과 아름다움을 사랑하고, 자신만의 세계가 있어요.",
+        keyTraits: ["예술적이에요", "따뜻해요", "감수성이 풍부해요", "조용해요"],
+        scenarios: [
+          { situation: "그림을 그릴 때", behavior: "자신만의 색깔과 스타일로 표현해요" },
+          { situation: "자연에서", behavior: "동물과 식물을 관찰하며 즐거워해요" },
+          { situation: "친구와 있을 때", behavior: "조용히 함께하며 마음을 나눠요" }
+        ]
+      },
+      en: {
+        overview: "Quiet and warm with excellent artistic sense. Loves nature and beauty, has their own world.",
+        keyTraits: ["Artistic", "Warm", "Sensitive", "Quiet"],
+        scenarios: [
+          { situation: "When drawing", behavior: "Expresses with own colors and style" },
+          { situation: "In nature", behavior: "Enjoys observing animals and plants" },
+          { situation: "When with friends", behavior: "Quietly shares hearts together" }
+        ]
+      },
+      ja: {
+        overview: "静かで温かく、芸術的センスに優れています。自然と美しさを愛し、自分だけの世界があります。",
+        keyTraits: ["芸術的", "温かい", "感受性が豊か", "静か"],
+        scenarios: [
+          { situation: "絵を描くとき", behavior: "自分だけの色とスタイルで表現します" },
+          { situation: "自然の中で", behavior: "動物や植物を観察して楽しみます" },
+          { situation: "友達といるとき", behavior: "静かに一緒にいて心を分かち合います" }
+        ]
+      },
+      zh: {
+        overview: "安静温暖，有出色的艺术感。热爱自然和美，有自己的世界。",
+        keyTraits: ["有艺术感", "温暖", "敏感", "安静"],
+        scenarios: [
+          { situation: "画画时", behavior: "用自己的色彩和风格表达" },
+          { situation: "在大自然中", behavior: "喜欢观察动植物" },
+          { situation: "和朋友在一起时", behavior: "静静地一起分享心情" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "예술적 표현과 개인적 가치를 중요시해요. 조용하지만 깊은 감정과 창의성을 가지고 있어요.",
+        keyTraits: ["예술적이에요", "개성 있어요", "감수성이 풍부해요", "자유로워요"],
+        scenarios: [
+          { situation: "창작 활동을 할 때", behavior: "자신만의 독특한 방식으로 표현해요" },
+          { situation: "가치관과 맞지 않으면", behavior: "조용히 자신의 길을 가요" },
+          { situation: "자연 속에서", behavior: "평화를 느끼고 영감을 받아요" }
+        ]
+      },
+      en: {
+        overview: "Values artistic expression and personal values. Quiet but has deep emotions and creativity.",
+        keyTraits: ["Artistic", "Individualistic", "Sensitive", "Free-spirited"],
+        scenarios: [
+          { situation: "In creative activities", behavior: "Expresses in own unique way" },
+          { situation: "When values don't align", behavior: "Quietly goes own way" },
+          { situation: "In nature", behavior: "Feels peace and gets inspired" }
+        ]
+      },
+      ja: {
+        overview: "芸術的表現と個人的な価値観を大切にします。静かですが、深い感情と創造性を持っています。",
+        keyTraits: ["芸術的", "個性的", "感受性が豊か", "自由"],
+        scenarios: [
+          { situation: "創作活動をするとき", behavior: "自分だけの独特な方法で表現します" },
+          { situation: "価値観が合わないとき", behavior: "静かに自分の道を行きます" },
+          { situation: "自然の中で", behavior: "平和を感じ、インスピレーションを受けます" }
+        ]
+      },
+      zh: {
+        overview: "重视艺术表达和个人价值观。安静但有深厚的情感和创造力。",
+        keyTraits: ["有艺术感", "有个性", "敏感", "自由"],
+        scenarios: [
+          { situation: "进行创作活动时", behavior: "用自己独特的方式表达" },
+          { situation: "价值观不合时", behavior: "静静地走自己的路" },
+          { situation: "在大自然中", behavior: "感到平静并获得灵感" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "자신의 가치와 미적 감각에 따라 살아요. 예술적 표현을 통해 깊은 감정을 전달해요.",
+        keyTraits: ["예술적이에요", "진정성 있어요", "감수성이 풍부해요", "개성 있어요"],
+        scenarios: [
+          { situation: "예술 작품을 만들 때", behavior: "자신의 감정과 가치를 담아 표현해요" },
+          { situation: "진로를 생각할 때", behavior: "자신의 가치와 맞는 일을 찾아요" },
+          { situation: "갈등 상황에서", behavior: "자신의 가치는 지키되 조용히 대응해요" }
+        ]
+      },
+      en: {
+        overview: "Lives according to own values and aesthetic sense. Conveys deep emotions through artistic expression.",
+        keyTraits: ["Artistic", "Authentic", "Sensitive", "Individualistic"],
+        scenarios: [
+          { situation: "When creating art", behavior: "Expresses own emotions and values" },
+          { situation: "When thinking about career", behavior: "Looks for work aligned with values" },
+          { situation: "In conflict situations", behavior: "Maintains values but responds quietly" }
+        ]
+      },
+      ja: {
+        overview: "自分の価値観と美的感覚に従って生きます。芸術的表現を通じて深い感情を伝えます。",
+        keyTraits: ["芸術的", "本物", "感受性が豊か", "個性的"],
+        scenarios: [
+          { situation: "芸術作品を作るとき", behavior: "自分の感情と価値を込めて表現します" },
+          { situation: "進路を考えるとき", behavior: "自分の価値観に合う仕事を探します" },
+          { situation: "対立状況で", behavior: "自分の価値は守りつつ静かに対応します" }
+        ]
+      },
+      zh: {
+        overview: "按照自己的价值观和美感生活。通过艺术表达传达深厚情感。",
+        keyTraits: ["有艺术感", "真实", "敏感", "有个性"],
+        scenarios: [
+          { situation: "创作艺术作品时", behavior: "表达自己的情感和价值" },
+          { situation: "考虑未来时", behavior: "寻找与价值观一致的工作" },
+          { situation: "在冲突情况中", behavior: "维护自己的价值但静静应对" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "자신의 가치와 예술적 감각에 따라 진정성 있게 살아요. 창의적 표현을 통해 의미를 찾아요.",
+        keyTraits: ["예술적이에요", "진정성 있어요", "감수성이 풍부해요", "자유로워요"],
+        scenarios: [
+          { situation: "일을 선택할 때", behavior: "자신의 가치와 맞고 창의성을 발휘할 수 있는 일을 찾아요" },
+          { situation: "창작 활동에서", behavior: "깊은 감정과 아름다움을 표현해요" },
+          { situation: "사람들과 관계에서", behavior: "진정성 있게 마음을 나눠요" }
+        ]
+      },
+      en: {
+        overview: "Lives authentically according to own values and artistic sense. Finds meaning through creative expression.",
+        keyTraits: ["Artistic", "Authentic", "Sensitive", "Free-spirited"],
+        scenarios: [
+          { situation: "When choosing work", behavior: "Looks for work that aligns with values and allows creativity" },
+          { situation: "In creative activities", behavior: "Expresses deep emotions and beauty" },
+          { situation: "In relationships", behavior: "Authentically shares heart" }
+        ]
+      },
+      ja: {
+        overview: "自分の価値観と芸術的感覚に従って本物として生きます。創造的表現を通じて意味を見つけます。",
+        keyTraits: ["芸術的", "本物", "感受性が豊か", "自由"],
+        scenarios: [
+          { situation: "仕事を選ぶとき", behavior: "自分の価値観に合い、創造性を発揮できる仕事を探します" },
+          { situation: "創作活動で", behavior: "深い感情と美しさを表現します" },
+          { situation: "人との関係で", behavior: "本物として心を分かち合います" }
+        ]
+      },
+      zh: {
+        overview: "按照自己的价值观和艺术感真实地生活。通过创造性表达寻找意义。",
+        keyTraits: ["有艺术感", "真实", "敏感", "自由"],
+        scenarios: [
+          { situation: "选择工作时", behavior: "寻找与价值观一致且能发挥创造力的工作" },
+          { situation: "在创作活动中", behavior: "表达深厚情感和美" },
+          { situation: "在人际关系中", behavior: "真诚地分享心情" }
+        ]
+      }
+    }
+  },
+  ESTP: {
+    elementary: {
+      ko: {
+        overview: "에너지가 넘치고 활동적이에요. 새로운 것을 시도하는 것을 좋아하고, 현재를 즐겨요.",
+        keyTraits: ["활동적이에요", "대담해요", "적응력이 좋아요", "현실적이에요"],
+        scenarios: [
+          { situation: "새로운 놀이를 발견하면", behavior: "바로 시도해보고 즐겨요" },
+          { situation: "친구들과 있을 때", behavior: "재미있는 활동을 이끌어요" },
+          { situation: "문제가 생기면", behavior: "빠르게 해결 방법을 찾아요" }
+        ]
+      },
+      en: {
+        overview: "Energetic and active. Loves trying new things and enjoys the present.",
+        keyTraits: ["Active", "Bold", "Adaptable", "Realistic"],
+        scenarios: [
+          { situation: "When discovering new games", behavior: "Tries right away and enjoys" },
+          { situation: "When with friends", behavior: "Leads fun activities" },
+          { situation: "When problems arise", behavior: "Quickly finds solutions" }
+        ]
+      },
+      ja: {
+        overview: "エネルギッシュで活動的です。新しいことを試すのが好きで、今を楽しみます。",
+        keyTraits: ["活動的", "大胆", "適応力がある", "現実的"],
+        scenarios: [
+          { situation: "新しい遊びを見つけたら", behavior: "すぐに試して楽しみます" },
+          { situation: "友達といるとき", behavior: "楽しい活動をリードします" },
+          { situation: "問題が起きたら", behavior: "素早く解決方法を見つけます" }
+        ]
+      },
+      zh: {
+        overview: "精力充沛且活跃。喜欢尝试新事物，享受当下。",
+        keyTraits: ["活跃", "大胆", "适应力强", "现实"],
+        scenarios: [
+          { situation: "发现新游戏时", behavior: "立即尝试并享受" },
+          { situation: "和朋友在一起时", behavior: "带领有趣的活动" },
+          { situation: "出现问题时", behavior: "快速找到解决方法" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "행동력이 뛰어나고 현재를 즐겨요. 위험을 감수하며 새로운 경험을 추구해요.",
+        keyTraits: ["행동적이에요", "대담해요", "적응력이 뛰어나요", "사교적이에요"],
+        scenarios: [
+          { situation: "새로운 스포츠를 접하면", behavior: "바로 도전하고 빠르게 배워요" },
+          { situation: "친구들과 있을 때", behavior: "분위기를 주도하며 재미있게 해요" },
+          { situation: "문제 상황에서", behavior: "즉각적으로 대응하고 해결해요" }
+        ]
+      },
+      en: {
+        overview: "Great at taking action and enjoys the present. Takes risks and pursues new experiences.",
+        keyTraits: ["Action-oriented", "Bold", "Highly adaptable", "Sociable"],
+        scenarios: [
+          { situation: "When encountering new sports", behavior: "Challenges right away and learns quickly" },
+          { situation: "When with friends", behavior: "Leads the mood and makes it fun" },
+          { situation: "In problem situations", behavior: "Responds immediately and solves" }
+        ]
+      },
+      ja: {
+        overview: "行動力に優れ、今を楽しみます。リスクを取りながら新しい経験を追求します。",
+        keyTraits: ["行動的", "大胆", "適応力が高い", "社交的"],
+        scenarios: [
+          { situation: "新しいスポーツに出会ったら", behavior: "すぐに挑戦して素早く学びます" },
+          { situation: "友達といるとき", behavior: "雰囲気を主導して楽しくします" },
+          { situation: "問題状況で", behavior: "即座に対応して解決します" }
+        ]
+      },
+      zh: {
+        overview: "行动力强，享受当下。冒险并追求新体验。",
+        keyTraits: ["行动派", "大胆", "适应力强", "善于社交"],
+        scenarios: [
+          { situation: "接触新运动时", behavior: "立即挑战并快速学习" },
+          { situation: "和朋友在一起时", behavior: "主导气氛让大家开心" },
+          { situation: "在问题情况中", behavior: "立即应对并解决" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "순발력과 행동력으로 즉각적인 문제를 해결해요. 스릴과 도전을 즐기고 현재에 집중해요.",
+        keyTraits: ["행동적이에요", "대담해요", "순발력 있어요", "현실적이에요"],
+        scenarios: [
+          { situation: "위기 상황에서", behavior: "침착하게 빠른 결정을 내려요" },
+          { situation: "새로운 도전이 있으면", behavior: "두려움 없이 시도해요" },
+          { situation: "사람들과 있을 때", behavior: "활기찬 에너지로 분위기를 이끌어요" }
+        ]
+      },
+      en: {
+        overview: "Solves immediate problems with quick thinking and action. Enjoys thrill and challenges, focuses on present.",
+        keyTraits: ["Action-oriented", "Bold", "Quick-thinking", "Realistic"],
+        scenarios: [
+          { situation: "In crisis situations", behavior: "Makes calm, quick decisions" },
+          { situation: "When there's new challenge", behavior: "Tries without fear" },
+          { situation: "When with people", behavior: "Leads atmosphere with energetic energy" }
+        ]
+      },
+      ja: {
+        overview: "瞬発力と行動力で即座の問題を解決します。スリルと挑戦を楽しみ、今に集中します。",
+        keyTraits: ["行動的", "大胆", "瞬発力がある", "現実的"],
+        scenarios: [
+          { situation: "危機状況で", behavior: "冷静に素早い決定を下します" },
+          { situation: "新しい挑戦があったら", behavior: "恐れずに試みます" },
+          { situation: "人といるとき", behavior: "活気あるエネルギーで雰囲気をリードします" }
+        ]
+      },
+      zh: {
+        overview: "用敏捷思维和行动解决即时问题。享受刺激和挑战，专注当下。",
+        keyTraits: ["行动派", "大胆", "反应快", "现实"],
+        scenarios: [
+          { situation: "在危机情况中", behavior: "冷静地快速做决定" },
+          { situation: "有新挑战时", behavior: "无所畏惧地尝试" },
+          { situation: "和人在一起时", behavior: "用活力带动气氛" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "빠른 판단력과 실행력으로 현실적인 문제를 해결해요. 도전을 즐기고 기회를 포착해요.",
+        keyTraits: ["행동적이에요", "실용적이에요", "적응력 있어요", "대담해요"],
+        scenarios: [
+          { situation: "위기 상황에서", behavior: "침착하게 빠르게 대응해요" },
+          { situation: "비즈니스 기회가 보이면", behavior: "과감하게 도전하고 행동해요" },
+          { situation: "사람들과 일할 때", behavior: "에너지와 카리스마로 이끌어요" }
+        ]
+      },
+      en: {
+        overview: "Solves realistic problems with quick judgment and execution. Enjoys challenges and seizes opportunities.",
+        keyTraits: ["Action-oriented", "Practical", "Adaptable", "Bold"],
+        scenarios: [
+          { situation: "In crisis situations", behavior: "Responds calmly and quickly" },
+          { situation: "When business opportunities appear", behavior: "Boldly challenges and acts" },
+          { situation: "When working with people", behavior: "Leads with energy and charisma" }
+        ]
+      },
+      ja: {
+        overview: "素早い判断力と実行力で現実的な問題を解決します。挑戦を楽しみ、機会を捉えます。",
+        keyTraits: ["行動的", "実用的", "適応力がある", "大胆"],
+        scenarios: [
+          { situation: "危機状況で", behavior: "冷静に素早く対応します" },
+          { situation: "ビジネスチャンスが見えたら", behavior: "果敢に挑戦し行動します" },
+          { situation: "人と働くとき", behavior: "エネルギーとカリスマでリードします" }
+        ]
+      },
+      zh: {
+        overview: "用快速判断和执行力解决现实问题。享受挑战并抓住机会。",
+        keyTraits: ["行动派", "实用", "适应力强", "大胆"],
+        scenarios: [
+          { situation: "在危机情况中", behavior: "冷静快速地应对" },
+          { situation: "看到商机时", behavior: "大胆挑战并行动" },
+          { situation: "与人共事时", behavior: "用活力和魅力领导" }
+        ]
+      }
+    }
+  },
+  ESFP: {
+    elementary: {
+      ko: {
+        overview: "밝고 즐거우며 친구들과 노는 것을 좋아해요. 현재를 즐기고 주변 사람들을 즐겁게 해요.",
+        keyTraits: ["밝아요", "사교적이에요", "즐거워요", "자발적이에요"],
+        scenarios: [
+          { situation: "친구들과 있을 때", behavior: "모두를 즐겁게 하며 분위기를 만들어요" },
+          { situation: "새로운 놀이를 하면", behavior: "신나게 참여하고 즐겨요" },
+          { situation: "힘든 친구가 있으면", behavior: "재미있게 해주려고 노력해요" }
+        ]
+      },
+      en: {
+        overview: "Bright and fun, loves playing with friends. Enjoys the present and makes people around happy.",
+        keyTraits: ["Bright", "Sociable", "Fun", "Spontaneous"],
+        scenarios: [
+          { situation: "When with friends", behavior: "Makes everyone happy and creates atmosphere" },
+          { situation: "When trying new games", behavior: "Participates excitedly and enjoys" },
+          { situation: "When a friend is struggling", behavior: "Tries to make them have fun" }
+        ]
+      },
+      ja: {
+        overview: "明るく楽しく、友達と遊ぶのが好きです。今を楽しみ、周りの人を楽しませます。",
+        keyTraits: ["明るい", "社交的", "楽しい", "自発的"],
+        scenarios: [
+          { situation: "友達といるとき", behavior: "皆を楽しませ、雰囲気を作ります" },
+          { situation: "新しい遊びをするとき", behavior: "ワクワクして参加し楽しみます" },
+          { situation: "辛い友達がいたら", behavior: "楽しませようと努力します" }
+        ]
+      },
+      zh: {
+        overview: "开朗有趣，喜欢和朋友玩。享受当下，让周围的人开心。",
+        keyTraits: ["开朗", "善于社交", "有趣", "自发"],
+        scenarios: [
+          { situation: "和朋友在一起时", behavior: "让大家开心并营造气氛" },
+          { situation: "尝试新游戏时", behavior: "兴奋地参与并享受" },
+          { situation: "有朋友难过时", behavior: "努力让他们开心" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "사교적이고 에너지가 넘치며, 현재를 즐기고 사람들과 함께하는 것을 좋아해요.",
+        keyTraits: ["사교적이에요", "열정적이에요", "자발적이에요", "적응력이 좋아요"],
+        scenarios: [
+          { situation: "파티나 모임에서", behavior: "중심에 서서 분위기를 이끌어요" },
+          { situation: "새로운 경험을 하면", behavior: "적극적으로 참여하고 즐겨요" },
+          { situation: "친구가 슬퍼하면", behavior: "기분 전환할 수 있게 도와줘요" }
+        ]
+      },
+      en: {
+        overview: "Sociable and energetic, enjoys the present and loves being with people.",
+        keyTraits: ["Sociable", "Enthusiastic", "Spontaneous", "Adaptable"],
+        scenarios: [
+          { situation: "At parties or gatherings", behavior: "Leads the atmosphere from the center" },
+          { situation: "When having new experiences", behavior: "Actively participates and enjoys" },
+          { situation: "When friends are sad", behavior: "Helps them feel better" }
+        ]
+      },
+      ja: {
+        overview: "社交的でエネルギッシュ、今を楽しみ、人と一緒にいることが好きです。",
+        keyTraits: ["社交的", "熱心", "自発的", "適応力がある"],
+        scenarios: [
+          { situation: "パーティーや集まりで", behavior: "中心に立って雰囲気をリードします" },
+          { situation: "新しい経験をするとき", behavior: "積極的に参加して楽しみます" },
+          { situation: "友達が悲しんでいたら", behavior: "気分転換できるよう助けます" }
+        ]
+      },
+      zh: {
+        overview: "善于社交且精力充沛，享受当下并喜欢与人相处。",
+        keyTraits: ["善于社交", "热情", "自发", "适应力强"],
+        scenarios: [
+          { situation: "在派对或聚会上", behavior: "站在中心带动气氛" },
+          { situation: "有新体验时", behavior: "积极参与并享受" },
+          { situation: "朋友难过时", behavior: "帮助他们转换心情" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "활기차고 매력적이며, 현재를 최대한 즐겨요. 사람들과 함께하며 즐거움을 나눠요.",
+        keyTraits: ["활기차요", "매력적이에요", "자발적이에요", "적응력 있어요"],
+        scenarios: [
+          { situation: "사람들과 있을 때", behavior: "재미와 에너지로 모두를 즐겁게 해요" },
+          { situation: "새로운 기회가 오면", behavior: "즉흥적으로 도전해요" },
+          { situation: "힘든 상황에서", behavior: "긍정적인 태도로 분위기를 바꿔요" }
+        ]
+      },
+      en: {
+        overview: "Lively and charming, enjoys the present to the fullest. Shares joy with people.",
+        keyTraits: ["Lively", "Charming", "Spontaneous", "Adaptable"],
+        scenarios: [
+          { situation: "When with people", behavior: "Makes everyone happy with fun and energy" },
+          { situation: "When new opportunities come", behavior: "Challenges spontaneously" },
+          { situation: "In difficult situations", behavior: "Changes atmosphere with positive attitude" }
+        ]
+      },
+      ja: {
+        overview: "活気があり魅力的で、今を最大限に楽しみます。人と一緒に楽しさを分かち合います。",
+        keyTraits: ["活気がある", "魅力的", "自発的", "適応力がある"],
+        scenarios: [
+          { situation: "人といるとき", behavior: "楽しさとエネルギーで皆を楽しませます" },
+          { situation: "新しい機会が来たら", behavior: "即興で挑戦します" },
+          { situation: "困難な状況で", behavior: "ポジティブな態度で雰囲気を変えます" }
+        ]
+      },
+      zh: {
+        overview: "活泼迷人，尽情享受当下。与人分享快乐。",
+        keyTraits: ["活泼", "有魅力", "自发", "适应力强"],
+        scenarios: [
+          { situation: "和人在一起时", behavior: "用乐趣和活力让大家开心" },
+          { situation: "新机会来临时", behavior: "即兴挑战" },
+          { situation: "在困难情况中", behavior: "用积极态度改变氛围" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "사교적이고 활기찬 에너지로 사람들을 이끌어요. 현재를 즐기고 주변에 기쁨을 전해요.",
+        keyTraits: ["사교적이에요", "활기차요", "적응력 있어요", "열정적이에요"],
+        scenarios: [
+          { situation: "사람들과 일할 때", behavior: "긍정적인 에너지로 팀 분위기를 밝게 해요" },
+          { situation: "어려운 상황에서", behavior: "유연하게 대처하며 긍정을 유지해요" },
+          { situation: "새로운 경험에", behavior: "열린 마음으로 즉흥적으로 즐겨요" }
+        ]
+      },
+      en: {
+        overview: "Leads people with sociable and lively energy. Enjoys the present and spreads joy around.",
+        keyTraits: ["Sociable", "Lively", "Adaptable", "Enthusiastic"],
+        scenarios: [
+          { situation: "When working with people", behavior: "Brightens team atmosphere with positive energy" },
+          { situation: "In difficult situations", behavior: "Handles flexibly while staying positive" },
+          { situation: "In new experiences", behavior: "Enjoys spontaneously with open mind" }
+        ]
+      },
+      ja: {
+        overview: "社交的で活気あるエネルギーで人々をリードします。今を楽しみ、周りに喜びを伝えます。",
+        keyTraits: ["社交的", "活気がある", "適応力がある", "熱心"],
+        scenarios: [
+          { situation: "人と働くとき", behavior: "ポジティブなエネルギーでチームの雰囲気を明るくします" },
+          { situation: "困難な状況で", behavior: "柔軟に対処しながらポジティブを維持します" },
+          { situation: "新しい経験に", behavior: "オープンマインドで即興的に楽しみます" }
+        ]
+      },
+      zh: {
+        overview: "用善于社交和活泼的能量带领他人。享受当下并传播快乐。",
+        keyTraits: ["善于社交", "活泼", "适应力强", "热情"],
+        scenarios: [
+          { situation: "与人共事时", behavior: "用正能量活跃团队氛围" },
+          { situation: "在困难情况中", behavior: "灵活应对并保持积极" },
+          { situation: "面对新体验时", behavior: "以开放心态即兴享受" }
+        ]
+      }
+    }
   }
 };
 
