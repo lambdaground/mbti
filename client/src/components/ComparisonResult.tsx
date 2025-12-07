@@ -32,6 +32,7 @@ import {
   animalPersonalities,
 } from "@/lib/mbti-data";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getAnimalName } from "@/lib/i18n";
 
 import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";
 import intpImage from "@assets/generated_images/curious_raccoon_mascot_intp.png";
@@ -122,7 +123,7 @@ export default function ComparisonResult({
   onRestart,
   onShare 
 }: ComparisonResultProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const parentType = parentResult.primaryType.type;
   const childType = childResult.primaryType.type;
   
@@ -489,7 +490,7 @@ export default function ComparisonResult({
                 <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-white dark:bg-gray-800 border border-purple-200 dark:border-purple-800">
                   <img 
                     src={mbtiImageMap[item.mbti]} 
-                    alt={item.animal}
+                    alt={getAnimalName(language, item.mbti)}
                     className="w-full h-full object-contain"
                   />
                 </div>
@@ -497,7 +498,7 @@ export default function ComparisonResult({
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-bold text-purple-700 dark:text-purple-300">{item.mbti}</span>
                     <Badge variant="outline" className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 border-purple-300 dark:border-purple-700">
-                      {item.animal}
+                      {getAnimalName(language, item.mbti)}
                     </Badge>
                   </div>
                   <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{item.description}</p>

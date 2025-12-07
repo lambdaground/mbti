@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { mbtiTypes } from "@/lib/mbti-data";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getAnimalName } from "@/lib/i18n";
 
 import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";
 import intpImage from "@assets/generated_images/curious_raccoon_mascot_intp.png";
@@ -47,7 +48,7 @@ const mbtiOrder = [
 ];
 
 export default function MBTIAnimalGallery() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   
   return (
     <section className="py-12 bg-muted/30">
@@ -78,13 +79,13 @@ export default function MBTIAnimalGallery() {
                 <div className="aspect-square mb-2 rounded-md overflow-hidden bg-gradient-to-br from-primary/5 to-purple-500/5">
                   <img 
                     src={animalImages[type]} 
-                    alt={`${mbtiData.animal} - ${type}`}
+                    alt={`${getAnimalName(language, type)} - ${type}`}
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="space-y-0.5">
                   <p className="font-mono text-xs font-bold text-foreground">{type}</p>
-                  <p className="text-xs text-muted-foreground truncate">{mbtiData.animal}</p>
+                  <p className="text-xs text-muted-foreground truncate">{getAnimalName(language, type)}</p>
                 </div>
               </Card>
             );

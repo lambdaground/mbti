@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Share2, RotateCcw, Star, Heart, Zap, Target, Briefcase, Palette, Users, TrendingUp } from "lucide-react";
 import type { MBTIResult as MBTIResultType, AgeGroup } from "@/lib/mbti-data";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { getAnimalName } from "@/lib/i18n";
 
 import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";
 import intpImage from "@assets/generated_images/curious_raccoon_mascot_intp.png";
@@ -93,12 +95,13 @@ function DimensionBar({ label, leftLabel, rightLabel, percentage, leftColor, rig
 
 export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBTIResultProps) {
   const { primaryType, primaryPercentage, secondaryType, secondaryPercentage, dimensionScores } = result;
+  const { t, language } = useLanguage();
   
   const ageLabels: Record<AgeGroup, string> = {
-    elementary: '초등학생',
-    middle: '중학생',
-    high: '고등학생',
-    adult: '성인'
+    elementary: t('age.elementary'),
+    middle: t('age.middle'),
+    high: t('age.high'),
+    adult: t('age.adult')
   };
 
   return (
@@ -108,14 +111,14 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
           <div className="inline-flex items-center justify-center w-28 h-28 md:w-36 md:h-36 bg-white/20 backdrop-blur-sm rounded-full mb-6 p-2">
             <img 
               src={getAnimalImage(primaryType.type)} 
-              alt={primaryType.animal}
+              alt={getAnimalName(language, primaryType.type)}
               className="w-full h-full object-contain rounded-full"
               data-testid="img-mbti-animal"
             />
           </div>
           
           <Badge variant="secondary" className="mb-4 bg-white/20 text-white border-0">
-            {ageLabels[ageGroup]} 결과
+            {ageLabels[ageGroup]} {t('result.resultBadge')}
           </Badge>
           
           <h1 
@@ -133,7 +136,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
           </p>
           
           <p className="text-lg opacity-80 mt-2">
-            나를 닮은 동물: <span className="font-bold">{primaryType.animal}</span>
+            {t('result.myAnimal')}: <span className="font-bold">{getAnimalName(language, primaryType.type)}</span>
           </p>
           
           <div className="mt-4 flex items-center justify-center gap-4 flex-wrap">
@@ -142,7 +145,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
             </Badge>
             {secondaryType && secondaryType.type !== primaryType.type && (
               <Badge variant="secondary" className="bg-white/15 text-white/80 border-0 text-sm">
-                2순위: {secondaryType.type} {Math.round(secondaryPercentage)}%
+                {t('result.secondRank')}: {secondaryType.type} {Math.round(secondaryPercentage)}%
               </Badge>
             )}
           </div>
