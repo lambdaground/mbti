@@ -33,7 +33,7 @@ import {
 } from "@/lib/mbti-data";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getAnimalName } from "@/lib/i18n";
-import { getLocalizedMBTIType, getLocalizedAgeNarrative, getLocalizedFunFacts } from "@/lib/mbti-data-localized";
+import { getLocalizedMBTIType, getLocalizedAgeNarrative, getLocalizedFunFacts, getLocalizedHybridName, getLocalizedAnimalDescription, getLocalizedRelationshipInsight } from "@/lib/mbti-data-localized";
 
 import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";
 import intpImage from "@assets/generated_images/curious_raccoon_mascot_intp.png";
@@ -109,6 +109,32 @@ function getHybridImage(hybrid: HybridPersonality): string {
   return getAnimalImage(hybrid.primaryType);
 }
 
+type Language = 'ko' | 'en' | 'ja' | 'zh';
+
+function generateLocalizedBlendDescription(hybrid: HybridPersonality, language: Language): string {
+  const primaryAnimal = getLocalizedHybridName(hybrid.primaryAnimal, language);
+  const secondaryAnimal = getLocalizedHybridName(hybrid.secondaryAnimal, language);
+  const primaryDesc = getLocalizedAnimalDescription(hybrid.primaryAnimal, language);
+  
+  if (hybrid.blendLevel === 'pure') {
+    const descriptions: Record<Language, string> = {
+      ko: `${primaryDesc} ${primaryAnimal} 성향이에요.`,
+      en: `Has a ${primaryAnimal} personality - ${primaryDesc}.`,
+      ja: `${primaryAnimal}の性格です - ${primaryDesc}。`,
+      zh: `有${primaryAnimal}的性格 - ${primaryDesc}。`
+    };
+    return descriptions[language];
+  }
+  
+  const descriptions: Record<Language, string> = {
+    ko: `${primaryAnimal}의 특성이 강하지만, ${secondaryAnimal}의 매력도 있어요.`,
+    en: `Strong ${primaryAnimal} characteristics, but also has some ${secondaryAnimal} charm.`,
+    ja: `${primaryAnimal}の特性が強いですが、${secondaryAnimal}の魅力もあります。`,
+    zh: `${primaryAnimal}的特性很强，但也有${secondaryAnimal}的魅力。`
+  };
+  return descriptions[language];
+}
+
 interface ComparisonResultProps {
   parentResult: MBTIResult;
   childResult: MBTIResult;
@@ -135,6 +161,8 @@ export default function ComparisonResult({
   const childNickname = localizedChildType?.nickname || childResult.primaryType.nickname;
   
   const relationshipInsight = getRelationshipInsight(parentType, childType);
+  const localizedRelationshipInsight = getLocalizedRelationshipInsight(parentType, childType, language);
+  const finalRelationshipInsight = language === 'ko' ? relationshipInsight : localizedRelationshipInsight;
   const complexAnalysis = getComplexComparisonAnalysis(parentResult, childResult);
   
   const { parentHybrid, childHybrid } = complexAnalysis;
@@ -181,13 +209,15 @@ export default function ComparisonResult({
             </div>
             <div className="mt-2">
               <Badge variant="outline" className="bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-700">
-                {parentHybrid.hybridAnimalName}
+                {getLocalizedHybridName(parentHybrid.hybridAnimalName, language)}
               </Badge>
             </div>
           </CardHeader>
           <CardContent className="text-center space-y-3">
             <p className="text-lg font-medium text-foreground">{parentNickname}</p>
-            <p className="text-sm text-muted-foreground">{parentHybrid.blendDescription}</p>
+            <p className="text-sm text-muted-foreground">
+              {language === 'ko' ? parentHybrid.blendDescription : generateLocalizedBlendDescription(parentHybrid, language)}
+            </p>
           </CardContent>
         </Card>
 
@@ -197,7 +227,7 @@ export default function ComparisonResult({
               <div className="w-24 h-24 rounded-full bg-sky-100 dark:bg-sky-950/30 p-2 border-2 border-sky-300 dark:border-sky-800">
                 <img 
                   src={getHybridImage(childHybrid)} 
-                  alt={childHybrid.hybridAnimalName}
+                  alt={getLocalizedHybridName(childHybrid.hybridAnimalName, language)}
                   className="w-full h-full object-contain rounded-full"
                   data-testid="img-child-animal"
                 />
@@ -212,13 +242,15 @@ export default function ComparisonResult({
             </div>
             <div className="mt-2">
               <Badge variant="outline" className="bg-sky-50 dark:bg-sky-950/30 text-sky-700 dark:text-sky-300 border-sky-300 dark:border-sky-700">
-                {childHybrid.hybridAnimalName}
+                {getLocalizedHybridName(childHybrid.hybridAnimalName, language)}
               </Badge>
             </div>
           </CardHeader>
           <CardContent className="text-center space-y-3">
             <p className="text-lg font-medium text-foreground">{childNickname}</p>
-            <p className="text-sm text-muted-foreground">{childHybrid.blendDescription}</p>
+            <p className="text-sm text-muted-foreground">
+              {language === 'ko' ? childHybrid.blendDescription : generateLocalizedBlendDescription(childHybrid, language)}
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -411,19 +443,19 @@ export default function ComparisonResult({
           <InsightCard
             icon={<MessageCircle className="w-5 h-5 text-blue-500" />}
             title={t('result.commDiff')}
-            content={relationshipInsight.communicationDifference}
+            content={finalRelationshipInsight.communicationDifference}
             testId="card-communication"
           />
           <InsightCard
             icon={<Brain className="w-5 h-5 text-purple-500" />}
             title={t('result.behaviorDiff')}
-            content={relationshipInsight.behaviorDifference}
+            content={finalRelationshipInsight.behaviorDifference}
             testId="card-behavior"
           />
           <InsightCard
             icon={<Target className="w-5 h-5 text-orange-500" />}
             title={t('result.thinkingDiff')}
-            content={relationshipInsight.thinkingDifference}
+            content={finalRelationshipInsight.thinkingDifference}
             testId="card-thinking"
           />
         </TabsContent>
@@ -441,7 +473,7 @@ export default function ComparisonResult({
             </CardHeader>
             <CardContent>
               <ul className="space-y-3">
-                {relationshipInsight.parentGuidance.map((guidance, index) => (
+                {finalRelationshipInsight.parentGuidance.map((guidance, index) => (
                   <li key={index} className="flex items-start gap-3" data-testid={`text-parent-guidance-${index}`}>
                     <div className="mt-1 w-6 h-6 rounded-full bg-rose-100 dark:bg-rose-950/30 flex items-center justify-center flex-shrink-0">
                       <span className="text-sm font-medium text-rose-600 dark:text-rose-400">{index + 1}</span>
@@ -467,7 +499,7 @@ export default function ComparisonResult({
             </CardHeader>
             <CardContent>
               <ul className="space-y-3">
-                {relationshipInsight.childUnderstanding.map((understanding, index) => (
+                {finalRelationshipInsight.childUnderstanding.map((understanding, index) => (
                   <li key={index} className="flex items-start gap-3" data-testid={`text-child-understanding-${index}`}>
                     <div className="mt-1 w-6 h-6 rounded-full bg-sky-100 dark:bg-sky-950/30 flex items-center justify-center flex-shrink-0">
                       <span className="text-sm font-medium text-sky-600 dark:text-sky-400">{index + 1}</span>

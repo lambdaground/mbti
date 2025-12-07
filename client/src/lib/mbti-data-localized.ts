@@ -1364,3 +1364,1193 @@ export function getLocalizedFunFacts(
   const normalizedType = mbtiType.toUpperCase();
   return funFactsLocalized[normalizedType]?.[language] || null;
 }
+
+const hybridNamesLocalized: Record<string, Record<Language, string>> = {
+  '개냥이': { ko: '개냥이', en: 'Puppy-Cat', ja: 'イヌネコ', zh: '狗猫咪' },
+  '냥멍이': { ko: '냥멍이', en: 'Cat-Pup', ja: 'ネコイヌ', zh: '猫狗狗' },
+  '사여우': { ko: '사여우', en: 'Lion-Fox', ja: 'ライオンギツネ', zh: '狮狐' },
+  '여자왕': { ko: '여자왕', en: 'Fox-King', ja: 'キツネライオン', zh: '狐王' },
+  '올너구리': { ko: '올너구리', en: 'Owl-Raccoon', ja: 'フクロウタヌキ', zh: '猫头鹰浣熊' },
+  '너빼미': { ko: '너빼미', en: 'Raccoon-Owl', ja: 'タヌキフクロウ', zh: '浣熊猫头鹰' },
+  '늑멍이': { ko: '늑멍이', en: 'Wolf-Pup', ja: 'オオカミイヌ', zh: '狼狗' },
+  '멍늑이': { ko: '멍늑이', en: 'Pup-Wolf', ja: 'イヌオオカミ', zh: '狗狼' },
+  '토냥이': { ko: '토냥이', en: 'Bunny-Cat', ja: 'ウサギネコ', zh: '兔猫' },
+  '냥토끼': { ko: '냥토끼', en: 'Cat-Bunny', ja: 'ネコウサギ', zh: '猫兔' },
+  '독사왕': { ko: '독사왕', en: 'Eagle-Lion', ja: 'ワシライオン', zh: '鹰狮王' },
+  '사독이': { ko: '사독이', en: 'Lion-Eagle', ja: 'ライオンワシ', zh: '狮鹰' },
+  '돌수달': { ko: '돌수달', en: 'Dolphin-Otter', ja: 'イルカカワウソ', zh: '海豚水獭' },
+  '수돌이': { ko: '수돌이', en: 'Otter-Dolphin', ja: 'カワウソイルカ', zh: '水獭海豚' },
+  '표치타': { ko: '표치타', en: 'Leopard-Cheetah', ja: 'ヒョウチーター', zh: '豹猎豹' },
+  '치표범': { ko: '치표범', en: 'Cheetah-Leopard', ja: 'チーターヒョウ', zh: '猎豹豹' },
+  '거토끼': { ko: '거토끼', en: 'Turtle-Bunny', ja: 'カメウサギ', zh: '龟兔' },
+  '토거북': { ko: '토거북', en: 'Bunny-Turtle', ja: 'ウサギカメ', zh: '兔龟' },
+  '유수달': { ko: '유수달', en: 'Unicorn-Otter', ja: 'ユニコーンカワウソ', zh: '独角兽水獭' },
+  '수유니': { ko: '수유니', en: 'Otter-Unicorn', ja: 'カワウソユニコーン', zh: '水獭独角兽' },
+  '앵수달': { ko: '앵수달', en: 'Parrot-Otter', ja: 'オウムカワウソ', zh: '鹦鹉水獭' },
+  '수앵이': { ko: '수앵이', en: 'Otter-Parrot', ja: 'カワウソオウム', zh: '水獭鹦鹉' },
+  '늑빼미': { ko: '늑빼미', en: 'Wolf-Owl', ja: 'オオカミフクロウ', zh: '狼猫头鹰' },
+  '올늑이': { ko: '올늑이', en: 'Owl-Wolf', ja: 'フクロウオオカミ', zh: '猫头鹰狼' },
+  '여냥이': { ko: '여냥이', en: 'Fox-Cat', ja: 'キツネネコ', zh: '狐猫' },
+  '냥우이': { ko: '냥우이', en: 'Cat-Fox', ja: 'ネコギツネ', zh: '猫狐' },
+  '강토끼': { ko: '강토끼', en: 'Puppy-Bunny', ja: 'イヌウサギ', zh: '狗兔' },
+  '토멍이': { ko: '토멍이', en: 'Bunny-Pup', ja: 'ウサギイヌ', zh: '兔狗' },
+  '사늑이': { ko: '사늑이', en: 'Lion-Wolf', ja: 'ライオンオオカミ', zh: '狮狼' },
+  '늑사왕': { ko: '늑사왕', en: 'Wolf-King', ja: 'オオカミライオン', zh: '狼狮王' },
+  '독빼미': { ko: '독빼미', en: 'Eagle-Owl', ja: 'ワシフクロウ', zh: '鹰猫头鹰' },
+  '올독이': { ko: '올독이', en: 'Owl-Eagle', ja: 'フクロウワシ', zh: '猫头鹰鹰' },
+  '치멍이': { ko: '치멍이', en: 'Cheetah-Pup', ja: 'チーターイヌ', zh: '猎豹狗' },
+  '멍치타': { ko: '멍치타', en: 'Pup-Cheetah', ja: 'イヌチーター', zh: '狗猎豹' },
+  '돌멍이': { ko: '돌멍이', en: 'Dolphin-Pup', ja: 'イルカイヌ', zh: '海豚狗' },
+  '멍고래': { ko: '멍고래', en: 'Pup-Dolphin', ja: 'イヌイルカ', zh: '狗海豚' },
+  '앵멍이': { ko: '앵멍이', en: 'Parrot-Pup', ja: 'オウムイヌ', zh: '鹦鹉狗' },
+  '멍무새': { ko: '멍무새', en: 'Pup-Parrot', ja: 'イヌオウム', zh: '狗鹦鹉' },
+  '멍독이': { ko: '멍독이', en: 'Pup-Eagle', ja: 'イヌワシ', zh: '狗鹰' },
+  '독멍이': { ko: '독멍이', en: 'Eagle-Pup', ja: 'ワシイヌ', zh: '鹰狗' },
+  '표냥이': { ko: '표냥이', en: 'Leopard-Cat', ja: 'ヒョウネコ', zh: '豹猫' },
+  '냥표범': { ko: '냥표범', en: 'Cat-Leopard', ja: 'ネコヒョウ', zh: '猫豹' },
+  '거빼미': { ko: '거빼미', en: 'Turtle-Owl', ja: 'カメフクロウ', zh: '龟猫头鹰' },
+  '올거북': { ko: '올거북', en: 'Owl-Turtle', ja: 'フクロウカメ', zh: '猫头鹰龟' },
+  '사올이': { ko: '사올이', en: 'Lion-Owl', ja: 'ライオンフクロウ', zh: '狮猫头鹰' },
+  '올사자': { ko: '올사자', en: 'Owl-Lion', ja: 'フクロウライオン', zh: '猫头鹰狮' },
+  '수멍이': { ko: '수멍이', en: 'Otter-Pup', ja: 'カワウソイヌ', zh: '水獭狗' },
+  '멍수달': { ko: '멍수달', en: 'Pup-Otter', ja: 'イヌカワウソ', zh: '狗水獭' },
+  '너여우': { ko: '너여우', en: 'Raccoon-Fox', ja: 'タヌキギツネ', zh: '浣熊狐' },
+  '여너구리': { ko: '여너구리', en: 'Fox-Raccoon', ja: 'キツネタヌキ', zh: '狐浣熊' },
+  '거늑이': { ko: '거늑이', en: 'Turtle-Wolf', ja: 'カメオオカミ', zh: '龟狼' },
+  '늑거북': { ko: '늑거북', en: 'Wolf-Turtle', ja: 'オオカミカメ', zh: '狼龟' },
+  '올빼미': { ko: '올빼미', en: 'Owl', ja: 'フクロウ', zh: '猫头鹰' },
+  '너구리': { ko: '너구리', en: 'Raccoon', ja: 'タヌキ', zh: '浣熊' },
+  '사자': { ko: '사자', en: 'Lion', ja: 'ライオン', zh: '狮子' },
+  '여우': { ko: '여우', en: 'Fox', ja: 'キツネ', zh: '狐狸' },
+  '늑대': { ko: '늑대', en: 'Wolf', ja: 'オオカミ', zh: '狼' },
+  '유니콘': { ko: '유니콘', en: 'Unicorn', ja: 'ユニコーン', zh: '独角兽' },
+  '돌고래': { ko: '돌고래', en: 'Dolphin', ja: 'イルカ', zh: '海豚' },
+  '수달': { ko: '수달', en: 'Otter', ja: 'カワウソ', zh: '水獭' },
+  '거북이': { ko: '거북이', en: 'Turtle', ja: 'カメ', zh: '乌龟' },
+  '토끼': { ko: '토끼', en: 'Rabbit', ja: 'ウサギ', zh: '兔子' },
+  '독수리': { ko: '독수리', en: 'Eagle', ja: 'ワシ', zh: '老鹰' },
+  '강아지': { ko: '강아지', en: 'Puppy', ja: '子犬', zh: '小狗' },
+  '표범': { ko: '표범', en: 'Leopard', ja: 'ヒョウ', zh: '豹' },
+  '고양이': { ko: '고양이', en: 'Cat', ja: 'ネコ', zh: '猫' },
+  '치타': { ko: '치타', en: 'Cheetah', ja: 'チーター', zh: '猎豹' },
+  '앵무새': { ko: '앵무새', en: 'Parrot', ja: 'オウム', zh: '鹦鹉' }
+};
+
+export function getLocalizedHybridName(koreanName: string, language: Language): string {
+  return hybridNamesLocalized[koreanName]?.[language] || koreanName;
+}
+
+export interface LocalizedBlendDescription {
+  pureTemplate: string;
+  pureWithSecondaryTemplate: string;
+  slightTemplate: string;
+  balancedTemplate: string;
+}
+
+const blendDescriptionTemplates: Record<Language, LocalizedBlendDescription> = {
+  ko: {
+    pureTemplate: '{animalDesc} {animal} 성향이에요. {typeDesc}',
+    pureWithSecondaryTemplate: '{primaryDesc} {primaryAnimal} 성향이 주를 이루지만, {secondaryDesc} {secondaryAnimal}의 특성도 함께 가지고 있어요. 두 가지 성향이 조화를 이루며 상황에 따라 다양한 모습을 보여줘요.',
+    slightTemplate: '{primaryAnimal}의 특성이 강하지만, {traits}도 함께 가지고 있어서 {secondaryAnimal}의 매력도 있어요.',
+    balancedTemplate: '{primaryAnimal}와(과) {secondaryAnimal}이(가) 조화롭게 섞인 특별한 성격이에요. {traits}을(를) 모두 가지고 있어서 상황에 따라 다양하게 행동해요.'
+  },
+  en: {
+    pureTemplate: 'Has a {animal} personality - {typeDesc}',
+    pureWithSecondaryTemplate: 'Primarily has {primaryAnimal} traits, but also shares characteristics of {secondaryAnimal}. These two sides blend together, showing different aspects depending on the situation.',
+    slightTemplate: 'Strong {primaryAnimal} characteristics, but also has {traits}, which adds some {secondaryAnimal} charm.',
+    balancedTemplate: 'A special personality that harmoniously blends {primaryAnimal} and {secondaryAnimal}. Has both {traits}, behaving differently depending on the situation.'
+  },
+  ja: {
+    pureTemplate: '{animal}の性格です - {typeDesc}',
+    pureWithSecondaryTemplate: '主に{primaryAnimal}の特性がありますが、{secondaryAnimal}の特徴も持っています。二つの性向が調和し、状況によって様々な姿を見せます。',
+    slightTemplate: '{primaryAnimal}の特性が強いですが、{traits}も持っていて、{secondaryAnimal}の魅力もあります。',
+    balancedTemplate: '{primaryAnimal}と{secondaryAnimal}が調和した特別な性格です。{traits}を両方持っていて、状況によって多様に行動します。'
+  },
+  zh: {
+    pureTemplate: '有{animal}的性格 - {typeDesc}',
+    pureWithSecondaryTemplate: '主要具有{primaryAnimal}的特性，但也有{secondaryAnimal}的特点。这两种性格融合在一起，根据情况展现不同的一面。',
+    slightTemplate: '{primaryAnimal}的特性很强，但也有{traits}，所以也有{secondaryAnimal}的魅力。',
+    balancedTemplate: '{primaryAnimal}和{secondaryAnimal}和谐融合的特别性格。同时具有{traits}，根据情况表现不同。'
+  }
+};
+
+const traitLabelsLocalized: Record<string, Record<Language, string>> = {
+  E: { ko: '외향적인', en: 'extroverted', ja: '外向的な', zh: '外向的' },
+  I: { ko: '내향적인', en: 'introverted', ja: '内向的な', zh: '内向的' },
+  S: { ko: '현실적인', en: 'practical', ja: '現実的な', zh: '现实的' },
+  N: { ko: '직관적인', en: 'intuitive', ja: '直感的な', zh: '直觉的' },
+  T: { ko: '논리적인', en: 'logical', ja: '論理的な', zh: '逻辑的' },
+  F: { ko: '감성적인', en: 'emotional', ja: '感情的な', zh: '感性的' },
+  J: { ko: '계획적인', en: 'planned', ja: '計画的な', zh: '有计划的' },
+  P: { ko: '자유로운', en: 'spontaneous', ja: '自由な', zh: '自由的' }
+};
+
+const animalDescriptionsLocalized: Record<string, Record<Language, string>> = {
+  '올빼미': { 
+    ko: '혼자서 깊이 생각하는 것을 좋아하고, 전략적으로 목표를 달성하는',
+    en: 'likes to think deeply alone and strategically achieves goals',
+    ja: '一人で深く考えることが好きで、戦略的に目標を達成する',
+    zh: '喜欢独自深思，战略性地实现目标'
+  },
+  '너구리': {
+    ko: '끝없는 호기심으로 새로운 것을 탐구하고 분석하는',
+    en: 'explores and analyzes new things with endless curiosity',
+    ja: '終わりなき好奇心で新しいことを探求し分析する',
+    zh: '以无尽的好奇心探索和分析新事物'
+  },
+  '사자': {
+    ko: '리더십이 강하고 목표를 향해 당당하게 나아가는',
+    en: 'has strong leadership and confidently moves toward goals',
+    ja: 'リーダーシップが強く、目標に向かって堂々と進む',
+    zh: '领导力强，自信地朝着目标前进'
+  },
+  '여우': {
+    ko: '재치있고 창의적이며, 새로운 아이디어로 가득한',
+    en: 'witty and creative, full of new ideas',
+    ja: '機知に富み創造的で、新しいアイデアに満ちた',
+    zh: '机智且有创意，充满新点子'
+  },
+  '늑대': {
+    ko: '신비롭고 깊은 통찰력을 가진 이상주의자',
+    en: 'mysterious idealist with deep insight',
+    ja: '神秘的で深い洞察力を持つ理想主義者',
+    zh: '神秘且有深刻洞察力的理想主义者'
+  },
+  '유니콘': {
+    ko: '상상력이 풍부하고 자신만의 세계를 가진 몽상가',
+    en: 'imaginative dreamer with their own world',
+    ja: '想像力豊かで自分だけの世界を持つ夢想家',
+    zh: '想象力丰富，有自己世界的梦想家'
+  },
+  '돌고래': {
+    ko: '따뜻하고 친절하며, 다른 사람을 돕는 것을 좋아하는',
+    en: 'warm and kind, loves helping others',
+    ja: '温かく親切で、他の人を助けることが好きな',
+    zh: '温暖善良，喜欢帮助他人'
+  },
+  '수달': {
+    ko: '활발하고 사교적이며, 놀기를 좋아하는 에너자이저',
+    en: 'active, social energizer who loves to play',
+    ja: '活発で社交的で、遊ぶのが好きなエナジャイザー',
+    zh: '活跃、社交、爱玩的活力者'
+  },
+  '거북이': {
+    ko: '꾸준하고 신뢰할 수 있으며, 맡은 일을 끝까지 해내는',
+    en: 'steady and reliable, completes tasks to the end',
+    ja: '着実で信頼でき、任された仕事を最後までやり遂げる',
+    zh: '稳重可靠，把任务完成到底'
+  },
+  '토끼': {
+    ko: '부드럽고 다정하며, 주변 사람들을 세심하게 챙기는',
+    en: 'gentle and caring, attentively looks after those around',
+    ja: '優しく愛情深く、周りの人を細やかに気遣う',
+    zh: '温柔体贴，细心照顾周围的人'
+  },
+  '독수리': {
+    ko: '책임감이 강하고 체계적으로 일을 처리하는',
+    en: 'highly responsible and handles tasks systematically',
+    ja: '責任感が強く、体系的に仕事を処理する',
+    zh: '责任感强，系统地处理事务'
+  },
+  '강아지': {
+    ko: '사교적이고 친근하며, 모두와 어울리기를 좋아하는',
+    en: 'social and friendly, loves getting along with everyone',
+    ja: '社交的で親しみやすく、皆と仲良くするのが好きな',
+    zh: '善于社交，友好，喜欢与大家相处'
+  },
+  '표범': {
+    ko: '독립적이고 손재주가 뛰어나며, 문제를 바로 해결하는',
+    en: 'independent, skilled, and solves problems right away',
+    ja: '独立心があり器用で、問題をすぐ解決する',
+    zh: '独立，手巧，立即解决问题'
+  },
+  '고양이': {
+    ko: '예술적 감각이 뛰어나고 자유로운 영혼을 가진',
+    en: 'artistic sense and free spirit',
+    ja: '芸術的センスに優れ、自由な魂を持つ',
+    zh: '艺术感强，拥有自由的灵魂'
+  },
+  '치타': {
+    ko: '모험을 즐기고 행동력이 넘치는 활동가',
+    en: 'adventurous activist full of action',
+    ja: '冒険を楽しみ、行動力に溢れる活動家',
+    zh: '喜欢冒险，充满行动力的活动家'
+  },
+  '앵무새': {
+    ko: '밝고 에너지 넘치며, 주변을 즐겁게 만드는',
+    en: 'bright and energetic, makes everyone happy',
+    ja: '明るくエネルギーに溢れ、周りを楽しくさせる',
+    zh: '开朗有活力，让周围的人快乐'
+  }
+};
+
+export function getLocalizedAnimalDescription(koreanAnimal: string, language: Language): string {
+  return animalDescriptionsLocalized[koreanAnimal]?.[language] || '';
+}
+
+export function getLocalizedTraitLabel(trait: string, language: Language): string {
+  return traitLabelsLocalized[trait]?.[language] || trait;
+}
+
+export function getBlendDescriptionTemplates(language: Language): LocalizedBlendDescription {
+  return blendDescriptionTemplates[language];
+}
+
+interface DimensionInsightItem {
+  communication: string;
+  behavior: string;
+  thinking: string;
+  parentGuidance?: string[];
+  childUnderstanding?: string[];
+}
+
+interface LocalizedDimensionInsights {
+  EI: {
+    same: { E: DimensionInsightItem; I: DimensionInsightItem };
+    different: { parentE_childI: DimensionInsightItem; parentI_childE: DimensionInsightItem };
+  };
+  SN: {
+    same: { S: DimensionInsightItem; N: DimensionInsightItem };
+    different: { parentS_childN: DimensionInsightItem; parentN_childS: DimensionInsightItem };
+  };
+  TF: {
+    same: { T: DimensionInsightItem; F: DimensionInsightItem };
+    different: { parentT_childF: DimensionInsightItem; parentF_childT: DimensionInsightItem };
+  };
+  JP: {
+    same: { J: DimensionInsightItem; P: DimensionInsightItem };
+    different: { parentJ_childP: DimensionInsightItem; parentP_childJ: DimensionInsightItem };
+  };
+}
+
+const dimensionInsightsLocalized: Record<Language, LocalizedDimensionInsights> = {
+  ko: {
+    EI: {
+      same: {
+        E: {
+          communication: '둘 다 활발하게 대화하고 생각을 바로 표현해요.',
+          behavior: '함께 활동적으로 시간을 보내는 것을 좋아해요.',
+          thinking: '외부 활동과 사람들과의 교류를 통해 에너지를 얻어요.'
+        },
+        I: {
+          communication: '둘 다 조용하고 깊은 대화를 선호해요.',
+          behavior: '함께 조용히 시간을 보내는 것을 편안하게 느껴요.',
+          thinking: '혼자만의 시간과 내면의 생각을 중요시해요.'
+        }
+      },
+      different: {
+        parentE_childI: {
+          communication: '엄마는 말로 표현하고 싶지만, 아이는 속으로 생각을 정리해요.',
+          behavior: '엄마는 밖에서 함께하고 싶지만, 아이는 집에서 쉬고 싶어해요.',
+          thinking: '엄마는 대화로 에너지를 얻지만, 아이는 혼자 있을 때 충전돼요.',
+          parentGuidance: [
+            '아이가 혼자 있는 시간을 존중해주세요',
+            '대화를 강요하지 말고 아이의 페이스에 맞춰주세요',
+            '조용한 환경에서 1:1로 대화하면 아이가 더 편하게 말해요',
+            '아이가 생각을 정리할 시간을 주세요'
+          ],
+          childUnderstanding: [
+            '엄마가 자꾸 말을 거는 건 너를 사랑해서야',
+            '엄마는 대화하면서 기분이 좋아져',
+            '엄마가 밖에 나가자고 하는 건 함께 시간을 보내고 싶어서야',
+            '네가 조용히 있고 싶을 땐 엄마한테 말해도 괜찮아'
+          ]
+        },
+        parentI_childE: {
+          communication: '엄마는 조용히 듣고 싶지만, 아이는 신나게 이야기해요.',
+          behavior: '엄마는 집에서 쉬고 싶지만, 아이는 밖에서 놀고 싶어해요.',
+          thinking: '엄마는 혼자 생각할 때 편하지만, 아이는 사람들과 있을 때 행복해요.',
+          parentGuidance: [
+            '아이가 이야기할 때 적극적으로 들어주세요',
+            '아이가 친구들과 어울릴 기회를 많이 만들어주세요',
+            '아이의 에너지 넘치는 모습을 긍정적으로 받아들이세요',
+            '가끔은 엄마도 아이와 함께 활동적으로 놀아주세요'
+          ],
+          childUnderstanding: [
+            '엄마가 조용히 있고 싶을 때가 있어',
+            '엄마가 집에 있고 싶어하는 건 피곤해서가 아니라 그게 편해서야',
+            '엄마도 너랑 놀고 싶지만 방식이 다를 뿐이야',
+            '엄마한테 조용히 옆에 있어주는 것도 사랑 표현이야'
+          ]
+        }
+      }
+    },
+    SN: {
+      same: {
+        S: {
+          communication: '둘 다 구체적이고 실제적인 이야기를 좋아해요.',
+          behavior: '현실적이고 실용적인 방식으로 문제를 해결해요.',
+          thinking: '지금 눈앞에 있는 것에 집중해요.'
+        },
+        N: {
+          communication: '둘 다 상상력 풍부한 이야기를 좋아해요.',
+          behavior: '새로운 가능성과 아이디어를 탐구하는 것을 좋아해요.',
+          thinking: '미래와 가능성에 대해 생각하는 것을 즐겨요.'
+        }
+      },
+      different: {
+        parentS_childN: {
+          communication: '엄마는 실제 일어난 일을 말하지만, 아이는 상상의 이야기를 해요.',
+          behavior: '엄마는 현실적인 방법을 원하지만, 아이는 창의적인 방법을 시도해요.',
+          thinking: '엄마는 지금 당장 해야 할 일에 집중하지만, 아이는 미래를 꿈꿔요.',
+          parentGuidance: [
+            '아이의 상상력과 창의성을 인정해주세요',
+            '"그건 현실적이지 않아"라는 말 대신 "재미있는 생각이네"라고 해주세요',
+            '아이가 꿈꾸는 것을 현실로 연결하는 방법을 함께 찾아보세요',
+            '때로는 아이의 상상 세계에 함께 들어가보세요'
+          ],
+          childUnderstanding: [
+            '엄마가 현실적인 이야기를 하는 건 너를 걱정해서야',
+            '엄마는 지금 당장 필요한 것들을 잘 챙겨',
+            '네 꿈을 이루려면 엄마처럼 현실적인 계획도 필요해',
+            '엄마도 상상하는 건 어려울 수 있어'
+          ]
+        },
+        parentN_childS: {
+          communication: '엄마는 미래 이야기를 하지만, 아이는 지금 있는 것에 관심이 있어요.',
+          behavior: '엄마는 새로운 것을 시도하고 싶지만, 아이는 익숙한 것을 좋아해요.',
+          thinking: '엄마는 가능성을 보지만, 아이는 눈앞의 현실을 봐요.',
+          parentGuidance: [
+            '아이에게 구체적이고 단계별로 설명해주세요',
+            '추상적인 개념보다 실제 예시를 들어주세요',
+            '아이가 세부사항에 집중하는 것을 인정해주세요',
+            '새로운 것을 시도할 때 충분한 시간을 주세요'
+          ],
+          childUnderstanding: [
+            '엄마가 미래 이야기를 많이 하는 건 너의 가능성을 믿어서야',
+            '엄마는 새로운 것을 상상하는 게 재미있어',
+            '네가 꼼꼼하게 하나씩 하는 것도 정말 중요해',
+            '엄마의 큰 그림과 네 꼼꼼함이 만나면 최고야'
+          ]
+        }
+      }
+    },
+    TF: {
+      same: {
+        T: {
+          communication: '둘 다 논리적이고 객관적으로 대화해요.',
+          behavior: '문제가 생기면 감정보다 해결책을 먼저 찾아요.',
+          thinking: '결정할 때 논리와 이유를 중요하게 생각해요.'
+        },
+        F: {
+          communication: '둘 다 감정을 나누고 공감하는 것을 좋아해요.',
+          behavior: '서로의 기분을 살피며 배려해요.',
+          thinking: '결정할 때 관계와 감정을 중요하게 생각해요.'
+        }
+      },
+      different: {
+        parentT_childF: {
+          communication: '엄마는 이성적으로 설명하지만, 아이는 감정을 먼저 느껴요.',
+          behavior: '엄마는 해결책을 제시하지만, 아이는 위로를 원해요.',
+          thinking: '엄마는 "왜"를 따지지만, 아이는 "기분이 어때"가 중요해요.',
+          parentGuidance: [
+            '아이가 속상할 때 해결책보다 먼저 공감해주세요',
+            '"왜 그랬어?"보다 "많이 힘들었구나"라고 말해주세요',
+            '아이의 감정을 인정하고 표현하게 해주세요',
+            '비판보다 격려의 말을 먼저 해주세요'
+          ],
+          childUnderstanding: [
+            '엄마가 이유를 묻는 건 너를 이해하고 싶어서야',
+            '엄마가 해결책을 말하는 건 도와주고 싶어서야',
+            '엄마도 너를 사랑하지만 표현 방식이 다를 뿐이야',
+            '엄마한테 네 감정을 말로 설명해주면 더 잘 이해해'
+          ]
+        },
+        parentF_childT: {
+          communication: '엄마는 감정을 나누고 싶지만, 아이는 사실만 말해요.',
+          behavior: '엄마는 기분을 살피지만, 아이는 논리적으로 행동해요.',
+          thinking: '엄마는 관계가 중요하지만, 아이는 결과가 중요해요.',
+          parentGuidance: [
+            '아이의 논리적인 성향을 인정해주세요',
+            '감정을 강요하지 말고 아이의 방식을 존중해주세요',
+            '아이가 감정을 표현하지 않아도 괜찮다고 말해주세요',
+            '논리적인 대화도 사랑의 표현임을 알아주세요'
+          ],
+          childUnderstanding: [
+            '엄마가 기분을 자주 묻는 건 너를 걱정해서야',
+            '엄마는 감정을 나누면서 가까워진다고 느껴',
+            '가끔 엄마한테 "좋아" "괜찮아"라고 말해주면 기뻐해',
+            '엄마의 걱정은 사랑의 다른 표현이야'
+          ]
+        }
+      }
+    },
+    JP: {
+      same: {
+        J: {
+          communication: '둘 다 계획적으로 일정을 정하고 지켜요.',
+          behavior: '체계적이고 규칙적인 생활을 좋아해요.',
+          thinking: '결정을 빨리 내리고 계획대로 실행하는 것을 선호해요.'
+        },
+        P: {
+          communication: '둘 다 유연하게 상황에 맞춰요.',
+          behavior: '자유롭고 즉흥적인 것을 좋아해요.',
+          thinking: '여러 가능성을 열어두고 천천히 결정해요.'
+        }
+      },
+      different: {
+        parentJ_childP: {
+          communication: '엄마는 계획을 세우자고 하지만, 아이는 그때그때 하고 싶어해요.',
+          behavior: '엄마는 규칙을 따르지만, 아이는 자유롭게 하고 싶어해요.',
+          thinking: '엄마는 미리 정해야 편하지만, 아이는 열어두는 게 좋아요.',
+          parentGuidance: [
+            '아이에게 너무 빡빡한 일정을 강요하지 마세요',
+            '큰 틀만 정하고 세부사항은 유연하게 해주세요',
+            '아이의 즉흥적인 행동도 장점이 될 수 있어요',
+            '마감 시간만 정하고 방법은 아이에게 맡겨보세요'
+          ],
+          childUnderstanding: [
+            '엄마가 계획을 세우는 건 일이 잘 되게 하려고 그래',
+            '약속 시간을 지키는 건 서로를 존중하는 거야',
+            '엄마는 예상치 못한 일이 생기면 불안해할 수 있어',
+            '중요한 일은 미리 말해주면 엄마가 편해해'
+          ]
+        },
+        parentP_childJ: {
+          communication: '엄마는 유연하게 가자고 하지만, 아이는 계획이 필요해요.',
+          behavior: '엄마는 즉흥적이지만, 아이는 정해진 대로 하고 싶어해요.',
+          thinking: '엄마는 열어두고 싶지만, 아이는 빨리 정하고 싶어해요.',
+          parentGuidance: [
+            '아이가 계획을 세울 수 있도록 미리 정보를 주세요',
+            '갑자기 일정을 바꾸면 아이가 불안해할 수 있어요',
+            '아이의 규칙적인 생활 리듬을 존중해주세요',
+            '변경이 있을 때는 미리 알려주세요'
+          ],
+          childUnderstanding: [
+            '엄마가 갑자기 바꾸는 건 새로운 기회를 보기 때문이야',
+            '엄마는 유연하게 하는 게 편해',
+            '계획이 바뀌어도 괜찮을 때가 있어',
+            '엄마한테 네가 계획이 필요하다고 말해도 돼'
+          ]
+        }
+      }
+    }
+  },
+  en: {
+    EI: {
+      same: {
+        E: {
+          communication: 'Both actively talk and express thoughts right away.',
+          behavior: 'Both enjoy spending time doing activities together.',
+          thinking: 'Both gain energy from external activities and interacting with people.'
+        },
+        I: {
+          communication: 'Both prefer quiet, deep conversations.',
+          behavior: 'Both feel comfortable spending quiet time together.',
+          thinking: 'Both value alone time and inner thoughts.'
+        }
+      },
+      different: {
+        parentE_childI: {
+          communication: 'Mom wants to express verbally, but child organizes thoughts internally.',
+          behavior: 'Mom wants to go out together, but child prefers staying home.',
+          thinking: 'Mom gains energy from conversations, but child recharges when alone.',
+          parentGuidance: [
+            'Respect your child\'s alone time',
+            'Don\'t force conversations, match your child\'s pace',
+            'Your child opens up more in quiet 1:1 settings',
+            'Give your child time to organize their thoughts'
+          ],
+          childUnderstanding: [
+            'Mom talks to you a lot because she loves you',
+            'Mom feels happy when talking with you',
+            'Mom wants to go out because she wants to spend time with you',
+            'It\'s okay to tell Mom when you need quiet time'
+          ]
+        },
+        parentI_childE: {
+          communication: 'Mom wants to listen quietly, but child talks excitedly.',
+          behavior: 'Mom wants to rest at home, but child wants to play outside.',
+          thinking: 'Mom feels comfortable thinking alone, but child is happy around people.',
+          parentGuidance: [
+            'Listen actively when your child talks',
+            'Create many opportunities for your child to socialize',
+            'Accept your child\'s energetic nature positively',
+            'Sometimes join in active play with your child'
+          ],
+          childUnderstanding: [
+            'Mom sometimes needs quiet time',
+            'Mom prefers staying home because it\'s comfortable, not because she\'s tired',
+            'Mom wants to play with you too, just in different ways',
+            'Sitting quietly beside Mom is also a way to show love'
+          ]
+        }
+      }
+    },
+    SN: {
+      same: {
+        S: {
+          communication: 'Both prefer concrete and practical conversations.',
+          behavior: 'Both solve problems in realistic and practical ways.',
+          thinking: 'Both focus on what\'s right in front of them.'
+        },
+        N: {
+          communication: 'Both enjoy imaginative stories.',
+          behavior: 'Both like exploring new possibilities and ideas.',
+          thinking: 'Both enjoy thinking about the future and possibilities.'
+        }
+      },
+      different: {
+        parentS_childN: {
+          communication: 'Mom talks about real events, but child tells imaginative stories.',
+          behavior: 'Mom wants practical methods, but child tries creative approaches.',
+          thinking: 'Mom focuses on immediate tasks, but child dreams about the future.',
+          parentGuidance: [
+            'Acknowledge your child\'s imagination and creativity',
+            'Instead of "That\'s not realistic," say "What an interesting idea"',
+            'Help connect your child\'s dreams to reality together',
+            'Sometimes enter your child\'s imaginative world'
+          ],
+          childUnderstanding: [
+            'Mom talks about realistic things because she cares about you',
+            'Mom is good at taking care of immediate needs',
+            'To achieve your dreams, you need realistic plans like Mom makes',
+            'Imagining might be hard for Mom sometimes'
+          ]
+        },
+        parentN_childS: {
+          communication: 'Mom talks about the future, but child is interested in the present.',
+          behavior: 'Mom wants to try new things, but child prefers familiar things.',
+          thinking: 'Mom sees possibilities, but child sees immediate reality.',
+          parentGuidance: [
+            'Explain things concretely and step by step',
+            'Use real examples rather than abstract concepts',
+            'Acknowledge your child\'s attention to details',
+            'Give enough time when trying new things'
+          ],
+          childUnderstanding: [
+            'Mom talks about the future because she believes in your potential',
+            'Mom finds imagining new things fun',
+            'Your careful, step-by-step approach is really important too',
+            'When Mom\'s big picture meets your attention to detail, it\'s the best'
+          ]
+        }
+      }
+    },
+    TF: {
+      same: {
+        T: {
+          communication: 'Both communicate logically and objectively.',
+          behavior: 'When problems arise, both look for solutions before emotions.',
+          thinking: 'Both value logic and reasons when making decisions.'
+        },
+        F: {
+          communication: 'Both enjoy sharing emotions and empathizing.',
+          behavior: 'Both check on each other\'s feelings and show care.',
+          thinking: 'Both value relationships and emotions when making decisions.'
+        }
+      },
+      different: {
+        parentT_childF: {
+          communication: 'Mom explains rationally, but child feels emotions first.',
+          behavior: 'Mom offers solutions, but child wants comfort.',
+          thinking: 'Mom asks "why," but for child "how do you feel" is important.',
+          parentGuidance: [
+            'When your child is upset, empathize before offering solutions',
+            'Say "That must have been hard" instead of "Why did you do that?"',
+            'Acknowledge your child\'s feelings and let them express them',
+            'Give encouragement before criticism'
+          ],
+          childUnderstanding: [
+            'Mom asks reasons because she wants to understand you',
+            'Mom offers solutions because she wants to help',
+            'Mom loves you too, just expresses it differently',
+            'If you explain your feelings in words, Mom understands better'
+          ]
+        },
+        parentF_childT: {
+          communication: 'Mom wants to share feelings, but child states facts.',
+          behavior: 'Mom checks on feelings, but child acts logically.',
+          thinking: 'Relationships are important to Mom, but results matter to child.',
+          parentGuidance: [
+            'Acknowledge your child\'s logical nature',
+            'Don\'t force emotions, respect your child\'s way',
+            'Tell your child it\'s okay not to express emotions',
+            'Understand that logical conversation is also a way of showing love'
+          ],
+          childUnderstanding: [
+            'Mom asks about your feelings often because she cares',
+            'Mom feels closer when sharing emotions',
+            'Saying "I\'m fine" or "I like it" sometimes makes Mom happy',
+            'Mom\'s concern is another way of showing love'
+          ]
+        }
+      }
+    },
+    JP: {
+      same: {
+        J: {
+          communication: 'Both plan schedules and follow them.',
+          behavior: 'Both prefer systematic and regular lifestyles.',
+          thinking: 'Both prefer making quick decisions and following plans.'
+        },
+        P: {
+          communication: 'Both adapt flexibly to situations.',
+          behavior: 'Both enjoy freedom and spontaneity.',
+          thinking: 'Both keep options open and decide slowly.'
+        }
+      },
+      different: {
+        parentJ_childP: {
+          communication: 'Mom wants to make plans, but child wants to go with the flow.',
+          behavior: 'Mom follows rules, but child wants to be free.',
+          thinking: 'Mom feels comfortable deciding ahead, but child prefers keeping options open.',
+          parentGuidance: [
+            'Don\'t force too strict schedules on your child',
+            'Set the big picture and be flexible with details',
+            'Your child\'s spontaneity can be a strength',
+            'Set deadlines but let your child decide the method'
+          ],
+          childUnderstanding: [
+            'Mom makes plans so things go well',
+            'Keeping promises is showing respect for each other',
+            'Mom might feel anxious when unexpected things happen',
+            'Telling Mom important things ahead of time helps her feel comfortable'
+          ]
+        },
+        parentP_childJ: {
+          communication: 'Mom wants to be flexible, but child needs plans.',
+          behavior: 'Mom is spontaneous, but child wants to follow set plans.',
+          thinking: 'Mom wants to keep options open, but child wants to decide quickly.',
+          parentGuidance: [
+            'Give information in advance so your child can plan',
+            'Your child might feel anxious with sudden schedule changes',
+            'Respect your child\'s regular life rhythm',
+            'Give advance notice when there are changes'
+          ],
+          childUnderstanding: [
+            'Mom changes things suddenly because she sees new opportunities',
+            'Mom feels comfortable being flexible',
+            'Sometimes it\'s okay when plans change',
+            'It\'s okay to tell Mom that you need plans'
+          ]
+        }
+      }
+    }
+  },
+  ja: {
+    EI: {
+      same: {
+        E: {
+          communication: '二人とも活発に会話し、考えをすぐに表現します。',
+          behavior: '一緒に活動的に時間を過ごすのが好きです。',
+          thinking: '外部活動や人との交流からエネルギーを得ます。'
+        },
+        I: {
+          communication: '二人とも静かで深い会話を好みます。',
+          behavior: '一緒に静かに時間を過ごすのが心地よいです。',
+          thinking: '一人の時間と内面の思考を大切にします。'
+        }
+      },
+      different: {
+        parentE_childI: {
+          communication: 'ママは言葉で表現したいですが、子どもは心の中で考えを整理します。',
+          behavior: 'ママは外で一緒にいたいですが、子どもは家で休みたがります。',
+          thinking: 'ママは会話でエネルギーを得ますが、子どもは一人でいる時に充電されます。',
+          parentGuidance: [
+            '子どもの一人の時間を尊重してあげてください',
+            '会話を強制せず、子どものペースに合わせてください',
+            '静かな環境で1対1で話すと子どもはもっと話しやすくなります',
+            '子どもが考えを整理する時間を与えてください'
+          ],
+          childUnderstanding: [
+            'ママがたくさん話しかけるのは、あなたを愛しているからだよ',
+            'ママは話していると気分が良くなるの',
+            'ママが外に行こうと言うのは、一緒に時間を過ごしたいからだよ',
+            '静かにしたい時はママに言っても大丈夫だよ'
+          ]
+        },
+        parentI_childE: {
+          communication: 'ママは静かに聞きたいですが、子どもは楽しそうに話します。',
+          behavior: 'ママは家で休みたいですが、子どもは外で遊びたがります。',
+          thinking: 'ママは一人で考える時が楽ですが、子どもは人といる時が幸せです。',
+          parentGuidance: [
+            '子どもが話す時は積極的に聞いてあげてください',
+            '子どもが友達と交流する機会をたくさん作ってあげてください',
+            '子どものエネルギッシュな姿を前向きに受け入れてください',
+            '時々ママも子どもと一緒に活動的に遊んであげてください'
+          ],
+          childUnderstanding: [
+            'ママは静かにしたい時があるの',
+            'ママが家にいたがるのは疲れているからじゃなくて、それが心地よいからだよ',
+            'ママもあなたと遊びたいけど、方法が違うだけだよ',
+            'ママのそばで静かにいることも愛情表現だよ'
+          ]
+        }
+      }
+    },
+    SN: {
+      same: {
+        S: {
+          communication: '二人とも具体的で実際的な話を好みます。',
+          behavior: '現実的で実用的な方法で問題を解決します。',
+          thinking: '今目の前にあることに集中します。'
+        },
+        N: {
+          communication: '二人とも想像力豊かな話を好みます。',
+          behavior: '新しい可能性やアイデアを探求することを好みます。',
+          thinking: '未来と可能性について考えることを楽しみます。'
+        }
+      },
+      different: {
+        parentS_childN: {
+          communication: 'ママは実際に起こったことを話しますが、子どもは想像の話をします。',
+          behavior: 'ママは現実的な方法を望みますが、子どもは創造的な方法を試みます。',
+          thinking: 'ママは今やるべきことに集中しますが、子どもは未来を夢見ます。',
+          parentGuidance: [
+            '子どもの想像力と創造性を認めてあげてください',
+            '「それは現実的じゃない」の代わりに「面白い考えだね」と言ってあげてください',
+            '子どもの夢を現実に繋げる方法を一緒に探してみてください',
+            '時には子どもの想像の世界に一緒に入ってみてください'
+          ],
+          childUnderstanding: [
+            'ママが現実的な話をするのは、あなたを心配しているからだよ',
+            'ママは今必要なものをちゃんと用意するのが得意だよ',
+            'あなたの夢を叶えるには、ママのような現実的な計画も必要だよ',
+            'ママも想像するのは難しいこともあるよ'
+          ]
+        },
+        parentN_childS: {
+          communication: 'ママは未来の話をしますが、子どもは今あるものに興味があります。',
+          behavior: 'ママは新しいことを試したいですが、子どもは慣れたものを好みます。',
+          thinking: 'ママは可能性を見ますが、子どもは目の前の現実を見ます。',
+          parentGuidance: [
+            '子どもに具体的にステップバイステップで説明してあげてください',
+            '抽象的な概念より実際の例を挙げてあげてください',
+            '子どもが細部に集中することを認めてあげてください',
+            '新しいことを試す時は十分な時間を与えてください'
+          ],
+          childUnderstanding: [
+            'ママが未来の話をたくさんするのは、あなたの可能性を信じているからだよ',
+            'ママは新しいことを想像するのが楽しいの',
+            'あなたが丁寧に一つずつやることもとても大切だよ',
+            'ママの大きな絵とあなたの細やかさが合わさると最高だよ'
+          ]
+        }
+      }
+    },
+    TF: {
+      same: {
+        T: {
+          communication: '二人とも論理的で客観的に会話します。',
+          behavior: '問題が起きたら感情より解決策を先に探します。',
+          thinking: '決定する時、論理と理由を重視します。'
+        },
+        F: {
+          communication: '二人とも感情を分かち合い、共感することを好みます。',
+          behavior: 'お互いの気持ちを気遣い、配慮します。',
+          thinking: '決定する時、関係と感情を重視します。'
+        }
+      },
+      different: {
+        parentT_childF: {
+          communication: 'ママは理性的に説明しますが、子どもは感情を先に感じます。',
+          behavior: 'ママは解決策を提示しますが、子どもは慰めを望みます。',
+          thinking: 'ママは「なぜ」を問いますが、子どもには「気持ちはどう」が大切です。',
+          parentGuidance: [
+            '子どもが辛い時は解決策より先に共感してあげてください',
+            '「なんでそうしたの？」より「大変だったね」と言ってあげてください',
+            '子どもの感情を認め、表現させてあげてください',
+            '批判より励ましの言葉を先にかけてあげてください'
+          ],
+          childUnderstanding: [
+            'ママが理由を聞くのは、あなたを理解したいからだよ',
+            'ママが解決策を言うのは、助けたいからだよ',
+            'ママもあなたを愛しているけど、表現の仕方が違うだけだよ',
+            'ママに気持ちを言葉で説明するともっとわかってもらえるよ'
+          ]
+        },
+        parentF_childT: {
+          communication: 'ママは感情を分かち合いたいですが、子どもは事実だけを話します。',
+          behavior: 'ママは気持ちを気遣いますが、子どもは論理的に行動します。',
+          thinking: 'ママには関係が大事ですが、子どもには結果が大事です。',
+          parentGuidance: [
+            '子どもの論理的な性向を認めてあげてください',
+            '感情を強制せず、子どもの方法を尊重してあげてください',
+            '子どもが感情を表現しなくても大丈夫だと伝えてあげてください',
+            '論理的な会話も愛情表現であることを理解してあげてください'
+          ],
+          childUnderstanding: [
+            'ママが気持ちをよく聞くのは、あなたを心配しているからだよ',
+            'ママは感情を分かち合うと近くなると感じるの',
+            '時々ママに「好き」「大丈夫」と言ってあげると喜ぶよ',
+            'ママの心配は愛情の別の表現だよ'
+          ]
+        }
+      }
+    },
+    JP: {
+      same: {
+        J: {
+          communication: '二人とも計画的にスケジュールを決めて守ります。',
+          behavior: '体系的で規則的な生活を好みます。',
+          thinking: '決定を早くし、計画通りに実行することを好みます。'
+        },
+        P: {
+          communication: '二人とも柔軟に状況に合わせます。',
+          behavior: '自由で即興的なことを好みます。',
+          thinking: '様々な可能性を残してゆっくり決めます。'
+        }
+      },
+      different: {
+        parentJ_childP: {
+          communication: 'ママは計画を立てようと言いますが、子どもはその場その場でやりたがります。',
+          behavior: 'ママはルールに従いますが、子どもは自由にやりたがります。',
+          thinking: 'ママは事前に決めると楽ですが、子どもは選択肢を開けておくのが好きです。',
+          parentGuidance: [
+            '子どもにあまり厳しいスケジュールを強制しないでください',
+            '大枠だけ決めて詳細は柔軟にしてあげてください',
+            '子どもの即興的な行動も長所になり得ます',
+            '締め切りだけ決めて方法は子どもに任せてみてください'
+          ],
+          childUnderstanding: [
+            'ママが計画を立てるのは物事がうまくいくようにするためだよ',
+            '約束の時間を守ることはお互いを尊重することだよ',
+            'ママは予想外のことがあると不安になることがあるよ',
+            '大事なことは事前に言ってあげるとママは楽になるよ'
+          ]
+        },
+        parentP_childJ: {
+          communication: 'ママは柔軟にいこうと言いますが、子どもは計画が必要です。',
+          behavior: 'ママは即興的ですが、子どもは決まった通りにやりたがります。',
+          thinking: 'ママは選択肢を開けておきたいですが、子どもは早く決めたいです。',
+          parentGuidance: [
+            '子どもが計画を立てられるように事前に情報を与えてください',
+            '急にスケジュールを変えると子どもが不安になることがあります',
+            '子どもの規則的な生活リズムを尊重してあげてください',
+            '変更がある時は事前に知らせてあげてください'
+          ],
+          childUnderstanding: [
+            'ママが急に変えるのは新しいチャンスを見ているからだよ',
+            'ママは柔軟にするのが楽なの',
+            '計画が変わっても大丈夫な時もあるよ',
+            'ママに計画が必要だと言っても大丈夫だよ'
+          ]
+        }
+      }
+    }
+  },
+  zh: {
+    EI: {
+      same: {
+        E: {
+          communication: '两个人都活跃地交谈，立即表达想法。',
+          behavior: '喜欢一起活跃地度过时间。',
+          thinking: '从外部活动和与人交流中获得能量。'
+        },
+        I: {
+          communication: '两个人都喜欢安静深入的对话。',
+          behavior: '一起安静地度过时间感到舒适。',
+          thinking: '重视独处时间和内心思考。'
+        }
+      },
+      different: {
+        parentE_childI: {
+          communication: '妈妈想用语言表达，但孩子在心里整理想法。',
+          behavior: '妈妈想在外面一起玩，但孩子想在家休息。',
+          thinking: '妈妈通过对话获得能量，但孩子独处时才能充电。',
+          parentGuidance: [
+            '尊重孩子独处的时间',
+            '不要强迫对话，配合孩子的节奏',
+            '在安静的环境中一对一交谈，孩子会更容易开口',
+            '给孩子整理思绪的时间'
+          ],
+          childUnderstanding: [
+            '妈妈经常和你说话是因为爱你',
+            '妈妈聊天时会感到开心',
+            '妈妈想出去是因为想和你一起度过时光',
+            '想安静的时候可以告诉妈妈'
+          ]
+        },
+        parentI_childE: {
+          communication: '妈妈想安静地听，但孩子兴奋地说话。',
+          behavior: '妈妈想在家休息，但孩子想在外面玩。',
+          thinking: '妈妈独自思考时感到舒适，但孩子和人在一起时感到幸福。',
+          parentGuidance: [
+            '孩子说话时积极倾听',
+            '为孩子创造很多与朋友交往的机会',
+            '积极接受孩子充满活力的样子',
+            '有时妈妈也要和孩子一起活跃地玩'
+          ],
+          childUnderstanding: [
+            '妈妈有时需要安静',
+            '妈妈想待在家不是因为累，而是因为那样舒服',
+            '妈妈也想和你玩，只是方式不同',
+            '安静地陪在妈妈身边也是表达爱的方式'
+          ]
+        }
+      }
+    },
+    SN: {
+      same: {
+        S: {
+          communication: '两个人都喜欢具体实际的话题。',
+          behavior: '用现实实用的方式解决问题。',
+          thinking: '专注于眼前的事物。'
+        },
+        N: {
+          communication: '两个人都喜欢富有想象力的故事。',
+          behavior: '喜欢探索新的可能性和想法。',
+          thinking: '喜欢思考未来和可能性。'
+        }
+      },
+      different: {
+        parentS_childN: {
+          communication: '妈妈说实际发生的事，但孩子讲想象的故事。',
+          behavior: '妈妈想要现实的方法，但孩子尝试创意的方法。',
+          thinking: '妈妈专注于当前任务，但孩子梦想未来。',
+          parentGuidance: [
+            '认可孩子的想象力和创造力',
+            '不要说"那不现实"，而是说"有趣的想法"',
+            '一起寻找将孩子的梦想与现实联系的方法',
+            '有时候进入孩子的想象世界'
+          ],
+          childUnderstanding: [
+            '妈妈说现实的话是因为关心你',
+            '妈妈很擅长照顾当前需要的东西',
+            '实现梦想需要像妈妈那样的现实计划',
+            '有时候想象对妈妈来说也很难'
+          ]
+        },
+        parentN_childS: {
+          communication: '妈妈说未来的话题，但孩子对现在的事感兴趣。',
+          behavior: '妈妈想尝试新事物，但孩子喜欢熟悉的东西。',
+          thinking: '妈妈看到可能性，但孩子看到眼前的现实。',
+          parentGuidance: [
+            '给孩子具体地、一步步地解释',
+            '用实际例子而不是抽象概念',
+            '认可孩子对细节的关注',
+            '尝试新事物时给足够的时间'
+          ],
+          childUnderstanding: [
+            '妈妈多谈未来是因为相信你的潜力',
+            '妈妈觉得想象新事物很有趣',
+            '你仔细一步步做也很重要',
+            '妈妈的大局观和你的细心结合起来最棒'
+          ]
+        }
+      }
+    },
+    TF: {
+      same: {
+        T: {
+          communication: '两个人都理性客观地交流。',
+          behavior: '有问题时先找解决方案而不是情绪。',
+          thinking: '做决定时重视逻辑和理由。'
+        },
+        F: {
+          communication: '两个人都喜欢分享情感和共情。',
+          behavior: '相互关心彼此的感受并体贴。',
+          thinking: '做决定时重视关系和情感。'
+        }
+      },
+      different: {
+        parentT_childF: {
+          communication: '妈妈理性解释，但孩子先感受情绪。',
+          behavior: '妈妈提供解决方案，但孩子想要安慰。',
+          thinking: '妈妈问"为什么"，但孩子觉得"感觉怎么样"更重要。',
+          parentGuidance: [
+            '孩子难过时先共情再提供解决方案',
+            '说"一定很难"而不是"为什么那样做？"',
+            '认可孩子的情感并让他们表达',
+            '先给鼓励再给批评'
+          ],
+          childUnderstanding: [
+            '妈妈问原因是因为想理解你',
+            '妈妈说解决方案是因为想帮助你',
+            '妈妈也爱你，只是表达方式不同',
+            '用语言向妈妈解释你的感受会更好理解'
+          ]
+        },
+        parentF_childT: {
+          communication: '妈妈想分享情感，但孩子只说事实。',
+          behavior: '妈妈关心感受，但孩子理性行动。',
+          thinking: '对妈妈来说关系重要，但对孩子来说结果重要。',
+          parentGuidance: [
+            '认可孩子的理性倾向',
+            '不要强迫情感，尊重孩子的方式',
+            '告诉孩子不表达情感也没关系',
+            '理解理性对话也是表达爱的方式'
+          ],
+          childUnderstanding: [
+            '妈妈经常问感受是因为关心你',
+            '妈妈觉得分享情感会更亲近',
+            '偶尔对妈妈说"喜欢""没事"会让她开心',
+            '妈妈的担心是爱的另一种表达'
+          ]
+        }
+      }
+    },
+    JP: {
+      same: {
+        J: {
+          communication: '两个人都有计划地安排日程并遵守。',
+          behavior: '喜欢有系统、有规律的生活。',
+          thinking: '喜欢快速做决定并按计划执行。'
+        },
+        P: {
+          communication: '两个人都灵活适应情况。',
+          behavior: '喜欢自由和即兴。',
+          thinking: '保持多种可能性，慢慢做决定。'
+        }
+      },
+      different: {
+        parentJ_childP: {
+          communication: '妈妈想做计划，但孩子想随时随机应变。',
+          behavior: '妈妈遵守规则，但孩子想自由行动。',
+          thinking: '妈妈提前决定会舒服，但孩子喜欢保持开放。',
+          parentGuidance: [
+            '不要给孩子太严格的日程',
+            '只定大框架，细节灵活处理',
+            '孩子的即兴行为也可以是优点',
+            '只定截止时间，方法让孩子决定'
+          ],
+          childUnderstanding: [
+            '妈妈做计划是为了事情顺利',
+            '遵守约定时间是互相尊重',
+            '妈妈遇到意外可能会焦虑',
+            '重要的事提前告诉妈妈她会更安心'
+          ]
+        },
+        parentP_childJ: {
+          communication: '妈妈想灵活，但孩子需要计划。',
+          behavior: '妈妈即兴，但孩子想按既定方式做。',
+          thinking: '妈妈想保持开放，但孩子想快速决定。',
+          parentGuidance: [
+            '提前给孩子信息让他们能做计划',
+            '突然改变日程孩子可能会焦虑',
+            '尊重孩子规律的生活节奏',
+            '有变化时提前告知'
+          ],
+          childUnderstanding: [
+            '妈妈突然改变是因为看到新机会',
+            '妈妈觉得灵活更舒服',
+            '有时候计划改变也没关系',
+            '可以告诉妈妈你需要计划'
+          ]
+        }
+      }
+    }
+  }
+};
+
+const defaultParentGuidanceLocalized: Record<Language, string[]> = {
+  ko: [
+    '아이와 비슷한 성향이라 자연스럽게 소통할 수 있어요',
+    '서로를 이해하기 쉬워서 편안한 관계를 유지할 수 있어요',
+    '같은 방식으로 생각하고 행동해서 갈등이 적어요'
+  ],
+  en: [
+    'You can communicate naturally because you have similar tendencies',
+    'You can maintain a comfortable relationship because you understand each other easily',
+    'There is less conflict because you think and act in similar ways'
+  ],
+  ja: [
+    'お子さんと似た性向なので自然にコミュニケーションできます',
+    'お互いを理解しやすいので快適な関係を維持できます',
+    '同じように考え行動するので衝突が少ないです'
+  ],
+  zh: [
+    '因为和孩子性格相似，可以自然地沟通',
+    '因为容易相互理解，可以维持舒适的关系',
+    '因为思考和行动方式相同，冲突较少'
+  ]
+};
+
+const defaultChildUnderstandingLocalized: Record<Language, string[]> = {
+  ko: [
+    '엄마랑 너는 비슷하게 생각하고 행동해',
+    '엄마가 하는 말이 이해가 잘 될 거야',
+    '서로 편하게 이야기할 수 있어'
+  ],
+  en: [
+    'You and Mom think and act similarly',
+    'You will understand what Mom says easily',
+    'You can talk comfortably with each other'
+  ],
+  ja: [
+    'ママとあなたは似たように考えて行動するよ',
+    'ママの言うことがよくわかるはずだよ',
+    'お互い気楽に話せるよ'
+  ],
+  zh: [
+    '你和妈妈的想法和行动方式很相似',
+    '你会很容易理解妈妈说的话',
+    '可以轻松地互相交流'
+  ]
+};
+
+export interface LocalizedRelationshipInsight {
+  communicationDifference: string;
+  behaviorDifference: string;
+  thinkingDifference: string;
+  parentGuidance: string[];
+  childUnderstanding: string[];
+}
+
+export function getLocalizedRelationshipInsight(
+  parentType: string, 
+  childType: string, 
+  language: Language
+): LocalizedRelationshipInsight {
+  const dimensions: Array<{ dim: 'EI' | 'SN' | 'TF' | 'JP'; index: number }> = [
+    { dim: 'EI', index: 0 },
+    { dim: 'SN', index: 1 },
+    { dim: 'TF', index: 2 },
+    { dim: 'JP', index: 3 }
+  ];
+
+  let communicationParts: string[] = [];
+  let behaviorParts: string[] = [];
+  let thinkingParts: string[] = [];
+  let parentGuidance: string[] = [];
+  let childUnderstanding: string[] = [];
+
+  const langInsights = dimensionInsightsLocalized[language];
+
+  dimensions.forEach(({ dim, index }) => {
+    const parentLetter = parentType[index];
+    const childLetter = childType[index];
+    const isSame = parentLetter === childLetter;
+    const dimData = langInsights[dim];
+
+    if (isSame) {
+      const sameData = dimData.same[parentLetter as keyof typeof dimData.same];
+      if (sameData) {
+        communicationParts.push(sameData.communication);
+        behaviorParts.push(sameData.behavior);
+        thinkingParts.push(sameData.thinking);
+      }
+    } else {
+      const diffKey = `parent${parentLetter}_child${childLetter}` as keyof typeof dimData.different;
+      const diffData = dimData.different[diffKey];
+      if (diffData) {
+        communicationParts.push(diffData.communication);
+        behaviorParts.push(diffData.behavior);
+        thinkingParts.push(diffData.thinking);
+        if (diffData.parentGuidance) {
+          parentGuidance.push(...diffData.parentGuidance);
+        }
+        if (diffData.childUnderstanding) {
+          childUnderstanding.push(...diffData.childUnderstanding);
+        }
+      }
+    }
+  });
+
+  if (parentGuidance.length === 0) {
+    parentGuidance = defaultParentGuidanceLocalized[language];
+  }
+
+  if (childUnderstanding.length === 0) {
+    childUnderstanding = defaultChildUnderstandingLocalized[language];
+  }
+
+  return {
+    communicationDifference: communicationParts.join(' '),
+    behaviorDifference: behaviorParts.join(' '),
+    thinkingDifference: thinkingParts.join(' '),
+    parentGuidance: parentGuidance.slice(0, 6),
+    childUnderstanding: childUnderstanding.slice(0, 6)
+  };
+}
