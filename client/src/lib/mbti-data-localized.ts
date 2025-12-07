@@ -3501,6 +3501,482 @@ const funFactsLocalized: Record<string, Record<Language, LocalizedFunFacts>> = {
       bestMatch: "和可靠的ENTJ在一起可以把梦想变为现实",
       secretWeakness: "对批评敏感，但那是因为真心想成为更好的人"
     }
+  },
+  INTJ: {
+    ko: {
+      hiddenTalent: "복잡한 시스템을 한눈에 파악하고, 미래를 예측하는 놀라운 능력이 있어요",
+      funFact: "INTJ는 체스 마스터처럼 항상 몇 수 앞을 생각해요! 계획의 달인이에요",
+      superpower: "전략의 천재! 어떤 문제든 해결책을 찾아내는 능력이 있어요",
+      famousQuote: "지식은 곧 힘이에요",
+      bestMatch: "밝고 활기찬 ENFP와 함께하면 삶이 더 즐거워져요",
+      secretWeakness: "완벽을 추구하다 보면 스스로에게 너무 엄격해질 때가 있어요"
+    },
+    en: {
+      hiddenTalent: "Has an amazing ability to grasp complex systems at a glance and predict the future",
+      funFact: "INTJs think several moves ahead like chess masters! They're planning experts",
+      superpower: "Strategic genius! Has the ability to find solutions to any problem",
+      famousQuote: "Knowledge is power",
+      bestMatch: "Life becomes more enjoyable when paired with a bright and energetic ENFP",
+      secretWeakness: "Sometimes too strict with themselves while pursuing perfection"
+    },
+    ja: {
+      hiddenTalent: "複雑なシステムを一目で把握し、未来を予測する驚くべき能力があります",
+      funFact: "INTJはチェスマスターのように常に数手先を考えます！計画の達人です",
+      superpower: "戦略の天才！どんな問題でも解決策を見つける能力があります",
+      famousQuote: "知識は力なり",
+      bestMatch: "明るく活発なENFPと一緒にいると、人生がもっと楽しくなります",
+      secretWeakness: "完璧を追求するあまり、自分に厳しくなりすぎることがあります"
+    },
+    zh: {
+      hiddenTalent: "有一眼看穿复杂系统并预测未来的惊人能力",
+      funFact: "INTJ像象棋大师一样总是想好几步！他们是规划专家",
+      superpower: "战略天才！有能力找到任何问题的解决方案",
+      famousQuote: "知识就是力量",
+      bestMatch: "和开朗活泼的ENFP在一起，生活会更加愉快",
+      secretWeakness: "追求完美时有时对自己太严格"
+    }
+  },
+  ENTJ: {
+    ko: {
+      hiddenTalent: "사람들을 하나로 모으고, 불가능한 목표도 현실로 만드는 카리스마가 있어요",
+      funFact: "ENTJ는 타고난 CEO! 모든 것을 효율적으로 조직하는 능력이 있어요",
+      superpower: "리더십의 화신! 팀을 승리로 이끄는 능력이 있어요",
+      famousQuote: "목표를 세우면 반드시 달성해요",
+      bestMatch: "깊은 생각을 가진 INFP와 함께하면 균형 잡힌 삶을 살 수 있어요",
+      secretWeakness: "때로는 너무 일에 집중해서 휴식의 중요성을 잊을 때가 있어요"
+    },
+    en: {
+      hiddenTalent: "Has the charisma to unite people and make impossible goals a reality",
+      funFact: "ENTJs are born CEOs! They have the ability to organize everything efficiently",
+      superpower: "The embodiment of leadership! Has the ability to lead teams to victory",
+      famousQuote: "When I set a goal, I always achieve it",
+      bestMatch: "Can live a balanced life when paired with a deep-thinking INFP",
+      secretWeakness: "Sometimes forgets the importance of rest while focusing too much on work"
+    },
+    ja: {
+      hiddenTalent: "人々を一つにまとめ、不可能な目標も現実にするカリスマがあります",
+      funFact: "ENTJは生まれながらのCEO！すべてを効率的に組織する能力があります",
+      superpower: "リーダーシップの化身！チームを勝利に導く能力があります",
+      famousQuote: "目標を立てたら必ず達成します",
+      bestMatch: "深い考えを持つINFPと一緒にいると、バランスの取れた生活ができます",
+      secretWeakness: "仕事に集中しすぎて休息の重要性を忘れることがあります"
+    },
+    zh: {
+      hiddenTalent: "有凝聚人心、让不可能的目标变为现实的魅力",
+      funFact: "ENTJ是天生的CEO！有高效组织一切的能力",
+      superpower: "领导力的化身！有带领团队走向胜利的能力",
+      famousQuote: "设定目标就一定要达成",
+      bestMatch: "和有深度思考的INFP在一起可以过上平衡的生活",
+      secretWeakness: "有时太专注于工作而忘记休息的重要性"
+    }
+  },
+  ENTP: {
+    ko: {
+      hiddenTalent: "어떤 주제든 토론에서 이기고, 새로운 관점을 찾아내는 능력이 있어요",
+      funFact: "ENTP는 아이디어 공장! 하루에도 수십 가지 새로운 생각이 떠올라요",
+      superpower: "혁신의 마법사! 낡은 것을 새롭게 바꾸는 능력이 있어요",
+      famousQuote: "불가능은 없어요, 다른 방법이 있을 뿐이에요",
+      bestMatch: "안정적인 INFJ와 함께하면 아이디어를 현실로 만들 수 있어요",
+      secretWeakness: "새로운 것에 끌려서 시작한 일을 끝까지 마무리하기 어려울 때가 있어요"
+    },
+    en: {
+      hiddenTalent: "Has the ability to win any debate and find new perspectives on any topic",
+      funFact: "ENTPs are idea factories! Dozens of new thoughts pop up every day",
+      superpower: "Innovation wizard! Has the ability to transform the old into something new",
+      famousQuote: "Nothing is impossible, there's just another way",
+      bestMatch: "Can turn ideas into reality when paired with a stable INFJ",
+      secretWeakness: "Sometimes hard to finish what they started because they're drawn to new things"
+    },
+    ja: {
+      hiddenTalent: "どんなトピックでも討論で勝ち、新しい視点を見つける能力があります",
+      funFact: "ENTPはアイデア工場！毎日何十もの新しい考えが浮かびます",
+      superpower: "革新の魔法使い！古いものを新しく変える能力があります",
+      famousQuote: "不可能はない、別の方法があるだけ",
+      bestMatch: "安定したINFJと一緒にいると、アイデアを現実にできます",
+      secretWeakness: "新しいものに惹かれて、始めたことを最後までやり遂げるのが難しいことがあります"
+    },
+    zh: {
+      hiddenTalent: "有在任何话题上赢得辩论并发现新观点的能力",
+      funFact: "ENTP是创意工厂！每天都会冒出几十个新想法",
+      superpower: "创新魔法师！有将旧事物变新的能力",
+      famousQuote: "没有不可能，只有另一种方法",
+      bestMatch: "和稳定的INFJ在一起可以把想法变为现实",
+      secretWeakness: "有时因为被新事物吸引而难以完成已经开始的事情"
+    }
+  },
+  INFJ: {
+    ko: {
+      hiddenTalent: "사람들이 말하지 않아도 마음속 깊은 곳을 읽어내는 신비한 직관이 있어요",
+      funFact: "INFJ는 가장 희귀한 유형! 전 세계 인구의 1-2%만 있어요",
+      superpower: "영혼의 치유사! 상처받은 마음을 위로하는 특별한 능력이 있어요",
+      famousQuote: "세상을 바꾸는 것은 작은 친절에서 시작돼요",
+      bestMatch: "활기차고 솔직한 ENTP와 함께하면 세상을 더 넓게 볼 수 있어요",
+      secretWeakness: "다른 사람을 돌보느라 자신의 필요는 무시할 때가 있어요"
+    },
+    en: {
+      hiddenTalent: "Has a mysterious intuition that reads the depths of people's hearts without them saying anything",
+      funFact: "INFJs are the rarest type! Only 1-2% of the world's population",
+      superpower: "Soul healer! Has a special ability to comfort wounded hearts",
+      famousQuote: "Changing the world starts with small acts of kindness",
+      bestMatch: "Can see the world more broadly when paired with an energetic and honest ENTP",
+      secretWeakness: "Sometimes neglects their own needs while caring for others"
+    },
+    ja: {
+      hiddenTalent: "人々が何も言わなくても心の奥深くを読み取る神秘的な直感があります",
+      funFact: "INFJは最も希少なタイプ！世界人口の1-2%しかいません",
+      superpower: "魂のヒーラー！傷ついた心を癒す特別な能力があります",
+      famousQuote: "世界を変えるのは小さな親切から始まります",
+      bestMatch: "活発で正直なENTPと一緒にいると、世界をより広く見ることができます",
+      secretWeakness: "他の人を世話するあまり、自分のニーズを無視することがあります"
+    },
+    zh: {
+      hiddenTalent: "有一种神秘的直觉，能在别人不说话的情况下读懂他们内心深处",
+      funFact: "INFJ是最稀有的类型！只占世界人口的1-2%",
+      superpower: "灵魂治愈师！有安慰受伤心灵的特殊能力",
+      famousQuote: "改变世界从小小的善意开始",
+      bestMatch: "和活泼坦率的ENTP在一起可以更广阔地看世界",
+      secretWeakness: "有时在照顾别人的同时忽视了自己的需求"
+    }
+  },
+  ENFJ: {
+    ko: {
+      hiddenTalent: "모든 사람의 잠재력을 발견하고, 최고의 모습을 끌어내는 능력이 있어요",
+      funFact: "ENFJ는 타고난 코치! 주변 사람들을 성장시키는 것을 가장 행복해해요",
+      superpower: "공감과 리더십의 완벽한 조화! 마음을 움직이는 리더예요",
+      famousQuote: "함께라면 불가능은 없어요",
+      bestMatch: "논리적인 INTP와 함께하면 감정과 이성의 균형을 찾을 수 있어요",
+      secretWeakness: "모두를 기쁘게 하려다 자신의 행복을 희생할 때가 있어요"
+    },
+    en: {
+      hiddenTalent: "Has the ability to discover everyone's potential and bring out the best in them",
+      funFact: "ENFJs are natural coaches! Happiest when helping people around them grow",
+      superpower: "Perfect harmony of empathy and leadership! A leader who moves hearts",
+      famousQuote: "Nothing is impossible when we're together",
+      bestMatch: "Can find a balance between emotion and reason when paired with a logical INTP",
+      secretWeakness: "Sometimes sacrifices their own happiness trying to please everyone"
+    },
+    ja: {
+      hiddenTalent: "すべての人の可能性を発見し、最高の姿を引き出す能力があります",
+      funFact: "ENFJは生まれながらのコーチ！周りの人を成長させることが一番幸せです",
+      superpower: "共感とリーダーシップの完璧な調和！心を動かすリーダーです",
+      famousQuote: "一緒なら不可能はありません",
+      bestMatch: "論理的なINTPと一緒にいると、感情と理性のバランスを見つけられます",
+      secretWeakness: "みんなを喜ばせようとして、自分の幸せを犠牲にすることがあります"
+    },
+    zh: {
+      hiddenTalent: "有发现每个人潜力并激发他们最好一面的能力",
+      funFact: "ENFJ是天生的教练！帮助周围的人成长是最幸福的事",
+      superpower: "共情与领导力的完美和谐！是能打动人心的领导者",
+      famousQuote: "只要在一起，没有什么是不可能的",
+      bestMatch: "和理性的INTP在一起可以找到感性与理性的平衡",
+      secretWeakness: "有时为了让所有人开心而牺牲自己的幸福"
+    }
+  },
+  ENFP: {
+    ko: {
+      hiddenTalent: "어디서든 친구를 사귀고, 분위기를 밝게 만드는 마법 같은 능력이 있어요",
+      funFact: "ENFP는 열정 폭발! 관심 있는 것에는 끝없는 에너지가 있어요",
+      superpower: "영감의 전도사! 사람들에게 꿈을 심어주는 능력이 있어요",
+      famousQuote: "인생은 모험이에요, 즐겁게 살아요!",
+      bestMatch: "체계적인 INTJ와 함께하면 꿈을 현실로 만들 수 있어요",
+      secretWeakness: "너무 많은 가능성에 흥분해서 집중하기 어려울 때가 있어요"
+    },
+    en: {
+      hiddenTalent: "Has a magical ability to make friends anywhere and brighten the atmosphere",
+      funFact: "ENFPs are passion explosions! They have endless energy for things they're interested in",
+      superpower: "Inspiration evangelist! Has the ability to plant dreams in people",
+      famousQuote: "Life is an adventure, live it joyfully!",
+      bestMatch: "Can turn dreams into reality when paired with a systematic INTJ",
+      secretWeakness: "Sometimes hard to focus because they get excited about too many possibilities"
+    },
+    ja: {
+      hiddenTalent: "どこでも友達を作り、雰囲気を明るくする魔法のような能力があります",
+      funFact: "ENFPは情熱爆発！興味のあることには無限のエネルギーがあります",
+      superpower: "インスピレーションの伝道師！人々に夢を与える能力があります",
+      famousQuote: "人生は冒険です、楽しく生きましょう！",
+      bestMatch: "体系的なINTJと一緒にいると、夢を現実にできます",
+      secretWeakness: "あまりにも多くの可能性に興奮して集中するのが難しいことがあります"
+    },
+    zh: {
+      hiddenTalent: "有在任何地方交朋友并活跃气氛的神奇能力",
+      funFact: "ENFP是热情爆发！对感兴趣的事有无穷的能量",
+      superpower: "灵感传播者！有给人种下梦想的能力",
+      famousQuote: "人生是一场冒险，快乐地活着吧！",
+      bestMatch: "和有系统的INTJ在一起可以把梦想变为现实",
+      secretWeakness: "有时因为对太多可能性感到兴奋而难以集中注意力"
+    }
+  },
+  ISTJ: {
+    ko: {
+      hiddenTalent: "어떤 일이든 꼼꼼하게 처리하고, 약속을 절대 잊지 않는 능력이 있어요",
+      funFact: "ISTJ는 신뢰의 아이콘! 맡은 일은 반드시 끝까지 해내요",
+      superpower: "완벽한 기억력! 중요한 세부사항을 절대 놓치지 않아요",
+      famousQuote: "약속은 꼭 지켜야 해요",
+      bestMatch: "자유로운 ESFP와 함께하면 삶에 즐거움이 더해져요",
+      secretWeakness: "변화를 받아들이는 것이 힘들 때가 있지만, 천천히 적응해요"
+    },
+    en: {
+      hiddenTalent: "Has the ability to handle any task meticulously and never forget a promise",
+      funFact: "ISTJs are icons of reliability! They always complete what they're assigned",
+      superpower: "Perfect memory! Never misses important details",
+      famousQuote: "Promises must be kept",
+      bestMatch: "Life becomes more fun when paired with a free-spirited ESFP",
+      secretWeakness: "Sometimes hard to accept change, but adapts slowly"
+    },
+    ja: {
+      hiddenTalent: "どんな仕事も丁寧に処理し、約束を絶対に忘れない能力があります",
+      funFact: "ISTJは信頼のアイコン！任された仕事は必ず最後までやり遂げます",
+      superpower: "完璧な記憶力！重要な詳細を絶対に見逃しません",
+      famousQuote: "約束は必ず守らなければなりません",
+      bestMatch: "自由奔放なESFPと一緒にいると、人生に楽しさが加わります",
+      secretWeakness: "変化を受け入れるのが難しいことがありますが、ゆっくり適応します"
+    },
+    zh: {
+      hiddenTalent: "有一丝不苟地处理任何事务、永不忘记承诺的能力",
+      funFact: "ISTJ是可靠的代名词！交给他们的事一定会完成到底",
+      superpower: "完美的记忆力！绝不会错过重要细节",
+      famousQuote: "承诺必须遵守",
+      bestMatch: "和自由奔放的ESFP在一起，生活会更加有趣",
+      secretWeakness: "有时难以接受变化，但会慢慢适应"
+    }
+  },
+  ISFJ: {
+    ko: {
+      hiddenTalent: "다른 사람의 필요를 먼저 알아채고, 조용히 돌봐주는 섬세함이 있어요",
+      funFact: "ISFJ는 기억력 천재! 소중한 사람들의 생일과 좋아하는 것을 다 기억해요",
+      superpower: "수호천사의 능력! 사랑하는 사람들을 지키는 힘이 있어요",
+      famousQuote: "가족과 친구가 가장 소중해요",
+      bestMatch: "활발한 ESTP와 함께하면 새로운 경험을 즐길 수 있어요",
+      secretWeakness: "자신의 필요보다 다른 사람을 먼저 챙기다가 지칠 때가 있어요"
+    },
+    en: {
+      hiddenTalent: "Has the delicacy to notice others' needs first and quietly take care of them",
+      funFact: "ISFJs are memory geniuses! They remember birthdays and favorites of loved ones",
+      superpower: "Guardian angel abilities! Has the power to protect loved ones",
+      famousQuote: "Family and friends are most precious",
+      bestMatch: "Can enjoy new experiences when paired with an active ESTP",
+      secretWeakness: "Sometimes gets exhausted from taking care of others before themselves"
+    },
+    ja: {
+      hiddenTalent: "他の人のニーズを先に察知し、静かに世話をする繊細さがあります",
+      funFact: "ISFJは記憶力の天才！大切な人の誕生日や好きなものをすべて覚えています",
+      superpower: "守護天使の能力！愛する人を守る力があります",
+      famousQuote: "家族と友人が一番大切です",
+      bestMatch: "活発なESTPと一緒にいると、新しい経験を楽しめます",
+      secretWeakness: "自分のニーズより他の人を先に世話して疲れることがあります"
+    },
+    zh: {
+      hiddenTalent: "有先察觉他人需求并默默照顾的细腻",
+      funFact: "ISFJ是记忆天才！记得所有重要人的生日和喜好",
+      superpower: "守护天使的能力！有保护所爱之人的力量",
+      famousQuote: "家人和朋友最珍贵",
+      bestMatch: "和活泼的ESTP在一起可以享受新的体验",
+      secretWeakness: "有时因为先照顾别人而忽视自己的需求，导致疲惫"
+    }
+  },
+  ESTJ: {
+    ko: {
+      hiddenTalent: "혼란스러운 상황도 빠르게 정리하고, 모든 것을 제자리에 놓는 능력이 있어요",
+      funFact: "ESTJ는 조직의 달인! 어떤 그룹이든 체계적으로 만들어요",
+      superpower: "실행력의 화신! 계획을 현실로 만드는 능력이 있어요",
+      famousQuote: "규칙과 질서가 성공의 기본이에요",
+      bestMatch: "감성적인 INFP와 함께하면 삶에 따뜻함이 더해져요",
+      secretWeakness: "유연성이 부족할 때가 있지만, 다른 방식도 받아들이려 노력해요"
+    },
+    en: {
+      hiddenTalent: "Has the ability to quickly organize chaotic situations and put everything in its place",
+      funFact: "ESTJs are organization masters! They make any group systematic",
+      superpower: "Embodiment of execution! Has the ability to turn plans into reality",
+      famousQuote: "Rules and order are the foundation of success",
+      bestMatch: "Life becomes warmer when paired with a sensitive INFP",
+      secretWeakness: "Sometimes lacks flexibility, but tries to accept other approaches"
+    },
+    ja: {
+      hiddenTalent: "混乱した状況も素早く整理し、すべてを元の場所に置く能力があります",
+      funFact: "ESTJは組織の達人！どんなグループでも体系的にします",
+      superpower: "実行力の化身！計画を現実にする能力があります",
+      famousQuote: "規則と秩序が成功の基本です",
+      bestMatch: "感性的なINFPと一緒にいると、人生に温かみが加わります",
+      secretWeakness: "柔軟性が欠けることがありますが、他の方法も受け入れようと努力します"
+    },
+    zh: {
+      hiddenTalent: "有快速整理混乱局面、将一切归位的能力",
+      funFact: "ESTJ是组织大师！能把任何团体变得有系统",
+      superpower: "执行力的化身！有将计划变为现实的能力",
+      famousQuote: "规则和秩序是成功的基础",
+      bestMatch: "和感性的INFP在一起，生活会更加温暖",
+      secretWeakness: "有时缺乏灵活性，但会努力接受其他方式"
+    }
+  },
+  ESFJ: {
+    ko: {
+      hiddenTalent: "모임을 완벽하게 준비하고, 모든 사람이 편안하게 느끼도록 하는 능력이 있어요",
+      funFact: "ESFJ는 파티의 달인! 모든 사람을 환영하고 행복하게 만들어요",
+      superpower: "조화의 마법사! 사람들 사이의 갈등을 해결하는 능력이 있어요",
+      famousQuote: "함께하는 시간이 가장 소중해요",
+      bestMatch: "독립적인 ISTP와 함께하면 새로운 시각을 얻을 수 있어요",
+      secretWeakness: "비판을 개인적으로 받아들일 때가 있지만, 그만큼 진심으로 노력해요"
+    },
+    en: {
+      hiddenTalent: "Has the ability to perfectly prepare gatherings and make everyone feel comfortable",
+      funFact: "ESFJs are party masters! They welcome and make everyone happy",
+      superpower: "Harmony wizard! Has the ability to resolve conflicts between people",
+      famousQuote: "Time spent together is most precious",
+      bestMatch: "Can gain new perspectives when paired with an independent ISTP",
+      secretWeakness: "Sometimes takes criticism personally, but that's because they genuinely try hard"
+    },
+    ja: {
+      hiddenTalent: "集まりを完璧に準備し、すべての人が快適に感じるようにする能力があります",
+      funFact: "ESFJはパーティーの達人！すべての人を歓迎し、幸せにします",
+      superpower: "調和の魔法使い！人々の間の対立を解決する能力があります",
+      famousQuote: "一緒にいる時間が一番大切です",
+      bestMatch: "独立したISTPと一緒にいると、新しい視点を得られます",
+      secretWeakness: "批判を個人的に受け止めることがありますが、それだけ真剣に努力しています"
+    },
+    zh: {
+      hiddenTalent: "有完美筹备聚会、让每个人都感到舒适的能力",
+      funFact: "ESFJ是派对高手！欢迎每个人并让大家开心",
+      superpower: "和谐魔法师！有解决人际冲突的能力",
+      famousQuote: "在一起的时光最珍贵",
+      bestMatch: "和独立的ISTP在一起可以获得新的视角",
+      secretWeakness: "有时会把批评当成针对个人，但那是因为真心在努力"
+    }
+  },
+  ISTP: {
+    ko: {
+      hiddenTalent: "어떤 기계든 분해하고 고치고, 손으로 무엇이든 만들어내는 능력이 있어요",
+      funFact: "ISTP는 실용적인 천재! 문제가 생기면 바로 해결책을 찾아요",
+      superpower: "위기 대응의 달인! 긴급 상황에서 냉정하게 행동해요",
+      famousQuote: "백 번 말하는 것보다 한 번 해보는 게 나아요",
+      bestMatch: "따뜻한 ESFJ와 함께하면 감정 표현이 더 편해져요",
+      secretWeakness: "감정을 표현하는 것이 어색할 때가 있지만, 마음속은 따뜻해요"
+    },
+    en: {
+      hiddenTalent: "Has the ability to take apart and fix any machine, and create anything with their hands",
+      funFact: "ISTPs are practical geniuses! They find solutions immediately when problems arise",
+      superpower: "Crisis response master! Stays calm in emergency situations",
+      famousQuote: "It's better to try once than talk about it a hundred times",
+      bestMatch: "Emotional expression becomes easier when paired with a warm ESFJ",
+      secretWeakness: "Sometimes awkward at expressing emotions, but warm inside"
+    },
+    ja: {
+      hiddenTalent: "どんな機械でも分解して直し、手で何でも作り出す能力があります",
+      funFact: "ISTPは実用的な天才！問題が起きたらすぐに解決策を見つけます",
+      superpower: "危機対応の達人！緊急事態でも冷静に行動します",
+      famousQuote: "百回言うより一回やってみる方がいいです",
+      bestMatch: "温かいESFJと一緒にいると、感情表現がもっと楽になります",
+      secretWeakness: "感情を表現するのが苦手なことがありますが、心の中は温かいです"
+    },
+    zh: {
+      hiddenTalent: "有拆解修理任何机器、用双手创造任何东西的能力",
+      funFact: "ISTP是实用天才！问题出现时立即找到解决方案",
+      superpower: "危机应对大师！在紧急情况下保持冷静",
+      famousQuote: "与其说一百遍，不如做一次",
+      bestMatch: "和温暖的ESFJ在一起，情感表达会更自然",
+      secretWeakness: "有时不擅长表达情感，但内心是温暖的"
+    }
+  },
+  ISFP: {
+    ko: {
+      hiddenTalent: "세상의 아름다움을 발견하고, 예술로 표현하는 특별한 감성이 있어요",
+      funFact: "ISFP는 숨은 예술가! 일상에서 예술을 찾고 창조해요",
+      superpower: "미적 감각의 천재! 아름다움을 만들어내는 능력이 있어요",
+      famousQuote: "자유롭게 나만의 길을 걸어요",
+      bestMatch: "활기찬 ENTJ와 함께하면 꿈을 더 크게 펼칠 수 있어요",
+      secretWeakness: "비판에 민감해서 마음이 다칠 때가 있지만, 그만큼 진실된 사람이에요"
+    },
+    en: {
+      hiddenTalent: "Has a special sensibility to discover the beauty of the world and express it through art",
+      funFact: "ISFPs are hidden artists! They find and create art in everyday life",
+      superpower: "Aesthetic genius! Has the ability to create beauty",
+      famousQuote: "I walk my own path freely",
+      bestMatch: "Can expand dreams bigger when paired with an energetic ENTJ",
+      secretWeakness: "Sensitive to criticism and gets hurt, but that's because they're genuine"
+    },
+    ja: {
+      hiddenTalent: "世界の美しさを発見し、芸術で表現する特別な感性があります",
+      funFact: "ISFPは隠れたアーティスト！日常の中で芸術を見つけ、創造します",
+      superpower: "美的感覚の天才！美しさを生み出す能力があります",
+      famousQuote: "自由に自分の道を歩みます",
+      bestMatch: "活発なENTJと一緒にいると、夢をもっと大きく広げられます",
+      secretWeakness: "批判に敏感で傷つくことがありますが、それだけ誠実な人です"
+    },
+    zh: {
+      hiddenTalent: "有发现世界之美并通过艺术表达的特殊感性",
+      funFact: "ISFP是隐藏的艺术家！在日常生活中发现和创造艺术",
+      superpower: "审美天才！有创造美的能力",
+      famousQuote: "自由地走自己的路",
+      bestMatch: "和充满活力的ENTJ在一起可以把梦想展得更大",
+      secretWeakness: "对批评敏感，容易受伤，但那是因为他们是真诚的人"
+    }
+  },
+  ESTP: {
+    ko: {
+      hiddenTalent: "어떤 상황에서도 즉각적으로 대응하고, 기회를 잡아채는 순발력이 있어요",
+      funFact: "ESTP는 모험가! 스릴 넘치는 경험을 찾아 다녀요",
+      superpower: "행동력의 화신! 생각보다 먼저 움직여요",
+      famousQuote: "인생은 한 번뿐이에요, 지금 즐기세요!",
+      bestMatch: "사려 깊은 ISFJ와 함께하면 안정감을 느낄 수 있어요",
+      secretWeakness: "너무 빨리 움직여서 나중에 후회할 때가 있어요"
+    },
+    en: {
+      hiddenTalent: "Has the quick reflexes to respond immediately in any situation and seize opportunities",
+      funFact: "ESTPs are adventurers! They seek thrilling experiences",
+      superpower: "Embodiment of action! They move before thinking",
+      famousQuote: "Life is only once, enjoy it now!",
+      bestMatch: "Can feel stability when paired with a thoughtful ISFJ",
+      secretWeakness: "Sometimes regrets later from moving too fast"
+    },
+    ja: {
+      hiddenTalent: "どんな状況でも即座に対応し、機会を掴む瞬発力があります",
+      funFact: "ESTPは冒険家！スリルに満ちた経験を求めます",
+      superpower: "行動力の化身！考える前に動きます",
+      famousQuote: "人生は一度きり、今を楽しんで！",
+      bestMatch: "思慮深いISFJと一緒にいると、安定感を感じられます",
+      secretWeakness: "早く動きすぎて後で後悔することがあります"
+    },
+    zh: {
+      hiddenTalent: "有在任何情况下立即反应、抓住机会的快速反应能力",
+      funFact: "ESTP是冒险家！寻求刺激的体验",
+      superpower: "行动力的化身！先行动后思考",
+      famousQuote: "人生只有一次，现在就享受吧！",
+      bestMatch: "和体贴的ISFJ在一起可以感到安定",
+      secretWeakness: "有时因为行动太快而事后后悔"
+    }
+  },
+  ESFP: {
+    ko: {
+      hiddenTalent: "어떤 모임이든 분위기를 띄우고, 사람들을 웃게 만드는 천부적 재능이 있어요",
+      funFact: "ESFP는 파티 스타! 어디를 가든 주인공이 되어요",
+      superpower: "즐거움의 전도사! 모든 순간을 축제로 만들어요",
+      famousQuote: "오늘을 즐겨요, 내일은 내일의 나에게!",
+      bestMatch: "신중한 ISTJ와 함께하면 꿈을 현실로 만들 수 있어요",
+      secretWeakness: "미래 계획보다 현재를 즐기다 보니 장기적인 것을 놓칠 때가 있어요"
+    },
+    en: {
+      hiddenTalent: "Has a natural talent to liven up any gathering and make people laugh",
+      funFact: "ESFPs are party stars! They become the center of attention wherever they go",
+      superpower: "Joy evangelist! They turn every moment into a celebration",
+      famousQuote: "Enjoy today, tomorrow is for tomorrow's me!",
+      bestMatch: "Can turn dreams into reality when paired with a careful ISTJ",
+      secretWeakness: "Sometimes misses long-term things from enjoying the present over future planning"
+    },
+    ja: {
+      hiddenTalent: "どんな集まりでも盛り上げ、人々を笑わせる天性の才能があります",
+      funFact: "ESFPはパーティースター！どこに行っても主人公になります",
+      superpower: "楽しさの伝道師！すべての瞬間をお祭りにします",
+      famousQuote: "今日を楽しんで、明日は明日の自分に！",
+      bestMatch: "慎重なISTJと一緒にいると、夢を現実にできます",
+      secretWeakness: "将来の計画より今を楽しむため、長期的なことを見逃すことがあります"
+    },
+    zh: {
+      hiddenTalent: "有活跃任何聚会气氛、逗人发笑的天赋",
+      funFact: "ESFP是派对明星！无论去哪里都成为焦点",
+      superpower: "快乐传播者！把每一刻都变成庆典",
+      famousQuote: "享受今天，明天交给明天的我！",
+      bestMatch: "和谨慎的ISTJ在一起可以把梦想变为现实",
+      secretWeakness: "因为享受当下而非规划未来，有时会错过长远的事"
+    }
   }
 };
 
