@@ -32,7 +32,7 @@ export default function Privacy() {
         },
         {
           title: '6. 개인정보 보호책임자',
-          content: '개인정보 관련 문의사항은 아래 연락처로 문의해 주시기 바랍니다.\n이메일: privacy@mbti-test.com'
+          content: '개인정보 관련 문의사항은 아래 연락처로 문의해 주시기 바랍니다.\n이메일: lambda.brains@gmail.com'
         },
         {
           title: '7. 개정 이력',
@@ -65,7 +65,7 @@ export default function Privacy() {
         },
         {
           title: '6. Privacy Contact',
-          content: 'For privacy-related inquiries, please contact us at:\nEmail: privacy@mbti-test.com'
+          content: 'For privacy-related inquiries, please contact us at:\nEmail: lambda.brains@gmail.com'
         },
         {
           title: '7. Updates',
@@ -98,7 +98,7 @@ export default function Privacy() {
         },
         {
           title: '6. お問い合わせ',
-          content: 'プライバシーに関するお問い合わせは下記までご連絡ください。\nメール：privacy@mbti-test.com'
+          content: 'プライバシーに関するお問い合わせは下記までご連絡ください。\nメール：lambda.brains@gmail.com'
         },
         {
           title: '7. 改定履歴',
@@ -131,7 +131,7 @@ export default function Privacy() {
         },
         {
           title: '6. 联系方式',
-          content: '如有隐私相关问题，请通过以下方式联系我们：\n电子邮件：privacy@mbti-test.com'
+          content: '如有隐私相关问题，请通过以下方式联系我们：\n电子邮件：lambda.brains@gmail.com'
         },
         {
           title: '7. 修订记录',
