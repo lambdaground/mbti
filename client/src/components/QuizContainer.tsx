@@ -5,6 +5,7 @@ import QuizProgress from "./QuizProgress";
 import QuestionCard from "./QuestionCard";
 import { getScenarioQuestions, calculateMBTIWithPercentage, type AgeGroup, type ScenarioQuestion, type Answer, type MBTIResult } from "@/lib/mbti-data";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getTranslatedQuestions } from "@/lib/quiz-translations";
 
 interface QuizContainerProps {
   ageGroup: AgeGroup;
@@ -13,14 +14,16 @@ interface QuizContainerProps {
 }
 
 export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizContainerProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [questions, setQuestions] = useState<ScenarioQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
   
   useEffect(() => {
-    setQuestions(getScenarioQuestions(ageGroup));
-  }, [ageGroup]);
+    const baseQuestions = getScenarioQuestions(ageGroup);
+    const translatedQuestions = getTranslatedQuestions(baseQuestions, language, ageGroup);
+    setQuestions(translatedQuestions);
+  }, [ageGroup, language]);
   
   if (questions.length === 0) return null;
   
