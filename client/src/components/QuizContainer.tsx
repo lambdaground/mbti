@@ -73,8 +73,8 @@ export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizCont
           ageGroup,
           language,
           answers,
-          mbtiResult: result.type,
-          percentages: result.percentages
+          mbtiResult: result.primaryType.type,
+          percentages: result.dimensionScores
         });
       } catch (error) {
         console.error("Failed to save quiz response:", error);
