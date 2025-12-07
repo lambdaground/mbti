@@ -1,6 +1,6 @@
 import { useState } from "react";
 import AgeCard from "./AgeCard";
-import { ageGroupInfo, type AgeGroup } from "@/lib/mbti-data";
+import { type AgeGroup } from "@/lib/mbti-data";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +23,9 @@ interface AgeSelectionProps {
 export default function AgeSelection({ selectedAge, onSelect, onMbtiInput }: AgeSelectionProps) {
   const { t } = useLanguage();
   const ageGroups: AgeGroup[] = ['elementary', 'middle', 'high', 'adult'];
+  
+  const getAgeLabel = (age: AgeGroup) => t(`age.${age}`);
+  const getAgeSubtitle = (age: AgeGroup) => t(`age.${age}.subtitle`);
   const [showMbtiOption, setShowMbtiOption] = useState(false);
   const [tempSelectedAge, setTempSelectedAge] = useState<AgeGroup | null>(null);
   const [showMbtiSelector, setShowMbtiSelector] = useState(false);
@@ -69,7 +72,7 @@ export default function AgeSelection({ selectedAge, onSelect, onMbtiInput }: Age
         <div className="container max-w-4xl mx-auto px-4">
           <div className="text-center mb-6">
             <Badge variant="outline" className="mb-4">
-              {ageGroupInfo[tempSelectedAge].label} ({ageGroupInfo[tempSelectedAge].subtitle})
+              {getAgeLabel(tempSelectedAge)} ({getAgeSubtitle(tempSelectedAge)})
             </Badge>
             <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-2">
               {t('age.askChildMbti')}
@@ -187,8 +190,8 @@ export default function AgeSelection({ selectedAge, onSelect, onMbtiInput }: Age
             <AgeCard
               key={age}
               ageGroup={age}
-              label={ageGroupInfo[age].label}
-              subtitle={ageGroupInfo[age].subtitle}
+              label={getAgeLabel(age)}
+              subtitle={getAgeSubtitle(age)}
               isSelected={selectedAge === age}
               onClick={() => handleAgeClick(age)}
             />

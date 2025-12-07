@@ -155,37 +155,37 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
           <div>
             <h2 className="font-display text-xl font-bold mb-4 text-foreground flex items-center gap-2">
               <TrendingUp className="w-5 h-5" />
-              성향 분석
+              {t('result.personalityAnalysis')}
             </h2>
             <div className="space-y-4">
               <DimensionBar
-                label="에너지 방향"
-                leftLabel="내향 (I)"
-                rightLabel="외향 (E)"
+                label={t('result.energyDirection')}
+                leftLabel={t('result.introvert')}
+                rightLabel={t('result.extrovert')}
                 percentage={dimensionScores.EI.percentage}
                 leftColor="bg-blue-500"
                 rightColor="bg-orange-500"
               />
               <DimensionBar
-                label="인식 기능"
-                leftLabel="직관 (N)"
-                rightLabel="감각 (S)"
+                label={t('result.perceptionFunction')}
+                leftLabel={t('result.intuition')}
+                rightLabel={t('result.sensing')}
                 percentage={dimensionScores.SN.percentage}
                 leftColor="bg-purple-500"
                 rightColor="bg-green-500"
               />
               <DimensionBar
-                label="판단 기능"
-                leftLabel="감정 (F)"
-                rightLabel="사고 (T)"
+                label={t('result.judgmentFunction')}
+                leftLabel={t('result.feeling')}
+                rightLabel={t('result.thinking')}
                 percentage={dimensionScores.TF.percentage}
                 leftColor="bg-pink-500"
                 rightColor="bg-cyan-500"
               />
               <DimensionBar
-                label="생활 양식"
-                leftLabel="인식 (P)"
-                rightLabel="판단 (J)"
+                label={t('result.lifestyle')}
+                leftLabel={t('result.perceiving')}
+                rightLabel={t('result.judging')}
                 percentage={dimensionScores.JP.percentage}
                 leftColor="bg-yellow-500"
                 rightColor="bg-indigo-500"
@@ -194,7 +194,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
           </div>
           
           <div>
-            <h2 className="font-display text-xl font-bold mb-3 text-foreground">나는 어떤 사람일까요?</h2>
+            <h2 className="font-display text-xl font-bold mb-3 text-foreground">{t('result.whoAmI')}</h2>
             <p 
               className="text-muted-foreground leading-relaxed text-lg"
               data-testid="text-description"
@@ -204,7 +204,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
           </div>
           
           <div>
-            <h2 className="font-display text-xl font-bold mb-4 text-foreground">나의 강점</h2>
+            <h2 className="font-display text-xl font-bold mb-4 text-foreground">{t('result.myStrengths')}</h2>
             <div className="grid grid-cols-2 gap-3">
               {primaryType.strengths.map((strength, index) => {
                 const Icon = strengthIcons[index % strengthIcons.length];
@@ -227,7 +227,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
           <div>
             <h2 className="font-display text-xl font-bold mb-4 text-foreground flex items-center gap-2">
               <Briefcase className="w-5 h-5" />
-              어울리는 직업
+              {t('result.suitableCareers')}
             </h2>
             <div className="flex flex-wrap gap-2">
               {primaryType.careers.map((career, index) => (
@@ -246,7 +246,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
           <div>
             <h2 className="font-display text-xl font-bold mb-4 text-foreground flex items-center gap-2">
               <Palette className="w-5 h-5" />
-              좋아하는 취미
+              {t('result.favoriteHobbies')}
             </h2>
             <div className="flex flex-wrap gap-2">
               {primaryType.hobbies.map((hobby, index) => (
@@ -265,7 +265,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
           <div>
             <h2 className="font-display text-xl font-bold mb-4 text-foreground flex items-center gap-2">
               <Heart className="w-5 h-5" />
-              연애 스타일
+              {t('result.loveStyleTitle')}
             </h2>
             <p 
               className="text-muted-foreground leading-relaxed bg-muted/30 p-4 rounded-lg"
@@ -279,7 +279,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
             <div>
               <h2 className="font-display text-xl font-bold mb-4 text-foreground flex items-center gap-2">
                 <Users className="w-5 h-5" />
-                이런 모습이 나와 닮았어요
+                {t('result.behavioralScenarios')}
               </h2>
               <div className="space-y-3">
                 {primaryType.behavioralScenarios.map((scenario, index) => (
@@ -297,7 +297,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
           )}
           
           <div>
-            <h2 className="font-display text-xl font-bold mb-4 text-foreground">이런 활동을 좋아할 거예요</h2>
+            <h2 className="font-display text-xl font-bold mb-4 text-foreground">{t('result.likeActivities')}</h2>
             <div className="flex flex-wrap gap-2">
               {primaryType.activities.map((activity, index) => (
                 <Badge 
@@ -321,7 +321,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
           data-testid="button-share"
         >
           <Share2 className="w-4 h-4" />
-          결과 공유하기
+          {t('result.shareResult')}
         </Button>
         <Button 
           variant="outline" 
@@ -330,7 +330,7 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
           data-testid="button-restart-test"
         >
           <RotateCcw className="w-4 h-4" />
-          다시 검사하기
+          {t('result.restartTest')}
         </Button>
       </div>
     </div>
