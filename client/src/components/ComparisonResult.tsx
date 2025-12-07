@@ -610,6 +610,16 @@ function DimensionSimilarityCard({ similarity, t }: { similarity: DimensionSimil
   const isHigh = similarity.similarityPct >= 75;
   const isMedium = similarity.similarityPct >= 50 && similarity.similarityPct < 75;
   
+  const getDimensionName = (dim: string): string => {
+    const dimensionKeys: Record<string, string> = {
+      EI: 'result.dimEI',
+      SN: 'result.dimSN',
+      TF: 'result.dimTF',
+      JP: 'result.dimJP'
+    };
+    return t(dimensionKeys[dim] || dim);
+  };
+  
   const getTraitLabel = (dim: string, pct: number): string => {
     const labels: Record<string, { low: string; high: string }> = {
       EI: { low: t('result.traitE'), high: t('result.traitI') },
@@ -632,7 +642,7 @@ function DimensionSimilarityCard({ similarity, t }: { similarity: DimensionSimil
       data-testid={`card-similarity-${similarity.dimension}`}
     >
       <div className="flex items-center justify-between mb-3">
-        <span className="font-medium text-foreground">{similarity.dimensionName}</span>
+        <span className="font-medium text-foreground">{getDimensionName(similarity.dimension)}</span>
         <Badge 
           variant="outline" 
           className={
