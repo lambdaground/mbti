@@ -28,7 +28,12 @@ export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizCont
   
   if (questions.length === 0) return null;
   
-  const currentQuestion = questions[currentIndex];
+  // Ensure currentIndex is within bounds after questions array changes
+  const safeIndex = Math.min(currentIndex, questions.length - 1);
+  const currentQuestion = questions[safeIndex];
+  
+  // Early return if currentQuestion is still undefined (edge case)
+  if (!currentQuestion) return null;
   const isLastQuestion = currentIndex === questions.length - 1;
   const isFirstQuestion = currentIndex === 0;
   const allAnswered = Object.keys(answers).length === questions.length;
