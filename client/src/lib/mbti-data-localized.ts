@@ -948,3 +948,419 @@ export function getLocalizedMBTIType(type: string, language: Language): Localize
   const normalizedType = type.toUpperCase();
   return mbtiTypesLocalized[normalizedType]?.[language];
 }
+
+export interface LocalizedAgeNarrative {
+  overview: string;
+  keyTraits: string[];
+  scenarios: { situation: string; behavior: string }[];
+}
+
+export type AgeGroup = 'elementary' | 'middle' | 'high' | 'adult';
+
+export interface LocalizedFunFacts {
+  hiddenTalent: string;
+  funFact: string;
+  superpower: string;
+  famousQuote: string;
+  bestMatch: string;
+  secretWeakness: string;
+}
+
+const ageNarrativesLocalized: Record<string, Record<AgeGroup, Record<Language, LocalizedAgeNarrative>>> = {
+  INTP: {
+    elementary: {
+      ko: {
+        overview: "호기심이 많아서 '왜?'라는 질문을 자주 해요. 혼자 생각하는 시간을 좋아하고, 새로운 것을 배우는 걸 즐거워해요.",
+        keyTraits: ["호기심이 많아요", "질문을 많이 해요", "혼자 놀기도 좋아해요", "생각이 깊어요"],
+        scenarios: [
+          { situation: "새로운 장난감이 생기면", behavior: "어떻게 작동하는지 분해해서 살펴봐요" },
+          { situation: "모르는 것이 있으면", behavior: "끝까지 알아낼 때까지 질문해요" },
+          { situation: "친구들과 놀 때", behavior: "새로운 게임 규칙을 만들어요" }
+        ]
+      },
+      en: {
+        overview: "Very curious and often asks 'why?' Enjoys time alone to think and loves learning new things.",
+        keyTraits: ["Very curious", "Asks lots of questions", "Likes playing alone too", "Deep thinker"],
+        scenarios: [
+          { situation: "When getting a new toy", behavior: "Takes it apart to see how it works" },
+          { situation: "When there's something unknown", behavior: "Keeps asking until finding the answer" },
+          { situation: "When playing with friends", behavior: "Creates new game rules" }
+        ]
+      },
+      ja: {
+        overview: "好奇心旺盛で「なぜ？」とよく質問します。一人で考える時間が好きで、新しいことを学ぶのを楽しみます。",
+        keyTraits: ["好奇心旺盛", "質問をたくさんする", "一人遊びも好き", "考えが深い"],
+        scenarios: [
+          { situation: "新しいおもちゃをもらったら", behavior: "どう動くか分解して調べます" },
+          { situation: "分からないことがあったら", behavior: "答えが見つかるまで質問し続けます" },
+          { situation: "友達と遊ぶとき", behavior: "新しいゲームのルールを作ります" }
+        ]
+      },
+      zh: {
+        overview: "非常好奇，经常问'为什么？' 喜欢独自思考的时间，喜欢学习新事物。",
+        keyTraits: ["非常好奇", "问很多问题", "也喜欢独自玩耍", "思考深入"],
+        scenarios: [
+          { situation: "得到新玩具时", behavior: "拆开看看它是怎么工作的" },
+          { situation: "有不懂的事情时", behavior: "不断问直到找到答案" },
+          { situation: "和朋友玩时", behavior: "创造新的游戏规则" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "논리적 사고력이 발달하고, 복잡한 문제를 푸는 것을 좋아해요. 자신만의 이론을 세우고 검증하려 해요.",
+        keyTraits: ["논리적이에요", "분석적이에요", "독립적이에요", "창의적이에요"],
+        scenarios: [
+          { situation: "수학 문제를 풀 때", behavior: "여러 가지 방법으로 풀어보며 가장 효율적인 방법을 찾아요" },
+          { situation: "그룹 활동에서", behavior: "아이디어를 제안하고 논리적으로 설명해요" },
+          { situation: "새로운 취미를 찾으면", behavior: "깊이 파고들어 전문가 수준으로 연구해요" }
+        ]
+      },
+      en: {
+        overview: "Develops strong logical thinking and enjoys solving complex problems. Tries to build and verify their own theories.",
+        keyTraits: ["Logical", "Analytical", "Independent", "Creative"],
+        scenarios: [
+          { situation: "When solving math problems", behavior: "Tries multiple methods to find the most efficient one" },
+          { situation: "In group activities", behavior: "Proposes ideas and explains logically" },
+          { situation: "When finding a new hobby", behavior: "Dives deep and researches to expert level" }
+        ]
+      },
+      ja: {
+        overview: "論理的思考力が発達し、複雑な問題を解くのが好きです。自分なりの理論を立てて検証しようとします。",
+        keyTraits: ["論理的", "分析的", "独立心がある", "創造的"],
+        scenarios: [
+          { situation: "数学の問題を解くとき", behavior: "いろいろな方法で解いて最も効率的な方法を探します" },
+          { situation: "グループ活動で", behavior: "アイデアを提案し、論理的に説明します" },
+          { situation: "新しい趣味を見つけたら", behavior: "深く掘り下げて専門家レベルまで研究します" }
+        ]
+      },
+      zh: {
+        overview: "逻辑思维能力强，喜欢解决复杂问题。尝试建立并验证自己的理论。",
+        keyTraits: ["逻辑性强", "善于分析", "独立", "有创造力"],
+        scenarios: [
+          { situation: "解数学题时", behavior: "尝试多种方法找出最有效的" },
+          { situation: "在小组活动中", behavior: "提出想法并逻辑地解释" },
+          { situation: "发现新爱好时", behavior: "深入研究到专家水平" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "깊이 있는 사고와 분석으로 문제의 본질을 파악해요. 지적 호기심이 강하고, 이론과 가능성을 탐구해요.",
+        keyTraits: ["분석적이에요", "객관적이에요", "이론적이에요", "창의적이에요"],
+        scenarios: [
+          { situation: "복잡한 문제가 있으면", behavior: "여러 각도에서 분석하고 해결책을 찾아요" },
+          { situation: "관심 있는 주제에 대해", behavior: "깊이 연구하고 자기만의 이론을 만들어요" },
+          { situation: "틀린 논리를 보면", behavior: "조용히 문제점을 파악하고, 가끔 지적해요" }
+        ]
+      },
+      en: {
+        overview: "Grasps the essence of problems through deep thinking and analysis. Has strong intellectual curiosity and explores theories and possibilities.",
+        keyTraits: ["Analytical", "Objective", "Theoretical", "Creative"],
+        scenarios: [
+          { situation: "When facing complex problems", behavior: "Analyzes from multiple angles and finds solutions" },
+          { situation: "About topics of interest", behavior: "Researches deeply and creates own theories" },
+          { situation: "When seeing flawed logic", behavior: "Quietly identifies issues and sometimes points them out" }
+        ]
+      },
+      ja: {
+        overview: "深い思考と分析で問題の本質を把握します。知的好奇心が強く、理論と可能性を探求します。",
+        keyTraits: ["分析的", "客観的", "理論的", "創造的"],
+        scenarios: [
+          { situation: "複雑な問題があったら", behavior: "いろいろな角度から分析して解決策を探します" },
+          { situation: "興味のあるテーマについて", behavior: "深く研究して自分だけの理論を作ります" },
+          { situation: "間違った論理を見たら", behavior: "静かに問題点を把握し、時々指摘します" }
+        ]
+      },
+      zh: {
+        overview: "通过深入思考和分析把握问题本质。有强烈的求知欲，探索理论和可能性。",
+        keyTraits: ["分析性强", "客观", "理论性强", "有创造力"],
+        scenarios: [
+          { situation: "遇到复杂问题时", behavior: "从多角度分析并找出解决方案" },
+          { situation: "对于感兴趣的话题", behavior: "深入研究并创建自己的理论" },
+          { situation: "看到错误逻辑时", behavior: "静静地发现问题，有时会指出" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "독창적인 아이디어와 논리적 분석으로 혁신을 이끌어요. 복잡한 시스템을 이해하고 개선하는 것에 능해요.",
+        keyTraits: ["혁신적이에요", "분석적이에요", "독립적이에요", "논리적이에요"],
+        scenarios: [
+          { situation: "새로운 프로젝트에서", behavior: "기존의 틀을 벗어난 해결책을 제시해요" },
+          { situation: "비효율적인 시스템을 보면", behavior: "개선점을 분석하고 새로운 방법을 제안해요" },
+          { situation: "토론에서", behavior: "논리적 근거를 바탕으로 의견을 제시해요" }
+        ]
+      },
+      en: {
+        overview: "Leads innovation with original ideas and logical analysis. Skilled at understanding and improving complex systems.",
+        keyTraits: ["Innovative", "Analytical", "Independent", "Logical"],
+        scenarios: [
+          { situation: "In new projects", behavior: "Proposes solutions outside the conventional framework" },
+          { situation: "When seeing inefficient systems", behavior: "Analyzes improvements and suggests new methods" },
+          { situation: "In discussions", behavior: "Presents opinions based on logical evidence" }
+        ]
+      },
+      ja: {
+        overview: "独創的なアイデアと論理的分析でイノベーションをリードします。複雑なシステムを理解し改善することに長けています。",
+        keyTraits: ["革新的", "分析的", "独立心がある", "論理的"],
+        scenarios: [
+          { situation: "新しいプロジェクトで", behavior: "既存の枠を超えた解決策を提示します" },
+          { situation: "非効率なシステムを見たら", behavior: "改善点を分析し、新しい方法を提案します" },
+          { situation: "議論で", behavior: "論理的な根拠に基づいて意見を述べます" }
+        ]
+      },
+      zh: {
+        overview: "用原创想法和逻辑分析引领创新。擅长理解和改进复杂系统。",
+        keyTraits: ["创新", "分析性强", "独立", "逻辑性强"],
+        scenarios: [
+          { situation: "在新项目中", behavior: "提出超越传统框架的解决方案" },
+          { situation: "看到低效系统时", behavior: "分析改进点并建议新方法" },
+          { situation: "在讨论中", behavior: "基于逻辑证据发表意见" }
+        ]
+      }
+    }
+  },
+  INFP: {
+    elementary: {
+      ko: {
+        overview: "상상력이 풍부하고 감수성이 예민해요. 혼자만의 세계에서 이야기를 만들고, 다른 사람의 감정에 공감해요.",
+        keyTraits: ["상상력이 풍부해요", "감수성이 예민해요", "친절해요", "창의적이에요"],
+        scenarios: [
+          { situation: "혼자 놀 때", behavior: "상상 속 친구와 이야기를 나눠요" },
+          { situation: "친구가 울면", behavior: "같이 슬퍼하며 위로해줘요" },
+          { situation: "그림을 그릴 때", behavior: "자신만의 상상의 세계를 표현해요" }
+        ]
+      },
+      en: {
+        overview: "Has rich imagination and sensitive emotions. Creates stories in their own world and empathizes with others' feelings.",
+        keyTraits: ["Rich imagination", "Sensitive", "Kind", "Creative"],
+        scenarios: [
+          { situation: "When playing alone", behavior: "Talks with imaginary friends" },
+          { situation: "When a friend cries", behavior: "Feels sad together and comforts them" },
+          { situation: "When drawing", behavior: "Expresses their own imaginary world" }
+        ]
+      },
+      ja: {
+        overview: "想像力が豊かで感受性が繊細です。自分だけの世界で物語を作り、他人の感情に共感します。",
+        keyTraits: ["想像力が豊か", "感受性が繊細", "優しい", "創造的"],
+        scenarios: [
+          { situation: "一人で遊ぶとき", behavior: "想像上の友達と話します" },
+          { situation: "友達が泣いたら", behavior: "一緒に悲しんで慰めます" },
+          { situation: "絵を描くとき", behavior: "自分だけの想像の世界を表現します" }
+        ]
+      },
+      zh: {
+        overview: "想象力丰富，感情细腻。在自己的世界里创造故事，与他人的感受产生共鸣。",
+        keyTraits: ["想象力丰富", "敏感", "善良", "有创造力"],
+        scenarios: [
+          { situation: "独自玩耍时", behavior: "与想象中的朋友交谈" },
+          { situation: "朋友哭泣时", behavior: "一起难过并安慰他们" },
+          { situation: "画画时", behavior: "表达自己想象的世界" }
+        ]
+      }
+    },
+    middle: {
+      ko: {
+        overview: "자신의 가치관이 형성되기 시작하고, 진정성 있는 관계를 중요시해요. 예술적 표현을 통해 감정을 전달해요.",
+        keyTraits: ["이상주의적이에요", "공감 능력이 뛰어나요", "창의적이에요", "내성적이에요"],
+        scenarios: [
+          { situation: "글쓰기 시간에", behavior: "깊은 감정이 담긴 글을 써요" },
+          { situation: "친구 관계에서", behavior: "진심으로 대하는 소수의 친구를 사귀어요" },
+          { situation: "불공정한 일을 보면", behavior: "마음이 아프고 바로잡고 싶어해요" }
+        ]
+      },
+      en: {
+        overview: "Values begin to form and authentic relationships become important. Expresses emotions through artistic expression.",
+        keyTraits: ["Idealistic", "Highly empathetic", "Creative", "Introverted"],
+        scenarios: [
+          { situation: "During writing time", behavior: "Writes with deep emotions" },
+          { situation: "In friendships", behavior: "Makes a few genuine friends" },
+          { situation: "When seeing unfairness", behavior: "Feels hurt and wants to make it right" }
+        ]
+      },
+      ja: {
+        overview: "自分の価値観が形成され始め、本物の関係を大切にします。芸術的表現を通じて感情を伝えます。",
+        keyTraits: ["理想主義的", "共感力が高い", "創造的", "内向的"],
+        scenarios: [
+          { situation: "作文の時間に", behavior: "深い感情を込めた文章を書きます" },
+          { situation: "友人関係で", behavior: "心から向き合える少数の友達を作ります" },
+          { situation: "不公平なことを見たら", behavior: "心が痛み、正したいと思います" }
+        ]
+      },
+      zh: {
+        overview: "开始形成自己的价值观，重视真诚的关系。通过艺术表达传达情感。",
+        keyTraits: ["理想主义", "高度共情", "有创造力", "内向"],
+        scenarios: [
+          { situation: "写作时", behavior: "写下充满深情的文字" },
+          { situation: "在友谊中", behavior: "结交少数真诚的朋友" },
+          { situation: "看到不公平时", behavior: "感到难过并想纠正" }
+        ]
+      }
+    },
+    high: {
+      ko: {
+        overview: "자신의 가치와 신념에 따라 살려고 노력해요. 깊은 감정적 연결과 의미 있는 관계를 추구해요.",
+        keyTraits: ["이상주의적이에요", "공감력이 뛰어나요", "창의적이에요", "성찰적이에요"],
+        scenarios: [
+          { situation: "진로를 생각할 때", behavior: "돈보다 의미 있는 일을 하고 싶어해요" },
+          { situation: "친한 친구와 대화할 때", behavior: "깊은 이야기를 나누며 서로를 이해해요" },
+          { situation: "예술 작품을 볼 때", behavior: "작품에 담긴 감정과 메시지를 느껴요" }
+        ]
+      },
+      en: {
+        overview: "Tries to live according to their values and beliefs. Seeks deep emotional connections and meaningful relationships.",
+        keyTraits: ["Idealistic", "Highly empathetic", "Creative", "Reflective"],
+        scenarios: [
+          { situation: "When thinking about careers", behavior: "Wants to do meaningful work over money" },
+          { situation: "When talking with close friends", behavior: "Shares deep conversations and understands each other" },
+          { situation: "When viewing art", behavior: "Feels the emotions and messages in the work" }
+        ]
+      },
+      ja: {
+        overview: "自分の価値観と信念に従って生きようとします。深い感情的なつながりと意味のある関係を求めます。",
+        keyTraits: ["理想主義的", "共感力が高い", "創造的", "内省的"],
+        scenarios: [
+          { situation: "進路を考えるとき", behavior: "お金より意味のある仕事をしたいと思います" },
+          { situation: "親しい友人と話すとき", behavior: "深い話をして互いを理解します" },
+          { situation: "芸術作品を見るとき", behavior: "作品に込められた感情とメッセージを感じます" }
+        ]
+      },
+      zh: {
+        overview: "努力按照自己的价值观和信念生活。寻求深厚的情感联系和有意义的关系。",
+        keyTraits: ["理想主义", "高度共情", "有创造力", "善于反思"],
+        scenarios: [
+          { situation: "考虑职业时", behavior: "想做有意义的工作而非追求金钱" },
+          { situation: "与亲密朋友交谈时", behavior: "进行深入对话并相互理解" },
+          { situation: "欣赏艺术作品时", behavior: "感受作品中的情感和信息" }
+        ]
+      }
+    },
+    adult: {
+      ko: {
+        overview: "진정성 있는 삶과 의미 있는 일을 추구해요. 창의적 표현과 타인을 돕는 것에서 만족감을 느껴요.",
+        keyTraits: ["이상주의적이에요", "공감력이 뛰어나요", "창의적이에요", "헌신적이에요"],
+        scenarios: [
+          { situation: "일을 선택할 때", behavior: "자신의 가치관과 맞는 일을 찾아요" },
+          { situation: "사람들과 교류할 때", behavior: "진심 어린 대화로 깊은 유대감을 형성해요" },
+          { situation: "창작 활동을 할 때", behavior: "내면의 감정을 예술로 표현해요" }
+        ]
+      },
+      en: {
+        overview: "Pursues an authentic life and meaningful work. Finds satisfaction in creative expression and helping others.",
+        keyTraits: ["Idealistic", "Highly empathetic", "Creative", "Dedicated"],
+        scenarios: [
+          { situation: "When choosing work", behavior: "Looks for work that aligns with their values" },
+          { situation: "When interacting with people", behavior: "Forms deep bonds through heartfelt conversations" },
+          { situation: "When doing creative activities", behavior: "Expresses inner emotions through art" }
+        ]
+      },
+      ja: {
+        overview: "本物の人生と意味のある仕事を追求します。創造的な表現と他者を助けることに満足感を感じます。",
+        keyTraits: ["理想主義的", "共感力が高い", "創造的", "献身的"],
+        scenarios: [
+          { situation: "仕事を選ぶとき", behavior: "自分の価値観に合う仕事を探します" },
+          { situation: "人と交流するとき", behavior: "心からの会話で深い絆を築きます" },
+          { situation: "創作活動をするとき", behavior: "内面の感情を芸術で表現します" }
+        ]
+      },
+      zh: {
+        overview: "追求真实的生活和有意义的工作。在创造性表达和帮助他人中找到满足感。",
+        keyTraits: ["理想主义", "高度共情", "有创造力", "有奉献精神"],
+        scenarios: [
+          { situation: "选择工作时", behavior: "寻找与自己价值观一致的工作" },
+          { situation: "与人交流时", behavior: "通过真诚对话建立深厚联系" },
+          { situation: "进行创作活动时", behavior: "用艺术表达内心情感" }
+        ]
+      }
+    }
+  }
+};
+
+const funFactsLocalized: Record<string, Record<Language, LocalizedFunFacts>> = {
+  INTP: {
+    ko: {
+      hiddenTalent: "모든 것에 '왜?'라고 질문하며, 아무도 생각하지 못한 해결책을 찾아내요",
+      funFact: "INTP는 아인슈타인처럼 생각하는 타입! 관심 있는 주제가 생기면 몇 시간이고 파고들어요",
+      superpower: "논리의 마법사! 복잡한 문제를 단순하게 풀어내는 천재적인 능력이 있어요",
+      famousQuote: "세상의 모든 것은 탐구할 가치가 있어요",
+      bestMatch: "따뜻한 ENFJ와 함께하면 세상과 더 잘 연결될 수 있어요",
+      secretWeakness: "생각에 빠져 현실을 놓칠 때가 있지만, 따뜻하게 현실로 불러주면 좋아해요"
+    },
+    en: {
+      hiddenTalent: "Questions 'why?' about everything and finds solutions no one else thought of",
+      funFact: "INTPs think like Einstein! When they find an interesting topic, they dive deep for hours",
+      superpower: "Logic wizard! Has a genius ability to simplify complex problems",
+      famousQuote: "Everything in the world is worth exploring",
+      bestMatch: "Can connect better with the world when paired with a warm ENFJ",
+      secretWeakness: "Sometimes gets lost in thoughts and misses reality, but appreciates being gently brought back"
+    },
+    ja: {
+      hiddenTalent: "すべてに「なぜ？」と質問し、誰も思いつかなかった解決策を見つけます",
+      funFact: "INTPはアインシュタインのように考えるタイプ！興味のあるテーマが見つかると何時間でも没頭します",
+      superpower: "論理の魔法使い！複雑な問題をシンプルに解く天才的な能力があります",
+      famousQuote: "世界のすべては探求する価値があります",
+      bestMatch: "温かいENFJと一緒にいると、世界とよりよくつながれます",
+      secretWeakness: "考えに没頭して現実を見失うことがありますが、優しく現実に戻してもらうと嬉しいです"
+    },
+    zh: {
+      hiddenTalent: "对所有事物都问'为什么？'，找到别人想不到的解决方案",
+      funFact: "INTP像爱因斯坦一样思考！当发现有趣的话题时，会深入研究好几个小时",
+      superpower: "逻辑魔法师！有把复杂问题简化的天才能力",
+      famousQuote: "世界上的一切都值得探索",
+      bestMatch: "和温暖的ENFJ在一起可以更好地与世界连接",
+      secretWeakness: "有时会陷入思考而错过现实，但喜欢被温柔地拉回来"
+    }
+  },
+  INFP: {
+    ko: {
+      hiddenTalent: "사람들의 마음을 읽고, 아무도 모르는 감정까지 이해하는 특별한 능력이 있어요",
+      funFact: "INFP는 상상력의 천재! 머릿속에 완전한 판타지 세계가 있어요",
+      superpower: "공감의 히어로! 상처받은 마음을 치유하는 힘이 있어요",
+      famousQuote: "세상을 더 아름답게 만들고 싶어요",
+      bestMatch: "든든한 ENTJ와 함께하면 꿈을 현실로 만들 수 있어요",
+      secretWeakness: "비판에 민감하지만, 그것은 진심으로 더 좋은 사람이 되고 싶은 마음 때문이에요"
+    },
+    en: {
+      hiddenTalent: "Has a special ability to read people's hearts and understand hidden emotions",
+      funFact: "INFPs are imagination geniuses! They have a complete fantasy world in their minds",
+      superpower: "Empathy hero! Has the power to heal wounded hearts",
+      famousQuote: "I want to make the world more beautiful",
+      bestMatch: "Can make dreams reality when paired with a dependable ENTJ",
+      secretWeakness: "Sensitive to criticism, but that's because they sincerely want to be a better person"
+    },
+    ja: {
+      hiddenTalent: "人の心を読み、誰も知らない感情まで理解する特別な能力があります",
+      funFact: "INFPは想像力の天才！頭の中に完全なファンタジー世界があります",
+      superpower: "共感のヒーロー！傷ついた心を癒す力があります",
+      famousQuote: "世界をもっと美しくしたいです",
+      bestMatch: "頼りになるENTJと一緒にいると、夢を現実にできます",
+      secretWeakness: "批判に敏感ですが、それは本心からより良い人になりたいからです"
+    },
+    zh: {
+      hiddenTalent: "有读懂人心的特殊能力，能理解别人不知道的情感",
+      funFact: "INFP是想象力天才！脑海中有一个完整的幻想世界",
+      superpower: "共情英雄！有治愈受伤心灵的力量",
+      famousQuote: "我想让世界变得更美好",
+      bestMatch: "和可靠的ENTJ在一起可以把梦想变为现实",
+      secretWeakness: "对批评敏感，但那是因为真心想成为更好的人"
+    }
+  }
+};
+
+export function getLocalizedAgeNarrative(
+  mbtiType: string, 
+  ageGroup: AgeGroup, 
+  language: Language
+): LocalizedAgeNarrative | null {
+  const normalizedType = mbtiType.toUpperCase();
+  return ageNarrativesLocalized[normalizedType]?.[ageGroup]?.[language] || null;
+}
+
+export function getLocalizedFunFacts(
+  mbtiType: string, 
+  language: Language
+): LocalizedFunFacts | null {
+  const normalizedType = mbtiType.toUpperCase();
+  return funFactsLocalized[normalizedType]?.[language] || null;
+}

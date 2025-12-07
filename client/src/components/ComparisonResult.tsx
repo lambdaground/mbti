@@ -33,6 +33,7 @@ import {
 } from "@/lib/mbti-data";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getAnimalName } from "@/lib/i18n";
+import { getLocalizedMBTIType, getLocalizedAgeNarrative, getLocalizedFunFacts } from "@/lib/mbti-data-localized";
 
 import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";
 import intpImage from "@assets/generated_images/curious_raccoon_mascot_intp.png";
@@ -127,14 +128,25 @@ export default function ComparisonResult({
   const parentType = parentResult.primaryType.type;
   const childType = childResult.primaryType.type;
   
+  const localizedParentType = getLocalizedMBTIType(parentType, language);
+  const localizedChildType = getLocalizedMBTIType(childType, language);
+  
+  const parentNickname = localizedParentType?.nickname || parentResult.primaryType.nickname;
+  const childNickname = localizedChildType?.nickname || childResult.primaryType.nickname;
+  
   const relationshipInsight = getRelationshipInsight(parentType, childType);
   const complexAnalysis = getComplexComparisonAnalysis(parentResult, childResult);
   
   const { parentHybrid, childHybrid } = complexAnalysis;
   
-  const childAgeNarrative = childAgeGroup ? getAgeNarrative(childType, childAgeGroup) : null;
+  const localizedAgeNarrative = childAgeGroup ? getLocalizedAgeNarrative(childType, childAgeGroup, language) : null;
+  const fallbackAgeNarrative = childAgeGroup ? getAgeNarrative(childType, childAgeGroup) : null;
+  const childAgeNarrative = localizedAgeNarrative || fallbackAgeNarrative;
   const ageLabel = childAgeGroup ? t(`age.${childAgeGroup}`) : '';
-  const childFunFacts = getMBTIFunFacts(childType);
+  
+  const localizedFunFacts = getLocalizedFunFacts(childType, language);
+  const fallbackFunFacts = getMBTIFunFacts(childType);
+  const childFunFacts = localizedFunFacts || fallbackFunFacts;
 
   return (
     <div className="container max-w-4xl mx-auto space-y-8" data-testid="comparison-result-container">
@@ -174,7 +186,7 @@ export default function ComparisonResult({
             </div>
           </CardHeader>
           <CardContent className="text-center space-y-3">
-            <p className="text-lg font-medium text-foreground">{parentResult.primaryType.nickname}</p>
+            <p className="text-lg font-medium text-foreground">{parentNickname}</p>
             <p className="text-sm text-muted-foreground">{parentHybrid.blendDescription}</p>
           </CardContent>
         </Card>
@@ -205,7 +217,7 @@ export default function ComparisonResult({
             </div>
           </CardHeader>
           <CardContent className="text-center space-y-3">
-            <p className="text-lg font-medium text-foreground">{childResult.primaryType.nickname}</p>
+            <p className="text-lg font-medium text-foreground">{childNickname}</p>
             <p className="text-sm text-muted-foreground">{childHybrid.blendDescription}</p>
           </CardContent>
         </Card>
