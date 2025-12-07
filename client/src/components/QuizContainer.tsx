@@ -6,6 +6,7 @@ import QuestionCard from "./QuestionCard";
 import { getScenarioQuestions, calculateMBTIWithPercentage, type AgeGroup, type ScenarioQuestion, type Answer, type MBTIResult } from "@/lib/mbti-data";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getTranslatedQuestions } from "@/lib/quiz-translations";
+import { apiRequest } from "@/lib/queryClient";
 
 interface QuizContainerProps {
   ageGroup: AgeGroup;
@@ -54,7 +55,7 @@ export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizCont
     }
   };
   
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (allAnswered) {
       const convertedQuestions = questions.map(q => ({
         id: q.id,
@@ -66,6 +67,19 @@ export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizCont
         scoring: q.scoring
       }));
       const result = calculateMBTIWithPercentage(answers, convertedQuestions);
+      
+      try {
+        await apiRequest("POST", "/api/quiz-responses", {
+          ageGroup,
+          language,
+          answers,
+          mbtiResult: result.type,
+          percentages: result.percentages
+        });
+      } catch (error) {
+        console.error("Failed to save quiz response:", error);
+      }
+      
       onComplete(result);
     }
   };
