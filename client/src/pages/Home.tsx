@@ -4,7 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import AgeSelection from "@/components/AgeSelection";
 import QuizContainer from "@/components/QuizContainer";
 import ComparisonResult from "@/components/ComparisonResult";
-import MBTIAnimalGallery from "@/components/MBTIAnimalGallery";
+import AnimalGuideSection from "@/components/AnimalGuideSection";
 import Footer from "@/components/Footer";
 import { 
   type AgeGroup, 
@@ -308,7 +308,7 @@ export default function Home() {
           onStartWithMbti={handleStartWithMbti}
           onStartWithQuiz={handleStartWithQuiz}
         />
-        <MBTIAnimalGallery />
+        <AnimalGuideSection />
       </main>
       <Footer />
     </div>

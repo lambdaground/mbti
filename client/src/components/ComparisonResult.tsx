@@ -580,8 +580,6 @@ export default function ComparisonResult({
         </TabsContent>
       </Tabs>
 
-      <AnimalGuideSection language={language} t={t} mbtiImageMap={mbtiImageMap} />
-
       <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
         <Button 
           variant="outline" 
