@@ -42,6 +42,22 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { getAnimalName } from "@/lib/i18n";
 import { getLocalizedMBTIType, getLocalizedAgeNarrative, getLocalizedFunFacts, getLocalizedHybridName, getLocalizedAnimalDescription, getLocalizedRelationshipInsight, getLocalizedAnimalPersonality } from "@/lib/mbti-data-localized";
 
+function generateLocalizedHybridBadgeName(hybrid: HybridPersonality, language: Language): string {
+  const directTranslation = getLocalizedHybridName(hybrid.hybridAnimalName, language);
+  if (directTranslation !== hybrid.hybridAnimalName || language === 'ko') {
+    return directTranslation;
+  }
+  
+  const primaryName = getLocalizedHybridName(hybrid.primaryAnimal, language);
+  const secondaryName = getLocalizedHybridName(hybrid.secondaryAnimal, language);
+  
+  if (hybrid.blendLevel === 'pure' || primaryName === secondaryName) {
+    return primaryName;
+  }
+  
+  return `${primaryName}-${secondaryName}`;
+}
+
 import intjImage from "@assets/generated_images/intj_wise_owl_mascot.png";
 import intpImage from "@assets/generated_images/curious_raccoon_mascot_intp.png";
 import entjImage from "@assets/generated_images/entj_lion_leader_mascot.png";
@@ -216,7 +232,7 @@ export default function ComparisonResult({
             </div>
             <div className="mt-2">
               <Badge variant="outline" className="bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-700">
-                {getLocalizedHybridName(parentHybrid.hybridAnimalName, language)}
+                {generateLocalizedHybridBadgeName(parentHybrid, language)}
               </Badge>
             </div>
           </CardHeader>
@@ -249,7 +265,7 @@ export default function ComparisonResult({
             </div>
             <div className="mt-2">
               <Badge variant="outline" className="bg-sky-50 dark:bg-sky-950/30 text-sky-700 dark:text-sky-300 border-sky-300 dark:border-sky-700">
-                {getLocalizedHybridName(childHybrid.hybridAnimalName, language)}
+                {generateLocalizedHybridBadgeName(childHybrid, language)}
               </Badge>
             </div>
           </CardHeader>
