@@ -213,15 +213,37 @@ export default function ComparisonResult({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="border-2 border-rose-200 dark:border-rose-900/50 overflow-visible" data-testid="card-parent-result">
           <CardHeader className="text-center pb-2">
-            <div className="flex justify-center mb-4">
-              <div className="w-24 h-24 rounded-full bg-rose-100 dark:bg-rose-950/30 p-2 border-2 border-rose-300 dark:border-rose-800">
-                <img 
-                  src={getHybridImage(parentHybrid)} 
-                  alt={parentHybrid.hybridAnimalName}
-                  className="w-full h-full object-contain rounded-full"
-                  data-testid="img-parent-animal"
-                />
+            <div className="flex items-end justify-center gap-2 mb-4">
+              <div className="flex flex-col items-center">
+                <div className="w-20 h-20 rounded-full bg-rose-100 dark:bg-rose-950/30 p-1.5 border-2 border-rose-300 dark:border-rose-800">
+                  <img 
+                    src={getAnimalImage(parentResult.primaryType.type)} 
+                    alt={getAnimalName(language, parentResult.primaryType.type)}
+                    className="w-full h-full object-contain rounded-full"
+                    data-testid="img-parent-animal-primary"
+                  />
+                </div>
+                <span className="text-xs text-rose-600/70 dark:text-rose-400/70 mt-0.5">{Math.round(parentResult.primaryPercentage)}%</span>
               </div>
+              {parentResult.secondaryType && parentResult.secondaryType.type !== parentResult.primaryType.type && (
+                <div className="flex flex-col items-center">
+                  <div 
+                    className="rounded-full bg-rose-50 dark:bg-rose-950/20 p-1 border border-rose-200 dark:border-rose-800/50"
+                    style={{
+                      width: `${Math.round((parentResult.secondaryPercentage / parentResult.primaryPercentage) * 80)}px`,
+                      height: `${Math.round((parentResult.secondaryPercentage / parentResult.primaryPercentage) * 80)}px`,
+                    }}
+                  >
+                    <img 
+                      src={getAnimalImage(parentResult.secondaryType.type)} 
+                      alt={getAnimalName(language, parentResult.secondaryType.type)}
+                      className="w-full h-full object-contain rounded-full"
+                      data-testid="img-parent-animal-secondary"
+                    />
+                  </div>
+                  <span className="text-xs text-rose-600/50 dark:text-rose-400/50 mt-0.5">{Math.round(parentResult.secondaryPercentage)}%</span>
+                </div>
+              )}
             </div>
             <div className="text-sm text-muted-foreground mb-1">{t('result.parent')}</div>
             <CardTitle className="text-4xl font-bold text-rose-600 dark:text-rose-400" data-testid="text-parent-mbti">
@@ -246,15 +268,37 @@ export default function ComparisonResult({
 
         <Card className="border-2 border-sky-200 dark:border-sky-900/50 overflow-visible" data-testid="card-child-result">
           <CardHeader className="text-center pb-2">
-            <div className="flex justify-center mb-4">
-              <div className="w-24 h-24 rounded-full bg-sky-100 dark:bg-sky-950/30 p-2 border-2 border-sky-300 dark:border-sky-800">
-                <img 
-                  src={getHybridImage(childHybrid)} 
-                  alt={getLocalizedHybridName(childHybrid.hybridAnimalName, language)}
-                  className="w-full h-full object-contain rounded-full"
-                  data-testid="img-child-animal"
-                />
+            <div className="flex items-end justify-center gap-2 mb-4">
+              <div className="flex flex-col items-center">
+                <div className="w-20 h-20 rounded-full bg-sky-100 dark:bg-sky-950/30 p-1.5 border-2 border-sky-300 dark:border-sky-800">
+                  <img 
+                    src={getAnimalImage(childResult.primaryType.type)} 
+                    alt={getAnimalName(language, childResult.primaryType.type)}
+                    className="w-full h-full object-contain rounded-full"
+                    data-testid="img-child-animal-primary"
+                  />
+                </div>
+                <span className="text-xs text-sky-600/70 dark:text-sky-400/70 mt-0.5">{Math.round(childResult.primaryPercentage)}%</span>
               </div>
+              {childResult.secondaryType && childResult.secondaryType.type !== childResult.primaryType.type && (
+                <div className="flex flex-col items-center">
+                  <div 
+                    className="rounded-full bg-sky-50 dark:bg-sky-950/20 p-1 border border-sky-200 dark:border-sky-800/50"
+                    style={{
+                      width: `${Math.round((childResult.secondaryPercentage / childResult.primaryPercentage) * 80)}px`,
+                      height: `${Math.round((childResult.secondaryPercentage / childResult.primaryPercentage) * 80)}px`,
+                    }}
+                  >
+                    <img 
+                      src={getAnimalImage(childResult.secondaryType.type)} 
+                      alt={getAnimalName(language, childResult.secondaryType.type)}
+                      className="w-full h-full object-contain rounded-full"
+                    data-testid="img-child-animal-secondary"
+                    />
+                  </div>
+                  <span className="text-xs text-sky-600/50 dark:text-sky-400/50 mt-0.5">{Math.round(childResult.secondaryPercentage)}%</span>
+                </div>
+              )}
             </div>
             <div className="text-sm text-muted-foreground mb-1">{t('result.child')}</div>
             <CardTitle className="text-4xl font-bold text-sky-600 dark:text-sky-400" data-testid="text-child-mbti">

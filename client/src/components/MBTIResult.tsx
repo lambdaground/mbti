@@ -120,13 +120,37 @@ export default function MBTIResult({ result, ageGroup, onRestart, onShare }: MBT
     <div className="w-full max-w-4xl mx-auto space-y-6">
       <Card className="overflow-visible">
         <div className={`bg-gradient-to-br ${primaryType.color} p-8 md:p-12 text-white text-center rounded-t-lg`}>
-          <div className="inline-flex items-center justify-center w-28 h-28 md:w-36 md:h-36 bg-white/20 backdrop-blur-sm rounded-full mb-6 p-2">
-            <img 
-              src={getAnimalImage(primaryType.type)} 
-              alt={getAnimalName(language, primaryType.type)}
-              className="w-full h-full object-contain rounded-full"
-              data-testid="img-mbti-animal"
-            />
+          <div className="flex items-end justify-center gap-3 mb-6">
+            <div className="flex flex-col items-center">
+              <div className="w-28 h-28 md:w-36 md:h-36 bg-white/20 backdrop-blur-sm rounded-full p-2">
+                <img 
+                  src={getAnimalImage(primaryType.type)} 
+                  alt={getAnimalName(language, primaryType.type)}
+                  className="w-full h-full object-contain rounded-full"
+                  data-testid="img-mbti-animal-primary"
+                />
+              </div>
+              <span className="text-xs mt-1 opacity-80">{Math.round(primaryPercentage)}%</span>
+            </div>
+            {secondaryType && secondaryType.type !== primaryType.type && (
+              <div className="flex flex-col items-center">
+                <div 
+                  className="bg-white/15 backdrop-blur-sm rounded-full p-1.5"
+                  style={{
+                    width: `${Math.round((secondaryPercentage / primaryPercentage) * 112)}px`,
+                    height: `${Math.round((secondaryPercentage / primaryPercentage) * 112)}px`,
+                  }}
+                >
+                  <img 
+                    src={getAnimalImage(secondaryType.type)} 
+                    alt={getAnimalName(language, secondaryType.type)}
+                    className="w-full h-full object-contain rounded-full"
+                    data-testid="img-mbti-animal-secondary"
+                  />
+                </div>
+                <span className="text-xs mt-1 opacity-60">{Math.round(secondaryPercentage)}%</span>
+              </div>
+            )}
           </div>
           
           <Badge variant="secondary" className="mb-4 bg-white/20 text-white border-0">
