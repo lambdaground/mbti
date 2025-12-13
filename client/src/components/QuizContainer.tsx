@@ -40,12 +40,6 @@ export default function QuizContainer({ ageGroup, onComplete, onBack }: QuizCont
   
   const handleAnswer = (answer: Answer) => {
     setAnswers((prev) => ({ ...prev, [currentQuestion.id]: answer }));
-    
-    if (!isLastQuestion) {
-      setTimeout(() => {
-        setCurrentIndex((prev) => prev + 1);
-      }, 300);
-    }
   };
   
   const handlePrevious = () => {
