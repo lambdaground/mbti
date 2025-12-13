@@ -5186,3 +5186,305 @@ export function getLocalizedRelationshipInsight(
     childUnderstanding: childUnderstanding.slice(0, 6)
   };
 }
+
+export interface AnimalPersonalityLocalized {
+  shortDesc: string;
+  detailedDesc: string;
+}
+
+export const animalPersonalitiesLocalized: Record<string, Record<Language, AnimalPersonalityLocalized>> = {
+  INTJ: {
+    ko: {
+      shortDesc: '혼자서 깊이 생각하고, 전략적으로 목표를 달성해요',
+      detailedDesc: '올빼미처럼 조용히 관찰하고 깊이 생각하는 성격이에요. 혼자만의 시간을 즐기며, 미래를 위한 계획을 세우는 것을 좋아해요. 복잡한 문제도 차분하게 분석해서 해결책을 찾아내는 능력이 뛰어나요. 목표가 생기면 끝까지 포기하지 않고 전략적으로 달성해 나가요.'
+    },
+    en: {
+      shortDesc: 'Thinks deeply alone and achieves goals strategically',
+      detailedDesc: 'Like an owl, this personality quietly observes and thinks deeply. They enjoy alone time and love planning for the future. They excel at calmly analyzing complex problems to find solutions. Once they set a goal, they strategically pursue it without giving up.'
+    },
+    ja: {
+      shortDesc: '一人で深く考え、戦略的に目標を達成します',
+      detailedDesc: 'フクロウのように静かに観察し、深く考える性格です。一人の時間を楽しみ、将来の計画を立てることが好きです。複雑な問題も冷静に分析して解決策を見つける能力に優れています。目標ができたら最後まで諦めずに戦略的に達成していきます。'
+    },
+    zh: {
+      shortDesc: '独自深思，战略性地实现目标',
+      detailedDesc: '像猫头鹰一样安静地观察和深入思考。喜欢独处时光，热爱规划未来。擅长冷静分析复杂问题并找到解决方案。一旦设定目标，就会战略性地坚持到底。'
+    }
+  },
+  INTP: {
+    ko: {
+      shortDesc: '끝없는 호기심으로 새로운 것을 탐구하고 분석해요',
+      detailedDesc: '너구리처럼 호기심이 넘치고 무엇이든 알고 싶어하는 성격이에요. "왜?"라는 질문을 자주 하며, 새로운 아이디어를 생각해내는 것을 좋아해요. 논리적으로 세상을 이해하려 하고, 복잡한 이론도 쉽게 파악해요. 자유롭게 탐구하고 분석하는 것을 즐겨요.'
+    },
+    en: {
+      shortDesc: 'Explores and analyzes new things with endless curiosity',
+      detailedDesc: 'Like a raccoon, this personality is full of curiosity and wants to know everything. They often ask "why?" and love coming up with new ideas. They try to understand the world logically and easily grasp complex theories. They enjoy freely exploring and analyzing.'
+    },
+    ja: {
+      shortDesc: '終わりなき好奇心で新しいことを探求し分析します',
+      detailedDesc: 'アライグマのように好奇心旺盛で、何でも知りたがる性格です。「なぜ？」とよく質問し、新しいアイデアを考えるのが好きです。論理的に世界を理解しようとし、複雑な理論も簡単に把握します。自由に探求し分析することを楽しみます。'
+    },
+    zh: {
+      shortDesc: '以无尽的好奇心探索和分析新事物',
+      detailedDesc: '像浣熊一样充满好奇心，想要了解一切。经常问"为什么？"，喜欢想出新点子。试图用逻辑理解世界，轻松掌握复杂理论。享受自由探索和分析。'
+    }
+  },
+  ENTJ: {
+    ko: {
+      shortDesc: '리더십이 강하고 목표를 향해 당당하게 나아가요',
+      detailedDesc: '사자처럼 당당하고 리더십이 넘치는 성격이에요. 목표가 생기면 확실하게 계획을 세우고 팀을 이끌어 나가요. 도전을 두려워하지 않고, 어려운 상황에서도 결단력 있게 행동해요. 효율적으로 일을 처리하고 성과를 내는 것을 중요하게 생각해요.'
+    },
+    en: {
+      shortDesc: 'Strong leadership, confidently moves toward goals',
+      detailedDesc: 'Like a lion, this personality is confident and full of leadership. When they have a goal, they make solid plans and lead the team. They don\'t fear challenges and act decisively even in difficult situations. They value getting things done efficiently and achieving results.'
+    },
+    ja: {
+      shortDesc: 'リーダーシップが強く、堂々と目標に向かいます',
+      detailedDesc: 'ライオンのように堂々としてリーダーシップに溢れる性格です。目標ができると確実に計画を立て、チームを導いていきます。挑戦を恐れず、困難な状況でも決断力を持って行動します。効率的に仕事を処理し、成果を出すことを大切にします。'
+    },
+    zh: {
+      shortDesc: '领导力强，自信地朝目标前进',
+      detailedDesc: '像狮子一样自信，充满领导力。有了目标就会制定确实的计划并带领团队。不惧挑战，即使在困难情况下也能果断行动。重视高效处理工作并取得成果。'
+    }
+  },
+  ENTP: {
+    ko: {
+      shortDesc: '재치있고 창의적이며, 새로운 아이디어로 가득해요',
+      detailedDesc: '여우처럼 재치있고 영리한 성격이에요. 항상 새로운 아이디어가 떠오르고, 토론하는 것을 즐겨요. 규칙에 얽매이지 않고 창의적인 방법을 찾아내요. 호기심이 많아 다양한 분야에 관심을 가지고, 지루한 것을 싫어해요. 유머 감각도 뛰어나요.'
+    },
+    en: {
+      shortDesc: 'Witty and creative, full of new ideas',
+      detailedDesc: 'Like a fox, this personality is witty and clever. They always have new ideas coming up and enjoy debating. They find creative solutions without being bound by rules. Their curiosity leads them to many fields, and they hate boredom. They also have a great sense of humor.'
+    },
+    ja: {
+      shortDesc: '機知に富み創造的で、新しいアイデアでいっぱいです',
+      detailedDesc: 'キツネのように機知に富み賢い性格です。いつも新しいアイデアが浮かび、討論を楽しみます。ルールに縛られず創造的な方法を見つけます。好奇心旺盛で様々な分野に興味を持ち、退屈なことを嫌います。ユーモアのセンスも優れています。'
+    },
+    zh: {
+      shortDesc: '机智有创意，充满新点子',
+      detailedDesc: '像狐狸一样机智聪明。总是有新点子冒出来，喜欢辩论。不受规则束缚，能找到创意解决方案。好奇心驱使他们关注各个领域，讨厌无聊。幽默感也很强。'
+    }
+  },
+  INFJ: {
+    ko: {
+      shortDesc: '신비롭고 깊은 통찰력을 가진 이상주의자예요',
+      detailedDesc: '늑대처럼 신비롭고 깊은 통찰력을 가진 성격이에요. 겉으로는 조용해 보이지만, 내면에는 세상을 더 좋게 만들고 싶은 열정이 있어요. 다른 사람의 감정을 잘 이해하고, 진정한 관계를 소중히 여겨요. 의미 있는 삶을 추구하며 이상을 위해 노력해요.'
+    },
+    en: {
+      shortDesc: 'Mysterious idealist with deep insight',
+      detailedDesc: 'Like a wolf, this personality is mysterious with deep insight. They may seem quiet on the outside, but inside they have a passion to make the world better. They understand others\' emotions well and value genuine relationships. They pursue a meaningful life and work toward their ideals.'
+    },
+    ja: {
+      shortDesc: '神秘的で深い洞察力を持つ理想主義者です',
+      detailedDesc: 'オオカミのように神秘的で深い洞察力を持つ性格です。外見は静かに見えますが、内面には世界をより良くしたいという情熱があります。他人の感情をよく理解し、本物の関係を大切にします。意味のある人生を追求し、理想のために努力します。'
+    },
+    zh: {
+      shortDesc: '神秘的理想主义者，拥有深刻洞察力',
+      detailedDesc: '像狼一样神秘，拥有深刻的洞察力。外表看起来安静，但内心有让世界变得更好的热情。善于理解他人的情感，珍视真诚的关系。追求有意义的生活，为理想而努力。'
+    }
+  },
+  INFP: {
+    ko: {
+      shortDesc: '상상력이 풍부하고 자신만의 세계를 가진 몽상가예요',
+      detailedDesc: '유니콘처럼 순수하고 상상력이 풍부한 성격이에요. 자신만의 아름다운 내면 세계를 가지고 있고, 창의적인 표현을 좋아해요. 진정성을 중요하게 생각하고, 자신의 가치관에 따라 살아가요. 감수성이 풍부하고 다른 사람의 아픔에 공감을 잘해요.'
+    },
+    en: {
+      shortDesc: 'Imaginative dreamer with their own inner world',
+      detailedDesc: 'Like a unicorn, this personality is pure and imaginative. They have their own beautiful inner world and love creative expression. They value authenticity and live according to their values. They are sensitive and empathize well with others\' pain.'
+    },
+    ja: {
+      shortDesc: '想像力豊かで自分だけの世界を持つ夢想家です',
+      detailedDesc: 'ユニコーンのように純粋で想像力豊かな性格です。自分だけの美しい内面世界を持ち、創造的な表現を好みます。本物であることを大切にし、自分の価値観に従って生きます。感受性が豊かで、他人の痛みに共感します。'
+    },
+    zh: {
+      shortDesc: '想象力丰富，拥有自己世界的梦想家',
+      detailedDesc: '像独角兽一样纯真，想象力丰富。拥有自己美丽的内心世界，喜欢创意表达。重视真实性，按照自己的价值观生活。感受力强，善于共情他人的痛苦。'
+    }
+  },
+  ENFJ: {
+    ko: {
+      shortDesc: '따뜻하고 친절하며, 다른 사람을 돕는 것을 좋아해요',
+      detailedDesc: '돌고래처럼 따뜻하고 사교적인 성격이에요. 다른 사람의 잠재력을 발견하고 성장할 수 있도록 도와주는 것을 좋아해요. 공감 능력이 뛰어나고, 조화로운 분위기를 만들어요. 리더십도 있어서 사람들을 하나로 모으는 힘이 있어요.'
+    },
+    en: {
+      shortDesc: 'Warm, kind, and loves helping others',
+      detailedDesc: 'Like a dolphin, this personality is warm and social. They love discovering others\' potential and helping them grow. They have excellent empathy and create harmonious atmospheres. They also have leadership skills that bring people together.'
+    },
+    ja: {
+      shortDesc: '温かく親切で、他人を助けることが好きです',
+      detailedDesc: 'イルカのように温かく社交的な性格です。他人の可能性を発見し、成長できるよう助けることを好みます。共感能力に優れ、調和のとれた雰囲気を作ります。リーダーシップもあり、人々をまとめる力があります。'
+    },
+    zh: {
+      shortDesc: '温暖善良，喜欢帮助他人',
+      detailedDesc: '像海豚一样温暖和善于社交。喜欢发现他人的潜力并帮助他们成长。共情能力出色，营造和谐氛围。也有领导力，能把人们凝聚在一起。'
+    }
+  },
+  ENFP: {
+    ko: {
+      shortDesc: '활발하고 사교적이며, 놀기를 좋아하는 에너자이저예요',
+      detailedDesc: '수달처럼 활발하고 장난기 넘치는 성격이에요. 새로운 사람을 만나는 것을 좋아하고, 어디서든 분위기를 밝게 만들어요. 창의적인 아이디어가 많고, 자유로운 것을 좋아해요. 열정적이고 낙천적이라 주변 사람들에게 에너지를 줘요.'
+    },
+    en: {
+      shortDesc: 'Lively, social, and an energizer who loves to play',
+      detailedDesc: 'Like an otter, this personality is lively and playful. They love meeting new people and brighten up any atmosphere. They have many creative ideas and love freedom. Their passion and optimism give energy to those around them.'
+    },
+    ja: {
+      shortDesc: '活発で社交的、遊ぶことが好きなエナジャイザーです',
+      detailedDesc: 'カワウソのように活発で遊び心のある性格です。新しい人に会うことが好きで、どこでも雰囲気を明るくします。創造的なアイデアが多く、自由を愛します。情熱的で楽観的なので、周りの人にエネルギーを与えます。'
+    },
+    zh: {
+      shortDesc: '活泼社交，爱玩的能量担当',
+      detailedDesc: '像水獭一样活泼爱玩。喜欢认识新朋友，在任何地方都能活跃气氛。有很多创意想法，热爱自由。热情乐观，给周围的人带来能量。'
+    }
+  },
+  ISTJ: {
+    ko: {
+      shortDesc: '꾸준하고 신뢰할 수 있으며, 맡은 일을 끝까지 해내요',
+      detailedDesc: '거북이처럼 꾸준하고 믿음직한 성격이에요. 한번 맡은 일은 책임감 있게 끝까지 해내요. 규칙과 약속을 중요하게 생각하고, 체계적으로 일을 처리해요. 조용하지만 든든한 존재로, 주변 사람들에게 신뢰를 줘요.'
+    },
+    en: {
+      shortDesc: 'Steady, reliable, and sees things through to the end',
+      detailedDesc: 'Like a turtle, this personality is steady and trustworthy. Once they take on a task, they see it through responsibly. They value rules and promises and handle things systematically. Though quiet, they are a solid presence who earns trust from others.'
+    },
+    ja: {
+      shortDesc: '着実で信頼でき、任された仕事を最後までやり遂げます',
+      detailedDesc: 'カメのように着実で信頼できる性格です。一度引き受けた仕事は責任を持って最後までやり遂げます。ルールと約束を大切にし、体系的に物事を処理します。静かですが頼もしい存在で、周りの人から信頼されます。'
+    },
+    zh: {
+      shortDesc: '稳定可靠，把任务坚持到底',
+      detailedDesc: '像乌龟一样稳定可靠。一旦承担任务，就会负责任地完成。重视规则和承诺，有条理地处理事务。虽然安静，但是让人安心的存在，赢得周围人的信任。'
+    }
+  },
+  ISFJ: {
+    ko: {
+      shortDesc: '부드럽고 다정하며, 주변 사람들을 세심하게 챙겨요',
+      detailedDesc: '토끼처럼 부드럽고 다정한 성격이에요. 주변 사람들을 세심하게 챙기고, 도움이 필요한 곳에 먼저 손을 내밀어요. 조용히 헌신하며, 믿음직하고 책임감이 강해요. 안정적이고 따뜻한 환경을 만들어주는 것을 좋아해요.'
+    },
+    en: {
+      shortDesc: 'Gentle, caring, and attentive to those around them',
+      detailedDesc: 'Like a rabbit, this personality is gentle and caring. They look after those around them carefully and reach out first when help is needed. They dedicate themselves quietly and are reliable and responsible. They love creating stable, warm environments.'
+    },
+    ja: {
+      shortDesc: '優しく思いやりがあり、周りの人を細やかに気遣います',
+      detailedDesc: 'ウサギのように優しく思いやりのある性格です。周りの人を細やかに気遣い、助けが必要なところに真っ先に手を差し伸べます。静かに献身し、信頼でき責任感が強いです。安定した温かい環境を作ることを好みます。'
+    },
+    zh: {
+      shortDesc: '温柔体贴，细心照顾周围的人',
+      detailedDesc: '像兔子一样温柔体贴。细心照顾周围的人，在需要帮助时率先伸出援手。默默奉献，可靠又有责任感。喜欢创造稳定温暖的环境。'
+    }
+  },
+  ESTJ: {
+    ko: {
+      shortDesc: '책임감이 강하고 체계적으로 일을 처리해요',
+      detailedDesc: '독수리처럼 날카로운 눈으로 전체를 파악하고 이끄는 성격이에요. 책임감이 강하고 체계적으로 일을 처리해요. 규칙을 중요하게 생각하고, 팀이 효율적으로 움직일 수 있도록 조직해요. 결단력이 있고 실행력이 뛰어나요.'
+    },
+    en: {
+      shortDesc: 'Highly responsible and handles things systematically',
+      detailedDesc: 'Like an eagle with sharp eyes, this personality grasps the big picture and leads. They are highly responsible and handle things systematically. They value rules and organize teams to work efficiently. They are decisive and excellent at execution.'
+    },
+    ja: {
+      shortDesc: '責任感が強く、体系的に物事を処理します',
+      detailedDesc: '鋭い目で全体を把握し導くワシのような性格です。責任感が強く、体系的に物事を処理します。ルールを重視し、チームが効率的に動けるよう組織します。決断力があり、実行力に優れています。'
+    },
+    zh: {
+      shortDesc: '责任心强，有条理地处理事务',
+      detailedDesc: '像鹰一样用敏锐的眼光把握全局并引领。责任心强，有条理地处理事务。重视规则，组织团队高效运作。果断且执行力强。'
+    }
+  },
+  ESFJ: {
+    ko: {
+      shortDesc: '사교적이고 친근하며, 모두와 어울리기를 좋아해요',
+      detailedDesc: '강아지처럼 친근하고 사교적인 성격이에요. 모두와 잘 어울리고, 화목한 분위기를 만들어요. 다른 사람을 챙기는 것을 좋아하고, 함께 하는 시간을 소중히 여겨요. 충성스럽고 헌신적이며, 주변 사람들에게 따뜻함을 줘요.'
+    },
+    en: {
+      shortDesc: 'Social, friendly, and loves being with everyone',
+      detailedDesc: 'Like a dog, this personality is friendly and social. They get along with everyone and create harmonious atmospheres. They love taking care of others and treasure time together. They are loyal, devoted, and bring warmth to those around them.'
+    },
+    ja: {
+      shortDesc: '社交的で親しみやすく、みんなと一緒にいることが好きです',
+      detailedDesc: '犬のように親しみやすく社交的な性格です。誰とでもうまく付き合い、和やかな雰囲気を作ります。他人の世話をすることが好きで、一緒にいる時間を大切にします。忠実で献身的で、周りの人に温かさを与えます。'
+    },
+    zh: {
+      shortDesc: '善于社交，友好，喜欢和大家在一起',
+      detailedDesc: '像狗一样友好善于社交。与每个人都相处融洽，营造和谐氛围。喜欢照顾他人，珍惜在一起的时光。忠诚奉献，给周围的人带来温暖。'
+    }
+  },
+  ISTP: {
+    ko: {
+      shortDesc: '독립적이고 손재주가 뛰어나며, 문제를 바로 해결해요',
+      detailedDesc: '표범처럼 독립적이고 민첩한 성격이에요. 손재주가 뛰어나고 문제가 생기면 바로 해결해요. 말보다 행동으로 보여주는 타입이고, 자유롭게 행동하는 것을 좋아해요. 냉정하게 상황을 분석하고 효율적으로 대처해요.'
+    },
+    en: {
+      shortDesc: 'Independent, skilled with hands, solves problems immediately',
+      detailedDesc: 'Like a leopard, this personality is independent and agile. They are skilled with their hands and solve problems right away. They show through actions rather than words and love acting freely. They analyze situations calmly and respond efficiently.'
+    },
+    ja: {
+      shortDesc: '独立的で器用、問題をすぐに解決します',
+      detailedDesc: 'ヒョウのように独立的で俊敏な性格です。器用で問題が起きるとすぐに解決します。言葉より行動で示すタイプで、自由に行動することを好みます。冷静に状況を分析し、効率的に対処します。'
+    },
+    zh: {
+      shortDesc: '独立，动手能力强，立即解决问题',
+      detailedDesc: '像豹子一样独立敏捷。手艺精湛，问题一出现就立即解决。用行动而非言语来表达，喜欢自由行动。冷静分析情况，高效应对。'
+    }
+  },
+  ISFP: {
+    ko: {
+      shortDesc: '예술적 감각이 뛰어나고 자유로운 영혼을 가졌어요',
+      detailedDesc: '고양이처럼 자유롭고 예술적인 감각을 가진 성격이에요. 자신만의 방식으로 세상을 느끼고 표현해요. 조용하지만 깊은 감수성을 가지고 있고, 현재 순간을 즐기는 것을 좋아해요. 자유를 소중히 여기고 억지로 하는 것을 싫어해요.'
+    },
+    en: {
+      shortDesc: 'Artistic with a free spirit',
+      detailedDesc: 'Like a cat, this personality is free-spirited with an artistic sense. They feel and express the world in their own way. Though quiet, they have deep sensitivity and love enjoying the present moment. They value freedom and dislike being forced.'
+    },
+    ja: {
+      shortDesc: '芸術的なセンスがあり、自由な魂を持っています',
+      detailedDesc: '猫のように自由で芸術的なセンスを持つ性格です。自分なりの方法で世界を感じ、表現します。静かですが深い感受性を持ち、今この瞬間を楽しむことが好きです。自由を大切にし、無理強いされることを嫌います。'
+    },
+    zh: {
+      shortDesc: '艺术感强，拥有自由的灵魂',
+      detailedDesc: '像猫一样自由，有艺术感。用自己的方式感受和表达世界。虽然安静，但有深刻的感受力，喜欢享受当下。珍视自由，讨厌被强迫。'
+    }
+  },
+  ESTP: {
+    ko: {
+      shortDesc: '모험을 즐기고 행동력이 넘치는 활동가예요',
+      detailedDesc: '치타처럼 빠르고 행동력이 넘치는 성격이에요. 모험을 즐기고 새로운 경험을 좋아해요. 생각보다 행동이 먼저이고, 현재 순간을 최대한 즐겨요. 위기 상황에서도 침착하게 대처하고, 사교적이라 어디서든 인기가 많아요.'
+    },
+    en: {
+      shortDesc: 'Loves adventure and is full of action',
+      detailedDesc: 'Like a cheetah, this personality is fast and full of action. They enjoy adventure and love new experiences. Action comes before thought, and they make the most of the present moment. They stay calm in crises and are popular everywhere due to their social nature.'
+    },
+    ja: {
+      shortDesc: '冒険を楽しみ、行動力に溢れるアクティビストです',
+      detailedDesc: 'チーターのように速く行動力に溢れる性格です。冒険を楽しみ、新しい経験を好みます。考えるより先に行動し、今この瞬間を最大限楽しみます。危機的状況でも冷静に対処し、社交的なのでどこでも人気があります。'
+    },
+    zh: {
+      shortDesc: '热爱冒险，行动力十足',
+      detailedDesc: '像猎豹一样快速，充满行动力。享受冒险，喜欢新体验。行动先于思考，充分享受当下。危机中也能冷静应对，善于社交，到哪里都受欢迎。'
+    }
+  },
+  ESFP: {
+    ko: {
+      shortDesc: '밝고 에너지 넘치며, 주변을 즐겁게 만들어요',
+      detailedDesc: '앵무새처럼 밝고 에너지가 넘치는 성격이에요. 어디에 있든 분위기를 즐겁게 만들고, 사람들과 함께 하는 것을 좋아해요. 현재 순간을 즐기고, 재미있는 것을 찾아다녀요. 표현력이 풍부하고, 주변 사람들에게 기쁨을 줘요.'
+    },
+    en: {
+      shortDesc: 'Bright and energetic, makes everything fun',
+      detailedDesc: 'Like a parrot, this personality is bright and full of energy. They make any atmosphere fun and love being with people. They enjoy the present moment and seek out fun things. They are expressive and bring joy to those around them.'
+    },
+    ja: {
+      shortDesc: '明るくエネルギッシュで、周りを楽しくさせます',
+      detailedDesc: 'オウムのように明るくエネルギーに溢れる性格です。どこにいても雰囲気を楽しくし、人と一緒にいることが好きです。今この瞬間を楽しみ、面白いことを探し求めます。表現力が豊かで、周りの人に喜びを与えます。'
+    },
+    zh: {
+      shortDesc: '开朗有活力，让周围充满欢乐',
+      detailedDesc: '像鹦鹉一样开朗充满能量。不管在哪里都能活跃气氛，喜欢和人在一起。享受当下，寻找有趣的事物。表达力丰富，给周围的人带来快乐。'
+    }
+  }
+};
+
+export function getLocalizedAnimalPersonality(mbti: string, language: Language): AnimalPersonalityLocalized | null {
+  const data = animalPersonalitiesLocalized[mbti.toUpperCase()];
+  if (!data) return null;
+  return data[language] || data['ko'];
+}
