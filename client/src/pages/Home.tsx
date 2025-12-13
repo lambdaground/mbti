@@ -233,7 +233,8 @@ export default function Home() {
       <div className="min-h-screen flex flex-col bg-background">
         <Header 
           showRestart 
-          onRestart={handleRestart} 
+          onRestart={handleRestart}
+          onHome={handleRestart}
           subtitle={t('quiz.parentTest')}
         />
         <QuizContainer
@@ -251,6 +252,7 @@ export default function Home() {
         <Header 
           showRestart 
           onRestart={handleRestart}
+          onHome={handleRestart}
           subtitle={t('quiz.childTest')}
         />
         <main className="flex-1">
@@ -270,7 +272,8 @@ export default function Home() {
       <div className="min-h-screen flex flex-col bg-background">
         <Header 
           showRestart 
-          onRestart={handleRestart} 
+          onRestart={handleRestart}
+          onHome={handleRestart}
           subtitle={t('quiz.childTest')}
         />
         <QuizContainer
@@ -285,7 +288,7 @@ export default function Home() {
   if (stage === 'comparison-result' && parentResult && childResult) {
     return (
       <div className="min-h-screen flex flex-col bg-background">
-        <Header showRestart onRestart={handleRestart} />
+        <Header showRestart onRestart={handleRestart} onHome={handleRestart} />
         <main className="flex-1 py-8 px-4">
           <ComparisonResult
             parentResult={parentResult}

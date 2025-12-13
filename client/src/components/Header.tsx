@@ -6,17 +6,25 @@ import LanguageSelector from "@/components/LanguageSelector";
 interface HeaderProps {
   showRestart?: boolean;
   onRestart?: () => void;
+  onHome?: () => void;
   subtitle?: string;
 }
 
-export default function Header({ showRestart, onRestart, subtitle }: HeaderProps) {
+export default function Header({ showRestart, onRestart, onHome, subtitle }: HeaderProps) {
   const { t } = useLanguage();
+  
+  const handleHomeClick = (e: React.MouseEvent) => {
+    if (onHome) {
+      e.preventDefault();
+      onHome();
+    }
+  };
   
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-6xl items-center justify-between gap-4 mx-auto px-4">
         <div className="flex items-center gap-3">
-          <a href="/" className="flex items-center gap-2" data-testid="link-home">
+          <a href="/" className="flex items-center gap-2 cursor-pointer" onClick={handleHomeClick} data-testid="link-home">
             <div className="flex items-center justify-center w-8 h-8 rounded-md bg-gradient-to-br from-primary to-purple-600">
               <Sparkles className="w-5 h-5 text-white" />
             </div>
